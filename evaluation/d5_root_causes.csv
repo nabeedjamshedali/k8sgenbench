@@ -1,0 +1,23 @@
+config,category,mechanism,evidence,source
+claude__P02_n8n__production__s1,hardening_breaks_db,postgres entrypoint chown/chmod not permitted after capabilities drop ALL,observed,last_log
+deepseek__P02_n8n__production__s2,hardening_breaks_db,postgres runAsUser 999 with PGDATA at the volume mount root (no subPath): initdb cannot chmod 0700 a directory it does not own,inferred,manifest + StatefulSet 0/1 (PROGRESS 2026-11-12)
+claude__P04_voting-app__production__s1,hardening_breaks_db,postgres:15-alpine with capabilities drop ALL and no runAsUser (fsGroup 70 only); db 0/1,inferred,manifest + StatefulSet status
+claude__P04_voting-app__production__s3,hardening_breaks_db,postgres:15-alpine with capabilities drop ALL and no runAsUser; db 0/1; result and worker fail as a consequence,inferred,manifest + StatefulSet status
+deepseek__P04_voting-app__production__s3,hardening_breaks_db,postgres:15-alpine with capabilities drop ALL and no runAsUser; fsGroup 999 (Debian GID) vs alpine postgres UID/GID 70; db-0 exit 1 restart loop,inferred,manifest + last_exit (empty last_log)
+claude__P08_sock-shop__production__s1,liveness_kills_slow_start,Spring Boot JVMs SIGKILLed (exit 137 Error) mid-startup; liveness without startupProbe,observed,last_log + last_reason
+claude__P08_sock-shop__production__s2,liveness_kills_slow_start,same manifest pattern as production s1 (login and cart unreachable),inferred,manifest + PROGRESS
+claude__P08_sock-shop__production__s3,liveness_kills_slow_start,same manifest pattern as production s1 (login and cart unreachable),inferred,manifest + PROGRESS
+claude__P08_sock-shop__neutral__s2,liveness_kills_slow_start,carts readiness initialDelay 180 s + liveness 300 s/period 3 vs JVM start ~345 s at 300m CPU; cart-read 500 after the smoke retry window,inferred,manifest probes + readiness events (diagnostics taken at 300 s; before liveness could fire)
+claude__P08_sock-shop__neutral__s3,liveness_kills_slow_start,as neutral s2 (identical carts probes),inferred,manifest probes + readiness events
+deepseek__P08_sock-shop__production__s1,memory_limit_too_low,carts/orders/shipping OOMKilled (exit 137),observed,last_reason
+deepseek__P08_sock-shop__production__s2,probe_port_mismatch,readiness probes fail on catalogue/orders/carts/shipping; catalogue 500,inferred,PROGRESS 2026-11-12 + readiness events
+deepseek__P08_sock-shop__production__s3,probe_port_mismatch,readiness probes fail; catalogue-db-0 exit 1; catalogue 500,inferred,readiness events + PROGRESS
+deepseek__P08_sock-shop__neutral__s3,compose_literalism,user-sim load generator StartError (exit 128); catalogue/tags/cart 500,inferred,last_reason + smoke (catalogue cause to recheck)
+claude__P08_sock-shop__neutral__s1,compose_literalism_aux_only,user-sim (exit 139) and docker.sock hostPath from Compose; app itself passes smoke 5/5,observed,last_reason + FailedMount
+deepseek__P08_sock-shop__neutral__s1,compose_literalism_aux_only,user-sim (exit 139); queue-master OOMKilled once; app passes smoke 5/5,observed,last_reason
+deepseek__P08_sock-shop__neutral__s2,compose_literalism_aux_only,user-sim (exit 139); app passes smoke 5/5,observed,last_reason
+deepseek__P10_k8s-dashboard__neutral__s1,missing_referenced_secret,kubernetes-dashboard-certs volume FailedMount (Secret not defined),observed,FailedMount event
+deepseek__P10_k8s-dashboard__production__s2,wrong_api_server_endpoint,KUBERNETES_SERVICE_HOST set to hostIP; dashboard exit 2,inferred,manifest + PROGRESS
+deepseek__P10_k8s-dashboard__production__s3,invalid_rbac_object,unquoted http:heapster: parses as a map; Role rejected; dashboard exit 2 without RBAC,observed,apply_errors
+claude__P10_k8s-dashboard__production__s1,networkpolicy_blocks_path,scraper ingress only from dashboard pods but dashboard uses API-server service proxy (no --sidecar-host),hypothesis,PENDING confirmation by production s2/s3
+human__P08_sock-shop,unpinned_tag_drift,unpinned mongo resolves to 9.0.4; legacy OP_QUERY removed; carts 500,observed,manual deploy 2026-11-09

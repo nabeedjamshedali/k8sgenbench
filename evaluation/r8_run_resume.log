@@ -1,1 +1,64 @@
 ##### P02_n8n recreate 01:35:40 (13 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P02_n8n production s1 01:36:50
+claude__P02_n8n__production__s1: parse=OK docs=16 kubeconform_valid=True server_ok=True (16/16) d4=13/13
+    D2 kubescape=91.11111 trivy={'critical': 0, 'high': 5, 'medium': 5, 'low': 8} pss=baseline secrets=3
+    D3 kube-score crit/warn=13/7 polaris=80 zhang=6 checklist=53.3%
+    D5 apply_ok=True ready=False (1/3) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+== gemini P02_n8n neutral s1 01:57:08
+gemini__P02_n8n__neutral__s1: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=12/13
+    D2 kubescape=70 trivy={'critical': 0, 'high': 10, 'medium': 11, 'low': 30} pss=baseline secrets=3
+    D3 kube-score crit/warn=21/1 polaris=56 zhang=12 checklist=17.2%
+    D5 apply_ok=True ready=True (3/3) t=13.6s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.7 avail=12.5; ok=True t=1.1 avail=4.3; ok=True t=0.4 avail=0.0
+    D6 container_crash: ok=True t=0.5 avail=0.0; ok=True t=15.0 avail=0.0; ok=True t=25.7 avail=0.0
+== gemini P02_n8n neutral s2 02:00:38
+gemini__P02_n8n__neutral__s2: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=12/13
+    D2 kubescape=70 trivy={'critical': 0, 'high': 10, 'medium': 11, 'low': 30} pss=baseline secrets=3
+    D3 kube-score crit/warn=20/1 polaris=58 zhang=12 checklist=24.1%
+    D5 apply_ok=True ready=True (3/3) t=19.7s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.9 avail=43.9; ok=True t=10.7 avail=38.5; ok=True t=13.0 avail=46.7
+    D6 container_crash: ok=True t=18.0 avail=25.5; ok=True t=27.6 avail=13.1; ok=True t=40.8 avail=11.9
+== gemini P02_n8n neutral s3 02:05:29
+gemini__P02_n8n__neutral__s3: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=12/13
+    D2 kubescape=70 trivy={'critical': 0, 'high': 10, 'medium': 11, 'low': 30} pss=baseline secrets=3
+    D3 kube-score crit/warn=21/1 polaris=58 zhang=12 checklist=24.1%
+    D5 apply_ok=True ready=True (3/3) t=21.7s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.0 avail=41.5; ok=True t=11.7 avail=42.5; ok=True t=11.3 avail=50.0
+    D6 container_crash: ok=True t=20.9 avail=30.0; ok=True t=31.3 avail=15.2; ok=True t=36.7 avail=11.5
+== gemini P02_n8n production s1 02:10:26
+gemini__P02_n8n__production__s1: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=12/13
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 12, 'medium': 17, 'low': 38} pss=baseline secrets=3
+    D3 kube-score crit/warn=20/2 polaris=67 zhang=14 checklist=55.2%
+    D5 apply_ok=True ready=True (3/3) t=42.1s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=23.4 avail=34.4; ok=True t=22.8 avail=33.3; ok=True t=23.7 avail=36.4
+    D6 container_crash: ok=True t=22.0 avail=12.5; ok=True t=35.3 avail=13.3; ok=True t=45.0 avail=9.2
+== gemini P02_n8n production s2 02:16:32
