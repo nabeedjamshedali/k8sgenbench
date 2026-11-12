@@ -1,0 +1,43 @@
+##### P08_sock-shop recreate 17:40:39
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 329, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 294, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 268, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 489, in run_runtime
+    status = workload_status(targets)
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 276, in workload_status
+    for it in kjson("get", "deploy,sts,ds", "-n", n)["items"]:
+              ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 68, in kjson
+    raise RuntimeError(f"INFRA: kubectl {' '.join(args)} failed 3x: {r.stderr.strip()[-300:]}")
+RuntimeError: INFRA: kubectl get deploy,sts,ds -n d5-0e00e902 failed 3x: Unable to connect to the server: net/http: TLS handshake timeout
+Unable to connect to the server: net/http: TLS handshake timeout
+Unable to connect to the server: net/http: TLS handshake timeout
+##### P10_k8s-dashboard recreate 17:51:42
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ docker run -d --restart=always --name k8sgen-registry -p 127.0.0.1:5001:5000 registry:2.8.3
+failed: request returned 500 Internal Server Error for API route and version http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping, check if the server supports the requested API version
+
+cluster recreate failed
+24 rows -> C:\workspace\research papers\kubernetes\evaluation\results\results.csv

@@ -1,0 +1,42 @@
+{
+  "raw": {
+    "id": "chatcmpl-11d72cfb-b82b-4439-bf3d-d997042be890",
+    "object": "chat.completion",
+    "created": 1794084079,
+    "model": "openai/gpt-oss-120b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: emojivoto\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: emoji-svc\n  namespace: emojivoto\n  labels:\n    app: emoji-svc\nspec:\n  selector:\n    app: emoji-svc\n  ports:\n    - name: grpc\n      port: 8080\n      targetPort: 8080\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: emoji-svc\n  namespace: emojivoto\n  labels:\n    app: emoji-svc\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: emoji-svc\n  template:\n    metadata:\n      labels:\n        app: emoji-svc\n    spec:\n      containers:\n        - name: emoji-svc\n          image: buoyantio/emojivoto-emoji-svc:v11\n          imagePullPolicy: IfNotPresent\n          env:\n            - name: GRPC_PORT\n              value: \"8080\"\n          ports:\n            - containerPort: 8080\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: voting-svc\n  namespace: emojivoto\n  labels:\n    app: voting-svc\nspec:\n  selector:\n    app: voting-svc\n  ports:\n    - name: grpc\n      port: 8080\n      targetPort: 8080\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: voting-svc\n  namespace: emojivoto\n  labels:\n    app: voting-svc\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: voting-svc\n  template:\n    metadata:\n      labels:\n        app: voting-svc\n    spec:\n      containers:\n        - name: voting-svc\n          image: buoyantio/emojivoto-voting-svc:v11\n          imagePullPolicy: IfNotPresent\n          env:\n            - name: GRPC_PORT\n              value: \"8080\"\n          ports:\n            - containerPort: 8080\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: web\n  namespace: emojivoto\n  labels:\n    app: web\nspec:\n  selector:\n    app: web\n  ports:\n    - name: http\n      port: 8080\n      targetPort: 8080\n  type: LoadBalancer   # change to NodePort if LoadBalancer not available\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  namespace: emojivoto\n  labels:\n    app: web\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: buoyantio/emojivoto-web:v11\n          imagePullPolicy: IfNotPresent\n          env:\n            - name: WEB_PORT\n              value: \"8080\"\n            - name: EMOJISVC_HOST\n              value: \"emoji-svc:8080\"\n            - name: VOTINGSVC_HOST\n              value: \"voting-svc:8080\"\n            - name: INDEX_BUNDLE\n              value: \"dist/index_bundle.js\"\n          ports:\n            - containerPort: 8080\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: vote-bot\n  namespace: emojivoto\n  labels:\n    app: vote-bot\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: vote-bot\n  template:\n    metadata:\n      labels:\n        app: vote-bot\n    spec:\n      containers:\n        - name: vote-bot\n          image: buoyantio/emojivoto-web:v11\n          imagePullPolicy: IfNotPresent\n          command: [\"emojivoto-vote-bot\"]\n          env:\n            - name: WEB_HOST\n              value: \"web:8080\"\n```",
+          "reasoning": "We need to output Kubernetes manifests only. Provide Deployments, Services, maybe ConfigMaps for env vars, and a Deployment for vote-bot. Use images from docker-compose: buoyantio/emojivoto-web:v11, buoyantio/emojivoto-emoji-svc:v11, buoyantio/emojivoto-voting-svc:v11. Ports: web 8080, emoji-svc 8080 (exposed as 8081 host but internal 8080), voting-svc 8080 (exposed as 8082). Provide Service for each. Also need to set env vars similar to compose. For web: WEB_PORT=8080, EMOJISVC_HOST=emoji-svc:8080, VOTINGSVC_HOST=voting-svc:8080, INDEX_BUNDLE=dist/index_bundle.js. For vote-bot: entrypoint emojivoto-vote-bot, env WEB_HOST=web:8080. Use same image but override command. Also set depends_on via ordering? Not needed.\n\nAdd Service type ClusterIP. Expose web via NodePort or LoadBalancer? In compose they map 8080:8080. For k8s, we can use Service type LoadBalancer or NodePort. Provide a Service named web with port 8080.\n\nAdd labels for app.\n\nAll manifests in one YAML block.\n\nOptionally include namespace.\n\nWill include Deployment for each with replicas 1.\n\nAdd resources minimal.\n\nAdd imagePullPolicy IfNotPresent.\n\nAdd containerPort.\n\nAdd env.\n\nAdd command for vote-bot: [\"emojivoto-vote-bot\"].\n\nAdd restartPolicy default.\n\nAdd Service for vote-bot? Not needed as internal only; but maybe not expose.\n\nBut vote-bot may need to communicate with web via service name web, so it can be in same namespace.\n\nAdd Service for emoji-svc and voting-svc.\n\nAdd Service for vote-bot? Not needed.\n\nAdd Service for web with port 8080.\n\nAdd Service for emoji-svc with port 8080.\n\nAdd Service for voting-svc with port 8080.\n\nAdd Service for vote-bot maybe not needed.\n\nAdd Service for web with type LoadBalancer.\n\nAdd Service for metrics? Not required.\n\nLet's craft YAML.\n\n"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.005535276,
+      "prompt_tokens": 2132,
+      "prompt_time": 0.102671708,
+      "completion_tokens": 1366,
+      "completion_time": 2.875843471,
+      "total_tokens": 3498,
+      "total_time": 2.978515179,
+      "completion_tokens_details": {
+        "reasoning_tokens": 467
+      }
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_7a4ab09ae4",
+    "x_groq": {
+      "id": "req_01m6vvwz70esyrz903qew75avb",
+      "seed": 185264731
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 3.376875638961792,
+  "tokens_in": 2132,
+  "tokens_out": 1366
+}

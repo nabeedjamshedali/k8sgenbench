@@ -1,0 +1,9 @@
+{
+  "checks": [
+    {"name": "web-ping", "target": {"image": "zabbix/zabbix-web-nginx-mysql", "port": 8080},
+     "method": "GET", "path": "/ping", "expect_status": 200},
+    {"name": "web-login-page", "target": {"image": "zabbix/zabbix-web-nginx-mysql", "port": 8080},
+     "method": "GET", "path": "/", "expect_status": 200, "expect_body": "Zabbix"}
+  ],
+  "d6_target": {"image": "zabbix/zabbix-web-nginx-mysql", "port": 8080, "path": "/"}
+}

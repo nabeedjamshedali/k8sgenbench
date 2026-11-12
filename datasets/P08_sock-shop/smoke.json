@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {"name": "home-page", "target": {"image": "weaveworksdemos/front-end", "port": 8079},
+     "method": "GET", "path": "/", "expect_status": 200, "expect_body": "WeaveSocks", "retry_seconds": 180},
+    {"name": "catalogue-list", "target": {"image": "weaveworksdemos/front-end", "port": 8079},
+     "method": "GET", "path": "/catalogue", "expect_status": 200, "expect_body": "Nerd leg", "retry_seconds": 300},
+    {"name": "tags-list", "target": {"image": "weaveworksdemos/front-end", "port": 8079},
+     "method": "GET", "path": "/tags", "expect_status": 200, "expect_body": "tags", "retry_seconds": 60},
+    {"name": "login-demo-user", "target": {"image": "weaveworksdemos/front-end", "port": 8079},
+     "method": "GET", "path": "/login", "headers": {"Authorization": "Basic dXNlcjpwYXNzd29yZA=="},
+     "expect_status": 200, "expect_body": "Cookie is set", "retry_seconds": 300},
+    {"name": "cart-read", "target": {"image": "weaveworksdemos/front-end", "port": 8079},
+     "method": "GET", "path": "/cart", "expect_status": 200, "retry_seconds": 300}
+  ],
+  "d6_target": {"image": "weaveworksdemos/front-end", "port": 8079, "path": "/"}
+}

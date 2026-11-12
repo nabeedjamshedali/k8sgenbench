@@ -1,0 +1,20 @@
+{
+ "why": "The frontend binary (every published version tested, incl. v0.10.1 and v0.10.7) panics at start-up in mustMapEnv unless SHOPPING_ASSISTANT_SERVICE_ADDR is set. That variable appears only in source code (src/frontend/main.go), not in docs_bundle/, so it is not recoverable by a config author. D5 injects it at deploy time into any container whose image repository basename is 'frontend' and that does not already set it. The address need not resolve (the human manifest also points at a Service it does not deploy). No-op for the human manifest. The manifest on disk is never edited; every injection is recorded in the result. Likewise DISABLE_PROFILER: the Node.js currencyservice and paymentservice start the Google Cloud Profiler unless it is set, and crash outside GCP ('Project ID must be specified'); docs_bundle/ shows a profiler exists but never names the variable that disables it. Only services observed to crash without it are shimmed (the Go/Python services log a warning and keep running).",
+ "env": [
+  {
+   "image_basename": "frontend",
+   "name": "SHOPPING_ASSISTANT_SERVICE_ADDR",
+   "value": "shoppingassistantservice:80"
+  },
+  {
+   "image_basename": "currencyservice",
+   "name": "DISABLE_PROFILER",
+   "value": "1"
+  },
+  {
+   "image_basename": "paymentservice",
+   "name": "DISABLE_PROFILER",
+   "value": "1"
+  }
+ ]
+}

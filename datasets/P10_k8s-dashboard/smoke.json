@@ -1,0 +1,66 @@
+{
+ "checks": [
+  {
+   "name": "ui-page",
+   "target": {
+    "image": "kubernetesui/dashboard",
+    "port": 8443,
+    "scheme": "https",
+    "component": "kubernetes-dashboard"
+   },
+   "insecure_tls": true,
+   "method": "GET",
+   "path": "/",
+   "expect_status": 200,
+   "expect_body": "Kubernetes Dashboard"
+  },
+  {
+   "name": "dashboard-health-apiserver",
+   "target": {
+    "image": "kubernetesui/dashboard",
+    "port": 8443,
+    "scheme": "https",
+    "component": "kubernetes-dashboard"
+   },
+   "insecure_tls": true,
+   "method": "GET",
+   "path": "/health",
+   "expect_status": 200,
+   "expect_body": "\"running\":true"
+  },
+  {
+   "name": "scraper-healthz",
+   "target": {
+    "image": "kubernetesui/metrics-scraper",
+    "port": 8000,
+    "component": "dashboard-metrics-scraper"
+   },
+   "method": "GET",
+   "path": "/healthz",
+   "expect_status": 200,
+   "expect_body": "URL: /healthz"
+  },
+  {
+   "name": "dashboard-reaches-scraper",
+   "target": {
+    "image": "kubernetesui/dashboard",
+    "port": 8443,
+    "scheme": "https",
+    "component": "kubernetes-dashboard"
+   },
+   "insecure_tls": true,
+   "method": "GET",
+   "path": "/api/v1/integration/sidecar/state",
+   "expect_status": 200,
+   "expect_body": "\"connected\": true",
+   "retry_seconds": 90
+  }
+ ],
+ "d6_target": {
+  "image": "kubernetesui/dashboard",
+  "port": 8443,
+  "scheme": "https",
+  "path": "/",
+  "component": "kubernetes-dashboard"
+ }
+}

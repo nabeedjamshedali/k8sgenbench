@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {"name": "install-page", "target": {"image": "wordpress", "port": 80},
+     "method": "GET", "path": "/wp-admin/install.php", "expect_status": 200, "expect_body": "Installation", "retry_seconds": 180},
+    {"name": "install-site", "target": {"image": "wordpress", "port": 80},
+     "method": "POST", "path": "/wp-admin/install.php?step=2",
+     "form": {"weblog_title": "Smoke Test Site", "user_name": "smokeadmin", "admin_password": "Sm0ke-Test-Pass-91",
+              "admin_password2": "Sm0ke-Test-Pass-91", "admin_email": "smoke@example.com", "blog_public": "0"},
+     "expect_status": 200, "expect_body": "Success!"},
+    {"name": "home-shows-title", "target": {"image": "wordpress", "port": 80},
+     "method": "GET", "path": "/", "expect_status": 200, "expect_body": "Smoke Test Site"},
+    {"name": "tables-in-mysql", "exec": {"image": "mysql", "command": ["sh", "-c",
+       "mysql -u\"${MYSQL_USER:-root}\" -p\"${MYSQL_PASSWORD:-$MYSQL_ROOT_PASSWORD}\" -N -e \"SELECT COUNT(*) FROM information_schema.tables WHERE table_name LIKE '%options' AND table_schema NOT IN ('mysql','sys','information_schema','performance_schema')\""]},
+     "expect_regex": "^[1-9]", "retry_seconds": 30}
+  ],
+  "d6_target": {"image": "wordpress", "port": 80, "path": "/"}
+}

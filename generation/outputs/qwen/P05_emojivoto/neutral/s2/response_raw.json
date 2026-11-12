@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-98a118e0-94f7-4770-8c2f-a91849e9d296",
+    "object": "chat.completion",
+    "created": 1794226713,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: emojivoto\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: emoji-svc\n  namespace: emojivoto\n  labels:\n    app: emoji-svc\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: emoji-svc\n  template:\n    metadata:\n      labels:\n        app: emoji-svc\n    spec:\n      containers:\n        - name: emoji-svc\n          image: buoyantio/emojivoto-emoji-svc:v11\n          ports:\n            - containerPort: 8080\n              name: grpc\n          env:\n            - name: GRPC_PORT\n              value: \"8080\"\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: emoji-svc\n  namespace: emojivoto\nspec:\n  selector:\n    app: emoji-svc\n  ports:\n    - name: grpc\n      port: 8080\n      targetPort: 8080\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: voting-svc\n  namespace: emojivoto\n  labels:\n    app: voting-svc\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: voting-svc\n  template:\n    metadata:\n      labels:\n        app: voting-svc\n    spec:\n      containers:\n        - name: voting-svc\n          image: buoyantio/emojivoto-voting-svc:v11\n          ports:\n            - containerPort: 8080\n              name: grpc\n            - containerPort: 8801\n              name: prometheus\n          env:\n            - name: GRPC_PORT\n              value: \"8080\"\n            - name: PROM_PORT\n              value: \"8801\"\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: voting-svc\n  namespace: emojivoto\nspec:\n  selector:\n    app: voting-svc\n  ports:\n    - name: grpc\n      port: 8080\n      targetPort: 8080\n    - name: prometheus\n      port: 8801\n      targetPort: 8801\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  namespace: emojivoto\n  labels:\n    app: web\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: buoyantio/emojivoto-web:v11\n          ports:\n            - containerPort: 8080\n              name: http\n          env:\n            - name: WEB_PORT\n              value: \"8080\"\n            - name: EMOJISVC_HOST\n              value: \"emoji-svc:8080\"\n            - name: VOTINGSVC_HOST\n              value: \"voting-svc:8080\"\n            - name: INDEX_BUNDLE\n              value: \"dist/index_bundle.js\"\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: web\n  namespace: emojivoto\nspec:\n  selector:\n    app: web\n  ports:\n    - name: http\n      port: 8080\n      targetPort: 8080\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: vote-bot\n  namespace: emojivoto\n  labels:\n    app: vote-bot\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: vote-bot\n  template:\n    metadata:\n      labels:\n        app: vote-bot\n    spec:\n      containers:\n        - name: vote-bot\n          image: buoyantio/emojivoto-web:v11\n          command:\n            - emojivoto-vote-bot\n          env:\n            - name: WEB_HOST\n              value: \"web:8080\"\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: web-external\n  namespace: emojivoto\nspec:\n  type: LoadBalancer\n  selector:\n    app: web\n  ports:\n    - name: http\n      port: 80\n      targetPort: 8080\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.064684546,
+      "prompt_tokens": 2196,
+      "prompt_time": 0.167148141,
+      "completion_tokens": 1069,
+      "completion_time": 2.177799405,
+      "total_tokens": 3265,
+      "total_time": 2.344947546
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_a1293f40b5",
+    "x_groq": {
+      "id": "req_01m703xt76eevs50sbv2shc33b",
+      "seed": 1402206261
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 23.3558349609375,
+  "tokens_in": 2196,
+  "tokens_out": 1069
+}

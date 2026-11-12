@@ -1,0 +1,682 @@
+##### P08_sock-shop recreate 09:22:28 (3 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== deepseek P08_sock-shop production s1 09:23:54
+deepseek__P08_sock-shop__production__s1: parse=OK docs=32 kubeconform_valid=True server_ok=True (32/32) d4=26/27
+    D2 kubescape=82.2361 trivy={'critical': 0, 'high': 18, 'medium': 56, 'low': 53} pss=none secrets=2
+    D3 kube-score crit/warn=75/14 polaris=76 zhang=15 checklist=41.7%
+    D5 apply_ok=True ready=False (13/14) t=Nones smoke=False reason=ContainerCreating aliased_images=0
+    D6 SKIPPED(not_deployed)
+== deepseek P08_sock-shop production s2 09:53:40
+deepseek__P08_sock-shop__production__s2: parse=OK docs=31 kubeconform_valid=True server_ok=True (31/31) d4=26/27
+    D2 kubescape=86.22222 trivy={'critical': 0, 'high': 1, 'medium': 33, 'low': 31} pss=baseline secrets=2
+    D3 kube-score crit/warn=76/9 polaris=82 zhang=9 checklist=56.1%
+    D5 apply_ok=True ready=False (8/14) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+== deepseek P08_sock-shop production s3 10:17:25
+deepseek__P08_sock-shop__production__s3: parse=OK docs=32 kubeconform_valid=True server_ok=True (32/32) d4=26/27
+    D2 kubescape=86.23611 trivy={'critical': 0, 'high': 1, 'medium': 47, 'low': 35} pss=baseline secrets=2
+    D3 kube-score crit/warn=76/9 polaris=81 zhang=16 checklist=60.7%
+    D5 apply_ok=True ready=False (9/15) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+##### P10_k8s-dashboard recreate 10:31:47 (12 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P10_k8s-dashboard neutral s1 10:33:11
+claude__P10_k8s-dashboard__neutral__s1: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=7/7
+    D2 kubescape=76.94445 trivy={'critical': 0, 'high': 0, 'medium': 6, 'low': 18} pss=baseline secrets=0
+    D3 kube-score crit/warn=11/2 polaris=76 zhang=4 checklist=20.0%
+    D5 apply_ok=True ready=True (2/2) t=7.1s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=2.0 avail=69.2; ok=True t=0.8 avail=86.4; ok=True t=0 avail=93.3
+    D6 container_crash: ok=True t=0.4 avail=60.0; ok=True t=10.7 avail=52.5; ok=True t=26.1 avail=56.1
+== claude P10_k8s-dashboard neutral s2 10:36:38
+claude__P10_k8s-dashboard__neutral__s2: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=7/7
+    D2 kubescape=83.611115 trivy={'critical': 0, 'high': 0, 'medium': 6, 'low': 10} pss=baseline secrets=0
+    D3 kube-score crit/warn=9/2 polaris=85 zhang=0 checklist=50.0%
+    D5 apply_ok=True ready=True (2/2) t=5.7s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=1.2 avail=78.3; ok=True t=1.0 avail=90.9; ok=True t=0.9 avail=86.4
+    D6 container_crash: ok=True t=0.0 avail=80.0; ok=True t=13.5 avail=46.2; ok=True t=25.6 avail=36.4
+== claude P10_k8s-dashboard neutral s3 10:39:45
+claude__P10_k8s-dashboard__neutral__s3: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=7/7
+    D2 kubescape=76.94445 trivy={'critical': 0, 'high': 0, 'medium': 6, 'low': 18} pss=baseline secrets=0
+    D3 kube-score crit/warn=11/2 polaris=76 zhang=4 checklist=20.0%
+    D5 apply_ok=True ready=True (2/2) t=4.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.6 avail=82.8; ok=True t=0.1 avail=89.5; ok=True t=0.4 avail=90.0
+    D6 container_crash: ok=True t=0.7 avail=63.0; ok=True t=11.8 avail=46.5; ok=True t=25.3 avail=36.8
+== claude P10_k8s-dashboard production s1 10:43:18
+claude__P10_k8s-dashboard__production__s1: parse=OK docs=20 kubeconform_valid=True server_ok=True (20/20) d4=6/7
+    D2 kubescape=91.666664 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/2 polaris=91 zhang=0 checklist=100.0%
+    D5 apply_ok=True ready=True (4/4) t=22.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.0 avail=100.0; ok=True t=18.6 avail=100.0; ok=True t=19.1 avail=99.2
+    D6 container_crash: ok=True t=19.1 avail=98.4; ok=True t=10.6 avail=97.6; ok=True t=21.1 avail=98.5
+== claude P10_k8s-dashboard production s2 10:51:55
+claude__P10_k8s-dashboard__production__s2: parse=OK docs=19 kubeconform_valid=True server_ok=True (19/19) d4=7/7
+    D2 kubescape=90.27778 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/0 polaris=93 zhang=0 checklist=100.0%
+    D5 apply_ok=True ready=True (4/4) t=23.2s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=16.9 avail=100.0; ok=True t=14.2 avail=98.9; ok=True t=14.3 avail=100.0
+    D6 container_crash: ok=True t=13.0 avail=96.8; ok=True t=15.3 avail=98.9; ok=True t=27.5 avail=99.4
+== claude P10_k8s-dashboard production s3 10:57:01
+claude__P10_k8s-dashboard__production__s3: parse=OK docs=19 kubeconform_valid=True server_ok=True (19/19) d4=7/7
+    D2 kubescape=90.27778 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/0 polaris=93 zhang=0 checklist=100.0%
+    D5 apply_ok=True ready=True (4/4) t=24.2s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=14.3 avail=99.0; ok=True t=16.4 avail=100.0; ok=True t=16.9 avail=99.0
+    D6 container_crash: ok=True t=12.8 avail=98.9; ok=True t=27.2 avail=98.7; ok=True t=26.9 avail=97.6
+== deepseek P10_k8s-dashboard neutral s1 11:02:31
+deepseek__P10_k8s-dashboard__neutral__s1: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=6/7
+    D2 kubescape=85 trivy={'critical': 0, 'high': 0, 'medium': 6, 'low': 10} pss=baseline secrets=0
+    D3 kube-score crit/warn=10/2 polaris=84 zhang=0 checklist=55.0%
+    D5 apply_ok=True ready=False (1/2) t=Nones smoke=False reason=ContainerCreating aliased_images=0
+    D6 SKIPPED(not_deployed)
+== deepseek P10_k8s-dashboard neutral s2 11:11:24
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 369, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 334, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 298, in evaluate
+    record["d1_kubeconform"] = d1_kubeconform(text)
+                               ~~~~~~~~~~~~~~^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 98, in d1_kubeconform
+    r = run([os.path.join(BIN, "kubeconform.exe"), "-output", "json", "-summary",
+             "-ignore-missing-schemas", "-kubernetes-version", K8S_VERSION, "-"],
+            input=text)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 38, in run
+    return subprocess.run(args, capture_output=True, text=True, encoding="utf-8",
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          errors="ignore", timeout=timeout, input=input)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1220, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1644, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\workspace\\research papers\\kubernetes\\tools\\bin\\kubeconform.exe', '-output', 'json', '-summary', '-ignore-missing-schemas', '-kubernetes-version', '1.37.0', '-']' timed out after 180 seconds
+   eval FAILED (exit 1) for deepseek P10_k8s-dashboard neutral s2
+== deepseek P10_k8s-dashboard neutral s3 11:14:25
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 369, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 334, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 298, in evaluate
+    record["d1_kubeconform"] = d1_kubeconform(text)
+                               ~~~~~~~~~~~~~~^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 98, in d1_kubeconform
+    r = run([os.path.join(BIN, "kubeconform.exe"), "-output", "json", "-summary",
+             "-ignore-missing-schemas", "-kubernetes-version", K8S_VERSION, "-"],
+            input=text)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 38, in run
+    return subprocess.run(args, capture_output=True, text=True, encoding="utf-8",
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          errors="ignore", timeout=timeout, input=input)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1220, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1644, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\workspace\\research papers\\kubernetes\\tools\\bin\\kubeconform.exe', '-output', 'json', '-summary', '-ignore-missing-schemas', '-kubernetes-version', '1.37.0', '-']' timed out after 180 seconds
+   eval FAILED (exit 1) for deepseek P10_k8s-dashboard neutral s3
+== deepseek P10_k8s-dashboard production s1 11:17:25
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 369, in <module>
+    for x in d6[f]))
+    
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 334, in main
+    # add D5/D6 to an existing static (D1-D4) record without re-running the static stages
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 298, in evaluate
+    record["gen_finish_reason"] = finish_reason(source_dir) if source != "human" else None
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 98, in d1_kubeconform
+    
+    
+    
+    
+    def d1_kubeconform(text):
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 38, in run
+    return subprocess.run(args, capture_output=True, text=True, encoding="utf-8",
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          errors="ignore", timeout=timeout, input=input)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1220, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1644, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\workspace\\research papers\\kubernetes\\tools\\bin\\kubeconform.exe', '-output', 'json', '-summary', '-ignore-missing-schemas', '-kubernetes-version', '1.37.0', '-']' timed out after 180 seconds
+   eval FAILED (exit 1) for deepseek P10_k8s-dashboard production s1
+== deepseek P10_k8s-dashboard production s2 11:20:24
+deepseek__P10_k8s-dashboard__production__s2: parse=OK docs=18 kubeconform_valid=True server_ok=True (18/18) d4=6/7
+    D2 kubescape=91.666664 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/2 polaris=90 zhang=0 checklist=80.0%
+    D5 apply_ok=True ready=False (1/2) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+== deepseek P10_k8s-dashboard production s3 11:31:41
+deepseek__P10_k8s-dashboard__production__s3: parse=OK docs=18 kubeconform_valid=False server_ok=False (17/18) d4=6/7
+    D2 kubescape=None trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/2 polaris=90 zhang=0 checklist=80.0%
+    D5 apply_ok=False ready=False (1/2) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+##### P07_online-boutique recreate 11:41:26 (12 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P07_online-boutique neutral s1 11:43:28
+claude__P07_online-boutique__neutral__s1: parse=OK docs=25 kubeconform_valid=True server_ok=True (25/25) d4=11/11
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 36, 'medium': 47, 'low': 72} pss=baseline secrets=0
+    D3 kube-score crit/warn=62/11 polaris=66 zhang=24 checklist=49.2%
+    D5 apply_ok=True ready=True (12/12) t=36.6s smoke=True reason=None aliased_images=11
+    D6 pod_delete: ok=True t=12.1 avail=40.5; ok=True t=12.2 avail=45.5; ok=True t=11.4 avail=43.9
+    D6 container_crash: ok=True t=12.0 avail=33.3; ok=True t=23.6 avail=23.8; ok=True t=33.3 avail=19.5
+== claude P07_online-boutique neutral s2 11:53:38
+claude__P07_online-boutique__neutral__s2: parse=OK docs=25 kubeconform_valid=True server_ok=True (25/25) d4=11/11
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 36, 'medium': 47, 'low': 72} pss=baseline secrets=0
+    D3 kube-score crit/warn=62/11 polaris=66 zhang=24 checklist=49.2%
+    D5 apply_ok=True ready=True (12/12) t=41.3s smoke=True reason=None aliased_images=11
+    D6 pod_delete: ok=True t=11.2 avail=38.5; ok=True t=10.8 avail=42.1; ok=True t=11.6 avail=50.0
+    D6 container_crash: ok=True t=11.2 avail=47.8; ok=True t=21.9 avail=24.6; ok=True t=33.9 avail=13.3
+== claude P07_online-boutique neutral s3 11:58:59
+claude__P07_online-boutique__neutral__s3: parse=OK docs=25 kubeconform_valid=True server_ok=True (25/25) d4=11/11
+    D2 kubescape=86.38889 trivy={'critical': 0, 'high': 1, 'medium': 12, 'low': 30} pss=restricted secrets=0
+    D3 kube-score crit/warn=52/11 polaris=81 zhang=3 checklist=49.2%
+    D5 apply_ok=True ready=True (12/12) t=35.0s smoke=True reason=None aliased_images=11
+    D6 pod_delete: ok=True t=10.5 avail=39.5; ok=True t=11.3 avail=34.2; ok=True t=11.8 avail=42.5
+    D6 container_crash: ok=True t=11.6 avail=30.0; ok=True t=22.4 avail=29.0; ok=True t=32.2 avail=22.2
+== claude P07_online-boutique production s1 12:05:26
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 493, in run_runtime
+    imgs = [provision(i, aliases) for i in images(docs) + [PROBER_IMAGE]]
+            ~~~~~~~~~^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 202, in provision
+    if docker_pull(ref):
+       ~~~~~~~~~~~^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 139, in docker_pull
+    return run(["docker", "pull", "--platform", "linux/amd64", ref], timeout=1800).returncode == 0
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 49, in run
+    return subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="ignore",
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, input=input)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1220, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1644, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['docker', 'pull', '--platform', 'linux/amd64', 'us-central1-docker.pkg.dev/google-samples/microservices-demo/adservice:v0.10.3']' timed out after 1800 seconds
+   eval FAILED (exit 1) for claude P07_online-boutique production s1
+== claude P07_online-boutique production s2 12:35:56
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 493, in run_runtime
+    return {"ran": False, "reason": f"no Service routes to the D6 target {target.get('component') or target['image']}"}
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 207, in provision
+    def _ledger():
+    
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 139, in docker_pull
+    "repository does not exist", "no matching manifest", "name unknown")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 49, in run
+    return subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="ignore",
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, input=input)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1220, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1648, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['docker', 'pull', '--platform', 'linux/amd64', 'us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice:v0.10.7']' timed out after 1800 seconds
+   eval FAILED (exit 1) for claude P07_online-boutique production s2
+== claude P07_online-boutique production s3 19:13:29
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for claude P07_online-boutique production s3
+== deepseek P07_online-boutique neutral s1 19:47:57
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P07_online-boutique neutral s1
+== deepseek P07_online-boutique neutral s2 19:56:41
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P07_online-boutique neutral s2
+== deepseek P07_online-boutique neutral s3 20:05:28
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P07_online-boutique neutral s3
+== deepseek P07_online-boutique production s1 20:13:52
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P07_online-boutique production s1
+== deepseek P07_online-boutique production s2 20:22:26
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P07_online-boutique production s2
+== deepseek P07_online-boutique production s3 20:30:48
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P07_online-boutique production s3
+##### P03_grafana recreate 20:39:17 (12 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P03_grafana neutral s1 20:41:22
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for claude P03_grafana neutral s1
+== claude P03_grafana neutral s2 21:02:33
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for claude P03_grafana neutral s2
+== claude P03_grafana neutral s3 21:04:02
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 522, in run_runtime
+    imgs = [provision(i, aliases) for i in images(docs) + [PROBER_IMAGE]]
+            ~~~~~~~~~^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 231, in provision
+    if docker_pull(ref):
+       ~~~~~~~~~~~^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 168, in docker_pull
+    raise RuntimeError(f"INFRA: docker pull {ref} failed transiently 3x (network); not scored as unpullable")
+RuntimeError: INFRA: docker pull grafana/grafana:latest failed transiently 3x (network); not scored as unpullable
+   eval FAILED (exit 1) for claude P03_grafana neutral s3
+== claude P03_grafana production s1 21:05:14
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for claude P03_grafana production s1
+== claude P03_grafana production s2 21:06:58
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for claude P03_grafana production s2
+== claude P03_grafana production s3 21:08:13
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for claude P03_grafana production s3
+== deepseek P03_grafana neutral s1 21:09:28
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P03_grafana neutral s1
+== deepseek P03_grafana neutral s2 21:10:46
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P03_grafana neutral s2
+== deepseek P03_grafana neutral s3 21:12:11
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P03_grafana neutral s3
+== deepseek P03_grafana production s1 21:13:31
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P03_grafana production s1
+== deepseek P03_grafana production s2 21:15:55
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P03_grafana production s2
+== deepseek P03_grafana production s3 21:19:29
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 375, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 340, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 314, in evaluate
+    record["d5"], record["d6"] = d5d6.run_runtime(docs, project, run_id)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 527, in run_runtime
+    t0 = cluster_now()
+  File "C:\workspace\research papers\kubernetes\evaluation\d5d6.py", line 72, in cluster_now
+    return float(run(["docker", "exec", CONTROL_PLANE, "date", "+%s.%N"]).stdout.strip())
+ValueError: could not convert string to float: ''
+   eval FAILED (exit 1) for deepseek P03_grafana production s3
+R8 batch done 21:21:59

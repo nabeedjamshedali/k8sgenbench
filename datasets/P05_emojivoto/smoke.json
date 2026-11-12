@@ -1,0 +1,13 @@
+{
+  "checks": [
+    {"name": "web-page", "target": {"image": "buoyantio/emojivoto-web", "port": 8080},
+     "method": "GET", "path": "/", "expect_status": 200, "expect_body": "Emoji Vote"},
+    {"name": "list-emoji", "target": {"image": "buoyantio/emojivoto-web", "port": 8080},
+     "method": "GET", "path": "/api/list", "expect_status": 200, "expect_body": ":floppy_disk:"},
+    {"name": "cast-vote", "target": {"image": "buoyantio/emojivoto-web", "port": 8080},
+     "method": "POST", "path": "/api/vote", "form": {"choice": ":floppy_disk:"}, "expect_status": 200},
+    {"name": "leaderboard-has-vote", "target": {"image": "buoyantio/emojivoto-web", "port": 8080},
+     "method": "GET", "path": "/api/leaderboard", "expect_status": 200, "expect_body": ":floppy_disk:"}
+  ],
+  "d6_target": {"image": "buoyantio/emojivoto-web", "port": 8080, "path": "/api/list"}
+}

@@ -1,0 +1,107 @@
+{
+ "checks": [
+  {
+   "name": "home-lists-products",
+   "target": {
+    "image": "us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+    "port": 8080,
+    "component": "frontend"
+   },
+   "method": "GET",
+   "path": "/",
+   "expect_status": 200,
+   "expect_body": "Sunglasses",
+   "retry_seconds": 120
+  },
+  {
+   "name": "product-page",
+   "target": {
+    "image": "us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+    "port": 8080,
+    "component": "frontend"
+   },
+   "method": "GET",
+   "path": "/product/OLJCESPC7Z",
+   "expect_status": 200,
+   "expect_body": "Sunglasses"
+  },
+  {
+   "name": "add-to-cart",
+   "target": {
+    "image": "us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+    "port": 8080,
+    "component": "frontend"
+   },
+   "path": "/cart",
+   "form": {
+    "product_id": "OLJCESPC7Z",
+    "quantity": "1"
+   },
+   "headers": {
+    "Cookie": "shop_session-id=smoke-session-p07"
+   },
+   "expect_status": 200,
+   "expect_body": "Empty Cart"
+  },
+  {
+   "name": "view-cart",
+   "target": {
+    "image": "us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+    "port": 8080,
+    "component": "frontend"
+   },
+   "method": "GET",
+   "path": "/cart",
+   "headers": {
+    "Cookie": "shop_session-id=smoke-session-p07"
+   },
+   "expect_status": 200,
+   "expect_body": "Empty Cart"
+  },
+  {
+   "name": "cart-in-redis",
+   "exec": {
+    "image": "redis",
+    "command": [
+     "redis-cli",
+     "EXISTS",
+     "smoke-session-p07"
+    ]
+   },
+   "expect_regex": "^1$"
+  },
+  {
+   "name": "checkout",
+   "target": {
+    "image": "us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+    "port": 8080,
+    "component": "frontend"
+   },
+   "method": "POST",
+   "path": "/cart/checkout",
+   "headers": {
+    "Cookie": "shop_session-id=smoke-session-p07"
+   },
+   "form": {
+    "email": "someone@example.com",
+    "street_address": "1600 Amphitheatre Parkway",
+    "zip_code": "94043",
+    "city": "Mountain View",
+    "state": "CA",
+    "country": "United States",
+    "credit_card_number": "4432801561520454",
+    "credit_card_expiration_month": "1",
+    "credit_card_expiration_year": "2039",
+    "credit_card_cvv": "672"
+   },
+   "expect_status": 200,
+   "expect_body": "Your order is complete!"
+  }
+ ],
+ "d6_target": {
+  "image": "us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+  "port": 8080,
+  "path": "/",
+  "component": "frontend"
+ }
+}

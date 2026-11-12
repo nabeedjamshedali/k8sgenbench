@@ -1,0 +1,518 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: emojivoto
+  labels:
+    app.kubernetes.io/part-of: emojivoto
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emoji-svc
+  namespace: emojivoto
+  labels:
+    app: emoji-svc
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  type: ClusterIP
+  selector:
+    app: emoji-svc
+  ports:
+    - name: grpc
+      port: 8080
+      targetPort: grpc
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emoji-svc
+  namespace: emojivoto
+  labels:
+    app: emoji-svc
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: emoji-svc
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: emoji-svc
+        app.kubernetes.io/part-of: emojivoto
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app: emoji-svc
+      containers:
+        - name: emoji-svc
+          image: buoyantio/emojivoto-emoji-svc:v11
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: GRPC_PORT
+              value: "8080"
+          ports:
+            - name: grpc
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: grpc
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: grpc
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-svc
+  namespace: emojivoto
+  labels:
+    app: voting-svc
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  type: ClusterIP
+  selector:
+    app: voting-svc
+  ports:
+    - name: grpc
+      port: 8080
+      targetPort: grpc
+      protocol: TCP
+    - name: prometheus
+      port: 8801
+      targetPort: prometheus
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-svc
+  namespace: emojivoto
+  labels:
+    app: voting-svc
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: voting-svc
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: voting-svc
+        app.kubernetes.io/part-of: emojivoto
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8801"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app: voting-svc
+      containers:
+        - name: voting-svc
+          image: buoyantio/emojivoto-voting-svc:v11
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: GRPC_PORT
+              value: "8080"
+            - name: PROM_PORT
+              value: "8801"
+          ports:
+            - name: grpc
+              containerPort: 8080
+              protocol: TCP
+            - name: prometheus
+              containerPort: 8801
+              protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: grpc
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: grpc
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: emojivoto
+  labels:
+    app: web
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  type: ClusterIP
+  selector:
+    app: web
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: emojivoto
+  labels:
+    app: web
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: web
+        app.kubernetes.io/part-of: emojivoto
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app: web
+      containers:
+        - name: web
+          image: buoyantio/emojivoto-web:v11
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: WEB_PORT
+              value: "8080"
+            - name: EMOJISVC_HOST
+              value: "emoji-svc.emojivoto.svc.cluster.local:8080"
+            - name: VOTINGSVC_HOST
+              value: "voting-svc.emojivoto.svc.cluster.local:8080"
+            - name: INDEX_BUNDLE
+              value: "dist/index_bundle.js"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-bot
+  namespace: emojivoto
+  labels:
+    app: vote-bot
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-bot
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: vote-bot
+        app.kubernetes.io/part-of: emojivoto
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: vote-bot
+          image: buoyantio/emojivoto-web:v11
+          imagePullPolicy: IfNotPresent
+          command:
+            - emojivoto-vote-bot
+          env:
+            - name: WEB_HOST
+              value: "web.emojivoto.svc.cluster.local:8080"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web
+  namespace: emojivoto
+  labels:
+    app: web
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: emojivoto.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  name: http
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: emoji-svc
+  namespace: emojivoto
+  labels:
+    app: emoji-svc
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: emoji-svc
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: voting-svc
+  namespace: emojivoto
+  labels:
+    app: voting-svc
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: voting-svc
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: web
+  namespace: emojivoto
+  labels:
+    app: web
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: web
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: emojivoto
+  labels:
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-web-ingress
+  namespace: emojivoto
+  labels:
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  podSelector:
+    matchLabels:
+      app: web
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+    - from:
+        - podSelector:
+            matchLabels:
+              app: vote-bot
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-emoji-svc-ingress
+  namespace: emojivoto
+  labels:
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  podSelector:
+    matchLabels:
+      app: emoji-svc
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: web
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-voting-svc-ingress
+  namespace: emojivoto
+  labels:
+    app.kubernetes.io/part-of: emojivoto
+spec:
+  podSelector:
+    matchLabels:
+      app: voting-svc
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: web
+      ports:
+        - protocol: TCP
+          port: 8080
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+      ports:
+        - protocol: TCP
+          port: 8801

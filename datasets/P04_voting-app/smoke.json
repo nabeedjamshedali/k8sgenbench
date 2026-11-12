@@ -1,0 +1,13 @@
+{
+  "checks": [
+    {"name": "vote-page", "target": {"image": "dockersamples/examplevotingapp_vote", "port": 80},
+     "method": "GET", "path": "/", "expect_status": 200, "expect_body": "Cats"},
+    {"name": "result-page", "target": {"image": "dockersamples/examplevotingapp_result", "port": 80},
+     "method": "GET", "path": "/", "expect_status": 200},
+    {"name": "cast-vote", "target": {"image": "dockersamples/examplevotingapp_vote", "port": 80},
+     "method": "POST", "path": "/", "form": {"vote": "a"}, "expect_status": 200},
+    {"name": "vote-stored", "exec": {"image": "postgres", "command": ["psql", "-U", "postgres", "-tAc", "SELECT count(*) FROM votes"]},
+     "expect_regex": "^[1-9]", "retry_seconds": 60}
+  ],
+  "d6_target": {"image": "dockersamples/examplevotingapp_vote", "port": 80, "path": "/"}
+}

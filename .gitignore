@@ -1,0 +1,39 @@
+# secrets
+.env
+*.env
+.env.*
+
+# re-fetchable / reinstallable (see README: datasets/*/internal/provenance.md, tools/install_tools.py --locked)
+datasets/.cache/
+tools/bin/
+
+# third-party papers (copyright) and personal documents: keep only our own literature files
+papers/*
+!papers/LITERATURE_INDEX.md
+!papers/references.bib
+!papers/REFERENCE_VERIFICATION.md
+
+# templates and build outputs
+els-cas-templates.zip
+paper/template/
+paper/overleaf_upload.zip
+paper/overleaf_files/
+paper/*.aux
+paper/*.log
+paper/*.blg
+paper/*.bbl
+paper/*.out
+paper/*.pdf
+paper/main.tex.bak
+
+# runtime state
+evaluation/.mem_guard_stop
+evaluation/.r8_stop
+generation/relay/.gpt_stop
+__pycache__/
+*.pyc
+
+# browser profiles (may hold cookies/sessions)
+.tmp_*/
+**/.tmp_*/
+*_profile/

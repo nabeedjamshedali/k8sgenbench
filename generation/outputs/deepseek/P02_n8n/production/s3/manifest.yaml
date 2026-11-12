@@ -1,0 +1,523 @@
+# =============================================================================
+# n8n + PostgreSQL on Kubernetes
+# Derived from docker-compose-withPostgres.yml
+# Apply: kubectl apply -f n8n-k8s.yaml
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Namespace
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: n8n
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+
+# -----------------------------------------------------------------------------
+# Secrets
+# NOTE: These contain placeholder values matching withPostgres.env.
+# Replace with real secrets before deploying to production, e.g.:
+#   kubectl -n n8n create secret generic postgres-secret \
+#     --from-literal=POSTGRES_USER=... --from-literal=POSTGRES_PASSWORD=... \
+#     --from-literal=POSTGRES_DB=n8n \
+#     --from-literal=POSTGRES_NON_ROOT_USER=... \
+#     --from-literal=POSTGRES_NON_ROOT_PASSWORD=...
+#     --dry-run=client -o yaml | kubectl apply -f -
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: n8n-stack
+type: Opaque
+stringData:
+  POSTGRES_USER: "changeUser"
+  POSTGRES_PASSWORD: "changePassword"
+  POSTGRES_DB: "n8n"
+  POSTGRES_NON_ROOT_USER: "changeUser"
+  POSTGRES_NON_ROOT_PASSWORD: "changePassword"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: n8n-secret
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+type: Opaque
+stringData:
+  RUNNERS_AUTH_TOKEN: "changeRunnerAuthToken"
+
+# -----------------------------------------------------------------------------
+# ConfigMap: Postgres init script (from init-data.sh)
+# The docker-entrypoint-initdb.d scripts run once on an empty data directory.
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: n8n-stack
+data:
+  init-data.sh: |
+    #!/bin/bash
+    set -e;
+
+    if [ -n "${POSTGRES_NON_ROOT_USER:-}" ] && [ -n "${POSTGRES_NON_ROOT_PASSWORD:-}" ]; then
+        psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+            CREATE USER ${POSTGRES_NON_ROOT_USER} WITH PASSWORD '${POSTGRES_NON_ROOT_PASSWORD}';
+            GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO ${POSTGRES_NON_ROOT_USER};
+            GRANT CREATE ON SCHEMA public TO ${POSTGRES_NON_ROOT_USER};
+    EOSQL
+    else
+        echo "SETUP INFO: No Environment variables given!"
+    fi
+
+# -----------------------------------------------------------------------------
+# PostgreSQL: Service
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: n8n-stack
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+      protocol: TCP
+
+# -----------------------------------------------------------------------------
+# PostgreSQL: PersistentVolumeClaim
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  # storageClassName: standard   # adjust to your cluster's StorageClass
+
+# -----------------------------------------------------------------------------
+# PostgreSQL: Deployment
+# -----------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  replicas: 1
+  # ReadWriteOnce PVC + single instance: never run two Postgres pods.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: postgres
+      app.kubernetes.io/part-of: n8n-stack
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: postgres
+        app.kubernetes.io/part-of: n8n-stack
+    spec:
+      securityContext:
+        # postgres:18 image runs as the "postgres" user (UID 999) internally,
+        # but the official image starts as root to chown the data dir.
+        fsGroup: 999
+        # seccompProfile:
+        #   type: RuntimeDefault
+      containers:
+        - name: postgres
+          image: postgres:18
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB
+            - name: POSTGRES_NON_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_USER
+            - name: POSTGRES_NON_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_PASSWORD
+            # postgres:18 moved its default data dir; pin it.
+            - name: PGDATA
+              value: /var/lib/postgresql/data
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - 'pg_isready -h 127.0.0.1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"'
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - 'pg_isready -h 127.0.0.1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"'
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data
+        - name: initdb
+          configMap:
+            name: postgres-initdb
+            defaultMode: 0755
+
+# -----------------------------------------------------------------------------
+# n8n: Service
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+  ports:
+    - name: http
+      port: 5678
+      targetPort: http
+      protocol: TCP
+    # Internal runner broker (task broker). Only reachable in-cluster.
+    - name: broker
+      port: 5679
+      targetPort: broker
+      protocol: TCP
+
+# -----------------------------------------------------------------------------
+# n8n: PersistentVolumeClaim (n8n_storage -> /home/node/.n8n)
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: n8n-data
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  # storageClassName: standard   # adjust to your cluster's StorageClass
+
+# -----------------------------------------------------------------------------
+# n8n: Deployment
+# -----------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate   # RWO volume on /home/node/.n8n
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: n8n
+      app.kubernetes.io/part-of: n8n-stack
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: n8n
+        app.kubernetes.io/part-of: n8n-stack
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+        # Wait for Postgres to actually accept connections before n8n starts.
+        - name: wait-for-postgres
+          image: postgres:18
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - |
+              until pg_isready -h postgres -p 5432 -U "$POSTGRES_NON_ROOT_USER" -d "$POSTGRES_DB"; do
+                echo "waiting for postgres..."
+                sleep 2
+              done
+              echo "postgres is ready"
+          env:
+            - name: POSTGRES_NON_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+      containers:
+        - name: n8n
+          image: docker.n8n.io/n8nio/n8n:2.43.5
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          env:
+            - name: DB_TYPE
+              value: postgresdb
+            - name: DB_POSTGRESDB_HOST
+              value: postgres
+            - name: DB_POSTGRESDB_PORT
+              value: "5432"
+            - name: DB_POSTGRESDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB
+            - name: DB_POSTGRESDB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_USER
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_NON_ROOT_PASSWORD
+            - name: N8N_RUNNERS_MODE
+              value: external
+            - name: N8N_RUNNERS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secret
+                  key: RUNNERS_AUTH_TOKEN
+            - name: N8N_RUNNERS_BROKER_LISTEN_ADDRESS
+              value: 0.0.0.0
+            # Optional but strongly recommended in production:
+            - name: N8N_HOST
+              value: n8n.example.com
+            - name: N8N_PORT
+              value: "5678"
+            - name: N8N_PROTOCOL
+              value: https
+            - name: WEBHOOK_URL
+              value: https://n8n.example.com/
+            - name: N8N_PROXY_HOPS
+              value: "1"
+            - name: N8N_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secret
+                  key: N8N_ENCRYPTION_KEY
+            - name: GENERIC_TIMEZONE
+              value: UTC
+          ports:
+            - name: http
+              containerPort: 5678
+              protocol: TCP
+            - name: broker
+              containerPort: 5679
+              protocol: TCP
+          volumeMounts:
+            - name: n8n-data
+              mountPath: /home/node/.n8n
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+      volumes:
+        - name: n8n-data
+          persistentVolumeClaim:
+            claimName: n8n-data
+
+# -----------------------------------------------------------------------------
+# n8n-runner: Deployment (external task runners)
+# Runners are stateless and connect back to the n8n broker over HTTP.
+# -----------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n-runner
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: n8n-runner
+    app.kubernetes.io/part-of: n8n-stack
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: n8n-runner
+      app.kubernetes.io/part-of: n8n-stack
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: n8n-runner
+        app.kubernetes.io/part-of: n8n-stack
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: n8n-runner
+          image: n8nio/runners:2.43.5
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          env:
+            - name: N8N_RUNNERS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secret
+                  key: RUNNERS_AUTH_TOKEN
+            - name: N8N_RUNNERS_TASK_BROKER_URI
+              value: http://n8n:5679
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+
+# -----------------------------------------------------------------------------
+# Optional: Ingress for n8n (adjust host, TLS, and ingressClassName)
+# -----------------------------------------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n-stack
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - n8n.example.com
+      secretName: n8n-tls
+  rules:
+    - host: n8n.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: n8n
+                port:
+                  name: http

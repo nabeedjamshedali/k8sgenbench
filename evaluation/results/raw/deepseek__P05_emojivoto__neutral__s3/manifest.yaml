@@ -1,0 +1,201 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: emojivoto
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emoji-svc
+  namespace: emojivoto
+  labels:
+    app: emoji-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emoji-svc
+  template:
+    metadata:
+      labels:
+        app: emoji-svc
+    spec:
+      containers:
+      - name: emoji-svc
+        image: buoyantio/emojivoto-emoji-svc:v11
+        ports:
+        - name: grpc
+          containerPort: 8080
+        env:
+        - name: GRPC_PORT
+          value: '8080'
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          initialDelaySeconds: 15
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emoji-svc
+  namespace: emojivoto
+  labels:
+    app: emoji-svc
+spec:
+  selector:
+    app: emoji-svc
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-svc
+  namespace: emojivoto
+  labels:
+    app: voting-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-svc
+  template:
+    metadata:
+      labels:
+        app: voting-svc
+    spec:
+      containers:
+      - name: voting-svc
+        image: buoyantio/emojivoto-voting-svc:v11
+        ports:
+        - name: grpc
+          containerPort: 8080
+        - name: prom
+          containerPort: 8801
+        env:
+        - name: GRPC_PORT
+          value: '8080'
+        - name: PROM_PORT
+          value: '8801'
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          initialDelaySeconds: 15
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-svc
+  namespace: emojivoto
+  labels:
+    app: voting-svc
+spec:
+  selector:
+    app: voting-svc
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: grpc
+  - name: prom
+    port: 8801
+    targetPort: prom
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: emojivoto
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: buoyantio/emojivoto-web:v11
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: WEB_PORT
+          value: '8080'
+        - name: EMOJISVC_HOST
+          value: emoji-svc:8080
+        - name: VOTINGSVC_HOST
+          value: voting-svc:8080
+        - name: INDEX_BUNDLE
+          value: dist/index_bundle.js
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: emojivoto
+  labels:
+    app: web
+spec:
+  selector:
+    app: web
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-bot
+  namespace: emojivoto
+  labels:
+    app: vote-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-bot
+  template:
+    metadata:
+      labels:
+        app: vote-bot
+    spec:
+      containers:
+      - name: vote-bot
+        image: buoyantio/emojivoto-web:v11
+        command:
+        - emojivoto-vote-bot
+        env:
+        - name: WEB_HOST
+          value: web:8080

@@ -1,0 +1,26 @@
+{
+  "id": "P01",
+  "name": "Zabbix",
+  "repo": "https://github.com/zabbix/zabbix-docker",
+  "commit": "942368052da43df8e6c30b7905c9f6fa8e9f93d8",
+  "human_manifest_path": "kubernetes.yaml",
+  "license": "AGPL-3.0",
+  "class": "multi-service",
+  "components": 8,
+  "stars": 2850,
+  "fetched": "2026-10-20",
+  "manifest_intent": "production",
+  "intent_evidence": [
+    {"source": "Dockerfiles/server-mysql/README.md L87 (near-identical wording also at Dockerfiles/web-apache-mysql/README.md L93, substituting \"web-interface\" for \"server\")",
+     "quote": "These variables are used by Zabbix server to connect to Zabbix database. With the `_FILE` variables you can instead provide the path to a file which contains the user / the password instead. Without Docker Swarm or Kubernetes you also have to map the files."}
+  ],
+  "deploys_on_kind": false,
+  "deploy_blocker": {
+    "summary": "D1-D4 run normally against this manifest (static analysis, security scan, requirement checks need no live cluster). D5/D6 (real deployment, fault injection) cannot complete on this test cluster: a kubelet/containerd bug in this kind cluster's k8s v1.37.0 makes any pod that mounts the SAME Secret twice (as two volumes with different `items` key-remappings) fail container creation permanently with \"error mounting ... to rootfs at /var/run/secrets/kubernetes.io/serviceaccount ... read-only file system\". kubernetes.yaml legitimately does this for db-secret (split into mysql-credentials/mysql-admin-credentials), which is a normal, valid Kubernetes pattern -- not a defect in the manifest.",
+    "isolated_with": "Standalone repro pods on 2026-10-21: a Pod mounting the same Secret twice this way fails deterministically and reproducibly across fresh namespaces, a node restart, and different worker nodes; a Pod with two DIFFERENT secrets (no remapping) and a Pod with the real PVC alone both succeed, isolating the duplicate-secret-volume pattern as the trigger rather than disk/memory pressure, node-specific state, or the mysql/zabbix-web images themselves.",
+    "affected_workloads": ["mysql-server", "zabbix-web", "zabbix-server", "zabbix-proxy-mysql", "zabbix-proxy-sqlite3"],
+    "decision": "Kept in the dataset for D1-D4; D5/D6 results for this project are recorded as not-applicable with this note, documented in the paper's Threats to Validity rather than treated as a manifest or dataset defect."
+  },
+  "kind_substitutions": [],
+  "spec_reviewed_by": null
+}

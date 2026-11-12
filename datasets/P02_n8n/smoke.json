@@ -1,0 +1,11 @@
+{
+  "checks": [
+    {"name": "n8n-healthz", "target": {"image": "n8nio/n8n", "port": 5678},
+     "method": "GET", "path": "/healthz", "expect_status": 200, "retry_seconds": 180},
+    {"name": "n8n-readiness-db", "target": {"image": "n8nio/n8n", "port": 5678},
+     "method": "GET", "path": "/healthz/readiness", "expect_status": 200, "retry_seconds": 180},
+    {"name": "n8n-schema-in-postgres", "exec": {"image": "postgres", "command": ["sh", "-c", "psql -U \"${POSTGRES_USER:-postgres}\" -d n8n -tAc \"SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'workflow_entity'\""]},
+     "expect_regex": "^1$", "retry_seconds": 60}
+  ],
+  "d6_target": {"image": "n8nio/n8n", "port": 5678, "path": "/healthz"}
+}

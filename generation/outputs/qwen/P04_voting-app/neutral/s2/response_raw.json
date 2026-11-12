@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-96795846-20d7-4118-b03f-e881594c277f",
+    "object": "chat.completion",
+    "created": 1794397078,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: voting-app\n---\napiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: healthchecks\n  namespace: voting-app\ndata:\n  redis.sh: |\n    #!/bin/sh\n    redis-cli ping | grep -q PONG\n  postgres.sh: |\n    #!/bin/sh\n    pg_isready -U postgres\n---\napiVersion: v1\nkind: Secret\nmetadata:\n  name: db-credentials\n  namespace: voting-app\ntype: Opaque\nstringData:\n  POSTGRES_USER: \"postgres\"\n  POSTGRES_PASSWORD: \"postgres\"\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: redis\n  namespace: voting-app\nspec:\n  selector:\n    app: redis\n  ports:\n    - protocol: TCP\n      port: 6379\n      targetPort: 6379\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: db\n  namespace: voting-app\nspec:\n  selector:\n    app: db\n  ports:\n    - protocol: TCP\n      port: 5432\n      targetPort: 5432\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: vote\n  namespace: voting-app\nspec:\n  type: LoadBalancer\n  selector:\n    app: vote\n  ports:\n    - protocol: TCP\n      port: 80\n      targetPort: 80\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: result\n  namespace: voting-app\nspec:\n  type: LoadBalancer\n  selector:\n    app: result\n  ports:\n    - protocol: TCP\n      port: 80\n      targetPort: 80\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: redis\n  namespace: voting-app\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: redis\n  template:\n    metadata:\n      labels:\n        app: redis\n    spec:\n      containers:\n        - name: redis\n          image: redis:alpine\n          ports:\n            - containerPort: 6379\n          volumeMounts:\n            - name: healthchecks\n              mountPath: /healthchecks\n          readinessProbe:\n            exec:\n              command:\n                - /healthchecks/redis.sh\n            initialDelaySeconds: 5\n            periodSeconds: 5\n          livenessProbe:\n            exec:\n              command:\n                - /healthchecks/redis.sh\n            initialDelaySeconds: 15\n            periodSeconds: 5\n      volumes:\n        - name: healthchecks\n          configMap:\n            name: healthchecks\n            defaultMode: 0755\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: db\n  namespace: voting-app\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: db\n  template:\n    metadata:\n      labels:\n        app: db\n    spec:\n      containers:\n        - name: db\n          image: postgres:15-alpine\n          ports:\n            - containerPort: 5432\n          envFrom:\n            - secretRef:\n                name: db-credentials\n          volumeMounts:\n            - name: db-data\n              mountPath: /var/lib/postgresql/data\n            - name: healthchecks\n              mountPath: /healthchecks\n          readinessProbe:\n            exec:\n              command:\n                - /healthchecks/postgres.sh\n            initialDelaySeconds: 5\n            periodSeconds: 5\n          livenessProbe:\n            exec:\n              command:\n                - /healthchecks/postgres.sh\n            initialDelaySeconds: 15\n            periodSeconds: 5\n      volumes:\n        - name: db-data\n          persistentVolumeClaim:\n            claimName: db-data\n        - name: healthchecks\n          configMap:\n            name: healthchecks\n            defaultMode: 0755\n---\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: db-data\n  namespace: voting-app\nspec:\n  accessModes:\n    - ReadWriteOnce\n  resources:\n    requests:\n      storage: 1Gi\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: vote\n  namespace: voting-app\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: vote\n  template:\n    metadata:\n      labels:\n        app: vote\n    spec:\n      containers:\n        - name: vote\n          image: dockersamples/examplevotingapp_vote\n          ports:\n            - containerPort: 80\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 80\n            initialDelaySeconds: 5\n            periodSeconds: 5\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 80\n            initialDelaySeconds: 15\n            periodSeconds: 5\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: result\n  namespace: voting-app\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: result\n  template:\n    metadata:\n      labels:\n        app: result\n    spec:\n      containers:\n        - name: result\n          image: dockersamples/examplevotingapp_result\n          ports:\n            - containerPort: 80\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 80\n            initialDelaySeconds: 5\n            periodSeconds: 5\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 80\n            initialDelaySeconds: 15\n            periodSeconds: 5\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: worker\n  namespace: voting-app\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: worker\n  template:\n    metadata:\n      labels:\n        app: worker\n    spec:\n      containers:\n        - name: worker\n          image: dockersamples/examplevotingapp_worker\n          env:\n            - name: REDIS_HOST\n              value: redis\n            - name: DB_HOST\n              value: db\n            - name: DB_USER\n              valueFrom:\n                secretKeyRef:\n                  name: db-credentials\n                  key: POSTGRES_USER\n            - name: DB_PASSWORD\n              valueFrom:\n                secretKeyRef:\n                  name: db-credentials\n                  key: POSTGRES_PASSWORD\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.092646376,
+      "prompt_tokens": 2300,
+      "prompt_time": 0.221985883,
+      "completion_tokens": 1557,
+      "completion_time": 3.239609735,
+      "total_tokens": 3857,
+      "total_time": 3.461595618
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_424cb89518",
+    "x_groq": {
+      "id": "req_01m756cxjdefpavphc1fz0f2nx",
+      "seed": 1552756801
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 4.279949426651001,
+  "tokens_in": 2300,
+  "tokens_out": 1557
+}

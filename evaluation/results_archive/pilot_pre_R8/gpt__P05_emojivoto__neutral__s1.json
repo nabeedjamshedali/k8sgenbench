@@ -1,0 +1,1139 @@
+{
+  "project": "P05_emojivoto",
+  "source": "gpt",
+  "prompt_variant": "neutral",
+  "sample_k": "1",
+  "timestamp": "2026-11-08T14:29:53Z",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 8,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 8,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 8,
+    "objects_accepted": 8,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "emojivoto",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "emoji-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "emoji-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "voting-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "voting-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "vote-bot",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 214,
+  "resource_counts": {
+    "Namespace": 1,
+    "Deployment": 4,
+    "Service": 3
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 70,
+      "frameworks": {
+        "NSA": 55,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 2,
+        "medium": 6,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=2719206464/api=apps/v1/emojivoto/Deployment/web",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=2752761702/api=apps/v1/emojivoto/Deployment/vote-bot",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=2786316940/api=apps/v1/emojivoto/Deployment/emoji-svc",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        },
+        {
+          "resource": "path=2803094559/api=/v1//Namespace/emojivoto",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=2819872178/api=apps/v1/emojivoto/Deployment/voting-svc",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 12,
+        "medium": 16,
+        "low": 40
+      },
+      "failed": [
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of 'deployment' 'emoji-svc' in 'emojivoto' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of 'deployment' 'vote-bot' in 'emojivoto' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of 'deployment' 'voting-svc' in 'emojivoto' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'web' of 'deployment' 'web' in 'emojivoto' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'emoji-svc' of Deployment 'emoji-svc' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'vote-bot' of Deployment 'vote-bot' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'voting-svc' of Deployment 'voting-svc' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"emoji-svc\" of deployment \"emoji-svc\" in \"emojivoto\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"vote-bot\" of deployment \"vote-bot\" in \"emojivoto\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"voting-svc\" of deployment \"voting-svc\" in \"emojivoto\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"web\" of deployment \"web\" in \"emojivoto\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container emoji-svc in emojivoto namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container vote-bot in emojivoto namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container voting-svc in emojivoto namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container web in emojivoto namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment emoji-svc in emojivoto namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment vote-bot in emojivoto namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment voting-svc in emojivoto namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment web in emojivoto namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container emoji-svc in deployment emoji-svc (namespace: emojivoto) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container vote-bot in deployment vote-bot (namespace: emojivoto) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container voting-svc in deployment voting-svc (namespace: emojivoto) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container web in deployment web (namespace: emojivoto) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 4,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "emoji-svc",
+            "detail": " run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"emoji-svc\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"emoji-svc\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"emoji-svc\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"emoji-svc\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "voting-svc",
+            "detail": ")\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"voting-svc\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"voting-svc\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"voting-svc\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"voting-svc\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "web",
+            "detail": "/web created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"web\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"web\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"web\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"web\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "vote-bot",
+            "detail": " dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"vote-bot\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"vote-bot\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"vote-bot\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"vote-bot\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 27,
+      "warning": 3,
+      "critical_by_check": {
+        "container-security-context-readonlyrootfilesystem": 4,
+        "pod-networkpolicy": 4,
+        "container-security-context-user-group-id": 4,
+        "container-image-pull-policy": 4,
+        "container-ephemeral-storage-request-and-limit": 4,
+        "pod-probes-identical": 3,
+        "container-resources": 4
+      },
+      "warning_by_check": {
+        "deployment-replicas": 3
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 58,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 4,
+        "metadataAndInstanceMismatched[warning]": 4,
+        "missingPodDisruptionBudget[warning]": 4,
+        "automountServiceAccountToken[warning]": 4,
+        "missingNetworkPolicy[warning]": 4,
+        "priorityClassNotSet[warning]": 4,
+        "topologySpreadConstraint[warning]": 4,
+        "cpuLimitsMissing[warning]": 4,
+        "cpuRequestsMissing[warning]": 4,
+        "insecureCapabilities[warning]": 4,
+        "linuxHardening[warning]": 4,
+        "memoryLimitsMissing[warning]": 4,
+        "memoryRequestsMissing[warning]": 4,
+        "notReadOnlyRootFilesystem[warning]": 4,
+        "privilegeEscalationAllowed[danger]": 4,
+        "pullPolicyNotAlways[warning]": 4,
+        "runAsRootAllowed[danger]": 4,
+        "livenessProbeMissing[warning]": 1,
+        "readinessProbeMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 16,
+      "by_check": {
+        "no-read-only-root-fs": 4,
+        "run-as-non-root": 4,
+        "unset-cpu-requirements": 4,
+        "unset-memory-requirements": 4
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 4,
+        "run-as-non-root": 4,
+        "unset-cpu-requirements": 4,
+        "unset-memory-requirements": 4
+      },
+      "zhang_total": 16,
+      "zhang_density_per_kloc": 74.8,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 4,
+      "pct": 25.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 4,
+          "applicable": 4
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 4
+        },
+        "2_readiness": {
+          "met": 3,
+          "applicable": 4
+        },
+        "3_liveness": {
+          "met": 3,
+          "applicable": 4
+        },
+        "4_cpu_request": {
+          "met": 0,
+          "applicable": 4
+        },
+        "5_mem_request": {
+          "met": 0,
+          "applicable": 4
+        },
+        "6_mem_limit": {
+          "met": 0,
+          "applicable": 4
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 4
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 4
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 4
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "emoji-svc",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "voting-svc",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "web",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "vote-bot",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-web-deployed",
+        "passed": true,
+        "detail": "1 web server container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-emoji-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-voting-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-vote-bot-deployed",
+        "passed": true,
+        "detail": "1 container(s) of buoyantio/emojivoto-web running emojivoto-vote-bot",
+        "oracle": false
+      },
+      {
+        "id": "R05-web-port",
+        "passed": true,
+        "detail": "WEB_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R06-emoji-grpc-port",
+        "passed": true,
+        "detail": "GRPC_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R07-voting-grpc-port",
+        "passed": true,
+        "detail": "GRPC_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R08-emojisvc-host",
+        "passed": true,
+        "detail": "EMOJISVC_HOST=['emoji-svc:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R09-votingsvc-host",
+        "passed": true,
+        "detail": "VOTINGSVC_HOST=['voting-svc:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R10-index-bundle",
+        "passed": true,
+        "detail": "INDEX_BUNDLE=['dist/index_bundle.js']",
+        "oracle": false
+      },
+      {
+        "id": "R11-bot-web-host",
+        "passed": true,
+        "detail": "WEB_HOST=['web:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R12-web-external",
+        "passed": true,
+        "detail": "Service web type LoadBalancer",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 12,
+    "requirements_total": 12,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "buoyantio/emojivoto-emoji-svc:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "buoyantio/emojivoto-voting-svc:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "buoyantio/emojivoto-web:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 12.1,
+    "ready_replicas": 4,
+    "expected_replicas": 4,
+    "workloads": [
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "emoji-svc",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "vote-bot",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "voting-svc",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "web",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-5deb379f",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "web-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "list-emoji",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cast-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "leaderboard-has-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "web",
+    "n_ready_before": 1,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "web-77c8d97c56-2ml6l",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.1,
+        "availability_pct": 65.6,
+        "n_probes": 32
+      },
+      {
+        "ran": true,
+        "victim": "web-77c8d97c56-zfjbt",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 9.6,
+        "availability_pct": 58.5,
+        "n_probes": 41
+      },
+      {
+        "ran": true,
+        "victim": "web-77c8d97c56-xbkbx",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.8,
+        "availability_pct": 61.5,
+        "n_probes": 39
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "web-77c8d97c56-4rxls",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 9.3,
+        "availability_pct": 50.0,
+        "n_probes": 40
+      },
+      {
+        "ran": true,
+        "victim": "web-77c8d97c56-4rxls",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 18.3,
+        "availability_pct": 40.4,
+        "n_probes": 47
+      },
+      {
+        "ran": true,
+        "victim": "web-77c8d97c56-4rxls",
+        "victim_prior_restarts": 2,
+        "recovery_ok": true,
+        "recovery_time_s": 31.3,
+        "availability_pct": 24.6,
+        "n_probes": 57
+      }
+    ]
+  }
+}

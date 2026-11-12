@@ -1,0 +1,31 @@
+{
+  "id": "P01",
+  "name": "WordPress + MySQL (Kubernetes documentation tutorial)",
+  "repo": "https://github.com/kubernetes/website",
+  "commit": "079a4d63f072a54c317689c957307aaa018cfe34",
+  "human_manifest_path": "content/en/examples/application/wordpress/",
+  "human_manifest_files": ["mysql-deployment.yaml", "wordpress-deployment.yaml"],
+  "human_kustomization": {
+    "file": "human/kustomization.yaml",
+    "origin": "Not a file in the repository. Reproduced from the tutorial page content/en/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md, which tells users to create it: secretGenerator at L105-112, resources appended at L141-149. The literal placeholder password YOUR_PASSWORD (L103, L110) is kept.",
+    "rendered": "human/rendered.yaml"
+  },
+  "license": "CC-BY-4.0",
+  "class": "stateful",
+  "components": 2,
+  "stars": 5408,
+  "fetched": "2026-10-18",
+  "manifest_intent": "demo",
+  "intent_evidence": [
+    {"source": "content/en/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md L26-29", "quote": "This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress) to deploy WordPress in production."}
+  ],
+  "upstream_sources": [
+    {"repo": "https://github.com/docker-library/docs", "commit": "e13e87076b7dbe957b3ed645671b880cddc09162", "paths": ["wordpress/content.md", "wordpress/compose.yaml", "mysql/content.md"]},
+    {"repo": "https://github.com/docker-library/wordpress", "commit": "5ec12a3ef21493a12f3d211e0d69d0c6a30a9794", "paths": ["wp-config-docker.php", "latest/php8.2/apache/Dockerfile"]},
+    {"repo": "https://github.com/docker-library/mysql", "commit": "2f988f198f35d25b1454fa2504a0e4c348100549", "paths": ["Dockerfile.oracle"]},
+    {"repo": "https://github.com/WordPress/WordPress", "commit": "d3deffbd707e74b1e8b5a82de4357a5eda94e0a5", "paths": ["wp-admin/install.php"]}
+  ],
+  "deploys_on_kind": null,
+  "kind_substitutions": [],
+  "spec_reviewed_by": null
+}

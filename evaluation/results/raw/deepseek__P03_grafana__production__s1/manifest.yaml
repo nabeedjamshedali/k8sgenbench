@@ -1,0 +1,904 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/part-of: grafana
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: config
+data:
+  grafana.ini: 'app_mode = production
+
+    instance_name = ${HOSTNAME}
+
+
+    [paths]
+
+    data = /var/lib/grafana
+
+    logs = /var/log/grafana
+
+    plugins = /var/lib/grafana/plugins
+
+    provisioning = /etc/grafana/provisioning
+
+
+    [server]
+
+    protocol = http
+
+    http_addr = 0.0.0.0
+
+    http_port = 3000
+
+    domain = grafana.example.com
+
+    root_url = https://grafana.example.com/
+
+    serve_from_sub_path = false
+
+    enforce_domain = true
+
+    enable_gzip = true
+
+    read_timeout = 30
+
+
+    [database]
+
+    type = postgres
+
+    host = postgres.grafana.svc.cluster.local:5432
+
+    name = grafana
+
+    user = grafana
+
+    password = $__env{GF_DATABASE_PASSWORD}
+
+    ssl_mode = require
+
+    max_idle_conn = 10
+
+    max_open_conn = 50
+
+    conn_max_lifetime = 14400
+
+    migration_locking = true
+
+    high_availability = true
+
+
+    [remote_cache]
+
+    type = redis
+
+    connstr = addr=redis.grafana.svc.cluster.local:6379,pool_size=100,db=0,ssl=false
+
+
+    [security]
+
+    admin_user = admin
+
+    admin_password = $__env{GF_SECURITY_ADMIN_PASSWORD}
+
+    secret_key = $__env{GF_SECURITY_SECRET_KEY}
+
+    disable_gravatar = true
+
+    cookie_secure = true
+
+    cookie_samesite = strict
+
+    allow_embedding = false
+
+    strict_transport_security = true
+
+    strict_transport_security_max_age_seconds = 31536000
+
+    strict_transport_security_preload = true
+
+    strict_transport_security_subdomains = true
+
+    x_content_type_options = true
+
+    content_security_policy = true
+
+    disable_initial_admin_creation = false
+
+    disable_brute_force_login_protection = false
+
+    brute_force_login_protection_max_attempts = 5
+
+
+    [users]
+
+    allow_sign_up = false
+
+    allow_org_create = false
+
+    auto_assign_org = true
+
+    auto_assign_org_role = Viewer
+
+    default_theme = dark
+
+    viewers_can_edit = false
+
+
+    [auth]
+
+    disable_login_form = false
+
+    disable_signout_menu = false
+
+    token_rotation_interval_minutes = 10
+
+    login_maximum_inactive_lifetime_duration = 7d
+
+    login_maximum_lifetime_duration = 30d
+
+
+    [auth.anonymous]
+
+    enabled = false
+
+
+    [auth.basic]
+
+    enabled = true
+
+
+    [analytics]
+
+    reporting_enabled = false
+
+    check_for_updates = false
+
+    check_for_plugin_updates = false
+
+    feedback_links_enabled = false
+
+
+    [snapshots]
+
+    enabled = false
+
+    external_enabled = false
+
+
+    [dashboards]
+
+    versions_to_keep = 20
+
+    min_refresh_interval = 5s
+
+
+    [datasources]
+
+    datasource_limit = 5000
+
+
+    [unified_alerting]
+
+    enabled = true
+
+    execute_alerts = true
+
+    evaluation_timeout = 30s
+
+    min_interval = 10s
+
+    ha_listen_address = 0.0.0.0:9094
+
+    ha_peers = grafana-headless.grafana.svc.cluster.local:9094
+
+    ha_advertise_address = ${POD_IP}:9094
+
+    ha_redis_address = redis.grafana.svc.cluster.local:6379
+
+    ha_redis_prefix = grafana-alerting
+
+    ha_redis_peer_name = ${HOSTNAME}
+
+
+    [unified_alerting.state_history]
+
+    enabled = true
+
+    backend = annotations
+
+
+    [log]
+
+    mode = console
+
+    level = info
+
+
+    [log.console]
+
+    format = json
+
+
+    [metrics]
+
+    enabled = true
+
+    interval_seconds = 10
+
+    disable_total_stats = false
+
+
+    [tracing.opentelemetry.otlp]
+
+    address = otel-collector.observability.svc.cluster.local:4317
+
+    propagation = w3c
+
+    insecure = false
+
+
+    [feature_toggles]
+
+    enable =
+
+
+    [provisioning]
+
+    enabled = false
+
+
+    [unified_storage]
+
+    blob_garbage_collection_enabled = false
+
+    migration_locking = true
+
+
+    [plugins]
+
+    plugin_admin_enabled = true
+
+    plugin_admin_external_manage_enabled = false
+
+    public_key_retrieval_disabled = false
+
+    update_strategy = minor
+
+    preinstall_auto_update = false
+
+    '
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-secrets
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: secrets
+type: Opaque
+stringData:
+  GF_SECURITY_ADMIN_PASSWORD: CHANGE_ME_admin_password
+  GF_SECURITY_SECRET_KEY: CHANGE_ME_32_byte_random_secret_key
+  GF_DATABASE_PASSWORD: CHANGE_ME_database_password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-db-credentials
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/component: database
+type: Opaque
+stringData:
+  POSTGRES_DB: grafana
+  POSTGRES_USER: grafana
+  POSTGRES_PASSWORD: CHANGE_ME_database_password
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning-datasources
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: provisioning
+data:
+  datasources.yaml: "apiVersion: 1\ndatasources:\n  - name: Prometheus\n    type:\
+    \ prometheus\n    access: proxy\n    url: http://prometheus.monitoring.svc.cluster.local:9090\n\
+    \    isDefault: true\n    editable: false\n    jsonData:\n      timeInterval:\
+    \ 30s\n      httpMethod: POST\n"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning-dashboards
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: provisioning
+data:
+  dashboards.yaml: "apiVersion: 1\nproviders:\n  - name: default\n    orgId: 1\n \
+    \   folder: \"\"\n    type: file\n    disableDeletion: false\n    updateIntervalSeconds:\
+    \ 30\n    allowUiUpdates: false\n    options:\n      path: /etc/grafana/provisioning/dashboards\n\
+    \      foldersFromFilesStructure: true\n"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning-alerting
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: provisioning
+data:
+  alerting.yaml: "apiVersion: 1\ncontactPoints:\n  - orgId: 1\n    name: default\n\
+    \    receivers:\n      - uid: default-email\n        type: email\n        settings:\n\
+    \          addresses: oncall@example.com\n          singleEmail: false\npolicies:\n\
+    \  - orgId: 1\n    receiver: default\n    group_by: [\"grafana_folder\", \"alertname\"\
+    ]\n    group_wait: 30s\n    group_interval: 5m\n    repeat_interval: 4h\n"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-headless
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+  ports:
+  - name: http
+    port: 3000
+    targetPort: http
+    protocol: TCP
+  - name: alerting
+    port: 9094
+    targetPort: alerting
+    protocol: TCP
+  - name: alerting-udp
+    port: 9094
+    targetPort: alerting
+    protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+  ports:
+  - name: http
+    port: 3000
+    targetPort: http
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+    app.kubernetes.io/version: 12.0.0
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: grafana
+        app.kubernetes.io/component: server
+      annotations:
+        checksum/config: REPLACE_WITH_CONFIG_CHECKSUM
+        checksum/secrets: REPLACE_WITH_SECRET_CHECKSUM
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 472
+        runAsGroup: 472
+        fsGroup: 472
+        seccompProfile:
+          type: RuntimeDefault
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: grafana
+            app.kubernetes.io/component: server
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: grafana
+                  app.kubernetes.io/component: server
+      containers:
+      - name: grafana
+        image: grafana/grafana:12.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        - name: alerting
+          containerPort: 9094
+          protocol: TCP
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: GF_SECURITY_ADMIN_PASSWORD
+        - name: GF_SECURITY_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: GF_SECURITY_SECRET_KEY
+        - name: GF_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: GF_DATABASE_PASSWORD
+        volumeMounts:
+        - name: config
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
+          readOnly: true
+        - name: provisioning-datasources
+          mountPath: /etc/grafana/provisioning/datasources
+          readOnly: true
+        - name: provisioning-dashboards
+          mountPath: /etc/grafana/provisioning/dashboards
+          readOnly: true
+        - name: provisioning-alerting
+          mountPath: /etc/grafana/provisioning/alerting
+          readOnly: true
+        - name: data
+          mountPath: /var/lib/grafana
+        - name: logs
+          mountPath: /var/log/grafana
+        - name: tmp
+          mountPath: /tmp
+        resources:
+          requests:
+            cpu: 250m
+            memory: 768Mi
+          limits:
+            cpu: '1'
+            memory: 1536Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          failureThreshold: 30
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 4
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: config
+        configMap:
+          name: grafana-config
+          items:
+          - key: grafana.ini
+            path: grafana.ini
+      - name: provisioning-datasources
+        configMap:
+          name: grafana-provisioning-datasources
+      - name: provisioning-dashboards
+        configMap:
+          name: grafana-provisioning-dashboards
+      - name: provisioning-alerting
+        configMap:
+          name: grafana-provisioning-alerting
+      - name: data
+        emptyDir: {}
+      - name: logs
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: grafana
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: server
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: grafana
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: server
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-nginx
+    ports:
+    - port: 3000
+      protocol: TCP
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: grafana
+          app.kubernetes.io/component: server
+    ports:
+    - port: 9094
+      protocol: TCP
+    - port: 9094
+      protocol: UDP
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: postgres
+    ports:
+    - port: 5432
+      protocol: TCP
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: redis
+    ports:
+    - port: 6379
+      protocol: TCP
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: grafana
+          app.kubernetes.io/component: server
+    ports:
+    - port: 9094
+      protocol: TCP
+    - port: 9094
+      protocol: UDP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: monitoring
+    ports:
+    - port: 9090
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '60'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '60'
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - grafana.example.com
+    secretName: grafana-tls
+  rules:
+  - host: grafana.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              name: http
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/component: database
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: postgres
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: postgres
+        app.kubernetes.io/component: database
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: postgres
+        image: postgres:16-alpine
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: postgres
+          containerPort: 5432
+          protocol: TCP
+        envFrom:
+        - secretRef:
+            name: grafana-db-credentials
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+        - name: tmp
+          mountPath: /tmp
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - grafana
+            - -d
+            - grafana
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 4
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - grafana
+            - -d
+            - grafana
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: tmp
+        emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/component: database
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: postgres
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: postgres
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/component: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/component: cache
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        imagePullPolicy: IfNotPresent
+        args:
+        - --save
+        - ''
+        - --appendonly
+        - 'no'
+        - --maxmemory
+        - 256mb
+        - --maxmemory-policy
+        - allkeys-lru
+        ports:
+        - name: redis
+          containerPort: 6379
+          protocol: TCP
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 3
+          failureThreshold: 4
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: grafana
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/component: cache
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: redis
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: redis
+    protocol: TCP

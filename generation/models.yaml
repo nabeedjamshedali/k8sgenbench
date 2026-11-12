@@ -1,0 +1,122 @@
+# Pinned model IDs per design doc §5.1. Update dates when a model is (re)pinned.
+system_prompt: "You are an experienced DevOps engineer. Respond with Kubernetes YAML manifests only."
+
+temperature: 0.2
+max_tokens: 8192
+
+models:
+  gemini:
+    provider: gemini
+    model_id: gemini-3.6-flash
+    status: active
+    pinned_on: "2026-11-04"
+    note: >
+      gemini-2.5-pro/-flash are deprecated for this key (404). The pro-tier replacement
+      (gemini-3.1-pro-preview) has a free-tier token quota of 0 (429, billing required).
+      gemini-3.6-flash is the model this free-tier key can actually reach: non-preview,
+      200 OK. This means the "Gemini" slot is flash-tier, not the Pro flagship the design
+      doc assumed -- documented as a deviation in Threats to Validity. If billing is ever
+      enabled on this key, switch to gemini-3.1-pro-preview or a later stable pro release.
+      ALSO: this free-tier key has a hard cap of 20 requests/DAY (not per-minute -- confirmed
+      via the 429 body during the pilot, resets in ~17h). Gemini's share of the full study is
+      72 generations (12 projects x 2 variants x 3 samples); at 20/day that's 4+ days minimum
+      with zero retries, spread across multiple days. Needs either a paid key or multi-day
+      scheduling for the real run -- flagged for the instructor/budget conversation.
+
+  qwen:
+    provider: groq
+    model_id: qwen/qwen3.8-27b
+    status: active
+    pinned_on: "2026-11-04"
+    note: >
+      Via Groq (free tier key), not OpenRouter as originally planned -- same model family
+      requirement met at zero cost, EXCEPT: this free-tier key caps output at 1,000 tokens/minute
+      (requesting max_tokens=8192 is rejected outright, 429, regardless of retries -- not
+      transient). Confirmed during the pilot: P05_emojivoto (small, 3 services) succeeded;
+      P07_online-boutique (large, 11 services) failed on this cap. Large projects need more
+      than 1,000 output tokens of YAML, so Qwen/Groq free tier cannot complete them as configured.
+      Needs either a paid Groq tier or an OpenRouter key for the real run on large projects.
+
+  llama:
+    provider: null
+    model_id: meta-llama/Llama-3.3-70B-Instruct
+    status: blocked
+    note: >
+      No free API route found anywhere as of 2026-11-08: not on Groq (catalog has only
+      llama-prompt-guard-2-22m/86m, moderation models, not generation-capable), not on
+      OpenRouter's free tier (current free lineup is Nvidia Nemotron/Liquid/Google Gemma --
+      no Llama), and GitHub Models (which did carry Llama) was retired 2026-07-30.
+      Tried HuggingChat (huggingface.co/chat) next, same manual-web-chat pattern as DeepSeek:
+      signed in with a free HF account (OAuth consent to HuggingChat), selected
+      meta-llama/Llama-3.3-70B-Instruct as the active model (MCP tools / ML Intern left
+      disabled to keep it a plain text completion). The very first test message hit an
+      immediate "Upgrade Required: You've reached your message limit" wall and the
+      conversation errored out ("Sorry, something went wrong") -- HuggingChat's free-tier
+      message cap for logged-in non-PRO accounts is apparently near-zero, stricter than
+      Gemini's 20/day cap. Not yet confirmed whether/when this resets. Remaining options:
+      wait and retry (unknown reset window), a paid HF PRO subscription, or abandon this
+      route.
+
+      DECISION (2026-11-08, senior-engineer call, user deferred): dropping Llama from the
+      study rather than creating a second/throwaway HF account to route around the rate
+      limit -- that crosses from "free-tier sourcing" into evading a platform's abuse
+      protection, which doesn't belong in a methodology section. Proceeding with 5 of 6
+      model slots (Gemini, Qwen, Claude, GPT, DeepSeek) + the human baseline, consistent
+      with the instructor's own "4-5 models is enough" guidance. Llama's absence is
+      documented here and must be added as an explicit Threats to Validity bullet in the
+      design doc / paper (not yet done).
+
+  deepseek:
+    provider: manual_web_chat
+    model_id: "deepseek-chat (web)"
+    status: active
+    pinned_on: "2026-11-08"
+    note: >
+      No free API route found anywhere as of 2026-11-08. DeepSeek's own platform only offers
+      a one-time signup credit (not an ongoing free tier), typically requiring a payment
+      method on file. Automated browser access (Playwright) was blocked by anti-bot detection
+      (403, then an image CAPTCHA) -- abandoned by agreement, not worked around. Sourced
+      instead via manual web chat relay: the user pastes each prompt into a fresh, logged-in
+      chat.deepseek.com session (DeepThink off, Search off, new chat per prompt to preserve
+      sample independence) and relays the response back for saving. Documented as a
+      methodology deviation in Threats to Validity. Pilot complete (both pilot projects,
+      both variants).
+
+  gpt:
+    provider: manual_web_chat
+    model_id: "ChatGPT (web, default model on Pro account)"
+    status: active
+    pinned_on: "2026-11-08"
+    note: >
+      PILOT 1 (superseded): no OpenAI API key, so OpenAI's own open-weight gpt-oss-120b was tried
+      via Groq (free) as a stand-in. P05_emojivoto (small) succeeded, but P07_online-boutique
+      (large) hit a hard free-tier cap of 8,000 tokens/minute (TPM) combined across prompt +
+      requested max_tokens (413 "Request too large", not transient) -- same category of failure
+      as the Qwen/Groq slot. This data is preserved for the record in
+      generation/outputs_archive/gpt-oss-120b_pilot/ but is NOT the data used for the "gpt" slot.
+
+      PILOT 2 (final, in use): the user's friend volunteered their own paid ChatGPT Pro account.
+      Relayed via the same manual-web-chat pattern as DeepSeek: a fresh chat per prompt, browsing
+      and tools off, response pasted back. This is a real flagship ChatGPT response rather than
+      gpt-oss-120b's open-weight stand-in, which is why it replaces (not supplements) the first
+      pilot for this slot. Two additional disclosed caveats versus the other models: (1) the
+      friend reported using "ChatGPT's default model" rather than deliberately selecting a named
+      flagship in the model picker, so the exact model version (e.g., which GPT-5.x point release)
+      is NOT confirmed -- reported honestly as "ChatGPT (web, default model on Pro account)" rather
+      than guessing a specific version string; (2) the web sessions were operated by a third party
+      (the user's friend), not the researcher directly, so adherence to the "new chat per prompt,
+      no browsing/tools" instructions is trust-based rather than directly observed, same as it
+      would be for any manual-relay data collected by someone other than the primary researcher.
+
+  claude:
+    provider: claude_code_subagent
+    model_id: claude-sonnet-5-5
+    status: active
+    pinned_on: "2026-11-04"
+    note: >
+      No Anthropic API key. Generated via a fresh Claude Code subagent (no fork, no
+      conversation memory) given ONLY the docs_bundle files and the fixed prompt text below,
+      as a stand-in for the Claude API. This is a documented methodology deviation (see
+      Threats to Validity): the subagent runs under Claude Code's own harness/system prompt
+      layered on top of ours, not a bare API call, and reports the model as "Claude Sonnet 5.5"
+      (not Opus) to stay accurate about which tier actually ran.

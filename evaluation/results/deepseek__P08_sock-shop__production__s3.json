@@ -1,0 +1,1957 @@
+{
+  "project": "P08_sock-shop",
+  "source": "deepseek",
+  "prompt_variant": "production",
+  "sample_k": "3",
+  "timestamp": "2026-11-12T05:17:26Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 32,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 32,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 32,
+    "objects_accepted": 32,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "sock-shop",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "catalogue-db-secret",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "java-opts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "queue-master",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "queue-master",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "rabbitmq",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "rabbitmq",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "user-sim",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 928,
+  "resource_counts": {
+    "Namespace": 1,
+    "Secret": 1,
+    "ConfigMap": 1,
+    "Service": 14,
+    "StatefulSet": 5,
+    "Deployment": 10
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 86.23611,
+      "frameworks": {
+        "NSA": 79.35417,
+        "MITRE": 93.75
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 4,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=2604410595/api=apps/v1/sock-shop/StatefulSet/rabbitmq",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2604410595/api=apps/v1/sock-shop/StatefulSet/rabbitmq",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2604410595/api=apps/v1/sock-shop/StatefulSet/rabbitmq",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2637965833/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2637965833/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2637965833/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2671521071/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2671521071/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2671521071/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2705076309/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2705076309/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2705076309/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2735984083/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0012",
+          "name": "Applications credentials in configuration files"
+        },
+        {
+          "resource": "path=2735984083/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2735984083/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2735984083/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2735984083/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2769539321/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2769539321/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2769539321/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2803094559/api=/v1//Namespace/sock-shop",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=2805742023/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2805742023/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2805742023/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2937315511/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2937315511/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2937315511/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=423173030/api=apps/v1/sock-shop/StatefulSet/user-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=423173030/api=apps/v1/sock-shop/StatefulSet/user-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=423173030/api=apps/v1/sock-shop/StatefulSet/user-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=439950649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=439950649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=439950649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=624210268/api=apps/v1/sock-shop/StatefulSet/orders-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=624210268/api=apps/v1/sock-shop/StatefulSet/orders-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=624210268/api=apps/v1/sock-shop/StatefulSet/orders-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=691320744/api=apps/v1/sock-shop/StatefulSet/carts-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=691320744/api=apps/v1/sock-shop/StatefulSet/carts-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=691320744/api=apps/v1/sock-shop/StatefulSet/carts-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=724875982/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=724875982/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=724875982/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=758431220/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=758431220/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=758431220/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=791986458/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=791986458/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=791986458/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 47,
+        "low": 35
+      },
+      "failed": [
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'rabbitmq' of StatefulSet 'rabbitmq' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user-db' of StatefulSet 'user-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'rabbitmq' of StatefulSet 'rabbitmq' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-db' of StatefulSet 'user-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'rabbitmq' of StatefulSet 'rabbitmq' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-db' of StatefulSet 'user-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'carts-db' of StatefulSet 'carts-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'orders-db' of StatefulSet 'orders-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'rabbitmq' of StatefulSet 'rabbitmq' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'user-db' of StatefulSet 'user-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment carts in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment catalogue in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment edge-router in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment orders in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment payment in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment queue-master in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment shipping in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment user in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container carts in deployment carts (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container catalogue in deployment catalogue (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container catalogue-db in statefulset catalogue-db (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container edge-router in deployment edge-router (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container front-end in deployment front-end (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container orders in deployment orders (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container payment in deployment payment (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container queue-master in deployment queue-master (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container shipping in deployment shipping (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user in deployment user (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user-db in statefulset user-db (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user-sim in deployment user-sim (namespace: sock-shop) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 2,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "catalogue-db-secret",
+          "key": "MYSQL_ROOT_PASSWORD"
+        },
+        {
+          "type": "env-literal",
+          "object": "catalogue-db",
+          "container": "catalogue-db",
+          "key": "MYSQL_ALLOW_EMPTY_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 15,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "StatefulSet",
+            "name": "catalogue-db",
+            "detail": "statefulset.apps/catalogue-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod must not set securityContext.runAsNonRoot=false)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "catalogue",
+            "detail": "deployment.apps/catalogue created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"catalogue\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "front-end",
+            "detail": "deployment.apps/front-end created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"front-end\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "edge-router",
+            "detail": "deployment.apps/edge-router created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"edge-router\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"edge-router\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "carts",
+            "detail": "deployment.apps/carts created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"carts\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "StatefulSet",
+            "name": "carts-db",
+            "detail": "statefulset.apps/carts-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"carts-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"carts-db\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "orders",
+            "detail": "deployment.apps/orders created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"orders\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "StatefulSet",
+            "name": "orders-db",
+            "detail": "statefulset.apps/orders-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"orders-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"orders-db\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "shipping",
+            "detail": "deployment.apps/shipping created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"shipping\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "queue-master",
+            "detail": "deployment.apps/queue-master created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"queue-master\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "StatefulSet",
+            "name": "rabbitmq",
+            "detail": "statefulset.apps/rabbitmq created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"rabbitmq\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"rabbitmq\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "payment",
+            "detail": "deployment.apps/payment created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"payment\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "user",
+            "detail": "deployment.apps/user created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"user\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "StatefulSet",
+            "name": "user-db",
+            "detail": "statefulset.apps/user-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"user-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"user-db\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "user-sim",
+            "detail": "deployment.apps/user-sim created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"user-sim\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 76,
+      "warning": 9,
+      "critical_by_check": {
+        "container-security-context-user-group-id": 15,
+        "container-image-pull-policy": 15,
+        "pod-networkpolicy": 15,
+        "pod-probes-identical": 14,
+        "container-ephemeral-storage-request-and-limit": 15,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "statefulset-has-servicename": 1
+      },
+      "warning_by_check": {
+        "deployment-replicas": 9
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 81,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 15,
+        "automountServiceAccountToken[warning]": 15,
+        "missingNetworkPolicy[warning]": 15,
+        "priorityClassNotSet[warning]": 15,
+        "topologySpreadConstraint[warning]": 15,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "pullPolicyNotAlways[warning]": 15,
+        "runAsRootAllowed[danger]": 15,
+        "sensitiveContainerEnvVar[danger]": 1,
+        "deploymentMissingReplicas[warning]": 10,
+        "missingPodDisruptionBudget[warning]": 10,
+        "livenessProbeMissing[warning]": 1,
+        "readinessProbeMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 16,
+      "by_check": {
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 15
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 15,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 16,
+      "zhang_density_per_kloc": 17.2,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 15,
+      "pct": 60.7,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 15,
+          "applicable": 15
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 10
+        },
+        "2_readiness": {
+          "met": 14,
+          "applicable": 15
+        },
+        "3_liveness": {
+          "met": 14,
+          "applicable": 15
+        },
+        "4_cpu_request": {
+          "met": 15,
+          "applicable": 15
+        },
+        "5_mem_request": {
+          "met": 15,
+          "applicable": 15
+        },
+        "6_mem_limit": {
+          "met": 15,
+          "applicable": 15
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 15
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 15
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 15
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "StatefulSet",
+          "name": "catalogue-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "catalogue",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "front-end",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "edge-router",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "carts",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "carts-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "orders",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "orders-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "shipping",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "queue-master",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "rabbitmq",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "payment",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "user",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "user-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "user-sim",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-front-end-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-catalogue-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-catalogue-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-carts-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R05-orders-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R06-payment-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R07-shipping-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R08-queue-master-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R09-rabbitmq-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R10-user-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R11-user-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R12-two-mongo-databases",
+        "passed": true,
+        "detail": "2 mongo workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R13-catalogue-hostname",
+        "passed": true,
+        "detail": "Service catalogue:80 -> weaveworksdemos/catalogue:80",
+        "oracle": true
+      },
+      {
+        "id": "R13b-catalogue-hostname-service",
+        "passed": true,
+        "detail": "Service catalogue selects weaveworksdemos/catalogue",
+        "oracle": false
+      },
+      {
+        "id": "R15-carts-hostname",
+        "passed": true,
+        "detail": "Service carts:80 -> weaveworksdemos/carts:80",
+        "oracle": true
+      },
+      {
+        "id": "R15b-carts-hostname-service",
+        "passed": true,
+        "detail": "Service carts selects weaveworksdemos/carts",
+        "oracle": false
+      },
+      {
+        "id": "R17-orders-hostname",
+        "passed": true,
+        "detail": "Service orders:80 -> weaveworksdemos/orders:80",
+        "oracle": true
+      },
+      {
+        "id": "R17b-orders-hostname-service",
+        "passed": true,
+        "detail": "Service orders selects weaveworksdemos/orders",
+        "oracle": false
+      },
+      {
+        "id": "R19-payment-hostname",
+        "passed": true,
+        "detail": "Service payment:80 -> weaveworksdemos/payment:80",
+        "oracle": true
+      },
+      {
+        "id": "R19b-payment-hostname-service",
+        "passed": true,
+        "detail": "Service payment selects weaveworksdemos/payment",
+        "oracle": false
+      },
+      {
+        "id": "R20-shipping-hostname",
+        "passed": true,
+        "detail": "Service shipping:80 -> weaveworksdemos/shipping:80",
+        "oracle": true
+      },
+      {
+        "id": "R20b-shipping-hostname-service",
+        "passed": true,
+        "detail": "Service shipping selects weaveworksdemos/shipping",
+        "oracle": false
+      },
+      {
+        "id": "R22-user-hostname",
+        "passed": true,
+        "detail": "Service user:80 -> weaveworksdemos/user:80",
+        "oracle": true
+      },
+      {
+        "id": "R22b-user-hostname-service",
+        "passed": true,
+        "detail": "Service user selects weaveworksdemos/user",
+        "oracle": false
+      },
+      {
+        "id": "R14-catalogue-db-hostname",
+        "passed": true,
+        "detail": "Service catalogue-db:3306 -> weaveworksdemos/catalogue-db:3306",
+        "oracle": false
+      },
+      {
+        "id": "R16-carts-db-hostname",
+        "passed": true,
+        "detail": "Service carts-db:27017 -> mongo:27017",
+        "oracle": false
+      },
+      {
+        "id": "R18-orders-db-hostname",
+        "passed": true,
+        "detail": "Service orders-db:27017 -> mongo:27017",
+        "oracle": false
+      },
+      {
+        "id": "R21-rabbitmq-hostname",
+        "passed": true,
+        "detail": "Service rabbitmq:5672 -> rabbitmq:5672",
+        "oracle": false
+      },
+      {
+        "id": "R23-user-db-hostname",
+        "passed": true,
+        "detail": "Service user-db:27017 -> weaveworksdemos/user-db:27017",
+        "oracle": false
+      },
+      {
+        "id": "R24-catalogue-db-database",
+        "passed": true,
+        "detail": "MYSQL_DATABASE=['socksdb']",
+        "oracle": false
+      },
+      {
+        "id": "R25-catalogue-db-root-password",
+        "passed": true,
+        "detail": "root password option set in 1/1 container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R26-rabbitmq-guest-account",
+        "passed": true,
+        "detail": "guest account kept",
+        "oracle": false
+      },
+      {
+        "id": "R27-front-end-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": true
+      },
+      {
+        "id": "R27b-front-end-external-any-port",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 26,
+    "requirements_total": 27,
+    "pct": 96.3
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "mongo:3.4",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "rabbitmq:3.6.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/carts:0.4.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/catalogue-db:0.3.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/catalogue:0.3.5",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/edge-router:0.1.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/front-end:0.3.12",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/load-test:0.1.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/orders:0.4.7",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/payment:0.4.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/queue-master:0.3.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/shipping:0.4.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/user-db:0.4.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/user:0.4.4",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 9,
+    "expected_replicas": 15,
+    "workloads": [
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "carts",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "catalogue",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "edge-router",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "front-end",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "orders",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "payment",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "queue-master",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "shipping",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "user",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "user-sim",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "carts-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "catalogue-db",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "orders-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "rabbitmq",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "user-db",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "carts-557d4d6d8d-tgczn",
+          "container": "carts",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error"
+        },
+        {
+          "pod": "catalogue-57d648c8c8-sm796",
+          "container": "catalogue",
+          "restarts": 4,
+          "last_exit": 0,
+          "last_reason": "Completed"
+        },
+        {
+          "pod": "catalogue-db-0",
+          "container": "catalogue-db",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error"
+        },
+        {
+          "pod": "orders-59df5f7d9c-8sf98",
+          "container": "orders",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error"
+        },
+        {
+          "pod": "queue-master-7f6b4d485-schtw",
+          "container": "queue-master",
+          "restarts": 4,
+          "last_exit": 137,
+          "last_reason": "OOMKilled"
+        },
+        {
+          "pod": "shipping-5977795d8d-429n7",
+          "container": "shipping",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error"
+        }
+      ],
+      "warning_events": {
+        "catalogue-57d648c8c8-sm796|Unhealthy: Readiness probe failed": 31,
+        "carts-557d4d6d8d-tgczn|Unhealthy: Readiness probe failed": 25,
+        "orders-59df5f7d9c-8sf98|Unhealthy: Readiness probe failed": 25,
+        "shipping-5977795d8d-429n7|Unhealthy: Readiness probe failed": 24,
+        "catalogue-db-0|BackOff: Back-off restarting failed container catalogue-db in pod cat": 15,
+        "queue-master-7f6b4d485-schtw|BackOff: Back-off restarting failed container queue-master in pod que": 9,
+        "queue-master-7f6b4d485-schtw|Unhealthy: Readiness probe failed": 8,
+        "carts-557d4d6d8d-tgczn|Unhealthy: Liveness probe failed": 6,
+        "catalogue-57d648c8c8-sm796|Unhealthy: Liveness probe failed": 6,
+        "orders-59df5f7d9c-8sf98|Unhealthy: Liveness probe failed": 6,
+        "shipping-5977795d8d-429n7|Unhealthy: Liveness probe failed": 6,
+        "user-55598b5f49-fqs6j|Unhealthy: Readiness probe failed": 3
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-9844b1d0",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "home-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "catalogue-list",
+        "passed": false,
+        "detail": "HTTP 500, body lacks 'Nerd leg'"
+      },
+      {
+        "name": "tags-list",
+        "passed": false,
+        "detail": "HTTP 500, body lacks 'tags'"
+      },
+      {
+        "name": "login-demo-user",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cart-read",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

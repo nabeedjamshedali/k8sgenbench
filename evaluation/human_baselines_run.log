@@ -1,0 +1,95 @@
+##### P02_n8n recreate 15:48:54
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+human__P02_n8n: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=13/13
+    D2 kubescape=75 trivy={'critical': 0, 'high': 9, 'medium': 10, 'low': 24} pss=baseline secrets=2
+    D3 kube-score crit/warn=13/3 polaris=62 zhang=9 checklist=40.0%
+    D5 apply_ok=True ready=True (2/2) t=20.1s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=2.4 avail=10.0; ok=True t=2.4 avail=0.0; ok=True t=1.1 avail=0.0
+    D6 container_crash: ok=True t=0.5 avail=0.0; ok=True t=12.9 avail=0.0; ok=True t=27.3 avail=0.0
+##### P03_grafana recreate 16:01:59
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+human__P03_grafana: parse=OK docs=3 kubeconform_valid=True server_ok=True (3/3) d4=3/3
+    D2 kubescape=73.333336 trivy={'critical': 0, 'high': 2, 'medium': 5, 'low': 10} pss=baseline secrets=0
+    D3 kube-score crit/warn=8/2 polaris=61 zhang=3 checklist=40.0%
+    D5 apply_ok=True ready=True (1/1) t=84.0s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=29.7 avail=29.2; ok=True t=28.5 avail=33.9; ok=True t=28.2 avail=29.6
+    D6 container_crash: ok=True t=28.6 avail=49.3; ok=True t=41.4 avail=20.3; ok=True t=48.1 avail=22.2
+##### P04_voting-app recreate 16:16:48
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+human__P04_voting-app: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=11/12
+    D2 kubescape=72.666664 trivy={'critical': 0, 'high': 15, 'medium': 23, 'low': 55} pss=baseline secrets=1
+    D3 kube-score crit/warn=34/6 polaris=49 zhang=20 checklist=4.0%
+    D5 apply_ok=True ready=True (5/5) t=13.2s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=1.8 avail=84.2; ok=True t=1.1 avail=78.3; ok=True t=1.7 avail=76.9
+    D6 container_crash: ok=True t=0.5 avail=78.4; ok=True t=14.1 avail=43.9; ok=True t=25.1 avail=43.5
+##### P08_sock-shop recreate 16:27:36
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+human__P08_sock-shop: parse=OK docs=29 kubeconform_valid=True server_ok=True (29/29) d4=27/27
+    D2 kubescape=76.190475 trivy={'critical': 0, 'high': 20, 'medium': 70, 'low': 80} pss=baseline secrets=1
+    D3 kube-score crit/warn=80/15 polaris=69 zhang=25 checklist=30.7%
+    D5 apply_ok=True ready=False (0/0) t=Nones smoke=False reason=no_workloads aliased_images=0
+    D6 SKIPPED(not_deployed)
+##### P10_k8s-dashboard recreate 16:45:45
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ docker run -d --restart=always --name k8sgen-registry -p 127.0.0.1:5001:5000 registry:2.8.3
+failed: request returned 500 Internal Server Error for API route and version http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping, check if the server supports the requested API version
+
+cluster recreate failed
+24 rows -> C:\workspace\research papers\kubernetes\evaluation\results\results.csv

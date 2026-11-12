@@ -1,0 +1,683 @@
+```yaml
+---
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+
+---
+# Secret for Postgres credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+type: Opaque
+stringData:
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "postgres"  # Replace with a strong password / use external secret manager in real prod
+
+---
+# ConfigMap for Redis healthcheck script
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-healthcheck
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+data:
+  redis.sh: |
+    #!/bin/sh
+    set -e
+    redis-cli ping | grep -q PONG
+
+---
+# ConfigMap for Postgres healthcheck script
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-healthcheck
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+data:
+  postgres.sh: |
+    #!/bin/sh
+    set -e
+    pg_isready -U "$POSTGRES_USER" -d postgres
+
+---
+# Redis Service (headless for stable DNS + regular for clients)
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/part-of: voting-app
+spec:
+  selector:
+    app.kubernetes.io/name: redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+  type: ClusterIP
+
+---
+# Redis Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/part-of: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/part-of: voting-app
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        fsGroup: 999
+      containers:
+        - name: redis
+          image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: redis
+              containerPort: 6379
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "/healthchecks/redis.sh"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command: ["/bin/sh", "/healthchecks/redis.sh"]
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: healthchecks
+              mountPath: /healthchecks
+              readOnly: true
+      volumes:
+        - name: healthchecks
+          configMap:
+            name: redis-healthcheck
+            defaultMode: 0755
+
+---
+# Postgres Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/part-of: voting-app
+spec:
+  selector:
+    app.kubernetes.io/name: db
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+
+---
+# Postgres PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-data
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/part-of: voting-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+# Postgres Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/part-of: voting-app
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: db
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: db
+        app.kubernetes.io/part-of: voting-app
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
+        - name: db
+          image: postgres:15-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: postgres
+              containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: postgres-secret
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command: ["/bin/sh", "/healthchecks/postgres.sh"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 5
+          livenessProbe:
+            exec:
+              command: ["/bin/sh", "/healthchecks/postgres.sh"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 5
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+            - name: healthchecks
+              mountPath: /healthchecks
+              readOnly: true
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: db-data
+        - name: healthchecks
+          configMap:
+            name: postgres-healthcheck
+            defaultMode: 0755
+
+---
+# Vote Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: vote
+    app.kubernetes.io/part-of: voting-app
+spec:
+  selector:
+    app.kubernetes.io/name: vote
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+# Vote Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: vote
+    app.kubernetes.io/part-of: voting-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vote
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vote
+        app.kubernetes.io/part-of: voting-app
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: vote
+          image: dockersamples/examplevotingapp_vote:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+---
+# Result Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: result
+    app.kubernetes.io/part-of: voting-app
+spec:
+  selector:
+    app.kubernetes.io/name: result
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+# Result Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: result
+    app.kubernetes.io/part-of: voting-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: result
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: result
+        app.kubernetes.io/part-of: voting-app
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: result
+          image: dockersamples/examplevotingapp_result:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: POSTGRES_HOST
+              value: db
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+---
+# Worker Deployment (no Service needed — consumes from Redis, writes to Postgres)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/part-of: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: worker
+        app.kubernetes.io/part-of: voting-app
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: worker
+          image: dockersamples/examplevotingapp_worker:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+            - name: POSTGRES_HOST
+              value: db
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+
+---
+# Ingress for external access to vote and result
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: voting-app
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: vote.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vote
+                port:
+                  number: 80
+    - host: result.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: result
+                port:
+                  number: 80
+
+---
+# PodDisruptionBudget for vote (high availability)
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: vote-pdb
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: vote
+    app.kubernetes.io/part-of: voting-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vote
+
+---
+# PodDisruptionBudget for result (high availability)
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: result-pdb
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: result
+    app.kubernetes.io/part-of: voting-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: result
+
+---
+# HorizontalPodAutoscaler for vote
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: vote-hpa
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: vote
+    app.kubernetes.io/part-of: voting-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: vote
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# HorizontalPodAutoscaler for result
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: result-hpa
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/name: result
+    app.kubernetes.io/part-of: voting-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: result
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# NetworkPolicy: restrict Redis to only vote + worker
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-allow-vote-worker
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: vote
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: worker
+      ports:
+        - protocol: TCP
+          port: 6379
+
+---
+# NetworkPolicy: restrict Postgres to only result + worker
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-allow-result-worker
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: db
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: result
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: worker
+      ports:
+        - protocol: TCP
+          port: 5432
+
+---
+# NetworkPolicy: deny all ingress by default in namespace (allow DNS egress is implicit via kube-dns allow rule below)
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+
+---
+# NetworkPolicy: allow ingress to vote and result from ingress controller namespace
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-controller
+  namespace: voting-app
+  labels:
+    app.kubernetes.io/part-of: voting-app
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values: ["vote", "result"]
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 80
+```
