@@ -341,9 +341,15 @@ def diagnostics(targets):
             for cs in (p.get("status") or {}).get("containerStatuses") or []:
                 term = ((cs.get("lastState") or {}).get("terminated")) or {}
                 if cs.get("restartCount") or not cs.get("ready"):
-                    pods.append({"pod": p["metadata"]["name"], "container": cs["name"],
-                                 "restarts": cs.get("restartCount", 0), "last_exit": term.get("exitCode"),
-                                 "last_reason": term.get("reason")})
+                    entry = {"pod": p["metadata"]["name"], "container": cs["name"],
+                             "restarts": cs.get("restartCount", 0), "last_exit": term.get("exitCode"),
+                             "last_reason": term.get("reason")}
+                    if cs.get("restartCount") and len(pods) < 12:
+                        # the crashed run's last lines usually name the cause (e.g. "chown: Operation not permitted")
+                        lg = kubectl("logs", "-n", n, p["metadata"]["name"], "-c", cs["name"], "--previous",
+                                     "--tail", "6", timeout=30)
+                        entry["last_log"] = (lg.stdout or "").strip()[-600:]
+                    pods.append(entry)
         for e in kjson("get", "events", "-n", n, "--field-selector", "type=Warning").get("items", []):
             msg = (e.get("message") or "").split(":")[0][:60]
             key = f"{e['involvedObject'].get('name')}|{e.get('reason')}: {msg}"
