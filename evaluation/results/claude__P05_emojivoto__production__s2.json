@@ -1,0 +1,624 @@
+{
+  "project": "P05_emojivoto",
+  "source": "claude",
+  "prompt_variant": "production",
+  "sample_k": "2",
+  "timestamp": "2026-11-12T17:54:45Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 19,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 19,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 19,
+    "objects_accepted": 19,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "emojivoto",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "emoji",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "voting",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "vote-bot",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "emoji",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "emoji-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "voting",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "voting-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "web-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "vote-bot",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "emoji",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "voting",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "default-deny-ingress",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-web-ingress",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-web-to-grpc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-prometheus-to-voting",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 495,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 4,
+    "Deployment": 4,
+    "Service": 3,
+    "PodDisruptionBudget": 3,
+    "NetworkPolicy": 4
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 100,
+      "frameworks": {
+        "NSA": 100,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "failed": []
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 4,
+        "low": 0
+      },
+      "failed": [
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container emoji-svc in deployment emoji (namespace: emojivoto) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container vote-bot in deployment vote-bot (namespace: emojivoto) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container voting-svc in deployment voting (namespace: emojivoto) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container web-svc in deployment web (namespace: emojivoto) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 4,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 10,
+      "warning": 7,
+      "critical_by_check": {
+        "container-image-pull-policy": 4,
+        "container-ephemeral-storage-request-and-limit": 4,
+        "pod-probes-identical": 2
+      },
+      "warning_by_check": {
+        "pod-networkpolicy": 4,
+        "deployment-has-host-podantiaffinity": 3
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 90,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 4,
+        "missingNetworkPolicy[warning]": 4,
+        "priorityClassNotSet[warning]": 4,
+        "pullPolicyNotAlways[warning]": 4,
+        "deploymentMissingReplicas[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "livenessProbeMissing[warning]": 1,
+        "readinessProbeMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 6,
+      "by_check": {
+        "no-anti-affinity": 3,
+        "pdb-unhealthy-pod-eviction-policy": 3
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 3,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 3,
+      "zhang_density_per_kloc": 6.1,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 4,
+      "pct": 85.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 4,
+          "applicable": 4
+        },
+        "1_replicas_ge_2": {
+          "met": 3,
+          "applicable": 4
+        },
+        "2_readiness": {
+          "met": 3,
+          "applicable": 4
+        },
+        "3_liveness": {
+          "met": 3,
+          "applicable": 4
+        },
+        "4_cpu_request": {
+          "met": 4,
+          "applicable": 4
+        },
+        "5_mem_request": {
+          "met": 4,
+          "applicable": 4
+        },
+        "6_mem_limit": {
+          "met": 4,
+          "applicable": 4
+        },
+        "7_rolling_update": {
+          "met": 3,
+          "applicable": 4
+        },
+        "8_pdb": {
+          "met": 3,
+          "applicable": 4
+        },
+        "9_spread": {
+          "met": 3,
+          "applicable": 4
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "emoji",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "voting",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "web",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "vote-bot",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-web-deployed",
+        "passed": true,
+        "detail": "1 web server container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-emoji-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-voting-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-vote-bot-deployed",
+        "passed": true,
+        "detail": "1 container(s) of buoyantio/emojivoto-web running emojivoto-vote-bot",
+        "oracle": false
+      },
+      {
+        "id": "R05-web-port",
+        "passed": true,
+        "detail": "WEB_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R06-emoji-grpc-port",
+        "passed": true,
+        "detail": "GRPC_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R07-voting-grpc-port",
+        "passed": true,
+        "detail": "GRPC_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R08-emojisvc-host",
+        "passed": true,
+        "detail": "EMOJISVC_HOST=['emoji-svc.emojivoto:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R09-votingsvc-host",
+        "passed": true,
+        "detail": "VOTINGSVC_HOST=['voting-svc.emojivoto:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R10-index-bundle",
+        "passed": true,
+        "detail": "INDEX_BUNDLE=['dist/index_bundle.js']",
+        "oracle": false
+      },
+      {
+        "id": "R11-bot-web-host",
+        "passed": true,
+        "detail": "WEB_HOST=['web-svc.emojivoto:80']",
+        "oracle": false
+      },
+      {
+        "id": "R12-web-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 11,
+    "requirements_total": 12,
+    "pct": 91.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "buoyantio/emojivoto-emoji-svc:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "buoyantio/emojivoto-voting-svc:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "buoyantio/emojivoto-web:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 6.4,
+    "ready_replicas": 7,
+    "expected_replicas": 7,
+    "workloads": [
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "emoji",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "vote-bot",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "voting",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "emojivoto",
+        "kind": "Deployment",
+        "name": "web",
+        "ready": 2,
+        "want": 2
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-663eb4b1",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "allow-web-ingress: any source"
+    },
+    "smoke": [
+      {
+        "name": "web-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "list-emoji",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cast-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "leaderboard-has-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "web-svc",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "web-96647c5d5-gvzn7",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.6,
+        "availability_pct": 100.0,
+        "n_probes": 31
+      },
+      {
+        "ran": true,
+        "victim": "web-96647c5d5-mhwph",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 2.4,
+        "availability_pct": 100.0,
+        "n_probes": 34
+      },
+      {
+        "ran": true,
+        "victim": "web-96647c5d5-5wvtl",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.5,
+        "availability_pct": 100.0,
+        "n_probes": 30
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "web-96647c5d5-2kffm",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.4,
+        "availability_pct": 86.7,
+        "n_probes": 30
+      },
+      {
+        "ran": true,
+        "victim": "web-96647c5d5-tj4fm",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 2.4,
+        "availability_pct": 91.4,
+        "n_probes": 35
+      },
+      {
+        "ran": true,
+        "victim": "web-96647c5d5-2kffm",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 14.2,
+        "availability_pct": 96.6,
+        "n_probes": 89
+      }
+    ],
+    "gate": "ready"
+  }
+}

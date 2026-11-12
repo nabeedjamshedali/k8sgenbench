@@ -93,3 +93,103 @@ deepseek__P04_voting-app__production__s3: parse=OK docs=26 kubeconform_valid=Tru
     D5 apply_ok=True ready=False (6/7) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
     D6 SKIPPED(not_deployed)
 ##### P05_emojivoto recreate 22:49:33 (5 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P05_emojivoto production s1 22:51:06
+claude__P05_emojivoto__production__s1: parse=OK docs=18 kubeconform_valid=True server_ok=True (18/18) d4=11/12
+    D2 kubescape=100 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 0} pss=restricted secrets=0
+    D3 kube-score crit/warn=11/7 polaris=90 zhang=3 checklist=85.0%
+    D5 apply_ok=True ready=True (7/7) t=10.6s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=2.3 avail=100.0; ok=True t=2.5 avail=100.0; ok=True t=2.5 avail=100.0
+    D6 container_crash: ok=True t=1.5 avail=96.8; ok=True t=2.4 avail=97.1; ok=True t=13.1 avail=96.3
+== claude P05_emojivoto production s2 22:54:44
+claude__P05_emojivoto__production__s2: parse=OK docs=19 kubeconform_valid=True server_ok=True (19/19) d4=11/12
+    D2 kubescape=100 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 0} pss=restricted secrets=0
+    D3 kube-score crit/warn=10/7 polaris=90 zhang=3 checklist=85.0%
+    D5 apply_ok=True ready=True (7/7) t=6.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=1.6 avail=100.0; ok=True t=2.4 avail=100.0; ok=True t=1.5 avail=100.0
+    D6 container_crash: ok=True t=1.4 avail=86.7; ok=True t=2.4 avail=91.4; ok=True t=14.2 avail=96.6
+== claude P05_emojivoto production s3 22:57:43
+claude__P05_emojivoto__production__s3: parse=OK docs=19 kubeconform_valid=True server_ok=True (19/19) d4=11/12
+    D2 kubescape=100 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 0} pss=restricted secrets=0
+    D3 kube-score crit/warn=11/7 polaris=91 zhang=3 checklist=85.0%
+    D5 apply_ok=True ready=True (7/7) t=8.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=3.1 avail=100.0; ok=True t=1.8 avail=100.0; ok=True t=1.3 avail=100.0
+    D6 container_crash: ok=True t=2.2 avail=100.0; ok=True t=1.6 avail=100.0; ok=True t=11.7 avail=97.5
+== deepseek P05_emojivoto production s2 23:00:38
+deepseek__P05_emojivoto__production__s2: parse=OK docs=16 kubeconform_valid=True server_ok=True (16/16) d4=12/12
+    D2 kubescape=86.666664 trivy={'critical': 0, 'high': 8, 'medium': 8, 'low': 12} pss=baseline secrets=0
+    D3 kube-score crit/warn=19/7 polaris=85 zhang=7 checklist=77.5%
+    D5 apply_ok=True ready=True (7/7) t=17.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.4 avail=98.6; ok=True t=11.0 avail=100.0; ok=True t=10.9 avail=100.0
+    D6 container_crash: ok=True t=11.2 avail=96.0; ok=True t=11.4 avail=100.0; ok=True t=22.5 avail=96.8
+== deepseek P05_emojivoto production s3 23:04:44
+deepseek__P05_emojivoto__production__s3: parse=OK docs=16 kubeconform_valid=True server_ok=True (16/16) d4=12/12
+    D2 kubescape=93.333336 trivy={'critical': 0, 'high': 0, 'medium': 8, 'low': 12} pss=baseline secrets=0
+    D3 kube-score crit/warn=15/4 polaris=87 zhang=0 checklist=85.0%
+    D5 apply_ok=True ready=True (7/7) t=16.6s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=12.1 avail=98.7; ok=True t=11.7 avail=100.0; ok=True t=10.9 avail=100.0
+    D6 container_crash: ok=True t=11.3 avail=97.3; ok=True t=11.3 avail=98.6; ok=True t=22.2 avail=98.4
+##### P08_sock-shop recreate 23:09:01 (6 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P08_sock-shop neutral s1 23:10:38
+claude__P08_sock-shop__neutral__s1: parse=OK docs=31 kubeconform_valid=True server_ok=True (31/31) d4=27/27
+    D2 kubescape=74.66667 trivy={'critical': 0, 'high': 18, 'medium': 71, 'low': 86} pss=none secrets=1
+    D3 kube-score crit/warn=85/16 polaris=67 zhang=29 checklist=20.0%
+    D5 apply_ok=True ready=False (13/15) t=Nones smoke=True reason=CrashLoopBackOff aliased_images=0
+    D6 pod_delete: ok=True t=1.0 avail=28.6; ok=True t=0.7 avail=26.9; ok=True t=0.3 avail=28.0
+    D6 container_crash: ok=True t=1.1 avail=8.7; ok=True t=14.2 avail=0.0; ok=True t=24.3 avail=1.5
+== claude P08_sock-shop neutral s2 23:30:59

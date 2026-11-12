@@ -1,0 +1,531 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.76.0"
+  },
+  "ReportID": "01a1d0e8-d355-7ba6-9842-9c608b8dbffa",
+  "CreatedAt": "2026-11-12T22:58:01.8137634+05:00",
+  "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/claude__P05_emojivoto__production__s3/manifest.yaml",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "manifest.yaml",
+      "Class": "config",
+      "Type": "kubernetes",
+      "MisconfSummary": {
+        "Successes": 99,
+        "Failures": 4
+      },
+      "Misconfigurations": [
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0125",
+          "Title": "Restrict container images to trusted registries",
+          "Description": "Ensure that all containers use images only from trusted registry domains.",
+          "Message": "Container emoji-svc in deployment emoji (namespace: emojivoto) uses an image from an untrusted registry.",
+          "Namespace": "builtin.kubernetes.KSV0125",
+          "Query": "data.builtin.kubernetes.KSV0125.deny",
+          "Resolution": "Use images from trusted registries.",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0125",
+          "References": [
+            "https://cloud.google.com/container-registry/docs/overview#registries",
+            "https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+            "https://avd.aquasec.com/misconfig/ksv-0125"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 76,
+            "EndLine": 114,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 76,
+                  "Content": "      - name: emoji-svc",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: emoji-svc",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 77,
+                  "Content": "        image: buoyantio/emojivoto-emoji-svc:v11",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-emoji-svc:v11",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 78,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 79,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 80,
+                  "Content": "        - name: GRPC_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: GRPC_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 81,
+                  "Content": "          value: '8080'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 82,
+                  "Content": "        - name: PROM_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PROM_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 83,
+                  "Content": "          value: '8801'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8801'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 84,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 85,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0125",
+          "Title": "Restrict container images to trusted registries",
+          "Description": "Ensure that all containers use images only from trusted registry domains.",
+          "Message": "Container vote-bot in deployment vote-bot (namespace: emojivoto) uses an image from an untrusted registry.",
+          "Namespace": "builtin.kubernetes.KSV0125",
+          "Query": "data.builtin.kubernetes.KSV0125.deny",
+          "Resolution": "Use images from trusted registries.",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0125",
+          "References": [
+            "https://cloud.google.com/container-registry/docs/overview#registries",
+            "https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+            "https://avd.aquasec.com/misconfig/ksv-0125"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 308,
+            "EndLine": 328,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 308,
+                  "Content": "      - name: vote-bot",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote-bot",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 309,
+                  "Content": "        image: buoyantio/emojivoto-web:v11",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-web:v11",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 310,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 311,
+                  "Content": "        command:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mcommand\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 312,
+                  "Content": "        - emojivoto-vote-bot",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - emojivoto-vote-bot",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 313,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 314,
+                  "Content": "        - name: WEB_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: WEB_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 315,
+                  "Content": "          value: web-svc.emojivoto:80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: web-svc.emojivoto:80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 316,
+                  "Content": "        resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 317,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0125",
+          "Title": "Restrict container images to trusted registries",
+          "Description": "Ensure that all containers use images only from trusted registry domains.",
+          "Message": "Container voting-svc in deployment voting (namespace: emojivoto) uses an image from an untrusted registry.",
+          "Namespace": "builtin.kubernetes.KSV0125",
+          "Query": "data.builtin.kubernetes.KSV0125.deny",
+          "Resolution": "Use images from trusted registries.",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0125",
+          "References": [
+            "https://cloud.google.com/container-registry/docs/overview#registries",
+            "https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+            "https://avd.aquasec.com/misconfig/ksv-0125"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 156,
+            "EndLine": 194,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 156,
+                  "Content": "      - name: voting-svc",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: voting-svc",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 157,
+                  "Content": "        image: buoyantio/emojivoto-voting-svc:v11",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-voting-svc:v11",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 158,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 159,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 160,
+                  "Content": "        - name: GRPC_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: GRPC_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 161,
+                  "Content": "          value: '8080'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 162,
+                  "Content": "        - name: PROM_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PROM_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 163,
+                  "Content": "          value: '8801'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8801'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 164,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 165,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0125",
+          "Title": "Restrict container images to trusted registries",
+          "Description": "Ensure that all containers use images only from trusted registry domains.",
+          "Message": "Container web-svc in deployment web (namespace: emojivoto) uses an image from an untrusted registry.",
+          "Namespace": "builtin.kubernetes.KSV0125",
+          "Query": "data.builtin.kubernetes.KSV0125.deny",
+          "Resolution": "Use images from trusted registries.",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0125",
+          "References": [
+            "https://cloud.google.com/container-registry/docs/overview#registries",
+            "https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+            "https://avd.aquasec.com/misconfig/ksv-0125"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 236,
+            "EndLine": 278,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 236,
+                  "Content": "      - name: web-svc",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: web-svc",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 237,
+                  "Content": "        image: buoyantio/emojivoto-web:v11",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-web:v11",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 238,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 239,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 240,
+                  "Content": "        - name: WEB_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: WEB_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 241,
+                  "Content": "          value: '8080'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 242,
+                  "Content": "        - name: EMOJISVC_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: EMOJISVC_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 243,
+                  "Content": "          value: emoji-svc.emojivoto:8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: emoji-svc.emojivoto:8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 244,
+                  "Content": "        - name: VOTINGSVC_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: VOTINGSVC_HOST",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 245,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
