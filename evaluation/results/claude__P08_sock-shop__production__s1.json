@@ -1,0 +1,2259 @@
+{
+  "project": "P08_sock-shop",
+  "source": "claude",
+  "prompt_variant": "production",
+  "sample_k": "1",
+  "timestamp": "2026-11-12T18:56:47Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 53,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 53,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 53,
+    "objects_accepted": 53,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "sock-shop",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ResourceQuota",
+        "name": "sock-shop-quota",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "LimitRange",
+        "name": "sock-shop-defaults",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "catalogue-db-credentials",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "sock-shop",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "edge-router-tmp-note",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "sock-shop",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "queue-master",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "queue-master",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "rabbitmq",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "rabbitmq",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "HorizontalPodAutoscaler",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "default-deny-ingress",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-edge-router-ingress",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-backend-from-front",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "allow-rabbitmq",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 1459,
+  "resource_counts": {
+    "Namespace": 1,
+    "ResourceQuota": 1,
+    "LimitRange": 1,
+    "Secret": 1,
+    "ServiceAccount": 1,
+    "Deployment": 10,
+    "Service": 14,
+    "PodDisruptionBudget": 8,
+    "ConfigMap": 1,
+    "Ingress": 1,
+    "StatefulSet": 4,
+    "HorizontalPodAutoscaler": 1,
+    "NetworkPolicy": 9
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 96.42857,
+      "frameworks": {
+        "NSA": 94.64286,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=3171789119/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=3238899595/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=362107187/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=362107187/api=apps/v1/sock-shop/StatefulSet/catalogue-db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=412440044/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=429364758/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=512267115/api=apps/v1/sock-shop/StatefulSet/user-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=530177567/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=546808091/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=580363329/api=apps/v1/sock-shop/StatefulSet/carts-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=580510424/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=596993853/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=597140948/api=apps/v1/sock-shop/StatefulSet/orders-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=647620900/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=681176138/api=apps/v1/sock-shop/Deployment/rabbitmq",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 30,
+        "low": 119
+      },
+      "failed": [
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-db' of StatefulSet 'user-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-db' of StatefulSet 'user-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue-db' of StatefulSet 'catalogue-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment carts in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment catalogue in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment edge-router in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment orders in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment payment in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment queue-master in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment shipping in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment user in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container carts in deployment carts (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container catalogue in deployment catalogue (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container catalogue-db in statefulset catalogue-db (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container edge-router in deployment edge-router (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container front-end in deployment front-end (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container orders in deployment orders (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container payment in deployment payment (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container queue-master in deployment queue-master (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container shipping in deployment shipping (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user in deployment user (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user-db in statefulset user-db (namespace: sock-shop) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 1,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "catalogue-db-credentials",
+          "key": "MYSQL_ROOT_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 14,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "edge-router",
+            "detail": "deployment.apps/edge-router created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"edge-router\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"edge-router\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "StatefulSet",
+            "name": "catalogue-db",
+            "detail": "statefulset.apps/catalogue-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"catalogue-db\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"FOWNER\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"catalogue-db\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 62,
+      "warning": 25,
+      "critical_by_check": {
+        "container-security-context-user-group-id": 14,
+        "container-image-pull-policy": 14,
+        "container-ephemeral-storage-request-and-limit": 14,
+        "pod-probes-identical": 14,
+        "deployment-targeted-by-hpa-does-not-have-replicas-configured": 1,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "statefulset-has-servicename": 4
+      },
+      "warning_by_check": {
+        "pod-networkpolicy": 14,
+        "deployment-has-host-podantiaffinity": 8,
+        "deployment-strategy": 1,
+        "deployment-replicas": 2
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 90,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 14,
+        "missingNetworkPolicy[warning]": 14,
+        "priorityClassNotSet[warning]": 14,
+        "pullPolicyNotAlways[warning]": 14,
+        "topologySpreadConstraint[warning]": 13,
+        "runAsRootAllowed[danger]": 2,
+        "deploymentMissingReplicas[warning]": 2,
+        "missingPodDisruptionBudget[warning]": 2,
+        "notReadOnlyRootFilesystem[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 19,
+      "by_check": {
+        "no-anti-affinity": 8,
+        "pdb-unhealthy-pod-eviction-policy": 8,
+        "run-as-non-root": 2,
+        "no-read-only-root-fs": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 8,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 2,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 11,
+      "zhang_density_per_kloc": 7.5,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 14,
+      "pct": 80.9,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 14,
+          "applicable": 14
+        },
+        "1_replicas_ge_2": {
+          "met": 8,
+          "applicable": 10
+        },
+        "2_readiness": {
+          "met": 14,
+          "applicable": 14
+        },
+        "3_liveness": {
+          "met": 14,
+          "applicable": 14
+        },
+        "4_cpu_request": {
+          "met": 14,
+          "applicable": 14
+        },
+        "5_mem_request": {
+          "met": 14,
+          "applicable": 14
+        },
+        "6_mem_limit": {
+          "met": 14,
+          "applicable": 14
+        },
+        "7_rolling_update": {
+          "met": 9,
+          "applicable": 14
+        },
+        "8_pdb": {
+          "met": 8,
+          "applicable": 14
+        },
+        "9_spread": {
+          "met": 1,
+          "applicable": 14
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "front-end",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "edge-router",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "catalogue",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "catalogue-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "carts",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "carts-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "orders",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "orders-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "shipping",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "queue-master",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "rabbitmq",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "payment",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "user",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "user-db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-front-end-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-catalogue-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-catalogue-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-carts-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R05-orders-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R06-payment-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R07-shipping-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R08-queue-master-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R09-rabbitmq-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R10-user-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R11-user-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R12-two-mongo-databases",
+        "passed": true,
+        "detail": "2 mongo workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R13-catalogue-hostname",
+        "passed": true,
+        "detail": "Service catalogue:80 -> weaveworksdemos/catalogue:80",
+        "oracle": true
+      },
+      {
+        "id": "R13b-catalogue-hostname-service",
+        "passed": true,
+        "detail": "Service catalogue selects weaveworksdemos/catalogue",
+        "oracle": false
+      },
+      {
+        "id": "R15-carts-hostname",
+        "passed": true,
+        "detail": "Service carts:80 -> weaveworksdemos/carts:80",
+        "oracle": true
+      },
+      {
+        "id": "R15b-carts-hostname-service",
+        "passed": true,
+        "detail": "Service carts selects weaveworksdemos/carts",
+        "oracle": false
+      },
+      {
+        "id": "R17-orders-hostname",
+        "passed": true,
+        "detail": "Service orders:80 -> weaveworksdemos/orders:80",
+        "oracle": true
+      },
+      {
+        "id": "R17b-orders-hostname-service",
+        "passed": true,
+        "detail": "Service orders selects weaveworksdemos/orders",
+        "oracle": false
+      },
+      {
+        "id": "R19-payment-hostname",
+        "passed": true,
+        "detail": "Service payment:80 -> weaveworksdemos/payment:80",
+        "oracle": true
+      },
+      {
+        "id": "R19b-payment-hostname-service",
+        "passed": true,
+        "detail": "Service payment selects weaveworksdemos/payment",
+        "oracle": false
+      },
+      {
+        "id": "R20-shipping-hostname",
+        "passed": true,
+        "detail": "Service shipping:80 -> weaveworksdemos/shipping:80",
+        "oracle": true
+      },
+      {
+        "id": "R20b-shipping-hostname-service",
+        "passed": true,
+        "detail": "Service shipping selects weaveworksdemos/shipping",
+        "oracle": false
+      },
+      {
+        "id": "R22-user-hostname",
+        "passed": true,
+        "detail": "Service user:80 -> weaveworksdemos/user:80",
+        "oracle": true
+      },
+      {
+        "id": "R22b-user-hostname-service",
+        "passed": true,
+        "detail": "Service user selects weaveworksdemos/user",
+        "oracle": false
+      },
+      {
+        "id": "R14-catalogue-db-hostname",
+        "passed": true,
+        "detail": "Service catalogue-db:3306 -> weaveworksdemos/catalogue-db:3306",
+        "oracle": false
+      },
+      {
+        "id": "R16-carts-db-hostname",
+        "passed": true,
+        "detail": "Service carts-db:27017 -> mongo:27017",
+        "oracle": false
+      },
+      {
+        "id": "R18-orders-db-hostname",
+        "passed": true,
+        "detail": "Service orders-db:27017 -> mongo:27017",
+        "oracle": false
+      },
+      {
+        "id": "R21-rabbitmq-hostname",
+        "passed": true,
+        "detail": "Service rabbitmq:5672 -> rabbitmq:5672",
+        "oracle": false
+      },
+      {
+        "id": "R23-user-db-hostname",
+        "passed": true,
+        "detail": "Service user-db:27017 -> weaveworksdemos/user-db:27017",
+        "oracle": false
+      },
+      {
+        "id": "R24-catalogue-db-database",
+        "passed": true,
+        "detail": "MYSQL_DATABASE=['socksdb']",
+        "oracle": false
+      },
+      {
+        "id": "R25-catalogue-db-root-password",
+        "passed": true,
+        "detail": "root password option set in 1/1 container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R26-rabbitmq-guest-account",
+        "passed": true,
+        "detail": "guest account kept",
+        "oracle": false
+      },
+      {
+        "id": "R27-front-end-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": true
+      },
+      {
+        "id": "R27b-front-end-external-any-port",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 26,
+    "requirements_total": 27,
+    "pct": 96.3
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "mongo:3.4",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "rabbitmq:3.6.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/carts:0.4.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/catalogue-db:0.3.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/catalogue:0.3.5",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/edge-router:0.1.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/front-end:0.3.12",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/orders:0.4.7",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/payment:0.4.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/queue-master:0.3.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/shipping:0.4.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/user-db:0.4.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/user:0.4.4",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 15,
+    "expected_replicas": 22,
+    "workloads": [
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "carts",
+        "ready": 0,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "catalogue",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "edge-router",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "front-end",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "orders",
+        "ready": 0,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "payment",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "queue-master",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "rabbitmq",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "shipping",
+        "ready": 0,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "user",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "carts-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "catalogue-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "orders-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "StatefulSet",
+        "name": "user-db",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": "NotReady(probe)",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "carts-d98777b46-fbknc",
+          "container": "carts",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "figuration; factoryMethodName=managementServletContext; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/actuate/autoconfigure/EndpointWebMvcAutoConfiguration.class]]\n2026-11-12 19:03:50.022  WARN [carts,,,] 11 --- [           main] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'."
+        },
+        {
+          "pod": "carts-d98777b46-pz7lt",
+          "container": "carts",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "port$$EnhancerBySpringCGLIB$$2cb0e9ff] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)\n2026-11-12 19:04:01.848  INFO [carts,,,] 11 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [class org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$b894f39] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)"
+        },
+        {
+          "pod": "orders-845c697d8f-gbfwh",
+          "container": "orders",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "iguration; factoryMethodName=managementServletContext; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/actuate/autoconfigure/EndpointWebMvcAutoConfiguration.class]]\n2026-11-12 19:03:56.175  WARN [orders,,,] 11 --- [           main] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'."
+        },
+        {
+          "pod": "orders-845c697d8f-qtqbb",
+          "container": "orders",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "    main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=25db8119-5d6f-367e-84c5-6fabdc42a9e4\n2026-11-12 19:03:58.814  INFO [orders,,,] 12 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.sleuth.instrument.async.AsyncDefaultAutoConfiguration$DefaultAsyncConfigurerSupport' of type [class org.springframework.cloud.sleuth.instrument.async.AsyncDefaultAutoConfiguration$DefaultAsyncConfigurerSupport$$EnhancerBySpringCGLIB$$2cb0e9ff] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)"
+        },
+        {
+          "pod": "queue-master-6d56d78d87-jkbrq",
+          "container": "queue-master",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "gframework.hateoas.core.DelegatingRelProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)\n2026-11-12 19:03:52.063  INFO 11 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.data.rest.SpringBootRepositoryRestMvcConfiguration' of type [class org.springframework.boot.autoconfigure.data.rest.SpringBootRepositoryRestMvcConfiguration$$EnhancerBySpringCGLIB$$5aeee2a6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)"
+        },
+        {
+          "pod": "shipping-58bf7bfc4c-22jv2",
+          "container": "shipping",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "rk.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration$$EnhancerBySpringCGLIB$$ed7a9212] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)\n2026-11-12 19:04:06.822  INFO [shipping,,,] 11 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.jackson-org.springframework.boot.autoconfigure.jackson.JacksonProperties' of type [class org.springframework.boot.autoconfigure.jackson.JacksonProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)"
+        },
+        {
+          "pod": "shipping-58bf7bfc4c-4nmlz",
+          "container": "shipping",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)\n2026-11-12 19:04:00.880  INFO [shipping,,,] 11 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.sleuth.instrument.async.AsyncDefaultAutoConfiguration$DefaultAsyncConfigurerSupport' of type [class org.springframework.cloud.sleuth.instrument.async.AsyncDefaultAutoConfiguration$DefaultAsyncConfigurerSupport$$EnhancerBySpringCGLIB$$ecaddee3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)"
+        }
+      ],
+      "warning_events": {
+        "carts-d98777b46-fbknc|Unhealthy: Readiness probe failed": 22,
+        "carts-d98777b46-pz7lt|Unhealthy: Readiness probe failed": 22,
+        "orders-845c697d8f-gbfwh|Unhealthy: Readiness probe failed": 22,
+        "orders-845c697d8f-qtqbb|Unhealthy: Readiness probe failed": 22,
+        "queue-master-6d56d78d87-jkbrq|Unhealthy: Readiness probe failed": 22,
+        "shipping-58bf7bfc4c-22jv2|Unhealthy: Readiness probe failed": 22,
+        "shipping-58bf7bfc4c-4nmlz|Unhealthy: Readiness probe failed": 22,
+        "front-end|FailedGetResourceMetric: failed to get cpu utilization": 21,
+        "front-end|FailedComputeMetricsReplicas: invalid metrics (1 invalid out of 1), first error is": 12,
+        "catalogue-54b45fb944-ks4kw|Unhealthy: Readiness probe failed": 7,
+        "catalogue-54b45fb944-ppxj4|Unhealthy: Readiness probe failed": 6,
+        "rabbitmq-577b567b4f-g5t2j|Unhealthy: Readiness probe failed": 5,
+        "carts-d98777b46-fbknc|Unhealthy: Liveness probe failed": 3,
+        "carts-d98777b46-pz7lt|Unhealthy: Liveness probe failed": 3,
+        "orders-845c697d8f-gbfwh|Unhealthy: Liveness probe failed": 3,
+        "orders-845c697d8f-qtqbb|Unhealthy: Liveness probe failed": 3,
+        "queue-master-6d56d78d87-jkbrq|Unhealthy: Liveness probe failed": 3,
+        "shipping-58bf7bfc4c-22jv2|Unhealthy: Liveness probe failed": 3,
+        "shipping-58bf7bfc4c-4nmlz|Unhealthy: Liveness probe failed": 3,
+        "catalogue-db-0|Unhealthy: Readiness probe failed": 2,
+        "user-d865b75cf-g6nwn|Unhealthy: Readiness probe failed": 2,
+        "user-d865b75cf-sbl88|Unhealthy: Readiness probe failed": 2,
+        "catalogue-54b45fb944-ks4kw|Unhealthy: Liveness probe failed": 1,
+        "catalogue-54b45fb944-ppxj4|Unhealthy: Liveness probe failed": 1,
+        "catalogue-db-0|Unhealthy: Liveness probe failed": 1,
+        "rabbitmq-577b567b4f-g5t2j|Unhealthy: Liveness probe failed": 1
+      }
+    },
+    "client_placement": {
+      "namespace": "sock-shop",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {
+        "app": "edge-router"
+      },
+      "via": "allow-front-end"
+    },
+    "smoke": [
+      {
+        "name": "home-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "catalogue-list",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "tags-list",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "login-demo-user",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'Cookie is set'"
+      },
+      {
+        "name": "cart-read",
+        "passed": false,
+        "detail": "HTTP 000"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}
