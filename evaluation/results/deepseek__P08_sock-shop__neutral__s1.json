@@ -1,0 +1,2535 @@
+{
+  "project": "P08_sock-shop",
+  "source": "deepseek",
+  "prompt_variant": "neutral",
+  "sample_k": "1",
+  "timestamp": "2026-11-12T19:15:58Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 31,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 31,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 31,
+    "objects_accepted": 31,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "sock-shop",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "front-end",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "edge-router",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "catalogue",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "catalogue-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "catalogue-db-secret",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "carts",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "carts-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "orders",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "orders-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "shipping",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "queue-master",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "queue-master",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "rabbitmq",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "rabbitmq",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "payment",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "user",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "user-db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "user-sim",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 863,
+  "resource_counts": {
+    "Namespace": 1,
+    "Service": 14,
+    "Deployment": 15,
+    "Secret": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 79.111115,
+      "frameworks": {
+        "NSA": 69.333336,
+        "MITRE": 92.941185
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 3,
+        "medium": 6,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0045",
+          "name": "Writable hostPath mount"
+        },
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0048",
+          "name": "HostPath mount"
+        },
+        {
+          "resource": "path=1207343459/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1240898697/api=apps/v1/sock-shop/Deployment/rabbitmq",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1240898697/api=apps/v1/sock-shop/Deployment/rabbitmq",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1240898697/api=apps/v1/sock-shop/Deployment/rabbitmq",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1240898697/api=apps/v1/sock-shop/Deployment/rabbitmq",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1240898697/api=apps/v1/sock-shop/Deployment/rabbitmq",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1274453935/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1274453935/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1274453935/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1274453935/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1274453935/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1291378649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1291378649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1291378649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1291378649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1291378649/api=apps/v1/sock-shop/Deployment/user-sim",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1308009173/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1308009173/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1308009173/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1308009173/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1308009173/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1341564411/api=apps/v1/sock-shop/Deployment/user-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1341564411/api=apps/v1/sock-shop/Deployment/user-db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1341564411/api=apps/v1/sock-shop/Deployment/user-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1341564411/api=apps/v1/sock-shop/Deployment/user-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1341564411/api=apps/v1/sock-shop/Deployment/user-db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1342005696/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1342005696/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1342005696/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1342005696/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1342005696/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1476226648/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1476226648/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1476226648/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1476226648/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1476226648/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1509781886/api=apps/v1/sock-shop/Deployment/carts-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1509781886/api=apps/v1/sock-shop/Deployment/carts-db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1509781886/api=apps/v1/sock-shop/Deployment/carts-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1509781886/api=apps/v1/sock-shop/Deployment/carts-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1509781886/api=apps/v1/sock-shop/Deployment/carts-db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1543337124/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1543337124/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1543337124/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1543337124/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1543337124/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1576892362/api=apps/v1/sock-shop/Deployment/orders-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1576892362/api=apps/v1/sock-shop/Deployment/orders-db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1576892362/api=apps/v1/sock-shop/Deployment/orders-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1576892362/api=apps/v1/sock-shop/Deployment/orders-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1576892362/api=apps/v1/sock-shop/Deployment/orders-db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=174140096/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=174140096/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=174140096/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=174140096/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=174140096/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=207695334/api=/v1//Namespace/sock-shop",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=241250572/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=241250572/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=241250572/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=241250572/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=241250572/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=274805810/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=274805810/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=274805810/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=274805810/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=274805810/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0012",
+          "name": "Applications credentials in configuration files"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=341916286/api=apps/v1/sock-shop/Deployment/catalogue-db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 18,
+        "medium": 78,
+        "low": 53
+      },
+      "failed": [
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'carts-db' of Deployment 'carts-db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue-db' of Deployment 'catalogue-db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'orders-db' of Deployment 'orders-db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'user-db' of Deployment 'user-db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of Deployment 'catalogue-db' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of 'deployment' 'catalogue-db' in 'sock-shop' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0006",
+          "title": "hostPath volume mounted with docker.sock",
+          "severity": "HIGH",
+          "message": "Deployment 'queue-master' should not specify '/var/run/docker.socker' in 'spec.template.volumes.hostPath.path'"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'carts-db' of Deployment 'carts-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue-db' of Deployment 'catalogue-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'orders-db' of Deployment 'orders-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user-db' of Deployment 'user-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'catalogue-db' of Deployment 'catalogue-db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts-db' of Deployment 'carts-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of Deployment 'catalogue-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders-db' of Deployment 'orders-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-db' of Deployment 'user-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'carts-db' of Deployment 'carts-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'catalogue-db' of Deployment 'catalogue-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'orders-db' of Deployment 'orders-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-db' of Deployment 'user-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'user-sim' of Deployment 'user-sim' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'carts-db' of Deployment 'carts-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'orders-db' of Deployment 'orders-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'rabbitmq' of Deployment 'rabbitmq' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'user-db' of Deployment 'user-db' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0023",
+          "title": "hostPath volumes mounted",
+          "severity": "MEDIUM",
+          "message": "Deployment 'queue-master' should not set 'spec.template.volumes.hostPath'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"carts\" of deployment \"carts\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"carts-db\" of deployment \"carts-db\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"catalogue\" of deployment \"catalogue\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"catalogue-db\" of deployment \"catalogue-db\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"edge-router\" of deployment \"edge-router\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"front-end\" of deployment \"front-end\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"orders\" of deployment \"orders\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"orders-db\" of deployment \"orders-db\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"payment\" of deployment \"payment\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"queue-master\" of deployment \"queue-master\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"rabbitmq\" of deployment \"rabbitmq\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"shipping\" of deployment \"shipping\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"user\" of deployment \"user\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"user-db\" of deployment \"user-db\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"user-sim\" of deployment \"user-sim\" in \"sock-shop\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should not add stuff"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment carts in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment catalogue in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment edge-router in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment orders in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment payment in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment queue-master in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment shipping in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment user in sock-shop namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container catalogue-db in sock-shop namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment carts in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment carts-db in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment catalogue in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment catalogue-db in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment edge-router in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment front-end in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment orders in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment orders-db in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment payment in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment queue-master in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment rabbitmq in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment shipping in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment user in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment user-db in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment user-sim in sock-shop namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container carts in deployment carts (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container catalogue in deployment catalogue (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container catalogue-db in deployment catalogue-db (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container edge-router in deployment edge-router (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container front-end in deployment front-end (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container orders in deployment orders (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container payment in deployment payment (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container queue-master in deployment queue-master (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container shipping in deployment shipping (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user in deployment user (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user-db in deployment user-db (namespace: sock-shop) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container user-sim in deployment user-sim (namespace: sock-shop) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 1,
+      "findings": [
+        {
+          "type": "env-literal",
+          "object": "catalogue-db",
+          "container": "catalogue-db",
+          "key": "MYSQL_ALLOW_EMPTY_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "none",
+      "n_objects": 15,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "front-end",
+            "detail": "deployment.apps/front-end created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"front-end\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"front-end\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"front-end\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "edge-router",
+            "detail": "atest\": allowPrivilegeEscalation != false (container \"edge-router\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"edge-router\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"edge-router\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"edge-router\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "catalogue",
+            "detail": "deployment.apps/catalogue created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"catalogue\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"catalogue\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"catalogue\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "catalogue-db",
+            "detail": "g: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"catalogue-db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"catalogue-db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"catalogue-db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"catalogue-db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "carts",
+            "detail": "deployment.apps/carts created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"carts\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"carts\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"carts\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "carts-db",
+            "detail": "te PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"carts-db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"carts-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"carts-db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"carts-db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "orders",
+            "detail": "deployment.apps/orders created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"orders\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"orders\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"orders\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "orders-db",
+            "detail": "odSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"orders-db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"orders-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"orders-db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"orders-db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "shipping",
+            "detail": "deployment.apps/shipping created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"shipping\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"shipping\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"shipping\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "queue-master",
+            "detail": "er dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"queue-master\" must set securityContext.allowPrivilegeEscalation=false), restricted volume types (volume \"docker-sock\" uses restricted volume type \"hostPath\"), runAsNonRoot != true (pod or container \"queue-master\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"queue-master\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "rabbitmq",
+            "detail": "restricted:latest\": allowPrivilegeEscalation != false (container \"rabbitmq\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"rabbitmq\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"rabbitmq\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"rabbitmq\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "payment",
+            "detail": "deployment.apps/payment created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"payment\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"payment\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"payment\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "user",
+            "detail": "deployment.apps/user created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"user\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"user\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"user\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "user-db",
+            "detail": "iolate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"user-db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"user-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"user-db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"user-db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "user-sim",
+            "detail": "deployment.apps/user-sim created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"user-sim\" must set securityContext.allowPrivilegeEscalation=false), runAsNonRoot != true (pod or container \"user-sim\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"user-sim\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": [
+          {
+            "kind": "Deployment",
+            "name": "queue-master",
+            "detail": "deployment.apps/queue-master created (server dry run)\nWarning: would violate PodSecurity \"baseline:latest\": hostPath volumes (volume \"docker-sock\")"
+          }
+        ]
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 75,
+      "warning": 15,
+      "critical_by_check": {
+        "container-ephemeral-storage-request-and-limit": 15,
+        "pod-networkpolicy": 15,
+        "container-security-context-user-group-id": 15,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "container-image-pull-policy": 15,
+        "pod-probes": 14
+      },
+      "warning_by_check": {
+        "deployment-replicas": 14,
+        "service-type": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 72,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 15,
+        "metadataAndInstanceMismatched[warning]": 15,
+        "missingPodDisruptionBudget[warning]": 15,
+        "automountServiceAccountToken[warning]": 15,
+        "missingNetworkPolicy[warning]": 15,
+        "priorityClassNotSet[warning]": 15,
+        "topologySpreadConstraint[warning]": 15,
+        "livenessProbeMissing[warning]": 15,
+        "privilegeEscalationAllowed[danger]": 15,
+        "pullPolicyNotAlways[warning]": 15,
+        "readinessProbeMissing[warning]": 15,
+        "runAsRootAllowed[danger]": 15,
+        "insecureCapabilities[warning]": 1,
+        "linuxHardening[warning]": 1,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "sensitiveContainerEnvVar[danger]": 1,
+        "hostPathSet[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 17,
+      "by_check": {
+        "run-as-non-root": 15,
+        "no-read-only-root-fs": 1,
+        "docker-sock": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 15,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 16,
+      "zhang_density_per_kloc": 18.5,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 15,
+      "pct": 40.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 15,
+          "applicable": 15
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 15
+        },
+        "2_readiness": {
+          "met": 0,
+          "applicable": 15
+        },
+        "3_liveness": {
+          "met": 0,
+          "applicable": 15
+        },
+        "4_cpu_request": {
+          "met": 15,
+          "applicable": 15
+        },
+        "5_mem_request": {
+          "met": 15,
+          "applicable": 15
+        },
+        "6_mem_limit": {
+          "met": 15,
+          "applicable": 15
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 15
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 15
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 15
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "front-end",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "edge-router",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "catalogue",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "catalogue-db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "carts",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "carts-db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "orders",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "orders-db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "shipping",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "queue-master",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "rabbitmq",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "payment",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "user",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "user-db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "user-sim",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-front-end-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-catalogue-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-catalogue-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-carts-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R05-orders-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R06-payment-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R07-shipping-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R08-queue-master-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R09-rabbitmq-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R10-user-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R11-user-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R12-two-mongo-databases",
+        "passed": true,
+        "detail": "2 mongo workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R13-catalogue-hostname",
+        "passed": true,
+        "detail": "Service catalogue:80 -> weaveworksdemos/catalogue:80",
+        "oracle": true
+      },
+      {
+        "id": "R13b-catalogue-hostname-service",
+        "passed": true,
+        "detail": "Service catalogue selects weaveworksdemos/catalogue",
+        "oracle": false
+      },
+      {
+        "id": "R15-carts-hostname",
+        "passed": true,
+        "detail": "Service carts:80 -> weaveworksdemos/carts:80",
+        "oracle": true
+      },
+      {
+        "id": "R15b-carts-hostname-service",
+        "passed": true,
+        "detail": "Service carts selects weaveworksdemos/carts",
+        "oracle": false
+      },
+      {
+        "id": "R17-orders-hostname",
+        "passed": true,
+        "detail": "Service orders:80 -> weaveworksdemos/orders:80",
+        "oracle": true
+      },
+      {
+        "id": "R17b-orders-hostname-service",
+        "passed": true,
+        "detail": "Service orders selects weaveworksdemos/orders",
+        "oracle": false
+      },
+      {
+        "id": "R19-payment-hostname",
+        "passed": true,
+        "detail": "Service payment:80 -> weaveworksdemos/payment:80",
+        "oracle": true
+      },
+      {
+        "id": "R19b-payment-hostname-service",
+        "passed": true,
+        "detail": "Service payment selects weaveworksdemos/payment",
+        "oracle": false
+      },
+      {
+        "id": "R20-shipping-hostname",
+        "passed": true,
+        "detail": "Service shipping:80 -> weaveworksdemos/shipping:80",
+        "oracle": true
+      },
+      {
+        "id": "R20b-shipping-hostname-service",
+        "passed": true,
+        "detail": "Service shipping selects weaveworksdemos/shipping",
+        "oracle": false
+      },
+      {
+        "id": "R22-user-hostname",
+        "passed": true,
+        "detail": "Service user:80 -> weaveworksdemos/user:80",
+        "oracle": true
+      },
+      {
+        "id": "R22b-user-hostname-service",
+        "passed": true,
+        "detail": "Service user selects weaveworksdemos/user",
+        "oracle": false
+      },
+      {
+        "id": "R14-catalogue-db-hostname",
+        "passed": true,
+        "detail": "Service catalogue-db:3306 -> weaveworksdemos/catalogue-db:3306",
+        "oracle": false
+      },
+      {
+        "id": "R16-carts-db-hostname",
+        "passed": true,
+        "detail": "Service carts-db:27017 -> mongo:27017",
+        "oracle": false
+      },
+      {
+        "id": "R18-orders-db-hostname",
+        "passed": true,
+        "detail": "Service orders-db:27017 -> mongo:27017",
+        "oracle": false
+      },
+      {
+        "id": "R21-rabbitmq-hostname",
+        "passed": true,
+        "detail": "Service rabbitmq:5672 -> rabbitmq:5672",
+        "oracle": false
+      },
+      {
+        "id": "R23-user-db-hostname",
+        "passed": true,
+        "detail": "Service user-db:27017 -> weaveworksdemos/user-db:27017",
+        "oracle": false
+      },
+      {
+        "id": "R24-catalogue-db-database",
+        "passed": true,
+        "detail": "MYSQL_DATABASE=['socksdb']",
+        "oracle": false
+      },
+      {
+        "id": "R25-catalogue-db-root-password",
+        "passed": true,
+        "detail": "root password option set in 1/1 container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R26-rabbitmq-guest-account",
+        "passed": true,
+        "detail": "guest account kept",
+        "oracle": false
+      },
+      {
+        "id": "R27-front-end-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": true
+      },
+      {
+        "id": "R27b-front-end-external-any-port",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 26,
+    "requirements_total": 27,
+    "pct": 96.3
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "mongo:3.4",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "rabbitmq:3.6.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/carts:0.4.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/catalogue-db:0.3.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/catalogue:0.3.5",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/edge-router:0.1.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/front-end:0.3.12",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/load-test:0.1.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/orders:0.4.7",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/payment:0.4.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/queue-master:0.3.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/shipping:0.4.8",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/user-db:0.4.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "weaveworksdemos/user:0.4.4",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 14,
+    "expected_replicas": 15,
+    "workloads": [
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "carts",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "carts-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "catalogue",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "catalogue-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "edge-router",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "front-end",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "orders",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "orders-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "payment",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "queue-master",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "rabbitmq",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "shipping",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "user",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "user-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "sock-shop",
+        "kind": "Deployment",
+        "name": "user-sim",
+        "ready": 0,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "queue-master-6d75956c7-74zgd",
+          "container": "queue-master",
+          "restarts": 2,
+          "last_exit": 137,
+          "last_reason": "OOMKilled",
+          "last_log": "trationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]\n2026-11-12 19:20:52.999  INFO 10 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]\n2026-11-12 19:20:53.501  INFO 10 --- [ost-startStop-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [105] milliseconds.\n2026-11-12 19:20:56.008  INFO 10 --- [           main] o.s.b.f.config.PropertiesFactoryBean     : Loading properties file from class path resource [rest-default-messages.properties]"
+        },
+        {
+          "pod": "user-sim-8459cc8755-k7pxh",
+          "container": "user-sim",
+          "restarts": 5,
+          "last_exit": 139,
+          "last_reason": "Error",
+          "last_log": ""
+        }
+      ],
+      "warning_events": {
+        "user-sim-8459cc8755-k7pxh|BackOff: Back-off restarting failed container user-sim in pod user-si": 7,
+        "queue-master-6d75956c7-74zgd|BackOff: Back-off restarting failed container queue-master in pod que": 2
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-d48c08d3",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "home-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "catalogue-list",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "tags-list",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "login-demo-user",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cart-read",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "front-end",
+    "n_ready_before": 1,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "front-end-7878fc7ff6-kgrsd",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.8,
+        "availability_pct": 22.6,
+        "n_probes": 31
+      },
+      {
+        "ran": true,
+        "victim": "front-end-7878fc7ff6-qpl4d",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.5,
+        "availability_pct": 0.0,
+        "n_probes": 29
+      },
+      {
+        "ran": true,
+        "victim": "front-end-7878fc7ff6-v2xpb",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.6,
+        "availability_pct": 0.0,
+        "n_probes": 29
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "front-end-7878fc7ff6-4w585",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.2,
+        "availability_pct": 0.0,
+        "n_probes": 28
+      },
+      {
+        "ran": true,
+        "victim": "front-end-7878fc7ff6-4w585",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 16.2,
+        "availability_pct": 0.0,
+        "n_probes": 54
+      },
+      {
+        "ran": true,
+        "victim": "front-end-7878fc7ff6-4w585",
+        "victim_prior_restarts": 2,
+        "recovery_ok": true,
+        "recovery_time_s": 21.8,
+        "availability_pct": 0.0,
+        "n_probes": 63
+      }
+    ],
+    "gate": "smoke_only"
+  }
+}

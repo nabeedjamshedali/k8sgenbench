@@ -211,3 +211,58 @@ claude__P08_sock-shop__production__s1: parse=OK docs=53 kubeconform_valid=True s
     D5 apply_ok=True ready=False (15/22) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
     D6 SKIPPED(not_deployed)
 == deepseek P08_sock-shop neutral s1 00:15:57
+deepseek__P08_sock-shop__neutral__s1: parse=OK docs=31 kubeconform_valid=True server_ok=True (31/31) d4=26/27
+    D2 kubescape=79.111115 trivy={'critical': 0, 'high': 18, 'medium': 78, 'low': 53} pss=none secrets=1
+    D3 kube-score crit/warn=75/15 polaris=72 zhang=16 checklist=40.0%
+    D5 apply_ok=True ready=False (14/15) t=Nones smoke=True reason=CrashLoopBackOff aliased_images=0
+    D6 pod_delete: ok=True t=1.8 avail=22.6; ok=True t=1.5 avail=0.0; ok=True t=1.6 avail=0.0
+    D6 container_crash: ok=True t=1.2 avail=0.0; ok=True t=16.2 avail=0.0; ok=True t=21.8 avail=0.0
+== deepseek P08_sock-shop neutral s2 00:25:45
+deepseek__P08_sock-shop__neutral__s2: parse=OK docs=30 kubeconform_valid=True server_ok=True (30/30) d4=26/27
+    D2 kubescape=75.77779 trivy={'critical': 0, 'high': 18, 'medium': 71, 'low': 128} pss=none secrets=1
+    D3 kube-score crit/warn=90/15 polaris=61 zhang=46 checklist=10.0%
+    D5 apply_ok=True ready=False (14/15) t=Nones smoke=True reason=CrashLoopBackOff aliased_images=0
+    D6 pod_delete: ok=True t=0.4 avail=60.9; ok=True t=1.8 avail=75.0; ok=True t=1.1 avail=65.4
+    D6 container_crash: ok=True t=1.6 avail=48.3; ok=True t=11.3 avail=15.6; ok=True t=23.1 avail=15.9
+##### P10_k8s-dashboard recreate 00:34:59 (6 configs)
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe delete cluster --name k8sgen
++ docker inspect k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get clusters
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe create cluster --config C:\workspace\research papers\kubernetes\tools\kind-cluster.yaml --wait 180s
++ docker network connect kind k8sgen-registry
++ C:\workspace\research papers\kubernetes\tools\bin\kind.exe get nodes --name k8sgen
++ docker exec k8sgen-control-plane mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-control-plane mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-control-plane sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-control-plane sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker3 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker3 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker3 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker3 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker2 mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker2 mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker2 sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker2 sh -c systemctl daemon-reload && systemctl restart containerd
++ docker exec k8sgen-worker mkdir -p /etc/containerd/certs.d/_default
++ docker exec -i k8sgen-worker sh -c cat > /etc/containerd/certs.d/_default/hosts.toml
++ docker exec k8sgen-worker mkdir -p /etc/systemd/system/containerd.service.d
++ docker exec -i k8sgen-worker sh -c cat > /etc/systemd/system/containerd.service.d/10-nofile.conf
++ docker exec k8sgen-worker sh -c systemctl daemon-reload && systemctl restart containerd
++ C:\workspace\research papers\kubernetes\tools\bin\kubectl.exe wait --for=condition=Ready nodes --all --timeout=180s
+cluster k8sgen: 4 nodes; mirror k8sgen-registry (host port 5001)
+== claude P10_k8s-dashboard production s1 00:37:06
+claude__P10_k8s-dashboard__production__s1: parse=OK docs=20 kubeconform_valid=True server_ok=True (20/20) d4=6/7
+    D2 kubescape=91.666664 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/2 polaris=91 zhang=0 checklist=100.0%
+    D5 apply_ok=True ready=True (4/4) t=26.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.2 avail=98.6; ok=True t=11.5 avail=98.6; ok=True t=12.1 avail=100.0
+    D6 container_crash: ok=True t=12.0 avail=94.7; ok=True t=11.1 avail=97.1; ok=True t=23.3 avail=98.4
+== claude P10_k8s-dashboard production s2 00:44:07
+   eval FAILED (exit 4) for claude P10_k8s-dashboard production s2
+      1 [main] bash 14962 dofork: child -1 - forked process 9404 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/r8_batch.sh: fork: retry: Resource temporarily unavailable
+1808499 [main] bash 14962 dofork: child -1 - forked process 21988 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/r8_batch.sh: fork: retry: Resource temporarily unavailable
