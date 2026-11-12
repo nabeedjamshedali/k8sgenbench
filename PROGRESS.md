@@ -713,3 +713,16 @@ failure, biasing results against well-written configs.
   - README.md (replication package) written: layout, requirements, the 4-command regeneration of all numbers/tables/figures from stored results, re-running evaluation and generation, notes on image-tag resolution and PROGRESS.md as the log. All commands verified to exist (--locked, --recreate, relay import).
   - tools/versions.lock now pins the kubeconform schema cache.
   - TODO-FINAL count: 20 (results 12, discussion 6, conclusion 2).
+
+### 2026-11-12 23:40 GitHub repository
+- https://github.com/nabeedjamshedali/k8sgenbench (PRIVATE; created via the API with the user's stored Git Credential Manager login; the token was never printed). Branch main, initial commit aa16219, 2,259 files. No co-author trailer, per the user.
+- Excluded via .gitignore (verified before the push):
+  - .env;
+  - datasets/.cache/ (490 MB of upstream clones, re-fetchable);
+  - tools/bin/ (703 MB of binaries, reinstallable);
+  - papers/* except our own index, bib and verification (third-party PDFs, plus a personal employment letter that must never be pushed);
+  - generation/.tmp_hf_profile/ and any *_profile/ or .tmp_*/ (browser profiles may hold cookies);
+  - LaTeX build outputs and runtime stop files.
+- Secret scan before the push: none of the .env key values appear in any tracked file; regex hits were only Trivy's own example rule files.
+- core.autocrlf=false in this repo, so files stay byte-identical (prompt hashes, manifests).
+- From now on: commit and push after each milestone (plain commit messages, no co-author lines).
