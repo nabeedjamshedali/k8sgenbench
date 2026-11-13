@@ -1,0 +1,288 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: n8n
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: n8n-secrets
+  namespace: n8n
+type: Opaque
+stringData:
+  POSTGRES_USER: changeUser
+  POSTGRES_PASSWORD: changePassword
+  POSTGRES_DB: n8n
+  POSTGRES_NON_ROOT_USER: changeUser
+  POSTGRES_NON_ROOT_PASSWORD: changePassword
+  RUNNERS_AUTH_TOKEN: changeRunnerAuthToken
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: n8n-config
+  namespace: n8n
+data:
+  N8N_VERSION: 2.43.5
+  init-data.sh: "#!/bin/bash\nset -e;\n\nif [ -n \"${POSTGRES_NON_ROOT_USER:-}\" ]\
+    \ && [ -n \"${POSTGRES_NON_ROOT_PASSWORD:-}\" ]; then\n  psql -v ON_ERROR_STOP=1\
+    \ --username \"$POSTGRES_USER\" --dbname \"$POSTGRES_DB\" <<-EOSQL\n    CREATE\
+    \ USER ${POSTGRES_NON_ROOT_USER} WITH PASSWORD '${POSTGRES_NON_ROOT_PASSWORD}';\n\
+    \    GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO ${POSTGRES_NON_ROOT_USER};\n\
+    \    GRANT CREATE ON SCHEMA public TO ${POSTGRES_NON_ROOT_USER};\n  EOSQL\nelse\n\
+    \  echo \"SETUP INFO: No Environment variables given!\"\nfi\n"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+  namespace: n8n
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: n8n-data
+  namespace: n8n
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: n8n
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:18
+        ports:
+        - containerPort: 5432
+        envFrom:
+        - secretRef:
+            name: n8n-secrets
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+        - name: init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -h
+            - localhost
+            - -U
+            - $(POSTGRES_USER)
+            - -d
+            - $(POSTGRES_DB)
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 10
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -h
+            - localhost
+            - -U
+            - $(POSTGRES_USER)
+            - -d
+            - $(POSTGRES_DB)
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: postgres-data
+      - name: init-scripts
+        configMap:
+          name: n8n-config
+          items:
+          - key: init-data.sh
+            path: init-data.sh
+          defaultMode: 493
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: n8n
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app: n8n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: n8n
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: n8n
+    spec:
+      containers:
+      - name: n8n
+        image: docker.n8n.io/n8nio/n8n:2.43.5
+        ports:
+        - containerPort: 5678
+        - containerPort: 5679
+        env:
+        - name: DB_TYPE
+          value: postgresdb
+        - name: DB_POSTGRESDB_HOST
+          value: postgres
+        - name: DB_POSTGRESDB_PORT
+          value: '5432'
+        - name: DB_POSTGRESDB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_DB
+        - name: DB_POSTGRESDB_USER
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_USER
+        - name: DB_POSTGRESDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_PASSWORD
+        - name: N8N_RUNNERS_MODE
+          value: external
+        - name: N8N_RUNNERS_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: RUNNERS_AUTH_TOKEN
+        - name: N8N_RUNNERS_BROKER_LISTEN_ADDRESS
+          value: 0.0.0.0
+        volumeMounts:
+        - name: n8n-data
+          mountPath: /home/node/.n8n
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5678
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5678
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: n8n-data
+        persistentVolumeClaim:
+          claimName: n8n-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: n8n
+spec:
+  selector:
+    app: n8n
+  ports:
+  - name: http
+    port: 5678
+    targetPort: 5678
+    protocol: TCP
+  - name: broker
+    port: 5679
+    targetPort: 5679
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n-runner
+  namespace: n8n
+  labels:
+    app: n8n-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: n8n-runner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: n8n-runner
+    spec:
+      containers:
+      - name: n8n-runner
+        image: n8nio/runners:2.43.5
+        env:
+        - name: N8N_RUNNERS_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: RUNNERS_AUTH_TOKEN
+        - name: N8N_RUNNERS_TASK_BROKER_URI
+          value: http://n8n:5679
+        readinessProbe:
+          tcpSocket:
+            port: 5679
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          tcpSocket:
+            port: 5679
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
