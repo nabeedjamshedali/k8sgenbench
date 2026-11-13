@@ -108,3 +108,16 @@ claude__P10_k8s-dashboard__production__s3: parse=OK docs=19 kubeconform_valid=Tr
     D6 pod_delete: ok=True t=17.5 avail=100.0; ok=True t=10.0 avail=98.1; ok=True t=17.7 avail=99.0
     D6 container_crash: ok=True t=14.7 avail=97.7; ok=True t=16.1 avail=97.6; ok=True t=25.3 avail=97.8
 == deepseek P10_k8s-dashboard neutral s2 13:46:00
+deepseek__P10_k8s-dashboard__neutral__s2: parse=OK docs=15 kubeconform_valid=True server_ok=True (15/15) d4=6/7
+    D2 kubescape=88.888885 trivy={'critical': 1, 'high': 0, 'medium': 6, 'low': 10} pss=baseline secrets=0
+    D3 kube-score crit/warn=9/2 polaris=85 zhang=0 checklist=60.0%
+    D5 apply_ok=True ready=False (1/2) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+== deepseek P10_k8s-dashboard neutral s3 13:55:12
+deepseek__P10_k8s-dashboard__neutral__s3: parse=OK docs=18 kubeconform_valid=True server_ok=True (18/18) d4=7/7
+    D2 kubescape=80.55556 trivy={'critical': 0, 'high': 2, 'medium': 8, 'low': 20} pss=baseline secrets=0
+    D3 kube-score crit/warn=9/4 polaris=77 zhang=4 checklist=20.0%
+    D5 apply_ok=True ready=True (2/2) t=5.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.7 avail=91.3; ok=True t=0.3 avail=80.0; ok=True t=0.4 avail=90.5
+    D6 container_crash: ok=True t=0.8 avail=70.4; ok=True t=11.2 avail=22.9; ok=True t=23.7 avail=27.7
+== deepseek P10_k8s-dashboard production s1 13:59:47
