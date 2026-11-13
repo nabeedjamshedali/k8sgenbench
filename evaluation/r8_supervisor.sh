@@ -4,7 +4,7 @@
 cd "$(dirname "$0")/.."
 log=evaluation/r8_supervisor.log
 while true; do
-  grep -q "all done (resume" evaluation/r8_chain.log 2>/dev/null && { echo "$(date +%T) supervisor: R8 complete, exiting" >> $log; exit 0; }
+  grep -q "all done (final" evaluation/r8_chain.log 2>/dev/null && { echo "$(date +%T) supervisor: R8 complete, exiting" >> $log; exit 0; }
   [ -f evaluation/.r8_stop ] && { echo "$(date +%T) supervisor: stop file, exiting" >> $log; exit 0; }
   if docker info >/dev/null 2>&1; then
     if ! ps -ef | grep -v grep | grep -q "tools/mem_guard.sh"; then

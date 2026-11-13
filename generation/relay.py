@@ -21,7 +21,10 @@ PROJECTS = ["P02_n8n", "P03_grafana", "P04_voting-app", "P05_emojivoto",
 VARIANTS = ["neutral", "production"]
 SAMPLES = [1, 2, 3]
 RELAY_MODELS = {"deepseek": "via DeepSeek web chat (chat.deepseek.com), DeepThink off, Search off, fresh chat per prompt.",
-                "gpt": "via ChatGPT web (default model on Pro account), browsing/tools off, fresh chat per prompt; operated by a third party."}
+                "gpt": "via ChatGPT web (default model on Pro account; selector showed 'Thinking effort - Medium', unchanged), "
+                       "new Temporary Chat per prompt with Unpersonalized selected (no memory, plugins or custom instructions), "
+                       "no tools, no follow-up messages, reply copied with the copy button unedited; operated by a third party "
+                       "on 2026-11-13 (see relay/inbox/gpt/NOTES.txt)."}
 RELAY = HERE / "relay"
 
 

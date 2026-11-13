@@ -1,0 +1,561 @@
+```
+# ============================================================
+# Namespace
+# ============================================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: n8n
+---
+# ============================================================
+# Secrets
+# Replace placeholder credentials before deploying.
+# PostgreSQL admin and application usernames must be different.
+# ============================================================
+apiVersion: v1
+kind: Secret
+metadata:
+  name: n8n-secrets
+  namespace: n8n
+type: Opaque
+stringData:
+  POSTGRES_USER: "changeUser"
+  POSTGRES_PASSWORD: "changePassword"
+  POSTGRES_DB: "n8n"
+  POSTGRES_NON_ROOT_USER: "n8n_user"
+  POSTGRES_NON_ROOT_PASSWORD: "changeAppPassword"
+  RUNNERS_AUTH_TOKEN: "changeRunnerAuthToken"
+  N8N_ENCRYPTION_KEY: "replace-with-a-long-random-encryption-key"
+---
+# ============================================================
+# ConfigMap - PostgreSQL Initialization Script
+# Runs only when the database is first initialized.
+# ============================================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: n8n
+data:
+  init-data.sh: |
+    #!/bin/sh
+    set -eu
+
+    if [ -n "${POSTGRES_NON_ROOT_USER:-}" ] && \
+       [ -n "${POSTGRES_NON_ROOT_PASSWORD:-}" ]; then
+
+      psql \
+        -v ON_ERROR_STOP=1 \
+        --username "$POSTGRES_USER" \
+        --dbname "$POSTGRES_DB" \
+        -v app_user="$POSTGRES_NON_ROOT_USER" \
+        -v app_password="$POSTGRES_NON_ROOT_PASSWORD" \
+        -v db_name="$POSTGRES_DB" <<'EOSQL'
+
+    SELECT format(
+      'CREATE ROLE %I WITH LOGIN PASSWORD %L',
+      :'app_user',
+      :'app_password'
+    )
+    WHERE NOT EXISTS (
+      SELECT 1 FROM pg_roles WHERE rolname = :'app_user'
+    )
+    \gexec
+
+    GRANT ALL PRIVILEGES ON DATABASE :"db_name"
+      TO :"app_user";
+
+    GRANT USAGE, CREATE ON SCHEMA public
+      TO :"app_user";
+
+    EOSQL
+
+    else
+      echo "SETUP INFO: No application database credentials provided!"
+    fi
+---
+# ============================================================
+# PostgreSQL PersistentVolumeClaim
+# StorageClass: cluster default
+# ============================================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: n8n
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+# ============================================================
+# n8n PersistentVolumeClaim
+# ============================================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: n8n-pvc
+  namespace: n8n
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# ============================================================
+# PostgreSQL Service
+# ============================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: n8n
+spec:
+  type: ClusterIP
+  selector:
+    app: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+---
+# ============================================================
+# PostgreSQL Deployment
+# PostgreSQL 18
+#
+# IMPORTANT:
+# PostgreSQL 18 requires a database migration when upgrading
+# from PostgreSQL 16 or 17. Do not reuse an older major
+# version's data directory without a proper migration.
+# ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: n8n
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: postgres
+          image: postgres:18
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+
+          envFrom:
+            - secretRef:
+                name: n8n-secrets
+
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data
+
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+
+            - name: postgres-init
+              mountPath: /docker-entrypoint-initdb.d/init-data.sh
+              subPath: init-data.sh
+              readOnly: true
+
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+
+          startupProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  pg_isready \
+                    -h 127.0.0.1 \
+                    -U "$POSTGRES_USER" \
+                    -d "$POSTGRES_DB"
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  pg_isready \
+                    -h 127.0.0.1 \
+                    -U "$POSTGRES_USER" \
+                    -d "$POSTGRES_DB"
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  pg_isready \
+                    -h 127.0.0.1 \
+                    -U "$POSTGRES_USER" \
+                    -d "$POSTGRES_DB"
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+
+        - name: postgres-init
+          configMap:
+            name: postgres-init
+            defaultMode: 0755
+---
+# ============================================================
+# n8n Service
+# Port 5678: Web UI / API
+# Port 5679: External Task Runner Broker
+# ============================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: n8n
+spec:
+  type: ClusterIP
+  selector:
+    app: n8n
+  ports:
+    - name: http
+      port: 5678
+      targetPort: 5678
+      protocol: TCP
+
+    - name: task-broker
+      port: 5679
+      targetPort: 5679
+      protocol: TCP
+---
+# ============================================================
+# n8n Deployment
+# Version: 2.43.5
+# Uses PostgreSQL and External Task Runners
+# ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app: n8n
+spec:
+  replicas: 1
+
+  strategy:
+    type: Recreate
+
+  selector:
+    matchLabels:
+      app: n8n
+
+  template:
+    metadata:
+      labels:
+        app: n8n
+
+    spec:
+      terminationGracePeriodSeconds: 60
+
+      # Wait for PostgreSQL to accept authenticated connections
+      # using the n8n application database credentials.
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:18
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: PGHOST
+              value: postgres
+
+            - name: PGPORT
+              value: "5432"
+
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: POSTGRES_DB
+
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: POSTGRES_NON_ROOT_USER
+
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: POSTGRES_NON_ROOT_PASSWORD
+
+          command:
+            - /bin/sh
+            - -c
+            - |
+              until psql -w -X -tAc 'SELECT 1' | grep -q 1; do
+                echo "Waiting for PostgreSQL authentication..."
+                sleep 5
+              done
+              echo "PostgreSQL is ready."
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+
+      containers:
+        - name: n8n
+          image: docker.n8n.io/n8nio/n8n:2.43.5
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 5678
+              protocol: TCP
+
+            - name: task-broker
+              containerPort: 5679
+              protocol: TCP
+
+          env:
+            # Database configuration
+            - name: DB_TYPE
+              value: postgresdb
+
+            - name: DB_POSTGRESDB_HOST
+              value: postgres
+
+            - name: DB_POSTGRESDB_PORT
+              value: "5432"
+
+            - name: DB_POSTGRESDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: POSTGRES_DB
+
+            - name: DB_POSTGRESDB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: POSTGRES_NON_ROOT_USER
+
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: POSTGRES_NON_ROOT_PASSWORD
+
+            # External task runners
+            - name: N8N_RUNNERS_ENABLED
+              value: "true"
+
+            - name: N8N_RUNNERS_MODE
+              value: external
+
+            - name: N8N_RUNNERS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: RUNNERS_AUTH_TOKEN
+
+            - name: N8N_RUNNERS_BROKER_LISTEN_ADDRESS
+              value: "0.0.0.0"
+
+            - name: N8N_RUNNERS_BROKER_PORT
+              value: "5679"
+
+            # Application configuration
+            - name: N8N_HOST
+              value: "0.0.0.0"
+
+            - name: N8N_PORT
+              value: "5678"
+
+            - name: N8N_PROTOCOL
+              value: "http"
+
+            - name: N8N_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: N8N_ENCRYPTION_KEY
+
+            - name: NODE_ENV
+              value: production
+
+            - name: GENERIC_TIMEZONE
+              value: Asia/Karachi
+
+            - name: TZ
+              value: Asia/Karachi
+
+            - name: N8N_DIAGNOSTICS_ENABLED
+              value: "false"
+
+          volumeMounts:
+            - name: n8n-storage
+              mountPath: /home/node/.n8n
+
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 5678
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+
+          readinessProbe:
+            httpGet:
+              path: /healthz/readiness
+              port: 5678
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5678
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+      volumes:
+        - name: n8n-storage
+          persistentVolumeClaim:
+            claimName: n8n-pvc
+---
+# ============================================================
+# n8n External Task Runner Deployment
+# Version must match the main n8n version.
+# Broker connection uses internal Kubernetes service DNS.
+# ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n-runner
+  namespace: n8n
+  labels:
+    app: n8n-runner
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: n8n-runner
+
+  template:
+    metadata:
+      labels:
+        app: n8n-runner
+
+    spec:
+      terminationGracePeriodSeconds: 30
+
+      containers:
+        - name: n8n-runner
+          image: n8nio/runners:2.43.5
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: N8N_RUNNERS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: RUNNERS_AUTH_TOKEN
+
+            - name: N8N_RUNNERS_TASK_BROKER_URI
+              value: "http://n8n:5679"
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+---
+# ============================================================
+# External Access
+#
+# Access n8n through a NodePort service.
+# Replace this with an Ingress or LoadBalancer when deploying
+# behind a production HTTPS endpoint.
+#
+# Node IP:  <KUBERNETES_NODE_IP>
+# NodePort: 30678
+#
+# URL: http://<KUBERNETES_NODE_IP>:30678
+#
+# The task broker port 5679 remains internal to the cluster.
+# ============================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n-external
+  namespace: n8n
+spec:
+  type: NodePort
+  selector:
+    app: n8n
+  ports:
+    - name: http
+      port: 5678
+      targetPort: 5678
+      nodePort: 30678
+      protocol: TCP
+```

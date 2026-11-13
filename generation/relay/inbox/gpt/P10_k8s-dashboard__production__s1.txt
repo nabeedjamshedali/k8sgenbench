@@ -1,0 +1,585 @@
+```
+# Kubernetes Dashboard deployment
+#
+# Compatibility: Kubernetes Dashboard v2.7.0
+#
+# IMPORTANT:
+# The upstream Kubernetes Dashboard project was archived in
+# January 2026 and no longer receives security updates.
+# This manifest provides a hardened legacy deployment based
+# on the supplied Dashboard documentation.
+#
+# For new production installations, consider Headlamp:
+# https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+#
+# Security:
+# - HTTPS enabled
+# - Token-based authentication
+# - Skip login disabled
+# - Insecure login disabled
+# - Minimal service-account permissions
+# - No cluster-admin binding
+# - ClusterIP-only exposure
+# - Non-root containers
+# - Resource limits
+# - Health checks
+# - Network isolation via NetworkPolicy
+#
+# Prerequisite:
+# metrics-server must be installed separately for CPU/memory metrics.
+#
+# Access:
+# kubectl -n kubernetes-dashboard port-forward \
+#   svc/kubernetes-dashboard 8443:443
+#
+# URL:
+# https://localhost:8443
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    app.kubernetes.io/part-of: kubernetes-dashboard
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+automountServiceAccountToken: true
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dashboard-metrics-scraper
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: dashboard-metrics-scraper
+automountServiceAccountToken: false
+
+---
+# Dashboard certificate storage.
+# Certificates are generated automatically by the Dashboard.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-certs
+  namespace: kubernetes-dashboard
+type: Opaque
+
+---
+# Dashboard CSRF token storage.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-csrf
+  namespace: kubernetes-dashboard
+type: Opaque
+
+---
+# Dashboard encryption key storage.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-key-holder
+  namespace: kubernetes-dashboard
+type: Opaque
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubernetes-dashboard-settings
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+data: {}
+
+---
+# Permissions for Dashboard's internal configuration.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - kubernetes-dashboard-key-holder
+      - kubernetes-dashboard-certs
+      - kubernetes-dashboard-csrf
+    verbs:
+      - get
+      - update
+      - delete
+
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    resourceNames:
+      - kubernetes-dashboard-settings
+    verbs:
+      - get
+      - update
+
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - create
+
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    resourceNames:
+      - dashboard-metrics-scraper
+    verbs:
+      - proxy
+
+  - apiGroups:
+      - ""
+    resources:
+      - services/proxy
+    resourceNames:
+      - dashboard-metrics-scraper
+      - http:dashboard-metrics-scraper
+      - dashboard-metrics-scraper:8000
+      - http:dashboard-metrics-scraper:8000
+    verbs:
+      - get
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kubernetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+
+---
+# Read-only access to cluster metrics.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubernetes-dashboard-metrics
+rules:
+  - apiGroups:
+      - metrics.k8s.io
+    resources:
+      - pods
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard-metrics
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubernetes-dashboard-metrics
+subjects:
+  - kind: ServiceAccount
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+
+---
+# Kubernetes Dashboard application.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubernetes-dashboard
+      app.kubernetes.io/component: frontend
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kubernetes-dashboard
+        app.kubernetes.io/component: frontend
+
+    spec:
+      serviceAccountName: kubernetes-dashboard
+      automountServiceAccountToken: true
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 2001
+        fsGroup: 2001
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: kubernetes-dashboard
+          image: kubernetesui/dashboard:v2.7.0
+          imagePullPolicy: IfNotPresent
+
+          args:
+            - --auto-generate-certificates
+            - --namespace=kubernetes-dashboard
+            - --bind-address=0.0.0.0
+            - --port=8443
+            - --insecure-bind-address=127.0.0.1
+            - --insecure-port=9090
+            - --authentication-mode=token
+            - --token-ttl=900
+            - --api-log-level=INFO
+            - --metric-client-check-period=30
+            - --enable-insecure-login=false
+            - --enable-skip-login=false
+            - --disable-settings-authorizer=false
+            - --system-banner=Authorized users only.
+            - --system-banner-severity=INFO
+
+          ports:
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+          volumeMounts:
+            - name: dashboard-certs
+              mountPath: /certs
+
+            - name: dashboard-tmp
+              mountPath: /tmp
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: https
+              scheme: HTTPS
+            periodSeconds: 5
+            failureThreshold: 30
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+      volumes:
+        - name: dashboard-certs
+          emptyDir: {}
+
+        - name: dashboard-tmp
+          emptyDir: {}
+
+      terminationGracePeriodSeconds: 30
+
+---
+# Internal HTTPS Service.
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+spec:
+  type: ClusterIP
+
+  selector:
+    app.kubernetes.io/name: kubernetes-dashboard
+    app.kubernetes.io/component: frontend
+
+  ports:
+    - name: https
+      port: 443
+      targetPort: https
+      protocol: TCP
+
+---
+# Metrics scraper.
+# Requires the Kubernetes Metrics API.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-metrics-scraper
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: dashboard-metrics-scraper
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dashboard-metrics-scraper
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dashboard-metrics-scraper
+
+    spec:
+      serviceAccountName: dashboard-metrics-scraper
+      automountServiceAccountToken: false
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 2001
+        fsGroup: 2001
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: dashboard-metrics-scraper
+          image: kubernetesui/metrics-scraper:v1.0.8
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+          volumeMounts:
+            - name: metrics-storage
+              mountPath: /tmp
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+      volumes:
+        - name: metrics-storage
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-metrics-scraper
+  namespace: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: dashboard-metrics-scraper
+spec:
+  type: ClusterIP
+
+  selector:
+    app.kubernetes.io/name: dashboard-metrics-scraper
+
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+      protocol: TCP
+
+---
+# Restrict network traffic within the Dashboard namespace.
+# Requires a CNI that enforces NetworkPolicy.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: dashboard-network-policy
+  namespace: kubernetes-dashboard
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kubernetes-dashboard
+      app.kubernetes.io/component: frontend
+
+  policyTypes:
+    - Ingress
+    - Egress
+
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 8443
+
+  egress:
+    # Kubernetes API server connectivity.
+    # Restrict this further to known control-plane IPs
+    # when the cluster networking supports doing so.
+    - ports:
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 6443
+
+    # DNS resolution.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+    # Internal metrics scraper.
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: dashboard-metrics-scraper
+      ports:
+        - protocol: TCP
+          port: 8000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: metrics-scraper-network-policy
+  namespace: kubernetes-dashboard
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: dashboard-metrics-scraper
+
+  policyTypes:
+    - Ingress
+    - Egress
+
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: kubernetes-dashboard
+              app.kubernetes.io/component: frontend
+      ports:
+        - protocol: TCP
+          port: 8000
+
+  egress: []
+
+---
+# Disruption protection for the Dashboard frontend.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubernetes-dashboard
+      app.kubernetes.io/component: frontend
+
+---
+# Disruption protection for the metrics scraper.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: dashboard-metrics-scraper
+  namespace: kubernetes-dashboard
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dashboard-metrics-scraper
+```

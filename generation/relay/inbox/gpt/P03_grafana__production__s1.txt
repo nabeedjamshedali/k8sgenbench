@@ -1,0 +1,404 @@
+```
+
+# ============================================================
+# Grafana Kubernetes Deployment
+# Namespace: my-grafana
+#
+# Before deployment:
+# 1. Replace all CHANGE_ME values with securely generated secrets.
+# 2. Configure a suitable StorageClass for persistent storage.
+# 3. Configure external TLS termination before public exposure.
+#
+# Architecture:
+# - Single Grafana replica with persistent SQLite storage
+# - ClusterIP Service
+# - PersistentVolumeClaim
+# - ConfigMap for Grafana configuration
+# - Kubernetes Secret for credentials
+# - Security-hardened container
+# - Health probes and resource limits
+#
+# For multi-replica HA, use an external PostgreSQL/MySQL
+# database and shared storage where required.
+# ============================================================
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/part-of: monitoring
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: grafana
+  namespace: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-credentials
+  namespace: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+type: Opaque
+stringData:
+  admin-user: "admin"
+  admin-password: "CHANGE_ME_GENERATE_STRONG_ADMIN_PASSWORD"
+  secret-key: "CHANGE_ME_GENERATE_RANDOM_SECRET_KEY_32_BYTES_OR_MORE"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+data:
+  grafana.ini: |
+    app_mode = production
+
+    [paths]
+    data = /var/lib/grafana
+    logs = /var/log/grafana
+    plugins = /var/lib/grafana/plugins
+    provisioning = /etc/grafana/provisioning
+
+    [server]
+    protocol = http
+    http_addr = 0.0.0.0
+    http_port = 3000
+    enable_gzip = true
+    enforce_domain = false
+    router_logging = false
+
+    [database]
+    type = sqlite3
+    path = grafana.db
+    wal = true
+    high_availability = false
+    migration_locking = true
+
+    [security]
+    disable_initial_admin_creation = false
+    disable_gravatar = true
+    disable_brute_force_login_protection = false
+    brute_force_login_protection_max_attempts = 5
+    disable_username_login_protection = false
+    disable_ip_address_login_protection = false
+    cookie_samesite = lax
+    allow_embedding = false
+    x_content_type_options = true
+
+    [users]
+    allow_sign_up = false
+    allow_org_create = false
+    auto_assign_org = true
+    auto_assign_org_role = Viewer
+    default_theme = dark
+
+    [auth]
+    disable_login = false
+    disable_login_form = false
+    token_rotation_interval_minutes = 10
+
+    [auth.basic]
+    enabled = true
+    password_policy = true
+
+    [auth.anonymous]
+    enabled = false
+
+    [analytics]
+    reporting_enabled = false
+    check_for_updates = true
+    check_for_plugin_updates = true
+
+    [snapshots]
+    enabled = true
+    external_enabled = false
+    public_mode = false
+
+    [dashboards]
+    versions_to_keep = 20
+    min_refresh_interval = 5s
+
+    [log]
+    mode = console
+    level = info
+
+    [log.console]
+    format = json
+
+    [metrics]
+    enabled = true
+    disable_total_stats = false
+
+    [smtp]
+    enabled = false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-storage
+  namespace: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  # Set to the appropriate StorageClass in your cluster.
+  # storageClassName: standard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: monitoring
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+
+  # Recreate prevents simultaneous SQLite writers
+  # against the same persistent volume.
+  strategy:
+    type: Recreate
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: server
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: grafana
+        app.kubernetes.io/component: server
+        app.kubernetes.io/part-of: monitoring
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "3000"
+
+    spec:
+      serviceAccountName: grafana
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 472
+        runAsGroup: 472
+        fsGroup: 472
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: grafana
+          image: grafana/grafana:12.2.0
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+
+          env:
+            - name: GF_PATHS_CONFIG
+              value: /etc/grafana/grafana.ini
+
+            - name: GF_PATHS_DATA
+              value: /var/lib/grafana
+
+            - name: GF_PATHS_LOGS
+              value: /var/log/grafana
+
+            - name: GF_PATHS_PLUGINS
+              value: /var/lib/grafana/plugins
+
+            - name: GF_PATHS_PROVISIONING
+              value: /etc/grafana/provisioning
+
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-credentials
+                  key: admin-user
+
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-credentials
+                  key: admin-password
+
+            - name: GF_SECURITY_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-credentials
+                  key: secret-key
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+          volumeMounts:
+            - name: grafana-config
+              mountPath: /etc/grafana/grafana.ini
+              subPath: grafana.ini
+              readOnly: true
+
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+
+            - name: grafana-logs
+              mountPath: /var/log/grafana
+
+            - name: grafana-tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: grafana-config
+          configMap:
+            name: grafana-config
+            defaultMode: 0444
+
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: grafana-storage
+
+        - name: grafana-logs
+          emptyDir:
+            sizeLimit: 1Gi
+
+        - name: grafana-tmp
+          emptyDir:
+            sizeLimit: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: my-grafana
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: monitoring
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: server
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: http
+---
+# Only Pods in my-grafana and the monitoring namespace
+# can connect to Grafana on TCP/3000.
+# Adapt this policy if your ingress controller uses
+# another namespace.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: grafana-ingress
+  namespace: my-grafana
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: server
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {}
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+      ports:
+        - protocol: TCP
+          port: 3000
+---
+# Default deny outbound traffic except DNS.
+# Add explicit egress rules when external data sources,
+# OAuth providers, alerting endpoints or other integrations
+# are configured.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: grafana-egress
+  namespace: my-grafana
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: server
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+```
