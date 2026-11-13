@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1d208-2643-7183-a5db-d6b5debf7172",
-  "CreatedAt": "2026-11-13T04:11:51.8750993+05:00",
+  "ReportID": "01a1d2b8-732c-7c79-9bc8-8617b0e87804",
+  "CreatedAt": "2026-11-13T07:24:25.9008175+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/qwen__P04_voting-app__production__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -5076,6 +5076,132 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
+            "StartLine": 51,
+            "EndLine": 75,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 51,
+                  "Content": "      - name: redis",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: redis",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 52,
+                  "Content": "        image: redis:alpine",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: redis:alpine",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 53,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 54,
+                  "Content": "        - containerPort: 6379",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m6379",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 55,
+                  "Content": "        readinessProbe:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33mreadinessProbe\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 56,
+                  "Content": "          exec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mexec\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 57,
+                  "Content": "            command:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mcommand\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 58,
+                  "Content": "            - redis-cli",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - redis-cli",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 59,
+                  "Content": "            - ping",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - ping",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 60,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
             "StartLine": 264,
             "EndLine": 298,
             "Code": {
@@ -5298,132 +5424,6 @@
                 },
                 {
                   "Number": 209,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 51,
-            "EndLine": 75,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 51,
-                  "Content": "      - name: redis",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: redis",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 52,
-                  "Content": "        image: redis:alpine",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: redis:alpine",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 53,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 54,
-                  "Content": "        - containerPort: 6379",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m6379",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 55,
-                  "Content": "        readinessProbe:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33mreadinessProbe\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 56,
-                  "Content": "          exec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mexec\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 57,
-                  "Content": "            command:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcommand\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 58,
-                  "Content": "            - redis-cli",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - redis-cli",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 59,
-                  "Content": "            - ping",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - ping",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 60,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -6210,132 +6210,6 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 318,
-            "EndLine": 361,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 318,
-                  "Content": "      - name: result",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: result",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 319,
-                  "Content": "        image: dockersamples/examplevotingapp_result",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_result",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 320,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 321,
-                  "Content": "        - containerPort: 80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 322,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 323,
-                  "Content": "        - name: POSTGRES_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 324,
-                  "Content": "          valueFrom:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 325,
-                  "Content": "            configMapKeyRef:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mconfigMapKeyRef\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 326,
-                  "Content": "              name: voting-app-config",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mname\u001b[0m: voting-app-config",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 327,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
             "StartLine": 122,
             "EndLine": 161,
             "Code": {
@@ -6462,32 +6336,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 200,
-            "EndLine": 228,
+            "StartLine": 318,
+            "EndLine": 361,
             "Code": {
               "Lines": [
                 {
-                  "Number": 200,
-                  "Content": "      - name: vote",
+                  "Number": 318,
+                  "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: result",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 201,
-                  "Content": "        image: dockersamples/examplevotingapp_vote",
+                  "Number": 319,
+                  "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_vote",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_result",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 202,
+                  "Number": 320,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6497,7 +6371,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 203,
+                  "Number": 321,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -6507,7 +6381,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 204,
+                  "Number": 322,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6517,17 +6391,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 205,
-                  "Content": "        - name: REDIS_HOST",
+                  "Number": 323,
+                  "Content": "        - name: POSTGRES_HOST",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_HOST",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 206,
+                  "Number": 324,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6537,7 +6411,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 207,
+                  "Number": 325,
                   "Content": "            configMapKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6547,7 +6421,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 208,
+                  "Number": 326,
                   "Content": "              name: voting-app-config",
                   "IsCause": true,
                   "Annotation": "",
@@ -6557,7 +6431,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 209,
+                  "Number": 327,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -6684,6 +6558,132 @@
                 },
                 {
                   "Number": 273,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 200,
+            "EndLine": 228,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 200,
+                  "Content": "      - name: vote",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 201,
+                  "Content": "        image: dockersamples/examplevotingapp_vote",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_vote",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 202,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 203,
+                  "Content": "        - containerPort: 80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 204,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 205,
+                  "Content": "        - name: REDIS_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 206,
+                  "Content": "          valueFrom:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 207,
+                  "Content": "            configMapKeyRef:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mconfigMapKeyRef\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 208,
+                  "Content": "              name: voting-app-config",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "              \u001b[38;5;33mname\u001b[0m: voting-app-config",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 209,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
