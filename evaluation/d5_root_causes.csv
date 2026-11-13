@@ -19,7 +19,7 @@ deepseek__P08_sock-shop__neutral__s2,compose_literalism_aux_only,user-sim (exit 
 deepseek__P10_k8s-dashboard__neutral__s1,missing_referenced_secret,kubernetes-dashboard-certs volume FailedMount (Secret not defined),observed,FailedMount event
 deepseek__P10_k8s-dashboard__production__s2,wrong_api_server_endpoint,KUBERNETES_SERVICE_HOST set to hostIP; dashboard exit 2,inferred,manifest + PROGRESS
 deepseek__P10_k8s-dashboard__production__s3,invalid_rbac_object,unquoted http:heapster: parses as a map; Role rejected; dashboard exit 2 without RBAC,observed,apply_errors
-claude__P10_k8s-dashboard__production__s1,networkpolicy_blocks_path,scraper ingress only from dashboard pods but dashboard uses API-server service proxy (no --sidecar-host),hypothesis,PENDING confirmation by production s2/s3
+claude__P10_k8s-dashboard__production__s1,networkpolicy_blocks_path,scraper ingress admitted only from dashboard pods but without --sidecar-host the dashboard reaches the scraper via the API-server service proxy (not a dashboard pod); app otherwise Ready and recovers,supported (matched contrast),production s2/s3: identical scraper ingress rule + --sidecar-host -> connected; neutral s1-s3: no NetworkPolicy -> connected
 human__P08_sock-shop,unpinned_tag_drift,unpinned mongo resolves to 9.0.4; legacy OP_QUERY removed; carts 500,observed,manual deploy 2026-11-09
 gemini__P08_sock-shop__neutral__s1,compose_literalism_aux_only,user-sim load generator segfaults (exit 139); app passes smoke 5/5,observed,last_reason
 gemini__P08_sock-shop__neutral__s2,compose_literalism_aux_only,user-sim command references a non-existent script (/run-workload.sh: not found; exit 127); app passes smoke 5/5,observed,last_log

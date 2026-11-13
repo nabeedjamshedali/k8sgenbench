@@ -1,0 +1,784 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sock-shop
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sock-shop
+  namespace: sock-shop
+---
+apiVersion: v1
+data:
+  MYSQL_ROOT_PASSWORD: password
+  MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+  MYSQL_DATABASE: socksdb
+kind: Secret
+metadata:
+  name: catalogue-db-secret
+  namespace: sock-shop
+type: Opaque
+---
+apiV1: v1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: front
+  namespace: front
+  labels:
+    name: front
+spec:
+  containers:
+  - name: front
+    image: weaveworks/front:0.3.12
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+        - CHON
+        - SEUGID
+        - SETUID
+        - DAC_OVERRIDE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front
+  namespace: sock-shop
+  labels:
+    name: front
+spec:
+  selector:
+    name: front
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: edge-router
+  namespace: sock-shop
+  labels:
+    name: edge-router
+spec:
+  containers:
+  - name: edge-router
+    image: weaveworks/edge-router:0.1.1
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    - name: http-alt
+      hostPort: 8080
+      hostIP: 0.0.0.0
+      container: 8080
+      host: 8080
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+        - CHON
+        - SEUGID
+        - SETUID
+        - DAC_OVERRIDE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge-router
+  namespace: sock-shop
+  labels:
+    name: edge-router
+spec:
+  selector:
+    name: edge-router
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  - name: http-alt
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalogue
+  namespace: sock-shop
+  labels:
+    name: catalogue
+spec:
+  containers:
+  - name: catalogue
+    image: weaveworks/catalogue:0.3.5
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+  namespace: sock-shop
+  labels:
+    name: catalogue
+spec:
+  selector:
+    name: catalogue
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalogue-db
+  namespace: sock-shop
+  labels:
+    name: catalogue-db
+spec:
+  containers:
+  - name: catalogue-db
+    image: weaveworks/catalogue-db:0.3.0
+    ports:
+    - name: mysql
+      hostPort: 3306
+      hostIP: 0.0.0.0
+      container: 3306
+      host: 3306
+      protocol: TCP
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: catalogue-db-secret
+          key: MYSQL_ROOT_PASSWORD
+    - name: MYSQL_ALLOW_EMPTY_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: catalogue-db-secret
+          key: MYSQL_ALLOW_EMPTY_PASSWORD
+    - name: MYSQL_DATABASE
+      valueFrom:
+        secretKeyRef:
+          name: catalogue-db-secret
+          key: MYSQL_DATABASE
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue-db
+  namespace: sock-shop
+  labels:
+    name: catalogue-db
+spec:
+  selector:
+    name: catalogue-db
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: carts
+  namespace: sock-shop
+  labels:
+    name: carts
+spec:
+  containers:
+  - name: carts
+    image: weaveworks/carts:0.4.8
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    env:
+    - name: JAVA_OPTS
+      value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts
+  namespace: sock-shop
+  labels:
+    name: carts
+spec:
+  selector:
+    name: carts
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: carts-db
+  namespace: sock-shop
+  labels:
+    name: carts-db
+spec:
+  containers:
+  - name: carts-db
+    image: mongo:3.4
+    ports:
+    - name: mongo
+      hostPort: 27017
+      hostIP: 0.0.0.0
+      container: 27017
+      host: 27017
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - CHON
+        - SEUGID
+        - SETUID
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts-db
+  namespace: sock-shop
+  labels:
+    name: carts-db
+spec:
+  selector:
+    name: carts-db
+  ports:
+  - name: mongo
+    port: 27017
+    targetPort: 27017
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: orders
+  namespace: sock-shop
+  labels:
+    name: orders
+spec:
+  containers:
+  - name: orders
+    image: weaveworks/orders:0.4.7
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    env:
+    - name: JAVA_OPTS
+      value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders
+  namespace: sock-shop
+  labels:
+    name: orders
+spec:
+  selector:
+    name: orders
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: orders-db
+  namespace: sock-shop
+  labels:
+    name: orders-db
+spec:
+  containers:
+  - name: orders-db
+    image: mongo:3.4
+    ports:
+    - name: mongo
+      hostPort: 27017
+      hostIP: 0.0.0.0
+      container: 27017
+      host: 27017
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - CHON
+        - SEUGID
+        - SETUID
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-db
+  namespace: sock-shop
+  labels:
+    name: orders-db
+spec:
+  selector:
+    name: orders-db
+  ports:
+  - name: mongo
+    port: 27017
+    targetPort: 27017
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shipping
+  namespace: sock-shop
+  labels:
+    name: shipping
+spec:
+  containers:
+  - name: shipping
+    image: weaveworks/shipping:0.4.8
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    env:
+    - name: JAVA_OPTS
+      value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+  namespace: sock-shop
+  labels:
+    name: shipping
+spec:
+  selector:
+    name: shipping
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: queue-master
+  namespace: sock-shop
+  labels:
+    name: queue-master
+spec:
+  containers:
+  - name: queue-master
+    image: weaveworks/queue-master:0.3.1
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
+    volumes:
+    - name: tmp
+      emptyDir: {}
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queue-master
+  namespace: sock-shop
+  labels:
+    name: queue-master
+spec:
+  selector:
+    name: queue-master
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq
+  namespace: sock-shop
+  labels:
+    name: rabbitmq
+spec:
+  containers:
+  - name: rabbitmq
+    image: rabbitmq:3.6.8
+    ports:
+    - name: amqp
+      hostPort: 5672
+      hostIP: 0.0.0.0
+      container: 5672
+      host: 5672
+      protocol: TCP
+    - name: management
+      hostPort: 15672
+      hostIP: 0.0.0.0
+      container: 15672
+      host: 15672
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - CHON
+        - SEUGID
+        - SETUID
+        - DAC_OVERRIDE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/lib/rabbitmq
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: sock-shop
+  labels:
+    name: rabbitmq
+spec:
+  selector:
+    name: rabbitmq
+  ports:
+  - name: amqp
+    port: 5672
+    targetPort: 5672
+    protocol: TCP
+  - name: management
+    port: 15672
+    targetPort: 15672
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: payment
+  namespace: sock-shop
+  labels:
+    name: payment
+spec:
+  containers:
+  - name: payment
+    image: weaveworks/payment:0.4.3
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+  namespace: sock-shop
+  labels:
+    name: payment
+spec:
+  selector:
+    name: payment
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: user
+  namespace: sock-shop
+  labels:
+    name: user
+spec:
+  containers:
+  - name: user
+    image: weaveworks/user:0.4.4
+    ports:
+    - name: http
+      hostPort: 80
+      hostIP: 0.0.0.0
+      container: 80
+      host: 80
+      protocol: TCP
+    env:
+    - name: MONGO_HOST
+      value: user-db:27017
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+  namespace: sock-shop
+  labels:
+    name: user
+spec:
+  selector:
+    name: user
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: user-db
+  namespace: sock-shop
+  labels:
+    name: user-db
+spec:
+  containers:
+  - name: user-db
+    image: weaveworks/user-db:0.4.0
+    ports:
+    - name: mongo
+      hostPort: 27017
+      hostIP: 0.0.0.0
+      container: 27017
+      host: 27017
+      protocol: TCP
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - CHON
+        - SEUGID
+        - SETUID
+    volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-db
+  namespace: sock-shop
+  labels:
+    name: user-db
+spec:
+  selector:
+    name: user-db
+  ports:
+  - name: mongo
+    port: 27017
+    targetPort: 27017
+    protocol: TCP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: user-sim
+  namespace: sock-shop
+  labels:
+    name: user-sim
+spec:
+  containers:
+  - name: user-sim
+    image: weaveworks/load-test:0.1.1
+    command:
+    - -d
+    - '60'
+    - -r
+    - '200'
+    - -c
+    - '2'
+    - -h
+    - edge-router
+    securityContext:
+      readOnly: true
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+    volumeMounts:
+    - name: tmp
+      mountPath: /var/run
+    volumes:
+    - name: tmp
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-sim
+  namespace: sock-shop
+  labels:
+    name: user-sim
+spec:
+  selector:
+    name: user-sim
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
