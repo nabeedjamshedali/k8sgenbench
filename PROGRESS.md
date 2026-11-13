@@ -761,3 +761,8 @@ failure, biasing results against well-written configs.
 - relay.py's gpt note was updated to these details. The 4 earlier GPT outputs keep their original note.
 - R8: swapped in new r8_resume.sh (models claude deepseek gemini qwen gpt; final marker "all done (final") and r8_supervisor.sh (waits for "all done (final") with atomic mv. The running r8_resume instance keeps the old 4-model content; when it ends, the new supervisor starts the new one, which runs only gpt (42) plus a 5-model sweep. About 83 configs remain in total (41 + 42 gpt).
 - 2026-11-13 19:10 Autostart after sign-in (user approved): a Startup-folder launcher at %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\k8sgenbench_r8.vbs runs evaluation/r8_autostart.sh hidden. That script waits for Docker (up to 10 min), exits if R8 is complete or a supervisor is already running, and otherwise starts the supervisor. Tested: with the supervisor running it logged "autostart: supervisor already running" and started nothing. REMOVE the .vbs after R8 completes.
+
+### 2026-11-14 01:40 Overnight interruptions; autostart worked
+- 22:06: Windows went down (fork failures 0xC000026B; claude P03 production s3 was in flight and is re-queued). 23:51: the sign-in autostart started the supervisor, but Docker Desktop never came up, so the supervisor waited until 01:16. 01:17: manual power-off. 01:33: boot. 01:34: autostart -> supervisor -> new r8_resume (5 models), now running GPT from P02.
+- Fix: r8_autostart.sh now launches Docker Desktop itself if docker does not answer after about 1 min (again every 10 min, 30 min window).
+- Remaining at 01:40: about 55 configs (GPT 42 + P03: claude 1, deepseek 6, gemini 6), then the 5-model sweep.

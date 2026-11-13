@@ -5,7 +5,15 @@
 cd "$(dirname "$0")/.."
 log=evaluation/r8_supervisor.log
 grep -q "all done (final" evaluation/r8_chain.log 2>/dev/null && { echo "$(date +%T) autostart: R8 already complete" >> $log; exit 0; }
-for i in $(seq 1 60); do docker info >/dev/null 2>&1 && break; sleep 10; done
+for i in $(seq 1 180); do
+  docker info >/dev/null 2>&1 && break
+  # Docker Desktop does not always start at sign-in: launch it after ~1 min, and again every 10 min
+  if [ $((i % 60)) -eq 6 ]; then
+    echo "$(date +%T) autostart: docker not answering -> launching Docker Desktop" >> $log
+    "/c/Program Files/Docker/Docker/Docker Desktop.exe" >/dev/null 2>&1 &
+  fi
+  sleep 10
+done
 if ps -ef | awk '$0 ~ /bash evaluation\/r8_supervisor.sh/ && $0 !~ /awk/' | grep -q .; then
   echo "$(date +%T) autostart: supervisor already running" >> $log; exit 0
 fi
