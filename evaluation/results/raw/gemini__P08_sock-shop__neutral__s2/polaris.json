@@ -1,0 +1,4727 @@
+{
+  "PolarisOutputVersion": "1.0",
+  "AuditTime": "2026-11-13T10:05:57+05:00",
+  "SourceType": "Path",
+  "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\gemini__P08_sock-shop__neutral__s2\\manifest.yaml",
+  "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\gemini__P08_sock-shop__neutral__s2\\manifest.yaml",
+  "ClusterInfo": {
+    "Version": "unknown",
+    "Nodes": 0,
+    "Pods": 0,
+    "Namespaces": 1,
+    "Controllers": 15
+  },
+  "Results": [
+    {
+      "Name": "sock-shop",
+      "Namespace": "",
+      "Kind": "Namespace",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "front-end",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "edge-router",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "catalogue",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "catalogue-db",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "carts",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "carts-db",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "orders",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "orders-db",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "shipping",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "queue-master",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "rabbitmq",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "payment",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "user",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "user-db",
+      "Namespace": "sock-shop",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "front-end",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "front-end",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "edge-router",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "edge-router",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "catalogue",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "catalogue",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "catalogue-db",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "catalogue-db",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container should not have insecure capabilities",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "Use one of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem should be read only",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container sets potentially sensitive environment variables",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "carts",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "carts",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "carts-db",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "carts-db",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "orders",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "orders",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "orders-db",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "orders-db",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "shipping",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "shipping",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "queue-master",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes must be forbidden",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "queue-master",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "rabbitmq",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "rabbitmq",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "payment",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "payment",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "user",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "user",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "user-db",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "user-db",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "user-sim",
+      "Namespace": "sock-shop",
+      "Kind": "Deployment",
+      "Results": {
+        "deploymentMissingReplicas": {
+          "ID": "deploymentMissingReplicas",
+          "Message": "Only one replica is scheduled",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "metadataAndInstanceMismatched": {
+          "ID": "metadataAndInstanceMismatched",
+          "Message": "Label app.kubernetes.io/instance must match metadata.name",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "missingPodDisruptionBudget": {
+          "ID": "missingPodDisruptionBudget",
+          "Message": "Should have a PodDisruptionBudget",
+          "Details": null,
+          "Success": false,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "pdbMinAvailableGreaterThanHPAMinReplicas": {
+          "ID": "pdbMinAvailableGreaterThanHPAMinReplicas",
+          "Message": "PDB and HPA are correctly configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": {
+        "Name": "",
+        "Results": {
+          "automountServiceAccountToken": {
+            "ID": "automountServiceAccountToken",
+            "Message": "The ServiceAccount will be automounted",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostIPCSet": {
+            "ID": "hostIPCSet",
+            "Message": "Host IPC is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostNetworkSet": {
+            "ID": "hostNetworkSet",
+            "Message": "Host network is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPIDSet": {
+            "ID": "hostPIDSet",
+            "Message": "Host PID is not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "danger",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostPathSet": {
+            "ID": "hostPathSet",
+            "Message": "HostPath volumes are not configured",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "hostProcess": {
+            "ID": "hostProcess",
+            "Message": "Privileged access to the host check is valid",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "missingNetworkPolicy": {
+            "ID": "missingNetworkPolicy",
+            "Message": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "priorityClassNotSet": {
+            "ID": "priorityClassNotSet",
+            "Message": "Priority class should be set",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          },
+          "procMount": {
+            "ID": "procMount",
+            "Message": "The default /proc masks are set up to reduce attack surface, and should be required",
+            "Details": null,
+            "Success": true,
+            "Severity": "warning",
+            "Category": "Security",
+            "Mutations": null
+          },
+          "topologySpreadConstraint": {
+            "ID": "topologySpreadConstraint",
+            "Message": "Pod should be configured with a valid topology spread constraint",
+            "Details": null,
+            "Success": false,
+            "Severity": "warning",
+            "Category": "Reliability",
+            "Mutations": null
+          }
+        },
+        "ContainerResults": [
+          {
+            "Name": "user-sim",
+            "Results": {
+              "cpuLimitsMissing": {
+                "ID": "cpuLimitsMissing",
+                "Message": "CPU limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "cpuRequestsMissing": {
+                "ID": "cpuRequestsMissing",
+                "Message": "CPU requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "dangerousCapabilities": {
+                "ID": "dangerousCapabilities",
+                "Message": "Container does not have any dangerous capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "hostPortSet": {
+                "ID": "hostPortSet",
+                "Message": "Host port is not configured",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "insecureCapabilities": {
+                "ID": "insecureCapabilities",
+                "Message": "Container does not have any insecure capabilities",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "linuxHardening": {
+                "ID": "linuxHardening",
+                "Message": "One of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities are used to restrict containers using unwanted privileges",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "livenessProbeMissing": {
+                "ID": "livenessProbeMissing",
+                "Message": "Liveness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "memoryLimitsMissing": {
+                "ID": "memoryLimitsMissing",
+                "Message": "Memory limits should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "memoryRequestsMissing": {
+                "ID": "memoryRequestsMissing",
+                "Message": "Memory requests should be set",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Efficiency",
+                "Mutations": null
+              },
+              "notReadOnlyRootFilesystem": {
+                "ID": "notReadOnlyRootFilesystem",
+                "Message": "Filesystem is read only",
+                "Details": null,
+                "Success": true,
+                "Severity": "warning",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "privilegeEscalationAllowed": {
+                "ID": "privilegeEscalationAllowed",
+                "Message": "Privilege escalation should not be allowed",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "pullPolicyNotAlways": {
+                "ID": "pullPolicyNotAlways",
+                "Message": "Image pull policy should be \"Always\"",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": [
+                  {
+                    "Path": "/spec/template/spec/containers/0/imagePullPolicy",
+                    "Op": "add",
+                    "Value": "Always",
+                    "Comment": ""
+                  }
+                ]
+              },
+              "readinessProbeMissing": {
+                "ID": "readinessProbeMissing",
+                "Message": "Readiness probe should be configured",
+                "Details": null,
+                "Success": false,
+                "Severity": "warning",
+                "Category": "Reliability",
+                "Mutations": null
+              },
+              "runAsPrivileged": {
+                "ID": "runAsPrivileged",
+                "Message": "Not running as privileged",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "runAsRootAllowed": {
+                "ID": "runAsRootAllowed",
+                "Message": "Should not be allowed to run as root",
+                "Details": null,
+                "Success": false,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "sensitiveContainerEnvVar": {
+                "ID": "sensitiveContainerEnvVar",
+                "Message": "The container does not set potentially sensitive environment variables",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Security",
+                "Mutations": null
+              },
+              "tagNotSpecified": {
+                "ID": "tagNotSpecified",
+                "Message": "Image tag is specified",
+                "Details": null,
+                "Success": true,
+                "Severity": "danger",
+                "Category": "Reliability",
+                "Mutations": null
+              }
+            }
+          }
+        ]
+      },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    }
+  ],
+  "Score": 61
+}
