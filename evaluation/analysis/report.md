@@ -41,6 +41,7 @@ Binary: % (yes/n). Continuous: median [IQR] n.
 | D5 time to Ready (s) | 20.1 [14.6-64.0] n=7 | 32.7 [15.8-37.6] n=18 | 18.8 [16.6-35.7] n=14 | 20.5 [11.1-40.1] n=15 | 31.2 [19.9-43.2] n=16 | 16.8 [12.0-26.2] n=9 |
 | D6 mean availability (%) | 30.8 [23.2-64.6] n=7 | 39.5 [32.3-69.6] n=19 | 44.4 [33.5-54.3] n=17 | 39.3 [32.1-62.2] n=18 | 38.3 [33.5-50.4] n=17 | 45.4 [41.4-70.1] n=9 |
 | D6 mean recovery time (s) | 7.8 [6.9-26.2] n=7 | 16.1 [9.7-27.2] n=19 | 16.2 [12.9-20.8] n=17 | 14.2 [7.5-17.2] n=18 | 16.7 [13.7-18.3] n=17 | 12.8 [8.4-17.1] n=9 |
+| D6 mean downtime per fault (s) | 6.2 [2.8-8.4] n=7 | 6.5 [2.4-7.3] n=19 | 5.3 [4.5-7.2] n=17 | 5.6 [3.4-7.0] n=18 | 6.6 [3.7-7.4] n=17 | 5.3 [3.1-6.3] n=9 |
 | D6 mean availability, fully-Ready only (%) | 30.8 [23.2-64.6] n=7 | 46.2 [32.5-69.7] n=18 | 45.4 [33.8-54.6] n=14 | 35.6 [31.3-54.1] n=15 | 39.6 [32.9-62.1] n=16 | 53.3 [41.5-71.0] n=8 |
 
 ## Descriptives: production prompt (human row = shipped manifests)
@@ -71,6 +72,7 @@ Binary: % (yes/n). Continuous: median [IQR] n.
 | D5 time to Ready (s) | 20.1 [14.6-64.0] n=7 | 33.0 [22.5-42.8] n=15 | 27.5 [16.6-39.8] n=9 | 18.2 [14.3-35.0] n=16 | 24.9 [18.6-46.5] n=12 | 23.0 [15.8-32.5] n=4 |
 | D6 mean availability (%) | 30.8 [23.2-64.6] n=7 | 97.9 [41.9-99.2] n=15 | 98.7 [57.0-99.3] n=10 | 39.6 [25.6-98.2] n=19 | 95.0 [38.2-98.1] n=14 | 39.1 [33.9-70.1] n=7 |
 | D6 mean recovery time (s) | 7.8 [6.9-26.2] n=7 | 15.0 [10.9-21.4] n=15 | 14.6 [12.4-22.7] n=10 | 13.7 [8.5-17.4] n=19 | 9.2 [5.9-17.9] n=14 | 17.1 [15.6-22.8] n=7 |
+| D6 mean downtime per fault (s) | 6.2 [2.8-8.4] n=7 | 0.3 [0.1-6.0] n=15 | 0.2 [0.2-3.9] n=10 | 5.5 [0.2-7.0] n=19 | 0.3 [0.2-6.9] n=14 | 6.9 [3.3-8.4] n=7 |
 | D6 mean availability, fully-Ready only (%) | 30.8 [23.2-64.6] n=7 | 97.9 [41.9-99.2] n=15 | 98.6 [43.4-99.1] n=9 | 44.0 [37.2-98.2] n=16 | 97.0 [78.1-98.2] n=12 | 70.1 [35.1-98.1] n=4 |
 
 ## RQ1: neutral LLM configs vs human (configuration level)
@@ -89,6 +91,7 @@ Sources with data: human, claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=79) | H=5.84 | 0.322 | claude vs human: δ=-0.14 (negligible)<br>deepseek vs human: δ=-0.10 (negligible)<br>gemini vs human: δ=-0.21 (small)<br>gpt vs human: δ=+0.12 (negligible)<br>qwen vs human: δ=-0.32 (small) |
 | D6 mean availability (%) | Kruskal-Wallis (n=87) | H=2.24 | 0.815 | claude vs human: δ=+0.35 (medium)<br>deepseek vs human: δ=+0.16 (small)<br>gemini vs human: δ=+0.21 (small)<br>gpt vs human: δ=+0.24 (small)<br>qwen vs human: δ=+0.24 (small) |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=87) | H=1.77 | 0.880 | claude vs human: δ=+0.11 (negligible)<br>deepseek vs human: δ=+0.08 (negligible)<br>gemini vs human: δ=+0.03 (negligible)<br>gpt vs human: δ=+0.13 (negligible)<br>qwen vs human: δ=+0.11 (negligible) |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=87) | H=0.66 | 0.985 | claude vs human: δ=-0.14 (negligible)<br>deepseek vs human: δ=-0.08 (negligible)<br>gemini vs human: δ=-0.02 (negligible)<br>gpt vs human: δ=+0.03 (negligible)<br>qwen vs human: δ=-0.02 (negligible) |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=78) | H=3.98 | 0.552 | claude vs human: δ=+0.41 (medium)<br>deepseek vs human: δ=+0.22 (small)<br>gemini vs human: δ=+0.19 (small)<br>gpt vs human: δ=+0.25 (small)<br>qwen vs human: δ=+0.25 (small) |
 | D1 parses | χ² (expected<5: read Fisher) | 6.26 | 0.281 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 8.43 | 0.134 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
@@ -118,6 +121,7 @@ Sources with data: human, claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=57) | H=5.94 | 0.312 | claude vs human: δ=-0.07 (negligible)<br>deepseek vs human: δ=+0.00 (negligible)<br>gemini vs human: δ=-0.22 (small)<br>gpt vs human: δ=+0.40 (medium)<br>qwen vs human: δ=-0.04 (negligible) |
 | D6 mean availability (%) | Kruskal-Wallis (n=64) | H=2.27 | 0.811 | claude vs human: δ=+0.29 (small)<br>deepseek vs human: δ=-0.13 (negligible)<br>gemini vs human: δ=+0.08 (negligible)<br>gpt vs human: δ=+0.07 (negligible)<br>qwen vs human: δ=+0.02 (negligible) |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=64) | H=3.27 | 0.659 | claude vs human: δ=+0.26 (small)<br>deepseek vs human: δ=+0.30 (small)<br>gemini vs human: δ=+0.26 (small)<br>gpt vs human: δ=+0.43 (medium)<br>qwen vs human: δ=+0.42 (medium) |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=64) | H=3.47 | 0.628 | claude vs human: δ=-0.29 (small)<br>deepseek vs human: δ=+0.13 (negligible)<br>gemini vs human: δ=+0.20 (small)<br>gpt vs human: δ=+0.17 (small)<br>qwen vs human: δ=+0.20 (small) |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=56) | H=3.49 | 0.625 | claude vs human: δ=+0.37 (medium)<br>deepseek vs human: δ=-0.08 (negligible)<br>gemini vs human: δ=+0.08 (negligible)<br>gpt vs human: δ=+0.09 (negligible)<br>qwen vs human: δ=+0.05 (negligible) |
 | D1 parses | χ² (expected<5: read Fisher) | 6.12 | 0.295 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 7.02 | 0.219 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
@@ -147,6 +151,7 @@ Sources with data: human, claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=19) | H=2.25 | 0.690 | claude vs human: δ=-0.50 (large)<br>deepseek vs human: δ=-0.33 (medium)<br>gemini vs human: δ=-0.25 (small)<br>gpt vs human: δ=+0.00 (negligible) |
 | D6 mean availability (%) | Kruskal-Wallis (n=19) | H=0.60 | 0.963 | claude vs human: δ=+0.50 (large)<br>deepseek vs human: δ=+0.00 (negligible)<br>gemini vs human: δ=+0.00 (negligible)<br>gpt vs human: δ=+0.00 (negligible) |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=19) | H=0.86 | 0.931 | claude vs human: δ=+0.50 (large)<br>deepseek vs human: δ=+0.00 (negligible)<br>gemini vs human: δ=+0.00 (negligible)<br>gpt vs human: δ=+0.00 (negligible) |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=19) | H=1.22 | 0.875 | claude vs human: δ=+0.00 (negligible)<br>deepseek vs human: δ=+0.33 (medium)<br>gemini vs human: δ=+0.00 (negligible)<br>gpt vs human: δ=+0.25 (small) |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=19) | H=0.60 | 0.963 | claude vs human: δ=+0.50 (large)<br>deepseek vs human: δ=+0.00 (negligible)<br>gemini vs human: δ=+0.00 (negligible)<br>gpt vs human: δ=+0.00 (negligible) |
 | D1 parses | χ² (expected<5: read Fisher) | 7.44 | 0.190 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 7.44 | 0.190 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
@@ -176,6 +181,7 @@ Sources with data: human, claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=60) | H=7.72 | 0.173 | claude vs human: δ=+0.03 (negligible)<br>deepseek vs human: δ=-0.09 (negligible)<br>gemini vs human: δ=-0.18 (small)<br>gpt vs human: δ=+0.23 (small)<br>qwen vs human: δ=-0.27 (small) |
 | D6 mean availability (%) | Kruskal-Wallis (n=68) | H=1.56 | 0.906 | claude vs human: δ=+0.35 (medium)<br>deepseek vs human: δ=+0.23 (small)<br>gemini vs human: δ=+0.26 (small)<br>gpt vs human: δ=+0.35 (medium)<br>qwen vs human: δ=+0.24 (small) |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=68) | H=2.14 | 0.830 | claude vs human: δ=+0.14 (negligible)<br>deepseek vs human: δ=+0.14 (negligible)<br>gemini vs human: δ=+0.00 (negligible)<br>gpt vs human: δ=+0.17 (small)<br>qwen vs human: δ=+0.11 (negligible) |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=68) | H=0.21 | 0.999 | claude vs human: δ=-0.17 (small)<br>deepseek vs human: δ=-0.17 (small)<br>gemini vs human: δ=-0.03 (negligible)<br>gpt vs human: δ=-0.08 (negligible)<br>qwen vs human: δ=-0.02 (negligible) |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=59) | H=3.28 | 0.657 | claude vs human: δ=+0.43 (medium)<br>deepseek vs human: δ=+0.31 (small)<br>gemini vs human: δ=+0.27 (small)<br>gpt vs human: δ=+0.37 (medium)<br>qwen vs human: δ=+0.25 (small) |
 | D1 parses | χ² | | | all sources identical (yes) |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 5.49 | 0.359 | claude vs human Fisher p=1.000<br>deepseek vs human Fisher p=1.000<br>gemini vs human Fisher p=1.000<br>gpt vs human Fisher p=1.000<br>qwen vs human Fisher p=1.000 |
@@ -205,6 +211,7 @@ Wilcoxon signed-rank per model vs human; n = projects with both. Low power at n 
 | D5 time to Ready (s) | n=6 Δmed=-1.03 p=1.000 | n=6 Δmed=+0.67 p=0.844 | n=6 Δmed=-2.91 p=0.312 | n=7 Δmed=+1.30 p=0.938 | n=4 Δmed=+5.15 p=0.875 |
 | D6 mean availability (%) | n=7 Δmed=+7.53 p=0.375 | n=7 Δmed=-0.48 p=0.938 | n=7 Δmed=+3.87 p=0.469 | n=7 Δmed=+14.34 p=0.469 | n=4 Δmed=+5.45 p=0.875 |
 | D6 mean recovery time (s) | n=7 Δmed=+2.03 p=0.469 | n=7 Δmed=+0.62 p=1.000 | n=7 Δmed=+1.36 p=0.938 | n=7 Δmed=+5.06 p=0.938 | n=4 Δmed=+5.04 p=0.875 |
+| D6 mean downtime per fault (s) | n=7 Δmed=-0.12 p=0.688 | n=7 Δmed=-0.27 p=0.578 | n=7 Δmed=-0.22 p=1.000 | n=7 Δmed=-2.20 p=0.812 | n=4 Δmed=+1.47 p=0.625 |
 | D6 mean availability, fully-Ready only (%) | n=6 Δmed=+12.40 p=0.219 | n=6 Δmed=+0.86 p=0.688 | n=6 Δmed=-4.44 p=0.844 | n=7 Δmed=+21.12 p=0.469 | n=4 Δmed=-3.64 p=0.875 |
 | D1 parses | n=7 Δ=0 | n=7 Δ=0 | n=7 Δmed=+0.00 p=1.000 | n=7 Δ=0 | n=5 Δmed=+0.00 p=1.000 |
 | D1 schema-valid | n=7 Δ=0 | n=7 Δ=0 | n=7 Δmed=+0.00 p=1.000 | n=7 Δ=0 | n=5 Δmed=+0.00 p=0.500 |
@@ -234,6 +241,7 @@ Sources with data: claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=72) | H=5.80 | 0.214 |  |
 | D6 mean availability (%) | Kruskal-Wallis (n=80) | H=1.24 | 0.872 |  |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=80) | H=1.82 | 0.768 |  |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=80) | H=0.65 | 0.957 |  |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=71) | H=2.89 | 0.576 |  |
 | D1 parses | χ² (expected<5: read Fisher) | 5.66 | 0.226 |  |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 7.62 | 0.106 |  |
@@ -263,6 +271,7 @@ Sources with data: claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=52) | H=5.90 | 0.207 |  |
 | D6 mean availability (%) | Kruskal-Wallis (n=59) | H=2.17 | 0.705 |  |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=59) | H=1.92 | 0.750 |  |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=59) | H=3.24 | 0.519 |  |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=51) | H=3.45 | 0.486 |  |
 | D1 parses | χ² (expected<5: read Fisher) | 5.56 | 0.235 |  |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 6.34 | 0.175 |  |
@@ -292,6 +301,7 @@ Sources with data: claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=56) | H=1.92 | 0.750 |  |
 | D6 mean availability (%) | Kruskal-Wallis (n=65) | H=7.31 | 0.120 |  |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=65) | H=5.59 | 0.232 |  |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=65) | H=5.22 | 0.265 |  |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=56) | H=2.93 | 0.570 |  |
 | D1 parses | χ² (expected<5: read Fisher) | 8.33 | 0.080 |  |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 14.05 | 0.007 |  |
@@ -321,6 +331,7 @@ Sources with data: claude, deepseek, gemini, gpt, qwen
 | D5 time to Ready (s) | Kruskal-Wallis (n=38) | H=1.20 | 0.879 |  |
 | D6 mean availability (%) | Kruskal-Wallis (n=46) | H=5.48 | 0.242 |  |
 | D6 mean recovery time (s) | Kruskal-Wallis (n=46) | H=4.24 | 0.375 |  |
+| D6 mean downtime per fault (s) | Kruskal-Wallis (n=46) | H=4.14 | 0.387 |  |
 | D6 mean availability, fully-Ready only (%) | Kruskal-Wallis (n=38) | H=2.40 | 0.663 |  |
 | D1 parses | χ² (expected<5: read Fisher) | 6.43 | 0.169 |  |
 | D1 schema-valid | χ² (expected<5: read Fisher) | 11.87 | 0.018 |  |
@@ -410,6 +421,12 @@ Continuous: median over cells of the across-sample SD. Binary: share of cells wh
 | D6 mean recovery time (s) | gemini | 17 | Wilcoxon | median Δ(prod-neutral)=+0.73, W=56.0, p=0.353 |
 | D6 mean recovery time (s) | gpt | 12 | Wilcoxon | median Δ(prod-neutral)=-2.05, W=15.0, p=0.064 |
 | D6 mean recovery time (s) | qwen | 6 | Wilcoxon | median Δ(prod-neutral)=+0.73, W=5.0, p=0.312 |
+| D6 mean downtime per fault (s) | all | 58 | Wilcoxon | median Δ(prod-neutral)=-1.63, W=480.0, p=0.004 |
+| D6 mean downtime per fault (s) | claude | 15 | Wilcoxon | median Δ(prod-neutral)=-2.30, W=25.0, p=0.048 |
+| D6 mean downtime per fault (s) | deepseek | 8 | Wilcoxon | median Δ(prod-neutral)=-4.35, W=10.0, p=0.312 |
+| D6 mean downtime per fault (s) | gemini | 17 | Wilcoxon | median Δ(prod-neutral)=+0.20, W=73.0, p=0.890 |
+| D6 mean downtime per fault (s) | gpt | 12 | Wilcoxon | median Δ(prod-neutral)=-0.30, W=9.0, p=0.016 |
+| D6 mean downtime per fault (s) | qwen | 6 | Wilcoxon | median Δ(prod-neutral)=+0.20, W=10.0, p=1.000 |
 | D6 mean availability, fully-Ready only (%) | all | 51 | Wilcoxon | median Δ(prod-neutral)=+21.98, W=215.0, p=<0.001 |
 | D6 mean availability, fully-Ready only (%) | claude | 15 | Wilcoxon | median Δ(prod-neutral)=+28.32, W=11.0, p=0.003 |
 | D6 mean availability, fully-Ready only (%) | deepseek | 8 | Wilcoxon | median Δ(prod-neutral)=+44.17, W=9.0, p=0.250 |

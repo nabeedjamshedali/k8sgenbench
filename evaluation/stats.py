@@ -36,6 +36,7 @@ CONTINUOUS = [("d1_accept_pct", "D1 objects accepted (%)"),
               ("d5_time_to_ready_s", "D5 time to Ready (s)"),
               ("d6_availability_mean", "D6 mean availability (%)"),
               ("d6_recovery_time_mean", "D6 mean recovery time (s)"),
+              ("d6_downtime_mean", "D6 mean downtime per fault (s)"),
               ("d6_availability_strict", "D6 mean availability, fully-Ready only (%)")]
 BINARY = [("d1_parse_ok", "D1 parses"), ("d1_schema_ok", "D1 schema-valid"), ("d1_server_ok", "D1 API-accepted"),
           ("d2_pss_restricted", "D2 passes PSS restricted"), ("d2_pss_baseline", "D2 passes PSS baseline+"),
@@ -81,6 +82,12 @@ def load():
         x["d6_all_recovered"] = all(ok) if ok else None
         x["d6_availability_mean"] = float(np.mean([a for a in av if a is not None])) if av else None
         x["d6_recovery_time_mean"] = float(np.mean([t for t in rt if t is not None])) if any(t is not None for t in rt) else None
+        # downtime per fault = failed probes / 5 Hz (the availability window varies, so availability alone is not comparable)
+        down = [(1 - e["availability_pct"] / 100) * (e.get("n_probes") or 0) / 5.0
+                for fault in ("pod_delete", "container_crash") for e in ((r.get("d6") or {}).get(fault) or [])
+                if e.get("ran") and e.get("availability_pct") is not None]
+        x["d6_downtime_mean"] = float(np.mean(down)) if down else None
+        x["d6_replicas"] = (r.get("d6") or {}).get("n_ready_before")
         # sensitivity: D6 only where the config was fully Ready (the original gate), not admitted by smoke alone
         strict = x.get("d6_gate") == "ready"
         x["d6_availability_strict"] = x["d6_availability_mean"] if strict else None

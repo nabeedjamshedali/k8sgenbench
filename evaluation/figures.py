@@ -102,28 +102,29 @@ def fig_dimensions(df, variant):
         ax.set_title(title, loc="left")
         ax.set_yticks(range(len(present)), [LABEL[s] for s in present])
         ax.set_ylim(len(present) - 0.5, -0.5)
-        if kind == "bin":
+        if kind == "bin" or "(%)" in title:  # percentages on their full scale, so small gaps are not exaggerated
             ax.set_xlim(-3, 103)
-        else:  # metric-specific range, so differences between sources are not compressed into a few pixels
-            pad = 0.08 * (max(hi_all) - min(lo_all) or 1)
-            ax.set_xlim(max(0, min(lo_all) - pad), max(hi_all) + pad)
+        else:  # counts and times: from zero to the data range
+            ax.set_xlim(0, max(hi_all) * 1.08)
         style(ax)
     fig.tight_layout()
     return save(fig, f"fig_dimensions_{variant}.pdf")
 
 
+# nested stages only: each is a subset of the previous one (fully Ready and smoke test are not nested, so only
+# their conjunction is a funnel stage; the two are reported separately in the text)
 STAGES = [("generated", "Generated"), ("d1_parse_ok", "Parses"), ("d1_schema_ok", "Schema\nvalid"),
-          ("d1_server_ok", "API\naccepted"), ("d5_ready", "Fully\nReady"), ("d5_smoke", "Smoke\ntest"),
-          ("both", "Ready +\nsmoke")]
+          ("d1_server_ok", "API\naccepted"), ("both", "Ready +\nsmoke test")]
 
 
 def fig_attrition(df):
     d = df.copy()
-    for c, _ in STAGES[1:-1]:
+    for c in ("d1_parse_ok", "d1_schema_ok", "d1_server_ok", "d5_ready", "d5_smoke"):
         d[c] = boolcol(d[c]).fillna(0)
     d["generated"] = 1
-    d["both"] = d.d5_ready * d.d5_smoke
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.2), sharey=True)
+    # a configuration that is not API-accepted cannot count as working, so the last stage stays nested
+    d["both"] = d.d5_ready * d.d5_smoke * d.d1_server_ok
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.0), sharey=True)
     x = np.arange(len(STAGES))
     hum = d[d.source == "human"]
     href = [100 * hum[c].mean() for c, _ in STAGES]
@@ -152,7 +153,7 @@ def fig_attrition(df):
         ax.set_title(f"{v.capitalize()} prompt", loc="left")
         ax.set_xticks(x, [l.replace("\n", " ") for _, l in STAGES], fontsize=7, rotation=35, ha="right",
                       rotation_mode="anchor")
-        ax.set_xlim(-0.3, len(STAGES) + 1.1)
+        ax.set_xlim(-0.3, len(STAGES) + 0.6)
         ax.set_ylim(0, 104)
         style(ax, grid="y")
     axes[0].set_ylabel("Share of configurations (%)")
@@ -205,6 +206,7 @@ def fig_static_runtime(df):
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.6), sharey=True)
     for ax, (col, lab) in zip(axes, (("d3_polaris_score", "Polaris score quintile"),
                                      ("d2_kubescape_compliance", "Kubescape compliance quintile"))):
+        counts = {}
         for v, face in (("neutral", "white"), ("production", INK)):
             g = llm[llm.prompt_variant == v].dropna(subset=[col])
             q = pd.qcut(g[col].astype(float).rank(method="first"), 5, labels=False)
@@ -213,17 +215,21 @@ def fig_static_runtime(df):
                 s = g[q == k].smoke
                 y, lo, hi = wilson(int(s.sum()), len(s))[:3]
                 xs.append(k + (-0.08 if v == "neutral" else 0.08)); ys.append(y); los.append(lo); his.append(hi)
+                counts.setdefault(k, []).append(len(s))
             ax.vlines(xs, los, his, color=INK, linewidth=0.8, alpha=0.5)
             ax.plot(xs, ys, color=INK, linewidth=1.2, linestyle="-" if v == "production" else (0, (3, 2)))
             ax.scatter(xs, ys, s=26, facecolor=face, edgecolor=INK, linewidth=1.2, zorder=3,
                        label=f"{v.capitalize()} prompt")
+        for k, (nn, npr) in counts.items():  # configurations per quintile: neutral / production
+            ax.text(k, 3, f"n={nn}/{npr}", ha="center", fontsize=6, color=MUTED)
         ax.set_xticks(range(5), ["Q1\n(lowest)", "Q2", "Q3", "Q4", "Q5\n(highest)"])
         ax.set_xlabel(lab)
         ax.set_ylim(0, 105)
         style(ax, grid="y")
     axes[0].set_ylabel("Smoke test passes (%)")
-    axes[0].legend(frameon=False, loc="lower left", fontsize=7)
-    fig.tight_layout()
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, frameon=False, loc="upper center", ncol=2, fontsize=7)
+    fig.tight_layout(rect=(0, 0, 1, 0.92))
     return save(fig, "fig_static_runtime.pdf")
 
 

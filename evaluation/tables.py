@@ -3,6 +3,8 @@
 Usage: python evaluation/tables.py   ->  paper/tables/*.tex  (each \\input by sections/04_results.tex)
 Every number in the Results tables comes from here, so a re-run of R8 refreshes the paper with no hand copying.
 """
+import glob
+import json
 import os
 
 import numpy as np
@@ -15,11 +17,11 @@ SOURCES = ["human", "claude", "deepseek", "gemini", "gpt", "qwen"]
 LABEL = {"human": "Human", "claude": "Claude", "deepseek": "DeepSeek", "gemini": "Gemini", "gpt": "GPT", "qwen": "Qwen"}
 BIN = [("d1_server_ok", "D1 all objects API-accepted"), ("d2_pss_baseline", "D2 passes PSS baseline"),
        ("d2_pss_restricted", "D2 passes PSS restricted"), ("d2_has_secret", "D2 hard-coded secret"),
-       ("d5_ready", "D5 fully Ready"), ("d5_smoke", "D5 smoke test passes"),
-       ("d6_all_recovered", "D6 recovers from all 6 faults")]
+       ("d5_ready", "D5 fully Ready"), ("d5_smoke", "D5 smoke test passes")]
 CONT = [("d2_kubescape_compliance", "D2 Kubescape compliance (\\%)"), ("d3_checklist_pct", "D3 reliability checklist (\\%)"),
         ("d3_zhang_density_kloc", "D3 smells per KLOC"), ("d4_pct", "D4 requirements met (\\%)"),
-        ("d5_time_to_ready_s", "D5 time to Ready (s)"), ("d6_availability_mean", "D6 availability under faults (\\%)")]
+        ("d5_time_to_ready_s", "D5 time to Ready (s)"), ("d6_recovery_time_mean", "D6 recovery time (s)"),
+        ("d6_downtime_mean", "D6 downtime per fault (s)")]
 
 
 def b(s):
@@ -54,7 +56,10 @@ def overview(df, variant):
     rows += [" & ".join([lab] + [cell_cont(sub[sub.source == s][c]) for s in present]) + r" \\" for c, lab in CONT]
     cap = ("Six-dimension results, %s prompt. Binary rows: percentage (count/n); continuous rows: median "
            "[interquartile range]. The human column is the shipped manifest of each project (one per project). "
-           "D5 time to Ready and D6 are conditional on deployment.") % variant
+           "Continuous rows are computed over the configurations for which the metric is defined: static scores over "
+           "parsed configurations, D5 time to Ready and D6 over deployed ones, so their n can be smaller than the column "
+           "total. D6 downtime depends mainly on the replica count of the faulted workload "
+           "(Section~\\ref{sec:res-rq5}).") % variant
     body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n" rf"\caption{{{cap}}}\label{{tab:overview-{variant}}}" "\n"
             r"\resizebox{\textwidth}{!}{%" "\n"
             rf"\begin{{tabular}}{{{cols}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n" r"\bottomrule" "\n"
@@ -201,12 +206,49 @@ def rahman(df):
     write("tab_rahman.tex", body)
 
 
+ITEMS = [("1_replicas_ge_2", "Two or more replicas"), ("2_readiness", "Readiness probe"), ("3_liveness", "Liveness probe"),
+         ("4_cpu_request", "CPU request"), ("5_mem_request", "Memory request"), ("6_mem_limit", "Memory limit"),
+         ("7_rolling_update", "Explicit rolling update"), ("8_pdb", "PodDisruptionBudget"),
+         ("9_spread", "Anti-affinity or spread"), ("10_pinned_tag", "Pinned image tag")]
+
+
+def checklist_items():
+    """Share of applicable workloads (pooled per source and prompt) that MISS each reliability-checklist item."""
+    agg = {}
+    for f in glob.glob(os.path.join(HERE, "results", "*.json")):
+        r = json.load(open(f, encoding="utf-8"))
+        c = ((r.get("d3") or {}).get("checklist") or {}).get("by_item") or {}
+        key = ("human", "human") if r["source"] == "human" else (r["source"], r["prompt_variant"])
+        for it, _ in ITEMS:
+            m = c.get(it) or {}
+            a = agg.setdefault(key, {}).setdefault(it, [0, 0])
+            a[0] += m.get("met", 0)
+            a[1] += m.get("applicable", 0)
+    groups = [("human", "human")] + [(s, v) for s in SOURCES[1:] for v in ("neutral", "production") if (s, v) in agg]
+    head = ["Missing item"] + [LABEL[s] if v == "human" else f"{LABEL[s]} {v[0].upper()}" for s, v in groups]
+    rows = [" & ".join(head) + r" \\ \midrule"]
+    for it, lab in ITEMS:
+        cells = []
+        for g in groups:
+            met, app = agg[g][it]
+            cells.append(f"{100 * (1 - met / app):.0f}" if app else "--")
+        rows.append(" & ".join([lab] + cells) + r" \\")
+    body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n"
+            r"\caption{Share of applicable workloads (\%) missing each item of the Reliability Controls Checklist, pooled "
+            r"over all configurations of a source and prompt. N = neutral prompt, P = production prompt.}"
+            r"\label{tab:checklist-items}" "\n" r"\resizebox{\textwidth}{!}{%" "\n"
+            rf"\begin{{tabular}}{{l{'r' * len(groups)}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n"
+            r"\bottomrule" "\n" r"\end{tabular}}" "\n" r"\end{table*}" "\n")
+    write("tab_checklist_items.tex", body)
+
+
 def main():
     df = pd.read_csv(os.path.join(AN, "configs.csv"))
     overview(df, "neutral")
     overview(df, "production")
     root_causes(df)  # supersedes the coarse failure_reasons() table (kept for the replication package only)
     rahman(df)
+    checklist_items()
 
 
 if __name__ == "__main__":

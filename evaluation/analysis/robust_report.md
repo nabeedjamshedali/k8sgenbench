@@ -16,6 +16,7 @@ Per-cell mean over the samples of each prompt (binary outcomes become per-cell r
 | D5 time to Ready (s) | n=27 Δ=+3.00 p=0.258 | n=6 Δ=+3.18 p=1.000 | n=6 Δ=+5.22 p=0.312 | n=6 Δ=-0.82 p=1.000 | n=6 Δ=-5.15 p=1.000 | n=3 Δ=+0.68 p=1.000 |
 | D6 mean availability (%) | n=28 Δ=+7.73 p=0.010 | n=6 Δ=+17.52 p=0.625 | n=6 Δ=+14.96 p=0.938 | n=7 Δ=+4.76 p=0.938 | n=6 Δ=+19.94 p=0.156 | n=3 Δ=+8.92 p=0.750 |
 | D6 mean recovery time (s) | n=28 Δ=+0.09 p=0.902 | n=6 Δ=-2.29 p=1.000 | n=6 Δ=+1.51 p=1.000 | n=7 Δ=+0.69 p=1.000 | n=6 Δ=-3.30 p=1.000 | n=3 Δ=+2.76 p=1.000 |
+| D6 mean downtime per fault (s) | n=28 Δ=-1.55 p=0.040 | n=6 Δ=-2.38 p=1.000 | n=6 Δ=-0.67 p=1.000 | n=7 Δ=-0.74 p=1.000 | n=6 Δ=-1.74 p=0.156 | n=3 Δ=-0.91 p=1.000 |
 | D6 mean availability, fully-Ready only (%) | n=27 Δ=+13.48 p=0.002 | n=6 Δ=+17.52 p=0.469 | n=6 Δ=+14.96 p=0.844 | n=6 Δ=+17.56 p=0.375 | n=6 Δ=+19.94 p=0.156 | n=3 Δ=+13.48 p=0.500 |
 | D2 passes PSS restricted | n=33 Δ=+0.00 pp p=0.001 | n=7 Δ=+0.67 p=0.188 | n=7 Δ=+0.00 p=0.500 | n=7 Δ=+0.00 | n=7 Δ=+0.00 p=0.500 | n=5 Δ=+0.00 |
 | D5 Ready | n=33 Δ=+0.00 pp p=0.005 | n=7 Δ=+0.00 | n=7 Δ=-0.33 p=0.375 | n=7 Δ=+0.00 | n=7 Δ=-0.33 p=0.500 | n=5 Δ=-0.33 p=0.500 |
@@ -41,6 +42,7 @@ Mean over the neutral samples of each project, paired with that project's human 
 | D5 time to Ready (s) | n=6 Δ=-1.03 p=1.000→1.000 | n=6 Δ=+0.67 p=0.844→1.000 | n=6 Δ=-2.91 p=0.312→1.000 | n=7 Δ=+1.30 p=0.938→1.000 | n=4 Δ=+5.15 p=0.875→1.000 |
 | D6 mean availability (%) | n=7 Δ=+7.53 p=0.375→1.000 | n=7 Δ=-0.48 p=0.938→1.000 | n=7 Δ=+3.87 p=0.469→1.000 | n=7 Δ=+14.34 p=0.469→1.000 | n=4 Δ=+5.45 p=0.875→1.000 |
 | D6 mean recovery time (s) | n=7 Δ=+2.03 p=0.469→1.000 | n=7 Δ=+0.62 p=1.000→1.000 | n=7 Δ=+1.36 p=0.938→1.000 | n=7 Δ=+5.06 p=0.938→1.000 | n=4 Δ=+5.04 p=0.875→1.000 |
+| D6 mean downtime per fault (s) | n=7 Δ=-0.12 p=0.688→1.000 | n=7 Δ=-0.27 p=0.578→1.000 | n=7 Δ=-0.22 p=1.000→1.000 | n=7 Δ=-2.20 p=0.812→1.000 | n=4 Δ=+1.47 p=0.625→1.000 |
 | D6 mean availability, fully-Ready only (%) | n=6 Δ=+12.40 p=0.219→1.000 | n=6 Δ=+0.86 p=0.688→1.000 | n=6 Δ=-4.44 p=0.844→1.000 | n=7 Δ=+21.12 p=0.469→1.000 | n=4 Δ=-3.64 p=0.875→1.000 |
 | D1 parses | n=7 Δ=+0.00 | n=7 Δ=+0.00 | n=7 Δ=+0.00 p=1.000→1.000 | n=7 Δ=+0.00 | n=5 Δ=+0.00 p=1.000→1.000 |
 | D1 schema-valid | n=7 Δ=+0.00 | n=7 Δ=+0.00 | n=7 Δ=+0.00 p=1.000→1.000 | n=7 Δ=+0.00 | n=5 Δ=+0.00 p=0.500→1.000 |
@@ -107,6 +109,21 @@ All generated configurations with the static score defined. Static score standar
 | Requirements met | fully Ready | +0.29 (0.004, 96) | +0.11 (0.310, 93) |
 | Requirements met | smoke passes | +0.30 (0.003, 96) | +0.05 (0.620, 93) |
 
+## D2. RQ4 cluster bootstrap (resampling (model, project) cells; 999 replicates; percentile 95% CI)
+
+| static score | outcome | projects dropped (no outcome variation) | OR (bootstrap 95% CI) | OR with model FE (bootstrap 95% CI) |
+|---|---|---|---|---|
+| Kubescape compliance | fully Ready | P05_emojivoto | 1.02 (0.40–2.11) | 0.85 (0.19–2.82) |
+| Kubescape compliance | smoke passes | P05_emojivoto | 0.43 (0.10–1.09) | 0.23 (0.05–1.06) |
+| Checklist coverage | fully Ready | P05_emojivoto | 1.43 (0.59–2.94) | 1.69 (0.59–7.84) |
+| Checklist coverage | smoke passes | P05_emojivoto | 0.64 (0.26–1.42) | 0.64 (0.19–2.46) |
+| Polaris score | fully Ready | P05_emojivoto | 1.06 (0.28–2.77) | 0.79 (0.10–4.04) |
+| Polaris score | smoke passes | P05_emojivoto | 0.40 (0.09–1.28) | 0.17 (0.02–0.95) |
+| KubeLinter smells/KLOC | fully Ready | P05_emojivoto | 1.15 (0.65–3.38) | 1.21 (0.54–5.26) |
+| KubeLinter smells/KLOC | smoke passes | P05_emojivoto | 2.13 (1.02–7.98) | 2.46 (0.93–15.82) |
+| Requirements met | fully Ready | P05_emojivoto | 3.24 (1.66–12.57) | 4.55 (1.83–37.29) |
+| Requirements met | smoke passes | P05_emojivoto | 1.90 (1.06–6.87) | 2.13 (1.05–32.10) |
+
 ## E. D6 stratified by the replica count of the faulted workload
 
 Downtime = (1 − availability) × probing window, from the 5 Hz prober (n_probes / 5 s), mean over the six faults.
@@ -130,10 +147,48 @@ Single-replica downtime across sources: Kruskal-Wallis H=6.64, p=0.249
 
 ## F. Sensitivity of D5 to deployment-time adjustments (worst-case bound)
 
-Generated configurations: 198; with a start-up shim applied: 26; with an image alias served: 12; with either: of which Ready 18, smoke 18, both 17.
+Generated configurations: 198; with a start-up shim applied: 26; with an image alias served: 12; with either: 29, of which Ready 18, smoke 18, both 17.
 
 | outcome | as reported | worst case (every adjusted success counted as failure) |
 |---|---|---|
 | ready | 128/198 (64.6%) | 110/198 (55.6%) |
 | smoke | 136/198 (68.7%) | 118/198 (59.6%) |
 | both | 118/198 (59.6%) | 101/198 (51.0%) |
+
+## G. RQ1 project-level effect sizes: Hodges-Lehmann difference (model − human) with exact 95% CI
+
+Mean over each project's three neutral samples minus that project's human manifest. With n=7 pairs the smallest attainable two-sided exact Wilcoxon p is 0.0156, and 0.078 after Holm over five models, so this section reports estimates and intervals rather than tests.
+
+| metric | claude | deepseek | gemini | gpt | qwen |
+|---|---|---|---|---|---|
+| Kubescape compliance (pts) | +1.4 [-4.7, +4.4] (n=7) | -0.1 [-5.3, +5.6] (n=7) | -0.1 [-4.9, +4.8] (n=7) | +5.9 [-5.3, +9.9] (n=7) | -2.5 [-9.4, +0.3] (n=5) |
+| Checklist coverage (pts) | +11.1 [+0.5, +30.0] (n=7) | +6.9 [-10.7, +25.0] (n=7) | +1.6 [-10.4, +20.0] (n=7) | +20.4 [+5.6, +37.5] (n=7) | +6.2 [-7.8, +25.0] (n=5) |
+| Polaris score | +5.3 [-5.5, +11.7] (n=7) | +2.8 [-4.3, +11.7] (n=7) | +2.1 [-5.7, +9.7] (n=7) | +8.8 [-3.8, +14.3] (n=7) | -1.8 [-10.5, +7.0] (n=5) |
+| Fully Ready (rate) | +0 [-50, +0] pp (n=7) | -33 [-67, +0] pp (n=7) | -25 [-67, +0] pp (n=7) | -25 [-50, +0] pp (n=7) | -33 [-100, +0] pp (n=5) |
+| Smoke test (rate) | +0 [+0, +17] pp (n=7) | +0 [-50, +33] pp (n=7) | +0 [-33, +50] pp (n=7) | +0 [-50, +33] pp (n=7) | -33 [-100, +0] pp (n=5) |
+
+## H. RQ5 heterogeneity across models and per-model estimates
+
+Per-cell change (production − neutral); Kruskal-Wallis across the five models tests whether the prompt effect differs between models; per-model Hodges-Lehmann estimates with exact 95% CIs.
+
+| metric | heterogeneity H, p | claude | deepseek | gemini | gpt | qwen |
+|---|---|---|---|---|---|---|
+| Kubescape compliance | H=19.97, p=<0.001 | +19.8 [+15.8, +21.4] | +10.1 [+7.4, +14.4] | +3.6 [+0.3, +6.9] | +12.4 [+7.2, +17.3] | +5.7 [-0.3, +11.4] |
+| Checklist coverage | H=3.77, p=0.437 | +34.2 [+18.6, +52.5] | +27.5 [+14.9, +43.9] | +21.4 [+10.4, +32.9] | +19.9 [+11.9, +29.3] | +17.7 [-5.0, +43.8] |
+| Polaris score | H=12.59, p=0.013 | +18.6 [+15.8, +20.7] | +13.4 [+7.3, +22.0] | +8.4 [+5.9, +10.7] | +14.5 [+8.5, +18.7] | +10.1 [+0.0, +16.0] |
+| Fully Ready rate | H=5.53, p=0.238 | +0.0 [-33.3, +0.0] | -16.7 [-50.0, +0.0] | +0.0 [+0.0, +16.7] | -16.7 [-50.0, +16.7] | -33.3 [-66.7, +0.0] |
+| Smoke rate | H=6.21, p=0.184 | -16.7 [-50.0, +0.0] | -33.3 [-66.7, +0.0] | +0.0 [+0.0, +16.7] | +0.0 [-50.0, +16.7] | +0.0 [-33.3, +66.7] |
+
+Pooled smoke-test pass rate: neutral 76/99 (76.8%), production 60/99 (60.6%); fully Ready: neutral 72/99 (72.7%), production 56/99 (56.6%).
+
+## I. Leave-one-project-out sensitivity (RQ5 cell-level Wilcoxon; D5 rates)
+
+| project left out | cells | Kubescape Δ, p | Ready: lower/higher, p | smoke: lower/higher, p | Ready+smoke rate (all LLM configs) |
+|---|---|---|---|---|---|
+| P02_n8n | 28 | +9.2, <0.001 | 10/3, 0.025 | 10/2, 0.009 | 58.3% |
+| P03_grafana | 29 | +8.3, <0.001 | 11/3, 0.009 | 11/3, 0.029 | 56.9% |
+| P04_voting-app | 28 | +9.8, <0.001 | 9/3, 0.050 | 8/3, 0.125 | 57.1% |
+| P05_emojivoto | 28 | +8.7, <0.001 | 12/3, 0.008 | 11/3, 0.025 | 53.0% |
+| P07_online-boutique | 29 | +8.3, <0.001 | 12/2, 0.003 | 11/2, 0.017 | 58.0% |
+| P08_sock-shop | 28 | +9.8, <0.001 | 12/2, 0.006 | 10/3, 0.035 | 68.5% |
+| P10_k8s-dashboard | 28 | +8.7, <0.001 | 12/2, 0.005 | 11/2, 0.023 | 65.5% |

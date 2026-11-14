@@ -226,7 +226,7 @@ def sec_e(L):
 
 def sec_f(L):
     L.append("\n## F. Sensitivity of D5 to deployment-time adjustments (worst-case bound)\n")
-    n = shim = alias = 0
+    n = shim = alias = either = 0
     rd = sm = both = 0
     tot = {"ready": 0, "smoke": 0, "both": 0}
     for f in glob.glob(os.path.join(S.HERE, "results", "*.json")):
@@ -240,19 +240,157 @@ def sec_f(L):
         has_s = bool(d.get("shims_applied"))
         has_a = any(str(i.get("served", "")).startswith("alias:") for i in d.get("images") or [] if isinstance(i, dict))
         shim += has_s; alias += has_a
+        either += has_s or has_a
         if has_s or has_a:
             rd += r_; sm += s_; both += r_ and s_
     L.append(f"Generated configurations: {n}; with a start-up shim applied: {shim}; with an image alias served: {alias}; "
-             f"with either: of which Ready {rd}, smoke {sm}, both {both}.")
+             f"with either: {either}, of which Ready {rd}, smoke {sm}, both {both}.")
     L.append(f"\n| outcome | as reported | worst case (every adjusted success counted as failure) |\n|---|---|---|")
     for k, v in (("ready", rd), ("smoke", sm), ("both", both)):
         L.append(f"| {k} | {tot[k]}/{n} ({100 * tot[k] / n:.1f}%) | {tot[k] - v}/{n} ({100 * (tot[k] - v) / n:.1f}%) |")
 
 
+def hodges_lehmann(d):
+    """Hodges-Lehmann estimate (median of Walsh averages) with the exact 95% CI from the Wilcoxon signed-rank null."""
+    d = np.asarray(d, float)
+    n = len(d)
+    w = np.sort([(d[i] + d[j]) / 2 for i in range(n) for j in range(i, n)])
+    # exact null distribution of the signed-rank statistic
+    dist = np.zeros(n * (n + 1) // 2 + 1); dist[0] = 1
+    for k in range(1, n + 1):
+        dist = dist + np.concatenate([np.zeros(k), dist[:-k]])
+    cdf = np.cumsum(dist / dist.sum())
+    c = int(np.searchsorted(cdf, 0.025, side="right"))  # largest c with P(T <= c-1) <= 0.025
+    lo, hi = (w[c], w[len(w) - 1 - c]) if c < len(w) / 2 else (np.nan, np.nan)
+    return float(np.median(w)), lo, hi
+
+
+def sec_g(df, L):
+    L.append("\n## G. RQ1 project-level effect sizes: Hodges-Lehmann difference (model − human) with exact 95% CI\n")
+    L.append("Mean over each project's three neutral samples minus that project's human manifest. With n=7 pairs the "
+             "smallest attainable two-sided exact Wilcoxon p is 0.0156, and 0.078 after Holm over five models, so this "
+             "section reports estimates and intervals rather than tests.\n")
+    L.append("| metric | " + " | ".join(MODELS) + " |\n|---|" + "---|" * len(MODELS))
+    neu = df[df.prompt_variant == "neutral"]
+    hum = df[df.source == "human"].set_index("project_id")
+    for c, lab in [("d2_kubescape_compliance", "Kubescape compliance (pts)"), ("d3_checklist_pct", "Checklist coverage (pts)"),
+                   ("d3_polaris_score", "Polaris score"), ("d5_ready", "Fully Ready (rate)"), ("d5_smoke", "Smoke test (rate)")]:
+        cells = []
+        for m in MODELS:
+            pm = neu[neu.source == m].groupby("project_id")[c].apply(lambda v: pd.to_numeric(v, errors="coerce").astype(float).mean())
+            both = pd.concat([pm, pd.to_numeric(hum[c], errors="coerce").astype(float)], axis=1, keys=["m", "h"]).dropna()
+            est, lo, hi = hodges_lehmann(both.m - both.h)
+            cells.append(f"{est:+.1f} [{lo:+.1f}, {hi:+.1f}] (n={len(both)})" if "rate" not in lab else
+                         f"{100 * est:+.0f} [{100 * lo:+.0f}, {100 * hi:+.0f}] pp (n={len(both)})")
+        L.append(f"| {lab} | " + " | ".join(cells) + " |")
+
+
+def sec_h(df, L):
+    L.append("\n## H. RQ5 heterogeneity across models and per-model estimates\n")
+    L.append("Per-cell change (production − neutral); Kruskal-Wallis across the five models tests whether the prompt "
+             "effect differs between models; per-model Hodges-Lehmann estimates with exact 95% CIs.\n")
+    L.append("| metric | heterogeneity H, p | " + " | ".join(MODELS) + " |\n|---|---|" + "---|" * len(MODELS))
+    for c, lab in [("d2_kubescape_compliance", "Kubescape compliance"), ("d3_checklist_pct", "Checklist coverage"),
+                   ("d3_polaris_score", "Polaris score"), ("d5_ready", "Fully Ready rate"), ("d5_smoke", "Smoke rate")]:
+        pv = cell_means(df, c)[["neutral", "production"]].dropna()
+        d = pv.production - pv.neutral
+        groups = [d[d.index.get_level_values(0) == m] for m in MODELS]
+        h = st.kruskal(*groups) if all(len(g) for g in groups) and d.nunique() > 1 else None
+        cells = []
+        for g in groups:
+            est, lo, hi = hodges_lehmann(g)
+            sc = 100 if "rate" in lab else 1
+            cells.append(f"{sc * est:+.1f} [{sc * lo:+.1f}, {sc * hi:+.1f}]")
+        L.append(f"| {lab} | " + (f"H={h.statistic:.2f}, p={S.fmt_p(h.pvalue)}" if h else "n/a") + " | " + " | ".join(cells) + " |")
+    neu, pro = (df[df.source.isin(MODELS) & (df.prompt_variant == v)] for v in ("neutral", "production"))
+    L.append(f"\nPooled smoke-test pass rate: neutral {int(neu.d5_smoke.sum())}/{len(neu)} "
+             f"({100 * neu.d5_smoke.mean():.1f}%), production {int(pro.d5_smoke.sum())}/{len(pro)} ({100 * pro.d5_smoke.mean():.1f}%); "
+             f"fully Ready: neutral {int(neu.d5_ready.sum())}/{len(neu)} ({100 * neu.d5_ready.mean():.1f}%), "
+             f"production {int(pro.d5_ready.sum())}/{len(pro)} ({100 * pro.d5_ready.mean():.1f}%).")
+
+
+def sec_i(df, L):
+    L.append("\n## I. Leave-one-project-out sensitivity (RQ5 cell-level Wilcoxon; D5 rates)\n")
+    L.append("| project left out | cells | Kubescape Δ, p | Ready: lower/higher, p | smoke: lower/higher, p | Ready+smoke rate (all LLM configs) |")
+    L.append("|---|---|---|---|---|---|")
+    llm = df[df.source.isin(MODELS)]
+    for proj in sorted(llm.project_id.unique()):
+        sub = df[df.project_id != proj]
+        out = []
+        pk = cell_means(sub, "d2_kubescape_compliance")[["neutral", "production"]].dropna()
+        dk = pk.production - pk.neutral
+        out.append(f"{dk.median():+.1f}, {S.fmt_p(st.wilcoxon(dk[dk != 0]).pvalue)}")
+        for c in ("d5_ready", "d5_smoke"):
+            pv = cell_means(sub, c)[["neutral", "production"]].dropna()
+            d = pv.production - pv.neutral
+            out.append(f"{int((d < 0).sum())}/{int((d > 0).sum())}, {S.fmt_p(st.wilcoxon(d[d != 0]).pvalue)}")
+        l2 = sub[sub.source.isin(MODELS)]
+        rate = (l2.d5_ready & l2.d5_smoke).mean()
+        L.append(f"| {proj} | {len(pk)} | " + " | ".join(out) + f" | {100 * rate:.1f}% |")
+
+
+def _newton(X, y, iters=50):
+    """Logistic coefficients only (no covariance), for bootstrap replicates."""
+    beta = np.zeros(X.shape[1])
+    for _ in range(iters):
+        p = 1 / (1 + np.exp(-np.clip(X @ beta, -30, 30)))
+        H = X.T @ (X * (p * (1 - p))[:, None]) + 1e-6 * np.eye(X.shape[1])
+        try:
+            step = np.linalg.solve(H, X.T @ (y - p))
+        except np.linalg.LinAlgError:
+            return None
+        beta += step
+        if np.max(np.abs(step)) < 1e-8:
+            break
+    return beta
+
+
+def sec_d_boot(df, L, reps=999, seed=7):
+    L.append("\n## D2. RQ4 cluster bootstrap (resampling (model, project) cells; 999 replicates; percentile 95% CI)\n")
+    L.append("| static score | outcome | projects dropped (no outcome variation) | OR (bootstrap 95% CI) | OR with model FE (bootstrap 95% CI) |")
+    L.append("|---|---|---|---|---|")
+    rng = np.random.default_rng(seed)
+    llm = df[df.source.isin(MODELS)].copy()
+    for s, slab in STATIC:
+        for yv, ylab in (("d5_ready", "fully Ready"), ("d5_smoke", "smoke passes")):
+            d = llm[[s, yv, "prompt_variant", "project_id", "source"]].copy()
+            d[s] = pd.to_numeric(d[s], errors="coerce")
+            d = d.dropna()
+            d[yv] = d[yv].astype(float)
+            var = d.groupby("project_id")[yv].nunique()
+            dropped = sorted(var[var < 2].index)
+            d = d[~d.project_id.isin(dropped)].reset_index(drop=True)
+            d["cell"] = d.source + "|" + d.project_id
+            cells = d.cell.unique()
+            rows_of = [np.flatnonzero(d.cell.to_numpy() == c) for c in cells]
+            y_all = d[yv].to_numpy()
+            z_all = ((d[s] - d[s].mean()) / d[s].std()).to_numpy()  # OR per full-sample SD
+            res = []
+            for extra in (False, True):
+                cols = ["prompt_variant", "project_id"] + (["source"] if extra else [])
+                X_all = np.column_stack([np.ones(len(d)), z_all,
+                                         pd.get_dummies(d[cols], drop_first=True).astype(float).to_numpy()])
+                ors = []
+                for _ in range(reps):
+                    idx = np.concatenate([rows_of[i] for i in rng.integers(0, len(cells), len(cells))])
+                    yb = y_all[idx]
+                    if yb.min() == yb.max():
+                        continue
+                    Xb = X_all[idx]
+                    Xb = Xb[:, np.r_[0, 1, 2 + np.flatnonzero(Xb[:, 2:].any(axis=0))]]  # drop absent dummies
+                    beta = _newton(Xb, yb)
+                    if beta is not None and np.isfinite(beta[1]) and abs(beta[1]) < 10:
+                        ors.append(np.exp(beta[1]))
+                lo, hi = np.percentile(ors, [2.5, 97.5])
+                res.append(f"{np.median(ors):.2f} ({lo:.2f}–{hi:.2f})")
+            L.append(f"| {slab} | {ylab} | {', '.join(dropped) or 'none'} | {res[0]} | {res[1]} |")
+
+
 def main():
     df = S.load()
     L = ["# K8sGenBench robustness report (generated by evaluation/robust.py; do not edit)\n"]
-    sec_a(df, L); sec_b(df, L); sec_c(df, L); sec_d(df, L); sec_e(L); sec_f(L)
+    sec_a(df, L); sec_b(df, L); sec_c(df, L); sec_d(df, L); sec_d_boot(df, L); sec_e(L); sec_f(L)
+    sec_g(df, L); sec_h(df, L); sec_i(df, L)
     open(OUT, "w", encoding="utf-8").write("\n".join(L) + "\n")
     print("->", OUT)
 
