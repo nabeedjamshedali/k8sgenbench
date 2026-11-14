@@ -175,15 +175,26 @@ def rahman(df):
                                      if ((t.source == s) & (t.prompt_variant == v)).any()]
     head = ["Category"] + [LABEL[s] if v == "human" else f"{LABEL[s]} {v[0].upper()}" for s, v in groups]
     rows = [" & ".join(head) + r" \\ \midrule"]
+    never = []  # categories with no instance in any source are named in the caption instead of a row of zeros
     for c in cats:
-        cells = []
+        cells, shares = [], []
         for s, v in groups:
             g = t[(t.source == s) & (t.prompt_variant == v)][c].astype(str).str.lower().map({"true": 1, "false": 0})
             cells.append(f"{100 * g.mean():.0f}" if len(g) else "--")
+            shares.append(g.mean() if len(g) else 0)
+        if not any(shares):
+            never.append(c)
+            continue
         rows.append(" & ".join([c] + cells) + r" \\")
+    none_note = (" No configuration from any source exhibits " + ", ".join(n[0].lower() + n[1:] for n in never) + "."
+                 if never else "")
     body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n"
             r"\caption{Share of configurations (\%) exhibiting each security misconfiguration category of Rahman et al., "
-            r"detected with the rules of their SLI-KUBE tool. N = neutral prompt, P = production prompt.}"
+            r"detected with the rules of their SLI-KUBE tool. N = neutral prompt, P = production prompt." + none_note +
+            r" Following SLI-KUBE, a hard-coded secret is any literal value under a key naming a user, password, token "
+            r"or secret. The D2 secret check of Table~\ref{tab:overview-neutral} is stricter (user names and placeholder "
+            r"values such as \texttt{changeme} are not counted, known credential token formats are), so its rates are "
+            r"lower.}"
             r"\label{tab:rahman}" "\n" r"\resizebox{\textwidth}{!}{%" "\n"
             rf"\begin{{tabular}}{{l{'r' * len(groups)}}}" "\n" r"\toprule" "\n" +
             "\n".join(rows) + "\n" r"\bottomrule" "\n" r"\end{tabular}}" "\n" r"\end{table*}" "\n")
@@ -194,8 +205,7 @@ def main():
     df = pd.read_csv(os.path.join(AN, "configs.csv"))
     overview(df, "neutral")
     overview(df, "production")
-    failure_reasons(df)
-    root_causes(df)
+    root_causes(df)  # supersedes the coarse failure_reasons() table (kept for the replication package only)
     rahman(df)
 
 
