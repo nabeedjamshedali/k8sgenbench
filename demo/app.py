@@ -174,10 +174,17 @@ def label(cfg):
     return "Human (shipped manifest)" if p[0] == "human" else f"{names.get(p[0], p[0])}, {p[2]} prompt, sample {p[3][1:]}"
 
 
+def same(recorded, live):
+    """True/False when both values exist and the live one was actually measured; None otherwise."""
+    if not recorded or not live or live.startswith(("skipped", "not checked", "not run")):
+        return None
+    return recorded == live
+
+
 def verdict(r):
     d5 = (r or {}).get("d5") or {}
     if not d5.get("ran"):
-        return "static checks only"
+        return "static checks done (deployment not run)"
     return "WORKS (Ready + smoke test passed)" if d5.get("ready_ok") and d5.get("smoke_ok") else "DOES NOT WORK"
 
 
@@ -213,6 +220,7 @@ def start_job(args):
             JOBS[jid]["log"].append(f"[{time.time() - t0:5.0f}s] {line.rstrip()}")
         p.wait()
         JOBS[jid]["log"].append(f"finished with exit code {p.returncode} after {time.time() - t0:.0f} s")
+        JOBS[jid]["rc"] = p.returncode
         JOBS[jid]["done"] = True
 
     threading.Thread(target=work, daemon=True).start()
@@ -255,7 +263,8 @@ INDEX = """<!doctype html><html><head><meta charset="utf-8"><title>K8sGenBench d
  <button class="sec" onclick="live('a')">Run live: left</button>
  <button class="sec" onclick="live('b')">Run live: right</button>
 </div>
-<div class="card" id="logcard" style="display:none;margin-top:14px"><h2>Live run <span id="logname" class="muted"></span></h2><pre id="log"></pre></div>
+<p class="muted" style="margin:8px 2px">Colours: <span class="ok">green = check passed</span>, <span class="bad">red = check failed</span>, black = a score (no pass/fail threshold). In the Live column, <span class="ok">&#10003;</span> = same value as the recorded study result.</p>
+<div class="card" id="logcard" style="display:none;margin-top:6px"><h2>Live run <span id="logname" class="muted"></span></h2><div id="status" class="verdict v-na">starting...</div><pre id="log"></pre></div>
 <div class="grid"><div class="card" id="A"></div><div class="card" id="B"></div></div>
 </main>
 <script>
@@ -274,14 +283,19 @@ async function show(s){const n=$(s).value;const d=await (await fetch('/api/confi
  const c=ok=>ok===true?'ok':ok===false?'bad':'';
  $(s.toUpperCase()).innerHTML=`<h2>${label(n)}</h2>${badge(d.verdict,'Recorded')}${d.live?badge(d.live_verdict,'Live'):''}
  ${d.cause?`<p class="muted"><b>Root cause (study):</b> ${d.cause}</p>`:''}
- <table><tr><th>Dimension</th><th>Check</th><th>Recorded</th>${d.live?'<th>Live</th>':''}</tr>${d.rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${c(r[3])}">${r[2]}</td>${d.live?`<td class="${c(r[5])}">${r[4]}</td>`:''}</tr>`).join('')}</table>
- <h2 style="margin-top:12px">Manifest</h2><pre>${d.manifest}</pre>`}
+ <table><tr><th>Dimension</th><th>Check</th><th>Recorded</th>${d.live?'<th>Live</th>':''}</tr>${d.rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${c(r[3])}">${r[2]}</td>${d.live?`<td class="${c(r[5])}">${r[4]}${r[6]===true?' <span class="ok">&#10003;</span>':r[6]===false?' <span class="bad">(differs)</span>':''}</td>`:''}</tr>`).join('')}</table>
+ <h2 style="margin-top:12px">Manifest</h2><pre>${d.manifest}</pre>`;return d}
 async function cluster(){const u=(await (await fetch('/api/cluster')).json()).up;
  $('cl').textContent=u?'cluster: running':'cluster: stopped (static checks only)';$('cl').style.background=u?'#ecfdf3':'#f2f4f7'}
-async function live(s){const n=$(s).value;$('logcard').style.display='';$('logname').textContent=label(n);$('log').textContent='starting...';
+function status(t,cls){$('status').textContent=t;$('status').className='verdict '+cls}
+async function live(s){const n=$(s).value;$('logcard').style.display='';$('logname').textContent=label(n);$('log').textContent='';const t0=Date.now();status('Running... 0 s','v-na');
  const j=await (await fetch('/api/run?name='+n+'&runtime='+($('rt').checked?1:0),{method:'POST'})).json();
  const t=setInterval(async()=>{const st=await (await fetch('/api/log?id='+j.id)).json();$('log').textContent=st.log.join('\\n');
-  $('log').scrollTop=1e9;if(st.done){clearInterval(t);show(s)}},1500)}
+  $('log').scrollTop=1e9;const sec=Math.round((Date.now()-t0)/1000);
+  if(!st.done){status('Running... '+sec+' s','v-na');return}
+  clearInterval(t);const d=await show(s);
+  if(st.rc!==0){status('Run FAILED (exit code '+st.rc+'): see the log below','v-bad');return}
+  const m=d.match;status('Completed in '+sec+' s. '+m[0]+' of '+m[1]+' live values match the recorded study result'+(d.live_verdict.startsWith('static')?' (deployment not run).':'. Live verdict: '+d.live_verdict),m[0]==m[1]?'v-ok':'v-bad')},1500)}
 function report(){window.open('/report?a='+$('a').value+'&b='+$('b').value)}
 init();
 </script></body></html>""" % CSS
@@ -336,13 +350,15 @@ class H(BaseHTTPRequestHandler):
         if u.path == "/api/config":
             live, rec = result(name, True), result(name)
             rc = root_cause(name)
-            return self._send({"rows": merged(rec, live), "verdict": verdict(rec),
+            rows = [list(r) + [same(r[2], r[4])] for r in merged(rec, live)] if live else [list(r) + [None] for r in merged(rec, live)]
+            compared = [r[6] for r in rows if r[6] is not None]
+            return self._send({"rows": rows, "verdict": verdict(rec), "match": [sum(compared), len(compared)],
                                "live_verdict": verdict(live) if live else "", "live": bool(live),
                                "manifest": html.escape(manifest_text(name)),
                                "cause": html.escape(rc["mechanism"]) if rc else ""})
         if u.path == "/api/log":
             j = JOBS.get(q.get("id"), {"log": ["unknown job"], "done": True})
-            return self._send({"log": j["log"], "done": j["done"]})
+            return self._send({"log": j["log"], "done": j["done"], "rc": j.get("rc")})
         if u.path == "/report":
             return self._send(report_page(os.path.basename(q["a"]), os.path.basename(q["b"])), "text/html")
         self._send({"error": "not found"}, code=404)
