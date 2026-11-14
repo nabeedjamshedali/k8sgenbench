@@ -78,6 +78,89 @@ def failure_reasons(df):
     write("tab_d5_failures.tex", body)
 
 
+THEMES = [  # (theme, [(category, label)]) for evaluation/d5_root_causes.csv
+    ("Hardening blocks the workload", [
+        ("hardening_breaks_db", "Capability drop or fixed UID stops the database"),
+        ("hardening_breaks_aux", "runAsNonRoot on an image whose user cannot be verified"),
+        ("hardening_breaks_api_access", "Service-account token disabled for a component that needs the API"),
+        ("networkpolicy_blocks_path", "NetworkPolicy blocks a documented internal route")]),
+    ("Probes and resource limits", [
+        ("liveness_kills_slow_start", "Liveness/startup probe kills a slow-starting service"),
+        ("memory_limit_too_low", "Memory limit too low (OOMKilled)"),
+        ("probe_port_mismatch", "Probe on the wrong port or path"),
+        ("probe_missing_binary", "Probe calls a binary the image does not ship"),
+        ("probe_on_non_server_aux", "HTTP probe on a component without a server")]),
+    ("Compose file translated literally", [
+        ("compose_literalism", "Host-level Compose services break the application"),
+        ("compose_literalism_aux_only", "Host-level Compose services fail; application works")]),
+    ("Wrong values or references", [
+        ("wrong_service_port", "Service targets the wrong container port"),
+        ("wrong_api_server_endpoint", "API server address overridden"),
+        ("missing_referenced_secret", "Volume references an undefined Secret"),
+        ("unavailable_image", "Image from a non-existent repository"),
+        ("empty_required_env", "Required variable set to an empty value"),
+        ("hallucinated_flag", "Non-existent command-line flag"),
+        ("placeholder_domain_enforced", "Placeholder domain enforced"),
+        ("dangling_dependency", "Points at a database host that does not exist"),
+        ("hardening_breaks_dependency", "TLS required by the client, not offered by the database")]),
+    ("Invalid or missing output", [
+        ("invalid_yaml_or_object", "Invalid YAML or object rejected by the API server"),
+        ("invalid_rbac_object", "RBAC object rejected (unquoted resource name)"),
+        ("truncated_reply", "Reply ends before the YAML block closes"),
+        ("no_output_recitation", "Provider withheld the reply (recitation)")]),
+    ("Other", [("undetermined", "Cause not determined"), ("unpinned_tag_drift", "Unpinned image tag drifted")]),
+]
+
+
+def root_causes(df):
+    """Root cause of every configuration that is not both fully Ready and smoke-OK (evaluation/d5_root_causes.csv)."""
+    f = os.path.join(HERE, "d5_root_causes.csv")
+    if not os.path.exists(f):
+        return
+    t = pd.read_csv(f)
+    cid = df.apply(lambda r: f"human__{r.project_id}" if r.source == "human" else
+                   f"{r.source}__{r.project_id}__{r.prompt_variant}__s{int(r.sample_k)}", axis=1)
+    failing = set(cid[(b(df.d5_ready) != 1) | (b(df.d5_smoke) != 1)])
+    if failing - set(t.config) or set(t.config) - failing:
+        raise SystemExit(f"d5_root_causes.csv out of sync: unlabelled={sorted(failing - set(t.config))} "
+                         f"no longer failing={sorted(set(t.config) - failing)}")
+    t["source"] = t.config.str.split("__").str[0]
+    t["variant"] = t.config.apply(lambda c: c.split("__")[2] if c.count("__") == 3 else "human")
+    known = {c for _, cats in THEMES for c, _ in cats}
+    unknown = sorted(set(t.category) - known)
+    if unknown:
+        raise SystemExit(f"d5_root_causes.csv has categories with no table label: {unknown}")
+    models = SOURCES[1:]
+    rows = [" & ".join(["Mechanism"] + [LABEL[m] for m in models] + ["N", "P", "Human", "Obs."]) + r" \\ \midrule"]
+    for theme, cats in THEMES:
+        sub = t[t.category.isin([c for c, _ in cats])]
+        if sub.empty:
+            continue
+        rows.append(rf"\multicolumn{{{len(models) + 5}}}{{l}}{{\textit{{{theme}}}}} \\")
+        for c, lab in cats:
+            g = t[t.category == c]
+            if g.empty:
+                continue
+            obs = int(g.evidence.str.startswith("observed").sum())
+            cells = [str(int((g.source == m).sum())) or "0" for m in models]
+            rows.append(" & ".join([r"\quad " + lab] + cells + [str(int((g.variant == "neutral").sum())),
+                                                               str(int((g.variant == "production").sum())),
+                                                               str(int((g.source == "human").sum())), f"{obs}/{len(g)}"]) + r" \\")
+    rows.append(r"\midrule")
+    rows.append(" & ".join(["Total"] + [str(int((t.source == m).sum())) for m in models] +
+                           [str(int((t.variant == "neutral").sum())), str(int((t.variant == "production").sum())),
+                            str(int((t.source == "human").sum())), f"{int(t.evidence.str.startswith('observed').sum())}/{len(t)}"]) + r" \\")
+    body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n"
+            r"\caption{Root cause of every configuration that was not both fully Ready and passing its smoke test, by "
+            r"model and prompt (N = neutral, P = production). Obs.\ = cases whose mechanism is directly visible in the "
+            r"cluster's record (exit reason, log lines, events, rejected objects or provider stop reason); the remainder "
+            r"are inferred from the manifest together with the observed status, or, for one mechanism, supported by a "
+            r"matched contrast.}\label{tab:root-causes}" "\n"
+            rf"\begin{{tabular}}{{l{'r' * (len(models) + 4)}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n"
+            r"\bottomrule" "\n" r"\end{tabular}" "\n" r"\end{table*}" "\n")
+    write("tab_root_causes.tex", body)
+
+
 def rahman(df):
     f = os.path.join(AN, "rq2_rahman.csv")
     if not os.path.exists(f):
@@ -107,6 +190,7 @@ def main():
     overview(df, "neutral")
     overview(df, "production")
     failure_reasons(df)
+    root_causes(df)
     rahman(df)
 
 
