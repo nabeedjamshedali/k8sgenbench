@@ -1,6 +1,6 @@
 """K8sGenBench demo: compare a project's human manifest with an LLM-generated one.
 
-    python demo/app.py            then open http://localhost:8800
+    python demo/app.py            opens http://localhost:8800 in the browser (--no-browser to skip)
 
 Recorded mode shows the stored study results (evaluation/results/) instantly. "Run live" re-runs the same
 pipeline (D1-D4, and with the cluster also D5-D6) on the chosen configuration; live results are written to
@@ -376,5 +376,9 @@ class H(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    server = ThreadingHTTPServer(("127.0.0.1", PORT), H)
     print(f"K8sGenBench demo on http://localhost:{PORT}  (Ctrl+C to stop)")
-    ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
+    if "--no-browser" not in sys.argv:
+        import webbrowser
+        threading.Timer(1.0, webbrowser.open, [f"http://localhost:{PORT}"]).start()
+    server.serve_forever()

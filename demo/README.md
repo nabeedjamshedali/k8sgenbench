@@ -9,7 +9,7 @@ LLM-generated one, re-run the evaluation pipeline live, and print a comparison r
 python demo/app.py
 ```
 
-Open http://localhost:8800. No extra packages are needed beyond those the study already uses.
+It opens http://localhost:8800 in the browser. No extra packages are needed beyond those the study already uses.
 
 ## What it shows
 
