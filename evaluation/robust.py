@@ -99,21 +99,33 @@ def sec_b(df, L):
 def sec_c(df, L):
     L.append("\n## C. RQ3 blocked on project (Friedman, five common projects)\n")
     L.append("Project-level mean per model; Friedman test across the five models with projects as blocks; Kendall's W.\n")
-    L.append("| prompt | metric | n blocks | χ² | p | W | mean rank per model |\n|---|---|---|---|---|---|---|")
+    L.append("Permutation p: the models' values are permuted within each block (20,000 draws), which does not rely on "
+             "the χ² approximation; Holm over the three static scores, and separately the two deployment outcomes, of "
+             "one prompt.\n")
+    L.append("| prompt | metric | n blocks | χ² | p (χ²) | W | permutation p | permutation p (Holm) | mean rank per model |"
+             "\n|---|---|---|---|---|---|---|---|---|")
     llm = df[df.source.isin(MODELS)]
     common = sorted(set.intersection(*[set(llm[llm.source == m].project_id) for m in MODELS]))
+    rng = np.random.default_rng(20261114)
     for v in ("neutral", "production"):
-        for c, lab in [(c, l) for c, l in STATIC[:3]] + [("d5_ready", "D5 Ready rate"), ("d5_smoke", "D5 smoke rate")]:
-            sub = llm[(llm.prompt_variant == v) & llm.project_id.isin(common)].copy()
-            sub[c] = pd.to_numeric(sub[c], errors="coerce").astype(float)
-            t = sub.pivot_table(index="project_id", columns="source", values=c, aggfunc="mean")[MODELS].dropna()
-            if len(t) < 3:
-                continue
-            chi, p = st.friedmanchisquare(*[t[m] for m in MODELS])
-            W = chi / (len(t) * (len(MODELS) - 1))
-            ranks = t.rank(axis=1).mean()
-            L.append(f"| {v} | {lab} | {len(t)} | {chi:.2f} | {S.fmt_p(p)} | {W:.2f} | " +
-                     ", ".join(f"{m} {ranks[m]:.1f}" for m in MODELS) + " |")
+        fams = [[(c, l) for c, l in STATIC[:3]], [("d5_ready", "D5 Ready rate"), ("d5_smoke", "D5 smoke rate")]]
+        for fam in fams:
+            rows = []
+            for c, lab in fam:
+                sub = llm[(llm.prompt_variant == v) & llm.project_id.isin(common)].copy()
+                sub[c] = pd.to_numeric(sub[c], errors="coerce").astype(float)
+                t = sub.pivot_table(index="project_id", columns="source", values=c, aggfunc="mean")[MODELS].dropna()
+                if len(t) < 3:
+                    continue
+                chi, p = st.friedmanchisquare(*[t[m] for m in MODELS])
+                a = t.to_numpy()
+                perm = [st.friedmanchisquare(*rng.permuted(a, axis=1).T)[0] for _ in range(20000)]
+                p_perm = (1 + sum(x >= chi - 1e-12 for x in perm)) / (1 + len(perm))
+                rows.append((lab, len(t), chi, p, chi / (len(t) * (len(MODELS) - 1)), p_perm, t.rank(axis=1).mean()))
+            adj = S.holm([r[5] for r in rows])
+            for (lab, n, chi, p, W, pp, ranks), pa in zip(rows, adj):
+                L.append(f"| {v} | {lab} | {n} | {chi:.2f} | {S.fmt_p(p)} | {W:.2f} | {S.fmt_p(pp)} | {S.fmt_p(pa)} | " +
+                         ", ".join(f"{m} {ranks[m]:.1f}" for m in MODELS) + " |")
     L.append(f"\nCommon projects: {', '.join(common)}")
 
 

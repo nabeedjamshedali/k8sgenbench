@@ -145,8 +145,8 @@ def fig_attrition(df):
         placed = []
         for yv, m, n in ends:
             yy = yv
-            while any(abs(yy - p) < 4.5 for p in placed):
-                yy += 4.5
+            while any(abs(yy - p) < 7 for p in placed):
+                yy += 7
             placed.append(yy)
             ax.text(x[-1] + 0.15, yy, "Human" if m == "human" else f"{LABEL[m]} (n={n})",
                     color=MUTED if m == "human" else INK, va="center", fontsize=7)

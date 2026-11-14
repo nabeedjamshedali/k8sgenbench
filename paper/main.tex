@@ -27,7 +27,8 @@
 \renewcommand{\dblfloatpagefraction}{0.8}
 \usepackage{xcolor}
 \newcommand{\confirm}[1]{\textcolor{red}{#1 [authors to confirm]}}
-\setlength{\emergencystretch}{2em} % lets long \texttt{} words break without running into the margin
+\setlength{\emergencystretch}{2em}
+\RenewDocumentCommand{\printorcid}{}{} % cas-dc prints an empty "ORCID(s):" footnote when no ORCID is given % lets long \texttt{} words break without running into the margin
 
 \begin{document}
 \let\WriteBookmarks\relax
@@ -47,7 +48,7 @@
             country={Pakistan}}
 
 \begin{abstract}
-Large language models (LLMs) are increasingly used to write Kubernetes configurations, yet misconfigured manifests can expose clusters to privilege escalation, resource exhaustion and outages. Existing evaluations of LLM-generated manifests use curated tasks or a single 2023 model and do not compare against the manifests that projects actually ship. We generated 198 configurations with five current LLMs for seven open-source applications, giving each model only the project's own documentation under a neutral and a production-oriented prompt, three samples each, and evaluated them alongside the projects' shipped manifests on correctness, security, static reliability, requirement satisfaction, deployment with functional smoke tests on a real cluster, and recovery from injected pod failures. Validity did not translate into working deployments: 92.9\% of the generated configurations were schema-valid, but only 59.6\% became fully Ready and passed the smoke test. Under the neutral prompt, generated configurations did not differ significantly from the shipped manifests in static security. Requesting production readiness raised static security and reliability scores (median Kubescape compliance +9 points per model--project cell) but lowered the smoke-test pass rate from 76.8\% to 60.6\%, largely through hardening that stopped database images from starting and liveness probes that killed slow-starting services. Higher static security and reliability scores were not associated with deployment success; if anything, the association was negative. Generated manifests should therefore be deployed and tested, not only scanned, before use.
+Large language models (LLMs) are increasingly used to write Kubernetes configurations, yet misconfigured manifests can expose clusters to privilege escalation, resource exhaustion and outages. Existing evaluations of LLM-generated manifests use curated tasks or a single 2023 model and do not compare against the manifests that projects actually ship. We generated 198 configurations with five current LLMs for seven open-source applications, giving each model only the project's own documentation under a neutral and a production-oriented prompt, three samples each, and evaluated them alongside the projects' shipped manifests on correctness, security, static reliability, requirement satisfaction, deployment with functional smoke tests on a real cluster, and recovery from injected pod failures. Validity did not translate into working deployments: 92.9\% of the generated configurations were schema-valid, but only 59.6\% became fully Ready and passed the smoke test. Under the neutral prompt, the generated configurations' static security was close to that of the shipped manifests, most of which are demonstration manifests (project-level differences in Kubescape compliance within about ten points for every model). Requesting production readiness raised static security and reliability scores (median Kubescape compliance +9 points per model--project cell) but lowered the smoke-test pass rate from 76.8\% to 60.6\%, largely through hardening that stopped database images from starting and liveness probes that killed slow-starting services. Static security and reliability scores showed no positive association with deployment success. Generated manifests should therefore be deployed and tested, not only scanned, before use.
 \end{abstract}
 
 \begin{highlights}
@@ -76,39 +77,39 @@ Kubernetes \sep Large Language Models \sep Infrastructure as Code \sep Security 
 \appendix
 \section{Pipeline corrections}\label{app:fixes}
 
-Table~\ref{tab:fixes} lists every correction to the evaluation pipeline, in the order made (the log numbers them 2--27; no corrections 1 and 18 were recorded). Effect: $+$ removes a failure that the investigation traced to the measurement or to an undocumented prerequisite; $-$ makes scoring stricter; 0 affects only the running of the pipeline. Each correction was applied to every configuration it could affect, followed by re-evaluation.
+Table~\ref{tab:fixes} lists every correction to the evaluation pipeline, in the order made (the log numbers them 2--27; no corrections 1 and 18 were recorded). Of the 25, 8 are B, 9 are M, 5 are D and 3 are P (definitions in the caption). Effect: $+$ removes a failure that the investigation traced to the measurement or to an undocumented prerequisite; $-$ makes scoring stricter; 0 affects only the running of the pipeline. Each correction was applied to every configuration it could affect, followed by re-evaluation.
 
 \begin{table*}[t]
 \centering\footnotesize
-\caption{Pipeline corrections (trigger, change and effect). All dates are November 2026.}\label{tab:fixes}
-\begin{tabular}{rlp{0.36\textwidth}p{0.36\textwidth}c}
+\caption{Pipeline corrections (kind, trigger, change and effect). Kind: B = bug in running or recording the pipeline; M = the measurement itself was wrong; D = an outcome's definition changed; P = a prerequisite the documentation omits is supplied. $^{H}$ = first observed on a human manifest. All dates are November 2026.}\label{tab:fixes}
+\begin{tabular}{rllp{0.34\textwidth}p{0.34\textwidth}c}
 \toprule
-\# & Date & Trigger & Change & Effect \\ \midrule
-2 & 8 & Human Online Boutique services killed by probes while images were still pulling & Images pre-pulled before deployment & $+$ \\
-3 & 9 & Every Online Boutique front end exits: variable required only in source code & Variable supplied when absent & $+$ \\
-4 & 9 & Hung namespace deletion discarded a finished result & Cleanup timeout is a warning & 0 \\
-5 & 9 & Smoke client blocked by a configuration's own NetworkPolicy & Client placed where policies admit it & $+$ \\
-6 & 9 & Two Online Boutique services exit unless a cloud profiler is disabled & Variable supplied when absent & $+$ \\
-7 & 9 & Crash-looping pods counted Ready at an instant & Ready requires 20 s without interruption & $-$ \\
-8 & 9 & API errors recorded as empty pod lists & Retry, then abort without a record & 0 \\
-9 & 9 & API key written to a log & Key sent in a header; log redacted & 0 \\
-10 & 9 & Human Sock Shop database exhausted host memory & Open-files limit set to Docker's default & $+$ \\
-11 & 11 & Empty Gemini reply crashed the generator & Empty reply recorded as output & 0 \\
-12 & 11 & StatefulSet pod replacement never detected in D6 & Pods matched by UID, not name & $+$ \\
-13 & 11 & Batch driver skipped models & Loop variable fixed & 0 \\
-14 & 11 & Duplicate YAML keys silently merged & Duplicate keys rejected, as by \texttt{kubectl} & $-$ \\
-15 & 11 & Empty Kubescape output crashed the evaluation & Treated as a scanner failure & 0 \\
-16 & 11 & Empty reply counted as parsed & At least one document required & $-$ \\
-17 & 11 & Client placement ignored named ports & Named ports resolved & $+$ \\
-19 & 11 & Auxiliary workload blocked D6 although the application served & D6 runs if Ready or smoke-test passes; strict variant reported & $+$ \\
-20 & 12 & One client used for checks needing different network access & Client placed per check & $+$ \\
-21 & 12 & Client rejected by a namespace enforcing the restricted standard & Client complies with it & $+$ \\
-22 & 12 & Schema downloads timed out & Schemas cached & 0 \\
-23 & 12 & Transient pull failure could be scored as unpullable & Only definitive failures count & $+$ \\
-24 & 12 & Stopped cluster passed the health check & Health check queries the control plane & 0 \\
-25 & 14 & Client refused by a configuration's resource quota & Client declares requests and limits & $+$ \\
-26 & 14 & Data check required Grafana's embedded database & PostgreSQL and MySQL also accepted, as documented & $+$ \\
-27 & 14 & Dashboard exits without a Secret named only in source code & Empty Secret supplied when absent & $+$ \\
+\# & Kind & Date & Trigger & Change & Effect \\ \midrule
+2 & M$^{H}$ & 8 & Human Online Boutique services killed by probes while images were still pulling & Images pre-pulled before deployment & $+$ \\
+3 & P & 9 & Every Online Boutique front end exits: variable required only in source code & Variable supplied when absent & $+$ \\
+4 & B & 9 & Hung namespace deletion discarded a finished result & Cleanup timeout is a warning & 0 \\
+5 & M & 9 & Smoke client blocked by a configuration's own NetworkPolicy & Client placed where policies admit it & $+$ \\
+6 & P & 9 & Two Online Boutique services exit unless a cloud profiler is disabled & Variable supplied when absent & $+$ \\
+7 & D & 9 & Crash-looping pods counted Ready at an instant & Ready requires 20 s without interruption & $-$ \\
+8 & B & 9 & API errors recorded as empty pod lists & Retry, then abort without a record & 0 \\
+9 & B & 9 & API key written to a log & Key sent in a header; log redacted & 0 \\
+10 & M$^{H}$ & 9 & Human Sock Shop database exhausted host memory & Open-files limit set to Docker's default & $+$ \\
+11 & B & 11 & Empty Gemini reply crashed the generator & Empty reply recorded as output & 0 \\
+12 & M & 11 & StatefulSet pod replacement never detected in D6 & Pods matched by UID, not name & $+$ \\
+13 & B & 11 & Batch driver skipped models & Loop variable fixed & 0 \\
+14 & D & 11 & Duplicate YAML keys silently merged & Duplicate keys rejected, as by \texttt{kubectl} & $-$ \\
+15 & B & 11 & Empty Kubescape output crashed the evaluation & Treated as a scanner failure & 0 \\
+16 & D & 11 & Empty reply counted as parsed & At least one document required & $-$ \\
+17 & M & 11 & Client placement ignored named ports & Named ports resolved & $+$ \\
+19 & D & 11 & Auxiliary workload blocked D6 although the application served & D6 runs if Ready or smoke-test passes; strict variant reported & $+$ \\
+20 & M & 12 & One client used for checks needing different network access & Client placed per check & $+$ \\
+21 & M & 12 & Client rejected by a namespace enforcing the restricted standard & Client complies with it & $+$ \\
+22 & B & 12 & Schema downloads timed out & Schemas cached & 0 \\
+23 & M & 12 & Transient pull failure could be scored as unpullable & Only definitive failures count & $+$ \\
+24 & B & 12 & Stopped cluster passed the health check & Health check queries the control plane & 0 \\
+25 & M & 14 & Client refused by a configuration's resource quota & Client declares requests and limits & $+$ \\
+26 & D & 14 & Data check required Grafana's embedded database & PostgreSQL and MySQL also accepted, as documented & $+$ \\
+27 & P & 14 & Dashboard exits without a Secret named only in source code & Empty Secret supplied when absent & $+$ \\
 \bottomrule
 \end{tabular}
 \end{table*}

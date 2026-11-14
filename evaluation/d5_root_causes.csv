@@ -63,7 +63,7 @@ gpt__P04_voting-app__production__s3,hardening_breaks_db,postgres chown/chmod not
 gpt__P08_sock-shop__neutral__s1,compose_literalism_aux_only,docker.sock hostPath on queue-master and user-sim Job from Compose; app passes smoke 5/5,observed,FailedMount + events
 gpt__P08_sock-shop__neutral__s2,memory_limit_too_low,carts/orders/shipping OOMKilled (exit 137); cart-read 500; user-sim segfaults,observed,last_reason
 gpt__P08_sock-shop__production__s1,liveness_kills_slow_start,startup probe budget shorter than JVM start: carts/orders/shipping killed (exit 137 Error) during start-up; queue-master OOMKilled,observed,Unhealthy(startup) events + last_reason
-gpt__P10_k8s-dashboard__neutral__s1,networkpolicy_blocks_path,scraper ingress admitted only from dashboard pods and no --sidecar-host: dashboard's documented service-proxy route is blocked,supported (same mechanism as claude P10 production s1),manifest + smoke
+gpt__P10_k8s-dashboard__neutral__s1,networkpolicy_blocks_path,scraper ingress admitted only from dashboard pods and no --sidecar-host: dashboard's documented service-proxy route is blocked,inferred (same mechanism as claude P10 production s1; no matched contrast of its own),manifest + smoke
 gpt__P10_k8s-dashboard__neutral__s2,hallucinated_flag,scraper started with a non-existent --port flag (exit 2),observed,last_log
 gpt__P10_k8s-dashboard__production__s1,hardening_breaks_api_access,scraper automountServiceAccountToken false: no in-cluster credentials (exit 1),observed,last_log + manifest
 gpt__P10_k8s-dashboard__production__s3,hallucinated_flag,scraper started with a non-existent --port flag (exit 2),observed,last_log

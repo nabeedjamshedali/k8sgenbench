@@ -62,18 +62,20 @@ Mean over the neutral samples of each project, paired with that project's human 
 
 Project-level mean per model; Friedman test across the five models with projects as blocks; Kendall's W.
 
-| prompt | metric | n blocks | χ² | p | W | mean rank per model |
-|---|---|---|---|---|---|---|
-| neutral | Kubescape compliance | 5 | 10.63 | 0.031 | 0.53 | claude 3.8, deepseek 2.5, gemini 2.1, gpt 4.6, qwen 2.0 |
-| neutral | Checklist coverage | 5 | 13.29 | 0.010 | 0.66 | claude 3.8, deepseek 2.5, gemini 1.6, gpt 4.8, qwen 2.3 |
-| neutral | Polaris score | 5 | 13.60 | 0.009 | 0.68 | claude 4.2, deepseek 3.0, gemini 1.8, gpt 4.4, qwen 1.6 |
-| neutral | D5 Ready rate | 5 | 1.71 | 0.788 | 0.09 | claude 3.3, deepseek 2.9, gemini 2.9, gpt 3.3, qwen 2.6 |
-| neutral | D5 smoke rate | 5 | 7.02 | 0.135 | 0.35 | claude 3.3, deepseek 3.0, gemini 3.7, gpt 3.0, qwen 2.0 |
-| production | Kubescape compliance | 5 | 17.41 | 0.002 | 0.87 | claude 4.8, deepseek 3.4, gemini 1.7, gpt 3.8, qwen 1.3 |
-| production | Checklist coverage | 5 | 16.48 | 0.002 | 0.82 | claude 4.6, deepseek 3.6, gemini 1.8, gpt 3.8, qwen 1.2 |
-| production | Polaris score | 5 | 17.92 | 0.001 | 0.90 | claude 4.8, deepseek 3.2, gemini 1.8, gpt 4.0, qwen 1.2 |
-| production | D5 Ready rate | 5 | 7.44 | 0.115 | 0.37 | claude 3.4, deepseek 3.0, gemini 4.0, gpt 2.8, qwen 1.8 |
-| production | D5 smoke rate | 5 | 6.89 | 0.142 | 0.34 | claude 2.8, deepseek 2.4, gemini 4.4, gpt 2.9, qwen 2.5 |
+Permutation p: the models' values are permuted within each block (20,000 draws), which does not rely on the χ² approximation; Holm over the three static scores, and separately the two deployment outcomes, of one prompt.
+
+| prompt | metric | n blocks | χ² | p (χ²) | W | permutation p | permutation p (Holm) | mean rank per model |
+|---|---|---|---|---|---|---|---|---|
+| neutral | Kubescape compliance | 5 | 10.63 | 0.031 | 0.53 | 0.019 | 0.019 | claude 3.8, deepseek 2.5, gemini 2.1, gpt 4.6, qwen 2.0 |
+| neutral | Checklist coverage | 5 | 13.29 | 0.010 | 0.66 | 0.002 | 0.005 | claude 3.8, deepseek 2.5, gemini 1.6, gpt 4.8, qwen 2.3 |
+| neutral | Polaris score | 5 | 13.60 | 0.009 | 0.68 | 0.002 | 0.005 | claude 4.2, deepseek 3.0, gemini 1.8, gpt 4.4, qwen 1.6 |
+| neutral | D5 Ready rate | 5 | 1.71 | 0.788 | 0.09 | 0.864 | 0.864 | claude 3.3, deepseek 2.9, gemini 2.9, gpt 3.3, qwen 2.6 |
+| neutral | D5 smoke rate | 5 | 7.02 | 0.135 | 0.35 | 0.121 | 0.241 | claude 3.3, deepseek 3.0, gemini 3.7, gpt 3.0, qwen 2.0 |
+| production | Kubescape compliance | 5 | 17.41 | 0.002 | 0.87 | <0.001 | <0.001 | claude 4.8, deepseek 3.4, gemini 1.7, gpt 3.8, qwen 1.3 |
+| production | Checklist coverage | 5 | 16.48 | 0.002 | 0.82 | <0.001 | <0.001 | claude 4.6, deepseek 3.6, gemini 1.8, gpt 3.8, qwen 1.2 |
+| production | Polaris score | 5 | 17.92 | 0.001 | 0.90 | <0.001 | <0.001 | claude 4.8, deepseek 3.2, gemini 1.8, gpt 4.0, qwen 1.2 |
+| production | D5 Ready rate | 5 | 7.44 | 0.115 | 0.37 | 0.104 | 0.209 | claude 3.4, deepseek 3.0, gemini 4.0, gpt 2.8, qwen 1.8 |
+| production | D5 smoke rate | 5 | 6.89 | 0.142 | 0.34 | 0.139 | 0.209 | claude 2.8, deepseek 2.4, gemini 4.4, gpt 2.9, qwen 2.5 |
 
 Common projects: P02_n8n, P04_voting-app, P05_emojivoto, P08_sock-shop, P10_k8s-dashboard
 

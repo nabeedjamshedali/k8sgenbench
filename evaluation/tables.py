@@ -16,9 +16,10 @@ OUT = os.path.join(os.path.dirname(HERE), "paper", "tables")
 SOURCES = ["human", "claude", "deepseek", "gemini", "gpt", "qwen"]
 LABEL = {"human": "Human", "claude": "Claude", "deepseek": "DeepSeek", "gemini": "Gemini", "gpt": "GPT", "qwen": "Qwen"}
 BIN = [("d1_server_ok", "D1 all objects API-accepted"), ("d2_pss_baseline", "D2 passes PSS baseline"),
-       ("d2_pss_restricted", "D2 passes PSS restricted"), ("d2_has_secret", "D2 hard-coded secret"),
+       ("d2_pss_restricted", "D2 passes PSS restricted"), ("d2_has_secret", "D2 secret check flags a credential"),
        ("d5_ready", "D5 fully Ready"), ("d5_smoke", "D5 smoke test passes")]
-CONT = [("d2_kubescape_compliance", "D2 Kubescape compliance (\\%)"), ("d3_checklist_pct", "D3 reliability checklist (\\%)"),
+CONT = [("d2_kubescape_compliance", "D2 Kubescape compliance (\\%)"), ("d2_trivy_high_crit", "D2 Trivy high+critical findings"),
+        ("d3_polaris_score", "D3 Polaris score"), ("d3_checklist_pct", "D3 reliability checklist (\\%)"),
         ("d3_zhang_density_kloc", "D3 smells per KLOC"), ("d4_pct", "D4 requirements met (\\%)"),
         ("d5_time_to_ready_s", "D5 time to Ready (s)"), ("d6_recovery_time_mean", "D6 recovery time (s)"),
         ("d6_downtime_mean", "D6 downtime per fault (s)")]
