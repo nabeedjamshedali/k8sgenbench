@@ -7,21 +7,20 @@
 \toprule
 Mechanism & Claude & DeepSeek & Gemini & GPT & Qwen & N & P & Human & Obs. \\ \midrule
 \multicolumn{10}{l}{\textit{Hardening blocks the workload}} \\
-\quad Capability drop or fixed UID stops the database & 3 & 2 & 0 & 2 & 0 & 0 & 7 & 0 & 3/7 \\
+\quad Capability drop or fixed UID stops the database & 3 & 3 & 0 & 2 & 0 & 0 & 8 & 0 & 3/8 \\
 \quad runAsNonRoot on an image whose user cannot be verified & 0 & 1 & 0 & 2 & 0 & 1 & 2 & 0 & 0/3 \\
 \quad Service-account token disabled for a component that needs the API & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1/1 \\
-\quad NetworkPolicy blocks a documented internal route & 1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 & 0/2 \\
+\quad NetworkPolicy blocks a documented internal route & 1 & 1 & 0 & 1 & 0 & 1 & 2 & 0 & 0/3 \\
 \multicolumn{10}{l}{\textit{Probes and resource limits}} \\
 \quad Liveness/startup probe kills a slow-starting service & 5 & 0 & 0 & 1 & 0 & 2 & 4 & 0 & 2/6 \\
 \quad Memory limit too low (OOMKilled) & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & 2/2 \\
-\quad Probe on the wrong port or path & 0 & 3 & 0 & 0 & 0 & 0 & 3 & 0 & 1/3 \\
+\quad Probe on the wrong port or path & 0 & 2 & 0 & 0 & 0 & 0 & 2 & 0 & 1/2 \\
 \quad Probe calls a binary the image does not ship & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0/1 \\
 \quad HTTP probe on a component without a server & 0 & 0 & 0 & 0 & 4 & 1 & 3 & 0 & 0/4 \\
 \multicolumn{10}{l}{\textit{Compose file translated literally}} \\
-\quad Host-level Compose services break the application & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0/1 \\
 \quad Host-level Compose services fail; application works & 1 & 2 & 6 & 1 & 0 & 7 & 3 & 0 & 10/10 \\
 \multicolumn{10}{l}{\textit{Wrong values or references}} \\
-\quad Service targets the wrong container port & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1/1 \\
+\quad Service targets the wrong container port & 0 & 1 & 0 & 0 & 1 & 2 & 0 & 0 & 1/2 \\
 \quad API server address overridden & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0/1 \\
 \quad Volume references an undefined Secret & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1/1 \\
 \quad RBAC does not allow updating the CSRF Secret & 0 & 0 & 0 & 1 & 3 & 2 & 2 & 0 & 0/4 \\
@@ -38,7 +37,7 @@ Mechanism & Claude & DeepSeek & Gemini & GPT & Qwen & N & P & Human & Obs. \\ \m
 \quad Reply ends before the YAML block closes & 0 & 0 & 1 & 0 & 2 & 1 & 2 & 0 & 3/3 \\
 \quad Provider withheld the reply (recitation) & 0 & 0 & 3 & 0 & 0 & 2 & 1 & 0 & 3/3 \\
 \multicolumn{10}{l}{\textit{Other}} \\
-\quad Cause not determined & 0 & 3 & 0 & 1 & 0 & 2 & 2 & 0 & 0/4 \\
+\quad Cause not determined & 0 & 2 & 0 & 1 & 0 & 2 & 1 & 0 & 0/3 \\
 \quad Unpinned image tag drifted & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1/1 \\
 \midrule
 Total & 10 & 22 & 11 & 17 & 20 & 32 & 48 & 1 & 51/81 \\

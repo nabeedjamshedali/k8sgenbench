@@ -11,8 +11,8 @@ claude__P08_sock-shop__neutral__s2,liveness_kills_slow_start,carts readiness ini
 claude__P08_sock-shop__neutral__s3,liveness_kills_slow_start,as neutral s2 (identical carts probes),inferred,manifest probes + readiness events
 deepseek__P08_sock-shop__production__s1,memory_limit_too_low,carts/orders/shipping OOMKilled (exit 137),observed,last_reason
 deepseek__P08_sock-shop__production__s2,probe_port_mismatch,readiness probes fail on catalogue/orders/carts/shipping; catalogue 500,inferred,PROGRESS 2026-11-12 + readiness events
-deepseek__P08_sock-shop__production__s3,probe_port_mismatch,readiness probes fail; catalogue-db-0 exit 1; catalogue 500,inferred,readiness events + PROGRESS
-deepseek__P08_sock-shop__neutral__s3,compose_literalism,user-sim load generator StartError (exit 128); catalogue/tags/cart 500,inferred,last_reason + smoke (catalogue cause to recheck)
+deepseek__P08_sock-shop__production__s3,hardening_breaks_db,catalogue-db-0 exits 1 under capabilities drop ALL (same image logs chown not permitted elsewhere); catalogue 500 on the failing checks; carts/orders/shipping also killed by liveness probes,inferred,last_reason + smoke + manifest (adjudicated after second pass)
+deepseek__P08_sock-shop__neutral__s3,wrong_service_port,"catalogue, carts and user Services target 8080 while the images listen on 80; catalogue/tags/cart 500 and login 401; user-sim StartError (exit 128) is secondary",inferred,manifest Services + smoke (adjudicated after second pass)
 claude__P08_sock-shop__neutral__s1,compose_literalism_aux_only,user-sim (exit 139) and docker.sock hostPath from Compose; app itself passes smoke 5/5,observed,last_reason + FailedMount
 deepseek__P08_sock-shop__neutral__s1,compose_literalism_aux_only,user-sim (exit 139); queue-master OOMKilled once; app passes smoke 5/5,observed,last_reason
 deepseek__P08_sock-shop__neutral__s2,compose_literalism_aux_only,user-sim (exit 139); app passes smoke 5/5,observed,last_reason
@@ -29,7 +29,7 @@ gemini__P08_sock-shop__production__s2,compose_literalism_aux_only,user-sim Start
 gemini__P08_sock-shop__production__s3,compose_literalism_aux_only,user-sim StartError (exit 128); queue-master OOMKilled; app passes smoke 5/5,observed,last_reason
 deepseek__P02_n8n__production__s3,invalid_yaml_or_object,unfenced reply with 12 objects and a single document separator; objects merge into duplicate keys (D1 parse failure),observed,parse_error
 deepseek__P07_online-boutique__neutral__s3,hardening_breaks_aux,adservice runAsNonRoot without a numeric runAsUser: kubelet cannot verify the image user (CreateContainerConfigError); app passes smoke 6/6,inferred,status + manifest
-deepseek__P07_online-boutique__production__s1,undetermined,Ready but every page returns HTTP 500 from the front end; no diagnostics are captured for Ready configurations,undetermined,smoke
+deepseek__P07_online-boutique__production__s1,networkpolicy_blocks_path,"default-deny ingress plus allow-internal-grpc selecting app.kubernetes.io/part-of=online-boutique, a label no pod carries; every front-end call to a backend is dropped, so all pages return 500 although every pod is Ready",inferred,manifest NetworkPolicies + pod labels + smoke (adjudicated after second pass)
 deepseek__P07_online-boutique__production__s2,empty_required_env,front end sets SHOPPING_ASSISTANT_SERVICE_ADDR to an empty string; the binary panics in mustMapEnv (shim fires only when the variable is absent),observed,last_log + manifest
 deepseek__P07_online-boutique__production__s3,empty_required_env,as production s2,observed,last_log + manifest
 gpt__P07_online-boutique__neutral__s2,empty_required_env,front end sets SHOPPING_ASSISTANT_SERVICE_ADDR to an empty string; mustMapEnv panic,observed,last_log + manifest
