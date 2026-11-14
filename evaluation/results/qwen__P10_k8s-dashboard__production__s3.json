@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "production",
   "sample_k": "3",
-  "timestamp": "2026-11-13T14:13:16Z",
+  "timestamp": "2026-11-14T10:55:50Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -130,7 +130,7 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 79.44444,
+      "compliance": 79.44445,
       "frameworks": {
         "NSA": 77.5,
         "MITRE": 84.31373
@@ -433,11 +433,11 @@
       "warning": 2,
       "critical_by_check": {
         "container-ephemeral-storage-request-and-limit": 2,
-        "pod-networkpolicy": 2,
-        "container-security-context-user-group-id": 2,
+        "container-resources": 2,
         "pod-probes": 2,
-        "container-image-pull-policy": 1,
-        "container-resources": 2
+        "container-security-context-user-group-id": 2,
+        "pod-networkpolicy": 2,
+        "container-image-pull-policy": 1
       },
       "warning_by_check": {
         "deployment-replicas": 2
@@ -447,8 +447,6 @@
       "ran": true,
       "score": 74,
       "failed_by_check": {
-        "clusterrolebindingPodExecAttach[danger]": 1,
-        "clusterrolePodExecAttach[danger]": 1,
         "deploymentMissingReplicas[warning]": 2,
         "metadataAndInstanceMismatched[warning]": 2,
         "missingPodDisruptionBudget[warning]": 2,
@@ -462,7 +460,9 @@
         "memoryLimitsMissing[warning]": 2,
         "memoryRequestsMissing[warning]": 2,
         "pullPolicyNotAlways[warning]": 1,
-        "readinessProbeMissing[warning]": 1
+        "readinessProbeMissing[warning]": 1,
+        "clusterrolebindingPodExecAttach[danger]": 1,
+        "clusterrolePodExecAttach[danger]": 1
       }
     },
     "kube_linter": {
@@ -701,7 +701,13 @@
         "served": "mirror"
       }
     ],
-    "shims_applied": [],
+    "shims_applied": [
+      {
+        "object": "Secret/kubernetes-dashboard-csrf",
+        "namespace": "kubernetes-dashboard",
+        "created": true
+      }
+    ],
     "prepull_failed": [],
     "apply_ok": true,
     "apply_errors": [],
@@ -729,15 +735,15 @@
     "diagnostics": {
       "pods": [
         {
-          "pod": "dashboard-metrics-scraper-777646b6db-wsvnh",
+          "pod": "dashboard-metrics-scraper-777646b6db-b6swq",
           "container": "dashboard-metrics-scraper",
           "restarts": 5,
           "last_exit": 1,
           "last_reason": "Error",
-          "last_log": "W1113 14:16:37.652603       1 client_config.go:617] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.\n{\"level\":\"info\",\"msg\":\"Kubernetes host: https://10.96.0.1:443\",\"time\":\"2026-11-13T14:16:37Z\"}\n{\"level\":\"info\",\"msg\":\"Namespace(s): []\",\"time\":\"2026-11-13T14:16:37Z\"}\n{\"level\":\"fatal\",\"msg\":\"Unable to initialize database tables: unable to open database file: no such file or directory\",\"time\":\"2026-11-13T14:16:37Z\"}"
+          "last_log": "W1114 10:59:20.030431       1 client_config.go:617] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.\n{\"level\":\"info\",\"msg\":\"Kubernetes host: https://10.96.0.1:443\",\"time\":\"2026-11-14T10:59:20Z\"}\n{\"level\":\"info\",\"msg\":\"Namespace(s): []\",\"time\":\"2026-11-14T10:59:20Z\"}\n{\"level\":\"fatal\",\"msg\":\"Unable to initialize database tables: unable to open database file: no such file or directory\",\"time\":\"2026-11-14T10:59:20Z\"}"
         },
         {
-          "pod": "kubernetes-dashboard-77b85585cc-r92rc",
+          "pod": "kubernetes-dashboard-77b85585cc-wnp5p",
           "container": "kubernetes-dashboard",
           "restarts": 5,
           "last_exit": 2,
@@ -746,12 +752,12 @@
         }
       ],
       "warning_events": {
-        "dashboard-metrics-scraper-777646b6db-wsvnh|BackOff: Back-off restarting failed container dashboard-metrics-scrap": 12,
-        "kubernetes-dashboard-77b85585cc-r92rc|BackOff: Back-off restarting failed container kubernetes-dashboard in": 12
+        "kubernetes-dashboard-77b85585cc-wnp5p|BackOff: Back-off restarting failed container kubernetes-dashboard in": 12,
+        "dashboard-metrics-scraper-777646b6db-b6swq|BackOff: Back-off restarting failed container dashboard-metrics-scrap": 11
       }
     },
     "client_placement": {
-      "namespace": "d5-8bcebe0c",
+      "namespace": "d5-8e6ff4a8",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},

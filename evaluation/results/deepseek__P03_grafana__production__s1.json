@@ -1,0 +1,605 @@
+{
+  "project": "P03_grafana",
+  "source": "deepseek",
+  "prompt_variant": "production",
+  "sample_k": "1",
+  "timestamp": "2026-11-14T11:18:52Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 17,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 17,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 17,
+    "objects_accepted": 17,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-config",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "grafana-secrets",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "grafana-db-credentials",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-provisioning-datasources",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-provisioning-dashboards",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-provisioning-alerting",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "grafana-headless",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "redis",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "redis",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 776,
+  "resource_counts": {
+    "Namespace": 1,
+    "ConfigMap": 4,
+    "Secret": 2,
+    "Service": 4,
+    "Deployment": 2,
+    "PodDisruptionBudget": 1,
+    "NetworkPolicy": 1,
+    "Ingress": 1,
+    "StatefulSet": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 96.74604,
+      "frameworks": {
+        "NSA": 95.11905,
+        "MITRE": 99.15967
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 1,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1623210712/api=apps/v1/grafana/Deployment/redis",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1723876426/api=apps/v1/grafana/StatefulSet/postgres",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1723876426/api=apps/v1/grafana/StatefulSet/postgres",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=933560573/api=/v1/grafana/ConfigMap/grafana-config",
+          "control": "C-0012",
+          "name": "Applications credentials in configuration files"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 2,
+        "medium": 3,
+        "low": 6
+      },
+      "failed": [
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-01010",
+          "title": "ConfigMap with sensitive content",
+          "severity": "MEDIUM",
+          "message": "ConfigMap 'grafana-config' in 'grafana' namespace stores sensitive contents in key(s) or value(s) '{\"secret_key \"}'"
+        },
+        {
+          "id": "KSV-01010",
+          "title": "ConfigMap with sensitive content",
+          "severity": "MEDIUM",
+          "message": "ConfigMap 'grafana-provisioning-alerting' in 'grafana' namespace stores sensitive contents in key(s) or value(s) '{\"          addresses\", \"          singleEmail\"}'"
+        },
+        {
+          "id": "KSV-0109",
+          "title": "ConfigMap with secrets",
+          "severity": "HIGH",
+          "message": "ConfigMap 'grafana-config' in 'grafana' namespace stores secrets in key(s) or value(s) '{\"admin_password \", \"password \"}'"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container grafana in deployment grafana (namespace: grafana) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 4,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "GF_SECURITY_ADMIN_PASSWORD"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "GF_SECURITY_SECRET_KEY"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "GF_DATABASE_PASSWORD"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-db-credentials",
+          "key": "POSTGRES_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-db-credentials",
+          "key": "POSTGRES_DB"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-db-credentials",
+          "key": "POSTGRES_USER"
+        }
+      ]
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 3,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 15,
+      "warning": 1,
+      "critical_by_check": {
+        "container-image-pull-policy": 3,
+        "container-ephemeral-storage-request-and-limit": 3,
+        "pod-networkpolicy": 2,
+        "container-security-context-user-group-id": 3,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "pod-probes-identical": 3
+      },
+      "warning_by_check": {
+        "deployment-replicas": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 90,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 3,
+        "missingNetworkPolicy[warning]": 3,
+        "priorityClassNotSet[warning]": 3,
+        "pullPolicyNotAlways[warning]": 3,
+        "deploymentMissingReplicas[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "topologySpreadConstraint[warning]": 2,
+        "notReadOnlyRootFilesystem[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 2,
+      "by_check": {
+        "pdb-unhealthy-pod-eviction-policy": 1,
+        "no-read-only-root-fs": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 1,
+      "zhang_density_per_kloc": 1.3,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 3,
+      "pct": 75.9,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 3,
+          "applicable": 3
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 2
+        },
+        "2_readiness": {
+          "met": 3,
+          "applicable": 3
+        },
+        "3_liveness": {
+          "met": 3,
+          "applicable": 3
+        },
+        "4_cpu_request": {
+          "met": 3,
+          "applicable": 3
+        },
+        "5_mem_request": {
+          "met": 3,
+          "applicable": 3
+        },
+        "6_mem_limit": {
+          "met": 3,
+          "applicable": 3
+        },
+        "7_rolling_update": {
+          "met": 1,
+          "applicable": 3
+        },
+        "8_pdb": {
+          "met": 1,
+          "applicable": 3
+        },
+        "9_spread": {
+          "met": 1,
+          "applicable": 3
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "grafana",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "postgres",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "redis",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-grafana-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-data-persistent",
+        "passed": false,
+        "detail": "volume type ['emptyDir']",
+        "oracle": false
+      },
+      {
+        "id": "R03-ui-external",
+        "passed": true,
+        "detail": "Ingress grafana -> grafana",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 2,
+    "requirements_total": 3,
+    "pct": 66.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "grafana/grafana:12.0.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "postgres:16-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "redis:7-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 2,
+    "expected_replicas": 5,
+    "workloads": [
+      {
+        "ns": "grafana",
+        "kind": "Deployment",
+        "name": "grafana",
+        "ready": 0,
+        "want": 3
+      },
+      {
+        "ns": "grafana",
+        "kind": "Deployment",
+        "name": "redis",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "grafana",
+        "kind": "StatefulSet",
+        "name": "postgres",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "grafana-6c8774dcf9-6xhmh",
+          "container": "grafana",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "e\":true,\"prometheusAzureOverrideAudience\":true,\"prometheusUsesCombobox\":true,\"publicDashboardsScene\":true,\"recordedQueriesMulti\":true,\"recoveryThreshold\":true,\"reportingUseRawTimeRange\":true,\"ssoSettingsApi\":true,\"ssoSettingsSAML\":true,\"t\":\"2026-11-14T11:24:34.987939564Z\",\"tlsMemcached\":true,\"transformationsRedesign\":true,\"unifiedRequestLog\":true,\"unifiedStorageSearchPermissionFiltering\":true,\"useSessionStorageForRedirection\":true}\n{\"dbtype\":\"postgres\",\"level\":\"info\",\"logger\":\"sqlstore\",\"msg\":\"Connecting to DB\",\"t\":\"2026-11-14T11:24:34.988073533Z\"}\nError: \u2717 pq: SSL is not enabled on the server"
+        },
+        {
+          "pod": "grafana-6c8774dcf9-fxnr4",
+          "container": "grafana",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "e\":true,\"prometheusAzureOverrideAudience\":true,\"prometheusUsesCombobox\":true,\"publicDashboardsScene\":true,\"recordedQueriesMulti\":true,\"recoveryThreshold\":true,\"reportingUseRawTimeRange\":true,\"ssoSettingsApi\":true,\"ssoSettingsSAML\":true,\"t\":\"2026-11-14T11:24:38.547778895Z\",\"tlsMemcached\":true,\"transformationsRedesign\":true,\"unifiedRequestLog\":true,\"unifiedStorageSearchPermissionFiltering\":true,\"useSessionStorageForRedirection\":true}\n{\"dbtype\":\"postgres\",\"level\":\"info\",\"logger\":\"sqlstore\",\"msg\":\"Connecting to DB\",\"t\":\"2026-11-14T11:24:38.547872603Z\"}\nError: \u2717 pq: SSL is not enabled on the server"
+        },
+        {
+          "pod": "grafana-6c8774dcf9-rrd4k",
+          "container": "grafana",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "e\":true,\"prometheusAzureOverrideAudience\":true,\"prometheusUsesCombobox\":true,\"publicDashboardsScene\":true,\"recordedQueriesMulti\":true,\"recoveryThreshold\":true,\"reportingUseRawTimeRange\":true,\"ssoSettingsApi\":true,\"ssoSettingsSAML\":true,\"t\":\"2026-11-14T11:25:02.624597662Z\",\"tlsMemcached\":true,\"transformationsRedesign\":true,\"unifiedRequestLog\":true,\"unifiedStorageSearchPermissionFiltering\":true,\"useSessionStorageForRedirection\":true}\n{\"dbtype\":\"postgres\",\"level\":\"info\",\"logger\":\"sqlstore\",\"msg\":\"Connecting to DB\",\"t\":\"2026-11-14T11:25:02.624789585Z\"}\nError: \u2717 pq: SSL is not enabled on the server"
+        }
+      ],
+      "warning_events": {
+        "grafana-6c8774dcf9-6xhmh|BackOff: Back-off restarting failed container grafana in pod grafana-": 18,
+        "grafana-6c8774dcf9-fxnr4|BackOff: Back-off restarting failed container grafana in pod grafana-": 17,
+        "grafana-6c8774dcf9-rrd4k|BackOff: Back-off restarting failed container grafana in pod grafana-": 17,
+        "grafana-6c8774dcf9-6xhmh|Unhealthy: Startup probe failed": 4,
+        "grafana-6c8774dcf9-fxnr4|Unhealthy: Startup probe failed": 4,
+        "grafana-6c8774dcf9-rrd4k|Unhealthy: Startup probe failed": 4
+      }
+    },
+    "client_placement": {
+      "namespace": "ingress-nginx",
+      "create_namespace": true,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "grafana"
+    },
+    "smoke": [
+      {
+        "name": "api-health",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"database\": \"ok\"'"
+      },
+      {
+        "name": "login-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'Grafana'"
+      },
+      {
+        "name": "sqlite-db-in-data-dir",
+        "passed": false,
+        "detail": "exit 1: error: unable to upgrade connection: container not found (\"grafana\")"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

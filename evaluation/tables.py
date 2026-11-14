@@ -97,6 +97,8 @@ THEMES = [  # (theme, [(category, label)]) for evaluation/d5_root_causes.csv
         ("wrong_service_port", "Service targets the wrong container port"),
         ("wrong_api_server_endpoint", "API server address overridden"),
         ("missing_referenced_secret", "Volume references an undefined Secret"),
+        ("insufficient_rbac", "RBAC does not allow updating the CSRF Secret"),
+        ("missing_writable_volume", "No writable /tmp volume on a distroless image"),
         ("unavailable_image", "Image from a non-existent repository"),
         ("empty_required_env", "Required variable set to an empty value"),
         ("hallucinated_flag", "Non-existent command-line flag"),
@@ -154,7 +156,7 @@ def root_causes(df):
             r"\caption{Root cause of every configuration that was not both fully Ready and passing its smoke test, by "
             r"model and prompt (N = neutral, P = production). Obs.\ = cases whose mechanism is directly visible in the "
             r"cluster's record (exit reason, log lines, events, rejected objects or provider stop reason); the remainder "
-            r"are inferred from the manifest together with the observed status, or, for one mechanism, supported by a "
+            r"are inferred from the manifest together with the observed status, or, for two mechanisms, supported by a "
             r"matched contrast.}\label{tab:root-causes}" "\n"
             rf"\begin{{tabular}}{{l{'r' * (len(models) + 4)}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n"
             r"\bottomrule" "\n" r"\end{tabular}" "\n" r"\end{table*}" "\n")

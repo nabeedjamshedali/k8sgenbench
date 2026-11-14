@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "production",
   "sample_k": "2",
-  "timestamp": "2026-11-13T14:04:03Z",
+  "timestamp": "2026-11-14T10:46:30Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -220,11 +220,11 @@
       "critical": 5,
       "warning": 1,
       "critical_by_check": {
-        "container-image-pull-policy": 1,
         "container-ephemeral-storage-request-and-limit": 1,
         "pod-networkpolicy": 1,
         "container-security-context-user-group-id": 1,
-        "pod-probes-identical": 1
+        "pod-probes-identical": 1,
+        "container-image-pull-policy": 1
       },
       "warning_by_check": {
         "deployment-replicas": 1
@@ -458,7 +458,13 @@
         "served": "mirror"
       }
     ],
-    "shims_applied": [],
+    "shims_applied": [
+      {
+        "object": "Secret/kubernetes-dashboard-csrf",
+        "namespace": "kubernetes-dashboard",
+        "created": true
+      }
+    ],
     "prepull_failed": [],
     "apply_ok": true,
     "apply_errors": [],
@@ -479,7 +485,7 @@
     "diagnostics": {
       "pods": [
         {
-          "pod": "kubernetes-dashboard-cfdf9fd54-xjqrs",
+          "pod": "kubernetes-dashboard-cfdf9fd54-qxpvm",
           "container": "kubernetes-dashboard",
           "restarts": 5,
           "last_exit": 2,
@@ -488,11 +494,11 @@
         }
       ],
       "warning_events": {
-        "kubernetes-dashboard-cfdf9fd54-xjqrs|BackOff: Back-off restarting failed container kubernetes-dashboard in": 17
+        "kubernetes-dashboard-cfdf9fd54-qxpvm|BackOff: Back-off restarting failed container kubernetes-dashboard in": 15
       }
     },
     "client_placement": {
-      "namespace": "d5-edcb0592",
+      "namespace": "d5-26ad079d",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},

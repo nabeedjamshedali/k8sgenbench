@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1d797-7a9f-737d-94fa-059b5370fe10",
-  "CreatedAt": "2026-11-14T06:06:31.1992288+05:00",
+  "ReportID": "01a1d8c7-5ac4-70c3-a9a1-738184fdf279",
+  "CreatedAt": "2026-11-14T11:38:25.98805+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/gpt__P07_online-boutique__neutral__s2/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -12006,6 +12006,384 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
+            "StartLine": 250,
+            "EndLine": 276,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 250,
+                  "Content": "      - name: shippingservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: shippingservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 251,
+                  "Content": "        image: registry.example.com/online-boutique/shippingservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/shippingservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 252,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 253,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 254,
+                  "Content": "        - containerPort: 50051",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 255,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 256,
+                  "Content": "        - name: APP_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: APP_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 257,
+                  "Content": "          value: '50051'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 258,
+                  "Content": "        - name: DISABLE_PROFILER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 259,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 705,
+            "EndLine": 721,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 705,
+                  "Content": "      - name: loadgenerator",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: loadgenerator",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 706,
+                  "Content": "        image: registry.example.com/online-boutique/loadgenerator:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/loadgenerator:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 707,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 708,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 709,
+                  "Content": "        - name: FRONTEND_ADDR",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: FRONTEND_ADDR",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 710,
+                  "Content": "          value: frontend:80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: frontend:80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 711,
+                  "Content": "        - name: USERS",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: USERS",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 712,
+                  "Content": "          value: '10'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'10'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 713,
+                  "Content": "        - name: RATE",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: RATE",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 714,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 541,
+            "EndLine": 579,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 541,
+                  "Content": "      - name: checkoutservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: checkoutservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 542,
+                  "Content": "        image: registry.example.com/online-boutique/checkoutservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/checkoutservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 543,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 544,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 545,
+                  "Content": "        - containerPort: 5050",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m5050",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 546,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 547,
+                  "Content": "        - name: PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 548,
+                  "Content": "          value: '5050'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'5050'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 549,
+                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 550,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
             "StartLine": 484,
             "EndLine": 510,
             "Code": {
@@ -12258,32 +12636,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 136,
-            "EndLine": 162,
+            "StartLine": 366,
+            "EndLine": 394,
             "Code": {
               "Lines": [
                 {
-                  "Number": 136,
-                  "Content": "      - name: currencyservice",
+                  "Number": 366,
+                  "Content": "      - name: cartservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: currencyservice",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: cartservice",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 137,
-                  "Content": "        image: registry.example.com/online-boutique/currencyservice:latest",
+                  "Number": 367,
+                  "Content": "        image: registry.example.com/online-boutique/cartservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/currencyservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/cartservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 138,
+                  "Number": 368,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -12293,7 +12671,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 139,
+                  "Number": 369,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -12303,17 +12681,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 140,
-                  "Content": "        - containerPort: 7000",
+                  "Number": 370,
+                  "Content": "        - containerPort: 7070",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m7000",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m7070",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 141,
+                  "Number": 371,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -12323,289 +12701,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 372,
+                  "Content": "        - name: REDIS_ADDR",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_ADDR",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 373,
+                  "Content": "          value: redis-cart:6379",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: redis-cart:6379",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 374,
                   "Content": "        - name: PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
                   "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 143,
-                  "Content": "          value: '7000'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'7000'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 144,
-                  "Content": "        - name: DISABLE_PROFILER",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
-                  "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 145,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 193,
-            "EndLine": 219,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 193,
-                  "Content": "      - name: paymentservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: paymentservice",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 194,
-                  "Content": "        image: registry.example.com/online-boutique/paymentservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/paymentservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 195,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 196,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 197,
-                  "Content": "        - containerPort: 50051",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 198,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 199,
-                  "Content": "        - name: PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 200,
-                  "Content": "          value: '50051'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 201,
-                  "Content": "        - name: DISABLE_PROFILER",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 202,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 250,
-            "EndLine": 276,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 250,
-                  "Content": "      - name: shippingservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: shippingservice",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 251,
-                  "Content": "        image: registry.example.com/online-boutique/shippingservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/shippingservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 252,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 253,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 254,
-                  "Content": "        - containerPort: 50051",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 255,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 256,
-                  "Content": "        - name: APP_PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: APP_PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 257,
-                  "Content": "          value: '50051'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 258,
-                  "Content": "        - name: DISABLE_PROFILER",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 259,
+                  "Number": 375,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -12762,32 +12888,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 366,
-            "EndLine": 394,
+            "StartLine": 610,
+            "EndLine": 658,
             "Code": {
               "Lines": [
                 {
-                  "Number": 366,
-                  "Content": "      - name: cartservice",
+                  "Number": 610,
+                  "Content": "      - name: frontend",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: cartservice",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: frontend",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 367,
-                  "Content": "        image: registry.example.com/online-boutique/cartservice:latest",
+                  "Number": 611,
+                  "Content": "        image: registry.example.com/online-boutique/frontend:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/cartservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/frontend:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 368,
+                  "Number": 612,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -12797,7 +12923,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 369,
+                  "Number": 613,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -12807,17 +12933,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 370,
-                  "Content": "        - containerPort: 7070",
+                  "Number": 614,
+                  "Content": "        - containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m7070",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 371,
+                  "Number": 615,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -12827,37 +12953,289 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 372,
-                  "Content": "        - name: REDIS_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_ADDR",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 373,
-                  "Content": "          value: redis-cart:6379",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: redis-cart:6379",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 374,
+                  "Number": 616,
                   "Content": "        - name: PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
                   "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 617,
+                  "Content": "          value: '8080'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 618,
+                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
+                  "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 375,
+                  "Number": 619,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 193,
+            "EndLine": 219,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 193,
+                  "Content": "      - name: paymentservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: paymentservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 194,
+                  "Content": "        image: registry.example.com/online-boutique/paymentservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/paymentservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 195,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 196,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 197,
+                  "Content": "        - containerPort: 50051",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 198,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 199,
+                  "Content": "        - name: PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 200,
+                  "Content": "          value: '50051'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 201,
+                  "Content": "        - name: DISABLE_PROFILER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 202,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 136,
+            "EndLine": 162,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 136,
+                  "Content": "      - name: currencyservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: currencyservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 137,
+                  "Content": "        image: registry.example.com/online-boutique/currencyservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/currencyservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 138,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 139,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 140,
+                  "Content": "        - containerPort: 7000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m7000",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 141,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 142,
+                  "Content": "        - name: PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 143,
+                  "Content": "          value: '7000'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'7000'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 144,
+                  "Content": "        - name: DISABLE_PROFILER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 145,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -13110,384 +13488,6 @@
                 },
                 {
                   "Number": 31,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 541,
-            "EndLine": 579,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 541,
-                  "Content": "      - name: checkoutservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: checkoutservice",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 542,
-                  "Content": "        image: registry.example.com/online-boutique/checkoutservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/checkoutservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 543,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 544,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 545,
-                  "Content": "        - containerPort: 5050",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m5050",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 546,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 547,
-                  "Content": "        - name: PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 548,
-                  "Content": "          value: '5050'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'5050'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 549,
-                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 550,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 610,
-            "EndLine": 658,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 610,
-                  "Content": "      - name: frontend",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: frontend",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 611,
-                  "Content": "        image: registry.example.com/online-boutique/frontend:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/frontend:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 612,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 613,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 614,
-                  "Content": "        - containerPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 615,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 616,
-                  "Content": "        - name: PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 617,
-                  "Content": "          value: '8080'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 618,
-                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 619,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 705,
-            "EndLine": 721,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 705,
-                  "Content": "      - name: loadgenerator",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: loadgenerator",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 706,
-                  "Content": "        image: registry.example.com/online-boutique/loadgenerator:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/loadgenerator:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 707,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 708,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 709,
-                  "Content": "        - name: FRONTEND_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: FRONTEND_ADDR",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 710,
-                  "Content": "          value: frontend:80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: frontend:80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 711,
-                  "Content": "        - name: USERS",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: USERS",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 712,
-                  "Content": "          value: '10'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'10'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 713,
-                  "Content": "        - name: RATE",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: RATE",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 714,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -15030,32 +15030,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 541,
-            "EndLine": 579,
+            "StartLine": 307,
+            "EndLine": 335,
             "Code": {
               "Lines": [
                 {
-                  "Number": 541,
-                  "Content": "      - name: checkoutservice",
+                  "Number": 307,
+                  "Content": "      - name: emailservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: checkoutservice",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: emailservice",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 542,
-                  "Content": "        image: registry.example.com/online-boutique/checkoutservice:latest",
+                  "Number": 308,
+                  "Content": "        image: registry.example.com/online-boutique/emailservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/checkoutservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/emailservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 543,
+                  "Number": 309,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -15065,7 +15065,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 544,
+                  "Number": 310,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -15075,259 +15075,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 545,
-                  "Content": "        - containerPort: 5050",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m5050",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 546,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 547,
-                  "Content": "        - name: PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 548,
-                  "Content": "          value: '5050'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'5050'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 549,
-                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 550,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 193,
-            "EndLine": 219,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 193,
-                  "Content": "      - name: paymentservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: paymentservice",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 194,
-                  "Content": "        image: registry.example.com/online-boutique/paymentservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/paymentservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 195,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 196,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 197,
-                  "Content": "        - containerPort: 50051",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 198,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 199,
-                  "Content": "        - name: PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 200,
-                  "Content": "          value: '50051'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 201,
-                  "Content": "        - name: DISABLE_PROFILER",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 202,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 425,
-            "EndLine": 453,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 425,
-                  "Content": "      - name: recommendationservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: recommendationservice",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 426,
-                  "Content": "        image: registry.example.com/online-boutique/recommendationservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/recommendationservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 427,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 428,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 429,
+                  "Number": 311,
                   "Content": "        - containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -15337,7 +15085,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 430,
+                  "Number": 312,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -15347,7 +15095,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 431,
+                  "Number": 313,
                   "Content": "        - name: PORT",
                   "IsCause": true,
                   "Annotation": "",
@@ -15357,7 +15105,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 432,
+                  "Number": 314,
                   "Content": "          value: '8080'",
                   "IsCause": true,
                   "Annotation": "",
@@ -15367,385 +15115,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 433,
-                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 434,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 22,
-            "EndLine": 48,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 22,
-                  "Content": "      - name: redis",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: redis",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 23,
-                  "Content": "        image: redis:7-alpine",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: redis:7-alpine",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 24,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 25,
-                  "Content": "        - containerPort: 6379",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m6379",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 26,
-                  "Content": "        command:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33mcommand\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 27,
-                  "Content": "        - redis-server",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - redis-server",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 28,
-                  "Content": "        - --save",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - --save",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 29,
-                  "Content": "        - ''",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;37m''",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 30,
-                  "Content": "        - --appendonly",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - --appendonly",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 31,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 705,
-            "EndLine": 721,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 705,
-                  "Content": "      - name: loadgenerator",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: loadgenerator",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 706,
-                  "Content": "        image: registry.example.com/online-boutique/loadgenerator:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/loadgenerator:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 707,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 708,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 709,
-                  "Content": "        - name: FRONTEND_ADDR",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: FRONTEND_ADDR",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 710,
-                  "Content": "          value: frontend:80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: frontend:80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 711,
-                  "Content": "        - name: USERS",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: USERS",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 712,
-                  "Content": "          value: '10'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'10'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 713,
-                  "Content": "        - name: RATE",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: RATE",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 714,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 79,
-            "EndLine": 105,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 79,
-                  "Content": "      - name: productcatalogservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: productcatalogservice",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 80,
-                  "Content": "        image: registry.example.com/online-boutique/productcatalogservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/productcatalogservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 81,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 82,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 83,
-                  "Content": "        - containerPort: 3550",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m3550",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 84,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 85,
-                  "Content": "        - name: PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 86,
-                  "Content": "          value: '3550'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'3550'",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 87,
+                  "Number": 315,
                   "Content": "        - name: DISABLE_PROFILER",
                   "IsCause": true,
                   "Annotation": "",
@@ -15755,7 +15125,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 88,
+                  "Number": 316,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -15912,32 +15282,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 136,
-            "EndLine": 162,
+            "StartLine": 193,
+            "EndLine": 219,
             "Code": {
               "Lines": [
                 {
-                  "Number": 136,
-                  "Content": "      - name: currencyservice",
+                  "Number": 193,
+                  "Content": "      - name: paymentservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: currencyservice",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: paymentservice",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 137,
-                  "Content": "        image: registry.example.com/online-boutique/currencyservice:latest",
+                  "Number": 194,
+                  "Content": "        image: registry.example.com/online-boutique/paymentservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/currencyservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/paymentservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 138,
+                  "Number": 195,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -15947,7 +15317,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 139,
+                  "Number": 196,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -15957,17 +15327,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 140,
-                  "Content": "        - containerPort: 7000",
+                  "Number": 197,
+                  "Content": "        - containerPort: 50051",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m7000",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 141,
+                  "Number": 198,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -15977,7 +15347,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 199,
                   "Content": "        - name: PORT",
                   "IsCause": true,
                   "Annotation": "",
@@ -15987,17 +15357,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
-                  "Content": "          value: '7000'",
+                  "Number": 200,
+                  "Content": "          value: '50051'",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'7000'",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 201,
                   "Content": "        - name: DISABLE_PROFILER",
                   "IsCause": true,
                   "Annotation": "",
@@ -16007,7 +15377,259 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 145,
+                  "Number": 202,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 250,
+            "EndLine": 276,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 250,
+                  "Content": "      - name: shippingservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: shippingservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 251,
+                  "Content": "        image: registry.example.com/online-boutique/shippingservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/shippingservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 252,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 253,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 254,
+                  "Content": "        - containerPort: 50051",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 255,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 256,
+                  "Content": "        - name: APP_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: APP_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 257,
+                  "Content": "          value: '50051'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 258,
+                  "Content": "        - name: DISABLE_PROFILER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 259,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 79,
+            "EndLine": 105,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 79,
+                  "Content": "      - name: productcatalogservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: productcatalogservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 80,
+                  "Content": "        image: registry.example.com/online-boutique/productcatalogservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/productcatalogservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 81,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 82,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 83,
+                  "Content": "        - containerPort: 3550",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m3550",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 84,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 85,
+                  "Content": "        - name: PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 86,
+                  "Content": "          value: '3550'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'3550'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 87,
+                  "Content": "        - name: DISABLE_PROFILER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 88,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -16164,32 +15786,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 307,
-            "EndLine": 335,
+            "StartLine": 425,
+            "EndLine": 453,
             "Code": {
               "Lines": [
                 {
-                  "Number": 307,
-                  "Content": "      - name: emailservice",
+                  "Number": 425,
+                  "Content": "      - name: recommendationservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: emailservice",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: recommendationservice",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 308,
-                  "Content": "        image: registry.example.com/online-boutique/emailservice:latest",
+                  "Number": 426,
+                  "Content": "        image: registry.example.com/online-boutique/recommendationservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/emailservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/recommendationservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 309,
+                  "Number": 427,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -16199,7 +15821,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 310,
+                  "Number": 428,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -16209,7 +15831,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 311,
+                  "Number": 429,
                   "Content": "        - containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -16219,7 +15841,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 312,
+                  "Number": 430,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -16229,7 +15851,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 313,
+                  "Number": 431,
                   "Content": "        - name: PORT",
                   "IsCause": true,
                   "Annotation": "",
@@ -16239,7 +15861,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 314,
+                  "Number": 432,
                   "Content": "          value: '8080'",
                   "IsCause": true,
                   "Annotation": "",
@@ -16249,17 +15871,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 315,
-                  "Content": "        - name: DISABLE_PROFILER",
+                  "Number": 433,
+                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: DISABLE_PROFILER",
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 316,
+                  "Number": 434,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -16416,32 +16038,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 250,
-            "EndLine": 276,
+            "StartLine": 541,
+            "EndLine": 579,
             "Code": {
               "Lines": [
                 {
-                  "Number": 250,
-                  "Content": "      - name: shippingservice",
+                  "Number": 541,
+                  "Content": "      - name: checkoutservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: shippingservice",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: checkoutservice",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 251,
-                  "Content": "        image: registry.example.com/online-boutique/shippingservice:latest",
+                  "Number": 542,
+                  "Content": "        image: registry.example.com/online-boutique/checkoutservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/shippingservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/checkoutservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 252,
+                  "Number": 543,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -16451,7 +16073,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 253,
+                  "Number": 544,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -16461,17 +16083,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 254,
-                  "Content": "        - containerPort: 50051",
+                  "Number": 545,
+                  "Content": "        - containerPort: 5050",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m50051",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m5050",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 255,
+                  "Number": 546,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -16481,27 +16103,153 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 256,
-                  "Content": "        - name: APP_PORT",
+                  "Number": 547,
+                  "Content": "        - name: PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: APP_PORT",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 257,
-                  "Content": "          value: '50051'",
+                  "Number": 548,
+                  "Content": "          value: '5050'",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'50051'",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'5050'",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 258,
+                  "Number": 549,
+                  "Content": "        - name: PRODUCT_CATALOG_SERVICE_ADDR",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: PRODUCT_CATALOG_SERVICE_ADDR",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 550,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 136,
+            "EndLine": 162,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 136,
+                  "Content": "      - name: currencyservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: currencyservice",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 137,
+                  "Content": "        image: registry.example.com/online-boutique/currencyservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/currencyservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 138,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 139,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 140,
+                  "Content": "        - containerPort: 7000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m7000",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 141,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 142,
+                  "Content": "        - name: PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 143,
+                  "Content": "          value: '7000'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'7000'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 144,
                   "Content": "        - name: DISABLE_PROFILER",
                   "IsCause": true,
                   "Annotation": "",
@@ -16511,7 +16259,259 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 259,
+                  "Number": 145,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 705,
+            "EndLine": 721,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 705,
+                  "Content": "      - name: loadgenerator",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: loadgenerator",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 706,
+                  "Content": "        image: registry.example.com/online-boutique/loadgenerator:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: registry.example.com/online-boutique/loadgenerator:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 707,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 708,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 709,
+                  "Content": "        - name: FRONTEND_ADDR",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: FRONTEND_ADDR",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 710,
+                  "Content": "          value: frontend:80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: frontend:80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 711,
+                  "Content": "        - name: USERS",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: USERS",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 712,
+                  "Content": "          value: '10'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'10'",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 713,
+                  "Content": "        - name: RATE",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: RATE",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 714,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 22,
+            "EndLine": 48,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 22,
+                  "Content": "      - name: redis",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: redis",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 23,
+                  "Content": "        image: redis:7-alpine",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: redis:7-alpine",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 24,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 25,
+                  "Content": "        - containerPort: 6379",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m6379",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 26,
+                  "Content": "        command:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33mcommand\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 27,
+                  "Content": "        - redis-server",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - redis-server",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 28,
+                  "Content": "        - --save",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - --save",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 29,
+                  "Content": "        - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 30,
+                  "Content": "        - --appendonly",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        - --appendonly",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 31,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-14T05:39:15+05:00",
+  "AuditTime": "2026-11-14T15:03:32+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\gpt__P10_k8s-dashboard__production__s2\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\gpt__P10_k8s-dashboard__production__s2\\manifest.yaml",
@@ -16,6 +16,162 @@
       "Name": "kubernetes-dashboard-certs",
       "Namespace": "kubernetes-dashboard",
       "Kind": "Secret",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "Role",
+      "Results": {
+        "rolePodExecAttach": {
+          "ID": "rolePodExecAttach",
+          "Message": "The Role does not allow pods/exec or pods/attach",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard-metrics",
+      "Namespace": "",
+      "Kind": "ClusterRole",
+      "Results": {
+        "clusterrolePodExecAttach": {
+          "ID": "clusterrolePodExecAttach",
+          "Message": "The ClusterRole does not allow pods/exec or pods/attach",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper",
+      "Namespace": "",
+      "Kind": "ClusterRole",
+      "Results": {
+        "clusterrolePodExecAttach": {
+          "ID": "clusterrolePodExecAttach",
+          "Message": "The ClusterRole does not allow pods/exec or pods/attach",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard-metrics",
+      "Namespace": "",
+      "Kind": "ClusterRoleBinding",
+      "Results": {
+        "clusterrolebindingClusterAdmin": {
+          "ID": "clusterrolebindingClusterAdmin",
+          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        },
+        "clusterrolebindingPodExecAttach": {
+          "ID": "clusterrolebindingPodExecAttach",
+          "Message": "The ClusterRoleBinding does not reference a ClusterRole allowing pods/exec or pods/attach",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper",
+      "Namespace": "",
+      "Kind": "ClusterRoleBinding",
+      "Results": {
+        "clusterrolebindingClusterAdmin": {
+          "ID": "clusterrolebindingClusterAdmin",
+          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        },
+        "clusterrolebindingPodExecAttach": {
+          "ID": "clusterrolebindingPodExecAttach",
+          "Message": "The ClusterRoleBinding does not reference a ClusterRole allowing pods/exec or pods/attach",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard-ingress",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "NetworkPolicy",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper-ingress",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "NetworkPolicy",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "ServiceAccount",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "ServiceAccount",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
@@ -80,112 +236,6 @@
           "Mutations": null
         }
       },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard-metrics",
-      "Namespace": "",
-      "Kind": "ClusterRole",
-      "Results": {
-        "clusterrolePodExecAttach": {
-          "ID": "clusterrolePodExecAttach",
-          "Message": "The ClusterRole does not allow pods/exec or pods/attach",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper",
-      "Namespace": "",
-      "Kind": "ClusterRole",
-      "Results": {
-        "clusterrolePodExecAttach": {
-          "ID": "clusterrolePodExecAttach",
-          "Message": "The ClusterRole does not allow pods/exec or pods/attach",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard-metrics",
-      "Namespace": "",
-      "Kind": "ClusterRoleBinding",
-      "Results": {
-        "clusterrolebindingClusterAdmin": {
-          "ID": "clusterrolebindingClusterAdmin",
-          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        },
-        "clusterrolebindingPodExecAttach": {
-          "ID": "clusterrolebindingPodExecAttach",
-          "Message": "The ClusterRoleBinding does not reference a ClusterRole allowing pods/exec or pods/attach",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper",
-      "Namespace": "",
-      "Kind": "ClusterRoleBinding",
-      "Results": {
-        "clusterrolebindingClusterAdmin": {
-          "ID": "clusterrolebindingClusterAdmin",
-          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        },
-        "clusterrolebindingPodExecAttach": {
-          "ID": "clusterrolebindingPodExecAttach",
-          "Message": "The ClusterRoleBinding does not reference a ClusterRole allowing pods/exec or pods/attach",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "Service",
-      "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
@@ -803,48 +853,6 @@
     },
     {
       "Name": "kubernetes-dashboard",
-      "Namespace": "",
-      "Kind": "Namespace",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "ServiceAccount",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "ServiceAccount",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "Role",
-      "Results": {
-        "rolePodExecAttach": {
-          "ID": "rolePodExecAttach",
-          "Message": "The Role does not allow pods/exec or pods/attach",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard",
       "Namespace": "kubernetes-dashboard",
       "Kind": "HorizontalPodAutoscaler",
       "Results": {
@@ -871,17 +879,9 @@
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
-      "Name": "kubernetes-dashboard-ingress",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "NetworkPolicy",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper-ingress",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "NetworkPolicy",
+      "Name": "kubernetes-dashboard",
+      "Namespace": "",
+      "Kind": "Namespace",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"

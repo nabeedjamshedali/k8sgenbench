@@ -1,0 +1,460 @@
+{
+  "project": "P03_grafana",
+  "source": "claude",
+  "prompt_variant": "production",
+  "sample_k": "3",
+  "timestamp": "2026-11-14T07:16:45Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 10,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 10,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 10,
+    "objects_accepted": 10,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "my-grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "grafana-admin",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-config",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "name": "grafana-data",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 286,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "Secret": 1,
+    "ConfigMap": 1,
+    "PersistentVolumeClaim": 1,
+    "Deployment": 1,
+    "Service": 1,
+    "Ingress": 1,
+    "NetworkPolicy": 1,
+    "PodDisruptionBudget": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 96.666664,
+      "frameworks": {
+        "NSA": 95,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=2673495323/api=apps/v1/my-grafana/Deployment/grafana",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 1,
+        "low": 2
+      },
+      "failed": [
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container grafana in deployment grafana (namespace: my-grafana) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 2,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-admin",
+          "key": "admin-password"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-admin",
+          "key": "secret-key"
+        }
+      ],
+      "nonsensitive_secret_literals": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-admin",
+          "key": "admin-user"
+        }
+      ]
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 5,
+      "warning": 3,
+      "critical_by_check": {
+        "container-image-pull-policy": 1,
+        "pod-probes-identical": 1,
+        "container-ephemeral-storage-request-and-limit": 1,
+        "container-security-context-user-group-id": 1,
+        "container-security-context-readonlyrootfilesystem": 1
+      },
+      "warning_by_check": {
+        "pod-networkpolicy": 1,
+        "deployment-strategy": 1,
+        "deployment-replicas": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 88,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 1,
+        "metadataAndInstanceMismatched[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 2,
+      "by_check": {
+        "no-read-only-root-fs": 1,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 1,
+      "zhang_density_per_kloc": 3.5,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 80.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 1,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 1,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "grafana",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-grafana-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-data-persistent",
+        "passed": true,
+        "detail": "PVC grafana-data",
+        "oracle": false
+      },
+      {
+        "id": "R03-ui-external",
+        "passed": true,
+        "detail": "Ingress grafana -> grafana",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 3,
+    "requirements_total": 3,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "grafana/grafana:11.6.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 36.0,
+    "ready_replicas": 1,
+    "expected_replicas": 1,
+    "workloads": [
+      {
+        "ns": "my-grafana",
+        "kind": "Deployment",
+        "name": "grafana",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-215470ac",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "grafana: any source"
+    },
+    "smoke": [
+      {
+        "name": "api-health",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "login-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "sqlite-db-in-data-dir",
+        "passed": true,
+        "detail": "output '/var/lib/grafana/grafana.db'"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "grafana",
+    "n_ready_before": 1,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "grafana-7c899f9f54-4gk87",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 17.1,
+        "availability_pct": 34.0,
+        "n_probes": 50
+      },
+      {
+        "ran": true,
+        "victim": "grafana-7c899f9f54-s7glr",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 16.9,
+        "availability_pct": 32.0,
+        "n_probes": 50
+      },
+      {
+        "ran": true,
+        "victim": "grafana-7c899f9f54-lbzvb",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 17.5,
+        "availability_pct": 26.7,
+        "n_probes": 45
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "grafana-7c899f9f54-jmxlf",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 14.6,
+        "availability_pct": 40.4,
+        "n_probes": 52
+      },
+      {
+        "ran": true,
+        "victim": "grafana-7c899f9f54-jmxlf",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 29.2,
+        "availability_pct": 28.0,
+        "n_probes": 75
+      },
+      {
+        "ran": true,
+        "victim": "grafana-7c899f9f54-jmxlf",
+        "victim_prior_restarts": 2,
+        "recovery_ok": true,
+        "recovery_time_s": 42.4,
+        "availability_pct": 16.7,
+        "n_probes": 90
+      }
+    ],
+    "gate": "ready"
+  }
+}

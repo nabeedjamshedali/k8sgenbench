@@ -1,0 +1,15 @@
+% Turnitin Similarity Report and AI Detection Report, required for the final submission.
+% Place the PDFs downloaded from Turnitin at reports/turnitin_similarity.pdf and reports/ai_detection.pdf;
+% each is included in full, or a placeholder is printed while the file is missing.
+\clearpage
+\onecolumn
+\appendix
+\section{Turnitin Similarity Report}\label{app:similarity}
+\IfFileExists{reports/turnitin_similarity.pdf}{%
+  \includepdf[pages=-,scale=0.85,pagecommand={\thispagestyle{empty}}]{reports/turnitin_similarity.pdf}}{%
+  \fbox{\parbox{0.9\linewidth}{\centering Placeholder: insert \texttt{reports/turnitin\_similarity.pdf}.}}}
+\clearpage
+\section{AI Detection Report}\label{app:ai-detection}
+\IfFileExists{reports/ai_detection.pdf}{%
+  \includepdf[pages=-,scale=0.85,pagecommand={\thispagestyle{empty}}]{reports/ai_detection.pdf}}{%
+  \fbox{\parbox{0.9\linewidth}{\centering Placeholder: insert \texttt{reports/ai\_detection.pdf}.}}}

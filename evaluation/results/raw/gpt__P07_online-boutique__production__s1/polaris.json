@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-08T19:32:18+05:00",
+  "AuditTime": "2026-11-14T12:00:00+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\gpt__P07_online-boutique__production__s1\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\gpt__P07_online-boutique__production__s1\\manifest.yaml",
@@ -12,6 +12,95 @@
     "Controllers": 12
   },
   "Results": [
+    {
+      "Name": "frontend-pdb",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "checkoutservice-pdb",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cartservice-pdb",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "frontend",
+      "Namespace": "online-boutique",
+      "Kind": "HorizontalPodAutoscaler",
+      "Results": {
+        "hpaMaxAvailability": {
+          "ID": "hpaMaxAvailability",
+          "Message": "HPA has a valid max and min replica configuration",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        },
+        "hpaMinAvailability": {
+          "ID": "hpaMinAvailability",
+          "Message": "HPA has a valid min replica configuration",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "online-boutique",
+      "Namespace": "",
+      "Kind": "Namespace",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
     {
       "Name": "redis-cart",
       "Namespace": "online-boutique",
@@ -3862,95 +3951,6 @@
           }
         ]
       },
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "frontend-pdb",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "checkoutservice-pdb",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "cartservice-pdb",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "frontend",
-      "Namespace": "online-boutique",
-      "Kind": "HorizontalPodAutoscaler",
-      "Results": {
-        "hpaMaxAvailability": {
-          "ID": "hpaMaxAvailability",
-          "Message": "HPA has a valid max and min replica configuration",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        },
-        "hpaMinAvailability": {
-          "ID": "hpaMinAvailability",
-          "Message": "HPA has a valid min replica configuration",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "online-boutique",
-      "Namespace": "",
-      "Kind": "Namespace",
-      "Results": {},
-      "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     }
   ],

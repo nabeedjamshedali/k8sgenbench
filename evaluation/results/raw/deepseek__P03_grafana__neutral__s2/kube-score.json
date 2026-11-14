@@ -1,72 +1,5 @@
 [
     {
-        "object_name": "Service/v1/my-grafana/grafana",
-        "type_meta": {
-            "kind": "Service",
-            "apiVersion": "v1"
-        },
-        "object_meta": {
-            "name": "grafana",
-            "namespace": "my-grafana",
-            "creationTimestamp": null,
-            "labels": {
-                "app": "grafana"
-            }
-        },
-        "checks": [
-            {
-                "check": {
-                    "name": "Stable version",
-                    "id": "stable-version",
-                    "target_type": "all",
-                    "comment": "Checks if the object is using a deprecated apiVersion",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
-                    "name": "Label values",
-                    "id": "label-values",
-                    "target_type": "all",
-                    "comment": "Validates label values",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
-                    "name": "Service Targets Pod",
-                    "id": "service-targets-pod",
-                    "target_type": "Service",
-                    "comment": "Makes sure that all Services targets a Pod",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
-                    "name": "Service Type",
-                    "id": "service-type",
-                    "target_type": "Service",
-                    "comment": "Makes sure that the Service type is not NodePort",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            }
-        ],
-        "file_name": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\deepseek__P03_grafana__neutral__s2\\manifest.yaml",
-        "file_row": 123
-    },
-    {
         "object_name": "Deployment/apps/v1/my-grafana/grafana",
         "type_meta": {
             "kind": "Deployment",
@@ -83,6 +16,18 @@
         "checks": [
             {
                 "check": {
+                    "name": "Stable version",
+                    "id": "stable-version",
+                    "target_type": "all",
+                    "comment": "Checks if the object is using a deprecated apiVersion",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
                     "name": "Label values",
                     "id": "label-values",
                     "target_type": "all",
@@ -95,15 +40,87 @@
             },
             {
                 "check": {
-                    "name": "Stable version",
-                    "id": "stable-version",
-                    "target_type": "all",
-                    "comment": "Checks if the object is using a deprecated apiVersion",
+                    "name": "Container Resource Requests Equal Limits",
+                    "id": "container-resource-requests-equal-limits",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have the same requests as limits on resources set.",
+                    "optional": true
+                },
+                "grade": 1,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-resource-requests-equal-limits is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Ports Check",
+                    "id": "container-ports-check",
+                    "target_type": "Pod",
+                    "comment": "Container Ports Checks",
+                    "optional": true
+                },
+                "grade": 10,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-ports-check is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Environment Variable Key Duplication",
+                    "id": "environment-variable-key-duplication",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that duplicated environment variable keys are not duplicated",
                     "optional": false
                 },
                 "grade": 10,
                 "skipped": false,
                 "comments": null
+            },
+            {
+                "check": {
+                    "name": "Pod Probes Identical",
+                    "id": "pod-probes-identical",
+                    "target_type": "Pod",
+                    "comment": "Container has the same readiness and liveness probe",
+                    "optional": false
+                },
+                "grade": 1,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Container has the same readiness and liveness probe",
+                        "description": "Using the same probe for liveness and readiness is very likely dangerous. It's generally better to avoid re-using the same probe."
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Pod Topology Spread Constraints",
+                    "id": "pod-topology-spread-constraints",
+                    "target_type": "Pod",
+                    "comment": "Pod Topology Spread Constraints",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Pod Topology Spread Constraints",
+                        "description": "No Pod Topology Spread Constraints set, kube-scheduler defaults assumed"
+                    }
+                ]
             },
             {
                 "check": {
@@ -125,10 +142,33 @@
             },
             {
                 "check": {
-                    "name": "Container Ports Check",
-                    "id": "container-ports-check",
+                    "name": "Container Ephemeral Storage Request and Limit",
+                    "id": "container-ephemeral-storage-request-and-limit",
                     "target_type": "Pod",
-                    "comment": "Container Ports Checks",
+                    "comment": "Makes sure all pods have ephemeral-storage requests and limits set",
+                    "optional": false
+                },
+                "grade": 1,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "grafana",
+                        "summary": "Ephemeral Storage limit is not set",
+                        "description": "Resource limits are recommended to avoid resource DDOS. Set resources.limits.ephemeral-storage"
+                    },
+                    {
+                        "path": "grafana",
+                        "summary": "Ephemeral Storage request is not set",
+                        "description": "Resource requests are recommended to make sure the application can start and run without crashing. Set resource.requests.ephemeral-storage"
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Ephemeral Storage Request Equals Limit",
+                    "id": "container-ephemeral-storage-request-equals-limit",
+                    "target_type": "Pod",
+                    "comment": "Make sure all pods have matching ephemeral-storage requests and limits",
                     "optional": true
                 },
                 "grade": 10,
@@ -136,7 +176,7 @@
                 "comments": [
                     {
                         "path": "",
-                        "summary": "Skipped because container-ports-check is ignored",
+                        "summary": "Skipped because container-ephemeral-storage-request-equals-limit is ignored",
                         "description": ""
                     }
                 ]
@@ -178,78 +218,6 @@
             },
             {
                 "check": {
-                    "name": "Pod Topology Spread Constraints",
-                    "id": "pod-topology-spread-constraints",
-                    "target_type": "Pod",
-                    "comment": "Pod Topology Spread Constraints",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Pod Topology Spread Constraints",
-                        "description": "No Pod Topology Spread Constraints set, kube-scheduler defaults assumed"
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Image Tag",
-                    "id": "container-image-tag",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that a explicit non-latest tag is used",
-                    "optional": false
-                },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "grafana",
-                        "summary": "Image with latest tag",
-                        "description": "Using a fixed tag is recommended to avoid accidental upgrades"
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Ephemeral Storage Request Equals Limit",
-                    "id": "container-ephemeral-storage-request-equals-limit",
-                    "target_type": "Pod",
-                    "comment": "Make sure all pods have matching ephemeral-storage requests and limits",
-                    "optional": true
-                },
-                "grade": 10,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because container-ephemeral-storage-request-equals-limit is ignored",
-                        "description": ""
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Pod NetworkPolicy",
-                    "id": "pod-networkpolicy",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all Pods are targeted by a NetworkPolicy",
-                    "optional": false
-                },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "The pod does not have a matching NetworkPolicy",
-                        "description": "Create a NetworkPolicy that targets this pod to control who/what can communicate with this pod. Note, this feature needs to be supported by the CNI implementation used in the Kubernetes cluster to have an effect."
-                    }
-                ]
-            },
-            {
-                "check": {
                     "name": "Container Security Context Privileged",
                     "id": "container-security-context-privileged",
                     "target_type": "Pod",
@@ -259,78 +227,6 @@
                 "grade": 10,
                 "skipped": false,
                 "comments": null
-            },
-            {
-                "check": {
-                    "name": "Container Resource Requests Equal Limits",
-                    "id": "container-resource-requests-equal-limits",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have the same requests as limits on resources set.",
-                    "optional": true
-                },
-                "grade": 1,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because container-resource-requests-equal-limits is ignored",
-                        "description": ""
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Memory Requests Equal Limits",
-                    "id": "container-memory-requests-equal-limits",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have the same memory requests as limits set.",
-                    "optional": true
-                },
-                "grade": 1,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because container-memory-requests-equal-limits is ignored",
-                        "description": ""
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Pod Probes Identical",
-                    "id": "pod-probes-identical",
-                    "target_type": "Pod",
-                    "comment": "Container has the same readiness and liveness probe",
-                    "optional": false
-                },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Container has the same readiness and liveness probe",
-                        "description": "Using the same probe for liveness and readiness is very likely dangerous. It's generally better to avoid re-using the same probe."
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Security Context ReadOnlyRootFilesystem",
-                    "id": "container-security-context-readonlyrootfilesystem",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have a security context with read only filesystem set",
-                    "optional": false
-                },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "grafana",
-                        "summary": "The pod has a container with a writable root filesystem",
-                        "description": "Set securityContext.readOnlyRootFilesystem to true"
-                    }
-                ]
             },
             {
                 "check": {
@@ -382,10 +278,28 @@
             },
             {
                 "check": {
-                    "name": "Container Ephemeral Storage Request and Limit",
-                    "id": "container-ephemeral-storage-request-and-limit",
+                    "name": "Container Memory Requests Equal Limits",
+                    "id": "container-memory-requests-equal-limits",
                     "target_type": "Pod",
-                    "comment": "Makes sure all pods have ephemeral-storage requests and limits set",
+                    "comment": "Makes sure that all pods have the same memory requests as limits set.",
+                    "optional": true
+                },
+                "grade": 1,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-memory-requests-equal-limits is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Image Tag",
+                    "id": "container-image-tag",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that a explicit non-latest tag is used",
                     "optional": false
                 },
                 "grade": 1,
@@ -393,27 +307,46 @@
                 "comments": [
                     {
                         "path": "grafana",
-                        "summary": "Ephemeral Storage limit is not set",
-                        "description": "Resource limits are recommended to avoid resource DDOS. Set resources.limits.ephemeral-storage"
-                    },
-                    {
-                        "path": "grafana",
-                        "summary": "Ephemeral Storage request is not set",
-                        "description": "Resource requests are recommended to make sure the application can start and run without crashing. Set resource.requests.ephemeral-storage"
+                        "summary": "Image with latest tag",
+                        "description": "Using a fixed tag is recommended to avoid accidental upgrades"
                     }
                 ]
             },
             {
                 "check": {
-                    "name": "Environment Variable Key Duplication",
-                    "id": "environment-variable-key-duplication",
+                    "name": "Pod NetworkPolicy",
+                    "id": "pod-networkpolicy",
                     "target_type": "Pod",
-                    "comment": "Makes sure that duplicated environment variable keys are not duplicated",
+                    "comment": "Makes sure that all Pods are targeted by a NetworkPolicy",
                     "optional": false
                 },
-                "grade": 10,
+                "grade": 1,
                 "skipped": false,
-                "comments": null
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "The pod does not have a matching NetworkPolicy",
+                        "description": "Create a NetworkPolicy that targets this pod to control who/what can communicate with this pod. Note, this feature needs to be supported by the CNI implementation used in the Kubernetes cluster to have an effect."
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Security Context ReadOnlyRootFilesystem",
+                    "id": "container-security-context-readonlyrootfilesystem",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have a security context with read only filesystem set",
+                    "optional": false
+                },
+                "grade": 1,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "grafana",
+                        "summary": "The pod has a container with a writable root filesystem",
+                        "description": "Set securityContext.readOnlyRootFilesystem to true"
+                    }
+                ]
             },
             {
                 "check": {
@@ -514,5 +447,72 @@
         ],
         "file_name": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\deepseek__P03_grafana__neutral__s2\\manifest.yaml",
         "file_row": 142
+    },
+    {
+        "object_name": "Service/v1/my-grafana/grafana",
+        "type_meta": {
+            "kind": "Service",
+            "apiVersion": "v1"
+        },
+        "object_meta": {
+            "name": "grafana",
+            "namespace": "my-grafana",
+            "creationTimestamp": null,
+            "labels": {
+                "app": "grafana"
+            }
+        },
+        "checks": [
+            {
+                "check": {
+                    "name": "Stable version",
+                    "id": "stable-version",
+                    "target_type": "all",
+                    "comment": "Checks if the object is using a deprecated apiVersion",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
+                    "name": "Label values",
+                    "id": "label-values",
+                    "target_type": "all",
+                    "comment": "Validates label values",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
+                    "name": "Service Targets Pod",
+                    "id": "service-targets-pod",
+                    "target_type": "Service",
+                    "comment": "Makes sure that all Services targets a Pod",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
+                    "name": "Service Type",
+                    "id": "service-type",
+                    "target_type": "Service",
+                    "comment": "Makes sure that the Service type is not NodePort",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
+            }
+        ],
+        "file_name": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\deepseek__P03_grafana__neutral__s2\\manifest.yaml",
+        "file_row": 123
     }
 ]

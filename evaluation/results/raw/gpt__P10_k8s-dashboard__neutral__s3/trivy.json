@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1d76e-3164-7798-abad-c75a70aaee51",
-  "CreatedAt": "2026-11-14T05:21:25.4764979+05:00",
+  "ReportID": "01a1d97a-61b7-70f8-96d0-5a65cf8be5a7",
+  "CreatedAt": "2026-11-14T14:53:58.7110635+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/gpt__P10_k8s-dashboard__neutral__s3/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -909,93 +909,6 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 58,
-            "EndLine": 63,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 58,
-                  "Content": "- apiGroups:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 59,
-                  "Content": "  - ''",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;37m''",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 60,
-                  "Content": "  resources:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 61,
-                  "Content": "  - secrets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - secrets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 62,
-                  "Content": "  verbs:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 63,
-                  "Content": "  - create",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - create",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0113",
-          "Title": "Manage namespace secrets",
-          "Description": "Viewing secrets at the namespace scope can lead to escalation if another service account in that namespace has a higher privileged rolebinding or clusterrolebinding bound.",
-          "Message": "Role 'kubernetes-dashboard' shouldn't have access to manage secrets in namespace 'kubernetes-dashboard'",
-          "Namespace": "builtin.kubernetes.KSV113",
-          "Query": "data.builtin.kubernetes.KSV113.deny",
-          "Resolution": "Manage namespace secrets are not allowed. Remove resource 'secrets' from role",
-          "Severity": "MEDIUM",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0113",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
-            "https://avd.aquasec.com/misconfig/ksv-0113"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
             "StartLine": 47,
             "EndLine": 57,
             "Code": {
@@ -1098,6 +1011,93 @@
                   "Truncated": true,
                   "FirstCause": false,
                   "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0113",
+          "Title": "Manage namespace secrets",
+          "Description": "Viewing secrets at the namespace scope can lead to escalation if another service account in that namespace has a higher privileged rolebinding or clusterrolebinding bound.",
+          "Message": "Role 'kubernetes-dashboard' shouldn't have access to manage secrets in namespace 'kubernetes-dashboard'",
+          "Namespace": "builtin.kubernetes.KSV113",
+          "Query": "data.builtin.kubernetes.KSV113.deny",
+          "Resolution": "Manage namespace secrets are not allowed. Remove resource 'secrets' from role",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0113",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0113"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 58,
+            "EndLine": 63,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 58,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 59,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 60,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 61,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 62,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 63,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
+                  "LastCause": true
                 }
               ]
             }

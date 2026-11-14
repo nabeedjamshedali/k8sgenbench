@@ -3,7 +3,7 @@
   "source": "gpt",
   "prompt_variant": "production",
   "sample_k": "2",
-  "timestamp": "2026-11-14T00:39:00Z",
+  "timestamp": "2026-11-14T10:03:13Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -163,7 +163,7 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 92.77779,
+      "compliance": 92.77778,
       "frameworks": {
         "NSA": 97.5,
         "MITRE": 90.19608
@@ -305,9 +305,9 @@
       "critical": 9,
       "warning": 3,
       "critical_by_check": {
-        "container-security-context-user-group-id": 2,
         "container-ephemeral-storage-request-and-limit": 2,
         "pod-probes-identical": 2,
+        "container-security-context-user-group-id": 2,
         "container-image-pull-policy": 2,
         "deployment-targeted-by-hpa-does-not-have-replicas-configured": 1
       },
@@ -565,13 +565,19 @@
         "served": "mirror"
       }
     ],
-    "shims_applied": [],
+    "shims_applied": [
+      {
+        "object": "Secret/kubernetes-dashboard-csrf",
+        "namespace": "kubernetes-dashboard",
+        "created": true
+      }
+    ],
     "prepull_failed": [],
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": false,
     "time_to_ready_s": null,
-    "ready_replicas": 0,
+    "ready_replicas": 2,
     "expected_replicas": 3,
     "workloads": [
       {
@@ -585,7 +591,7 @@
         "ns": "kubernetes-dashboard",
         "kind": "Deployment",
         "name": "kubernetes-dashboard",
-        "ready": 0,
+        "ready": 2,
         "want": 2
       }
     ],
@@ -593,7 +599,7 @@
     "diagnostics": {
       "pods": [
         {
-          "pod": "dashboard-metrics-scraper-6b5c58dbfb-4fpjp",
+          "pod": "dashboard-metrics-scraper-6b5c58dbfb-9hrrr",
           "container": "dashboard-metrics-scraper",
           "restarts": 5,
           "last_exit": 2,
@@ -601,34 +607,31 @@
           "last_log": "t to the Kubernetes API server and the Kubelets (defaults to in-cluster config)\n      --log-level string             The log level (default \"info\")\n      --logtostderr                  Log to stderr (default true)\n      --metric-duration duration     The duration after which metrics are purged from the database. (default 15m0s)\n      --metric-resolution duration   The resolution at which dashboard-metrics-scraper will poll metrics. (default 1m0s)\n  -n, --namespace strings            The namespace to use for all metric calls. When provided, skip node metrics. (defaults to cluster level metrics)"
         },
         {
-          "pod": "kubernetes-dashboard-7d95b5594-hvftw",
+          "pod": "kubernetes-dashboard-7d95b5594-lmgb9",
           "container": "kubernetes-dashboard",
-          "restarts": 5,
+          "restarts": 1,
           "last_exit": 2,
           "last_reason": "Error",
           "last_log": "github.com/kubernetes/dashboard/src/app/backend/client.(*clientManager).init(0x19aba3a?)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:495 +0x32\ngithub.com/kubernetes/dashboard/src/app/backend/client.NewClientManager(...)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:594\nmain.main()\n\t/home/runner/work/dashboard/dashboard/src/app/backend/dashboard.go:96 +0x1cf"
         },
         {
-          "pod": "kubernetes-dashboard-7d95b5594-rns85",
+          "pod": "kubernetes-dashboard-7d95b5594-t67kr",
           "container": "kubernetes-dashboard",
-          "restarts": 5,
+          "restarts": 1,
           "last_exit": 2,
           "last_reason": "Error",
           "last_log": "github.com/kubernetes/dashboard/src/app/backend/client.(*clientManager).init(0x19aba3a?)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:495 +0x32\ngithub.com/kubernetes/dashboard/src/app/backend/client.NewClientManager(...)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:594\nmain.main()\n\t/home/runner/work/dashboard/dashboard/src/app/backend/dashboard.go:96 +0x1cf"
         }
       ],
       "warning_events": {
-        "kubernetes-dashboard|FailedGetResourceMetric: failed to get cpu utilization": 21,
-        "kubernetes-dashboard-7d95b5594-hvftw|BackOff: Back-off restarting failed container kubernetes-dashboard in": 19,
-        "kubernetes-dashboard-7d95b5594-rns85|BackOff: Back-off restarting failed container kubernetes-dashboard in": 17,
-        "dashboard-metrics-scraper-6b5c58dbfb-4fpjp|BackOff: Back-off restarting failed container dashboard-metrics-scrap": 15,
+        "dashboard-metrics-scraper-6b5c58dbfb-9hrrr|BackOff: Back-off restarting failed container dashboard-metrics-scrap": 15,
+        "kubernetes-dashboard|FailedGetResourceMetric: failed to get cpu utilization": 9,
         "kubernetes-dashboard|FailedGetResourceMetric: failed to get memory utilization": 8,
-        "kubernetes-dashboard|FailedComputeMetricsReplicas: invalid metrics (2 invalid out of 2), first error is": 8,
-        "kubernetes-dashboard-7d95b5594-rns85|Unhealthy: Startup probe failed": 1
+        "kubernetes-dashboard|FailedComputeMetricsReplicas: invalid metrics (2 invalid out of 2), first error is": 8
       }
     },
     "client_placement": {
-      "namespace": "d5-bfcc8ac3",
+      "namespace": "d5-37a1ff57",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -637,13 +640,13 @@
     "smoke": [
       {
         "name": "ui-page",
-        "passed": false,
-        "detail": "HTTP 000, body lacks 'Kubernetes Dashboard'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "dashboard-health-apiserver",
-        "passed": false,
-        "detail": "HTTP 000, body lacks '\"running\":true'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "scraper-healthz",
@@ -654,7 +657,7 @@
       {
         "name": "dashboard-reaches-scraper",
         "passed": false,
-        "detail": "HTTP 000, body lacks '\"connected\": true'"
+        "detail": "HTTP 200, body lacks '\"connected\": true'"
       }
     ],
     "smoke_ok": false

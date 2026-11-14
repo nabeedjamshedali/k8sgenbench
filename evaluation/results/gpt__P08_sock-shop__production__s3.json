@@ -3,7 +3,7 @@
   "source": "gpt",
   "prompt_variant": "production",
   "sample_k": "3",
-  "timestamp": "2026-11-13T23:31:54Z",
+  "timestamp": "2026-11-14T09:32:52Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -346,9 +346,9 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 89.55555,
+      "compliance": 89.55556,
       "frameworks": {
-        "NSA": 84.33333,
+        "NSA": 84.333336,
         "MITRE": 100
       },
       "failed_controls_by_severity": {
@@ -1694,13 +1694,13 @@
       "critical": 71,
       "warning": 22,
       "critical_by_check": {
-        "container-image-pull-policy": 15,
-        "container-security-context-user-group-id": 15,
-        "pod-probes-identical": 14,
         "container-ephemeral-storage-request-and-limit": 15,
-        "statefulset-has-servicename": 5,
+        "pod-probes-identical": 14,
+        "container-security-context-user-group-id": 15,
+        "container-image-pull-policy": 15,
         "deployment-targeted-by-hpa-does-not-have-replicas-configured": 6,
-        "container-security-context-readonlyrootfilesystem": 1
+        "container-security-context-readonlyrootfilesystem": 1,
+        "statefulset-has-servicename": 5
       },
       "warning_by_check": {
         "pod-networkpolicy": 15,
@@ -2334,7 +2334,7 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 226.7,
+    "time_to_ready_s": 316.4,
     "ready_replicas": 22,
     "expected_replicas": 22,
     "workloads": [
@@ -2448,31 +2448,31 @@
     "smoke": [
       {
         "name": "home-page",
-        "passed": false,
-        "detail": "HTTP none, body lacks 'WeaveSocks'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "catalogue-list",
-        "passed": false,
-        "detail": "HTTP none, body lacks 'Nerd leg'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "tags-list",
-        "passed": false,
-        "detail": "HTTP none, body lacks 'tags'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "login-demo-user",
-        "passed": false,
-        "detail": "HTTP none, body lacks 'Cookie is set'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "cart-read",
-        "passed": false,
-        "detail": "HTTP none"
+        "passed": true,
+        "detail": "HTTP 200"
       }
     ],
-    "smoke_ok": false
+    "smoke_ok": true
   },
   "d6": {
     "ran": true,
@@ -2481,59 +2481,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "front-end-845c66c66d-h55jc",
+        "victim": "front-end-845c66c66d-2s9fm",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.9,
-        "availability_pct": null,
-        "n_probes": 0
+        "recovery_time_s": 10.3,
+        "availability_pct": 100.0,
+        "n_probes": 72
       },
       {
         "ran": true,
-        "victim": "front-end-845c66c66d-jgpvr",
+        "victim": "front-end-845c66c66d-6znsf",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.6,
-        "availability_pct": null,
-        "n_probes": 0
+        "recovery_time_s": 12.5,
+        "availability_pct": 100.0,
+        "n_probes": 76
       },
       {
         "ran": true,
-        "victim": "front-end-845c66c66d-mdpk4",
+        "victim": "front-end-845c66c66d-8kwwn",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.6,
-        "availability_pct": null,
-        "n_probes": 0
+        "recovery_time_s": 10.4,
+        "availability_pct": 100.0,
+        "n_probes": 73
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "front-end-845c66c66d-tg67c",
+        "victim": "front-end-845c66c66d-bgzmx",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 3.4,
-        "availability_pct": null,
-        "n_probes": 0
+        "recovery_time_s": 13.6,
+        "availability_pct": 97.5,
+        "n_probes": 81
       },
       {
         "ran": true,
-        "victim": "front-end-845c66c66d-v7485",
+        "victim": "front-end-845c66c66d-qk68c",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 9.0,
-        "availability_pct": null,
-        "n_probes": 0
+        "recovery_time_s": 9.4,
+        "availability_pct": 95.1,
+        "n_probes": 61
       },
       {
         "ran": true,
-        "victim": "front-end-845c66c66d-tg67c",
+        "victim": "front-end-845c66c66d-bgzmx",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 16.8,
-        "availability_pct": null,
-        "n_probes": 0
+        "recovery_time_s": 19.5,
+        "availability_pct": 97.4,
+        "n_probes": 116
       }
     ],
     "gate": "ready"

@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "neutral",
   "sample_k": "2",
-  "timestamp": "2026-11-13T13:45:34Z",
+  "timestamp": "2026-11-14T10:27:08Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -453,12 +453,12 @@
       "critical": 12,
       "warning": 2,
       "critical_by_check": {
-        "container-ephemeral-storage-request-and-limit": 2,
-        "pod-probes-identical": 2,
         "container-image-pull-policy": 2,
-        "container-security-context-user-group-id": 2,
         "container-security-context-readonlyrootfilesystem": 2,
-        "pod-networkpolicy": 2
+        "container-ephemeral-storage-request-and-limit": 2,
+        "pod-networkpolicy": 2,
+        "pod-probes-identical": 2,
+        "container-security-context-user-group-id": 2
       },
       "warning_by_check": {
         "deployment-replicas": 2
@@ -721,7 +721,13 @@
         "served": "mirror"
       }
     ],
-    "shims_applied": [],
+    "shims_applied": [
+      {
+        "object": "Secret/kubernetes-dashboard-csrf",
+        "namespace": "kubernetes-dashboard",
+        "created": true
+      }
+    ],
     "prepull_failed": [],
     "apply_ok": true,
     "apply_errors": [],
@@ -749,29 +755,30 @@
     "diagnostics": {
       "pods": [
         {
-          "pod": "dashboard-metrics-scraper-b75795bc8-hsrt2",
+          "pod": "dashboard-metrics-scraper-b75795bc8-2wzsl",
           "container": "dashboard-metrics-scraper",
           "restarts": 5,
           "last_exit": 1,
           "last_reason": "Error",
-          "last_log": "W1113 13:48:43.761445       1 client_config.go:617] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.\n{\"level\":\"info\",\"msg\":\"Kubernetes host: https://10.96.0.1:443\",\"time\":\"2026-11-13T13:48:43Z\"}\n{\"level\":\"info\",\"msg\":\"Namespace(s): []\",\"time\":\"2026-11-13T13:48:43Z\"}\n{\"level\":\"fatal\",\"msg\":\"Unable to initialize database tables: unable to open database file: no such file or directory\",\"time\":\"2026-11-13T13:48:43Z\"}"
+          "last_log": "W1114 10:31:33.828198       1 client_config.go:617] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.\n{\"level\":\"info\",\"msg\":\"Kubernetes host: https://10.96.0.1:443\",\"time\":\"2026-11-14T10:31:33Z\"}\n{\"level\":\"info\",\"msg\":\"Namespace(s): []\",\"time\":\"2026-11-14T10:31:33Z\"}\n{\"level\":\"fatal\",\"msg\":\"Unable to initialize database tables: unable to open database file: no such file or directory\",\"time\":\"2026-11-14T10:31:33Z\"}"
         },
         {
-          "pod": "kubernetes-dashboard-75475499c4-plllx",
+          "pod": "kubernetes-dashboard-75475499c4-pzzg9",
           "container": "kubernetes-dashboard",
           "restarts": 5,
           "last_exit": 2,
           "last_reason": "Error",
-          "last_log": "github.com/kubernetes/dashboard/src/app/backend/client.(*clientManager).init(0x19aba3a?)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:495 +0x32\ngithub.com/kubernetes/dashboard/src/app/backend/client.NewClientManager(...)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:594\nmain.main()\n\t/home/runner/work/dashboard/dashboard/src/app/backend/dashboard.go:96 +0x1cf"
+          "last_log": "2026/11/14 10:32:00 Metric client health check failed: the server is currently unable to handle the request (get services dashboard-metrics-scraper). Retrying in 30 seconds.\n2026/11/14 10:32:00 Auto-generating certificates\n2026/11/14 10:32:00 Successfully created certificates\n2026/11/14 10:32:00 Serving securely on HTTPS port: 8443\nW1114 10:32:10.937260       1 localehandler.go:168] \nlog: exiting because of error: log: cannot create log: open /tmp/dashboard.kubernetes-dashboard-75475499c4-pzzg9.nonroot.log.WARNING.20261114-103210.1: no such file or directory"
         }
       ],
       "warning_events": {
-        "dashboard-metrics-scraper-b75795bc8-hsrt2|BackOff: Back-off restarting failed container dashboard-metrics-scrap": 15,
-        "kubernetes-dashboard-75475499c4-plllx|BackOff: Back-off restarting failed container kubernetes-dashboard in": 15
+        "dashboard-metrics-scraper-b75795bc8-2wzsl|BackOff: Back-off restarting failed container dashboard-metrics-scrap": 16,
+        "kubernetes-dashboard-75475499c4-pzzg9|BackOff: Back-off restarting failed container kubernetes-dashboard in": 10,
+        "kubernetes-dashboard-75475499c4-pzzg9|Unhealthy: Readiness probe failed": 6
       }
     },
     "client_placement": {
-      "namespace": "d5-b18f174e",
+      "namespace": "d5-36e6c795",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},

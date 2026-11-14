@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1d528-459c-7bdf-aee5-0cfb5b96764c",
-  "CreatedAt": "2026-11-13T18:45:48.7007782+05:00",
+  "ReportID": "01a1d999-0b73-7f1e-9484-3a7a3a5d3cb0",
+  "CreatedAt": "2026-11-14T15:27:28.2439908+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/qwen__P10_k8s-dashboard__neutral__s2/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -2052,132 +2052,6 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 17,
-            "EndLine": 37,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 17,
-                  "Content": "- apiGroups:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 18,
-                  "Content": "  - ''",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;37m''",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 19,
-                  "Content": "  resources:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 20,
-                  "Content": "  - namespaces",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - namespaces",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 21,
-                  "Content": "  - services",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - services",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 22,
-                  "Content": "  - endpoints",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - endpoints",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 23,
-                  "Content": "  - pods",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - pods",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 24,
-                  "Content": "  - pods/log",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - pods/log",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 25,
-                  "Content": "  - configmaps",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - configmaps",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 26,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0041",
-          "Title": "Manage secrets",
-          "Description": "Viewing secrets at the cluster-scope is akin to cluster-admin in most clusters as there are typically at least one service accounts (their token stored in a secret) bound to cluster-admin directly or a role/clusterrole that gives similar permissions.",
-          "Message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'",
-          "Namespace": "builtin.kubernetes.KSV041",
-          "Query": "data.builtin.kubernetes.KSV041.deny",
-          "Resolution": "Manage secrets are not allowed. Remove resource 'secrets' from cluster role",
-          "Severity": "CRITICAL",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0041",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
-            "https://avd.aquasec.com/misconfig/ksv-0041"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
             "StartLine": 136,
             "EndLine": 146,
             "Code": {
@@ -2287,6 +2161,132 @@
         },
         {
           "Type": "Kubernetes Security Check",
+          "ID": "KSV-0041",
+          "Title": "Manage secrets",
+          "Description": "Viewing secrets at the cluster-scope is akin to cluster-admin in most clusters as there are typically at least one service accounts (their token stored in a secret) bound to cluster-admin directly or a role/clusterrole that gives similar permissions.",
+          "Message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'",
+          "Namespace": "builtin.kubernetes.KSV041",
+          "Query": "data.builtin.kubernetes.KSV041.deny",
+          "Resolution": "Manage secrets are not allowed. Remove resource 'secrets' from cluster role",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0041",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0041"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 17,
+            "EndLine": 37,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 17,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 18,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 19,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 20,
+                  "Content": "  - namespaces",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - namespaces",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 21,
+                  "Content": "  - services",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - services",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 22,
+                  "Content": "  - endpoints",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - endpoints",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 23,
+                  "Content": "  - pods",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - pods",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 24,
+                  "Content": "  - pods/log",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - pods/log",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 25,
+                  "Content": "  - configmaps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 26,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
           "ID": "KSV-0048",
           "Title": "Manage Kubernetes workloads and pods",
           "Description": "Depending on the policies enforced by the admission controller, this permission ranges from the ability to steal compute (crypto) by running workloads or allowing for creating workloads that escape to the node as root and escalation to cluster-admin.",
@@ -2304,12 +2304,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 169,
-            "EndLine": 182,
+            "StartLine": 229,
+            "EndLine": 239,
             "Code": {
               "Lines": [
                 {
-                  "Number": 169,
+                  "Number": 229,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2319,67 +2319,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 170,
-                  "Content": "  - apps",
+                  "Number": 230,
+                  "Content": "  - ''",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - apps",
+                  "Highlighted": "  - \u001b[38;5;37m''",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 171,
+                  "Number": 231,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 172,
-                  "Content": "  - deployments",
+                  "Number": 232,
+                  "Content": "  - replicationcontrollers",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - deployments",
+                  "Highlighted": "  - replicationcontrollers",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 173,
-                  "Content": "  - replicasets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - replicasets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 174,
-                  "Content": "  - statefulsets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - statefulsets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 175,
-                  "Content": "  - daemonsets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - daemonsets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 176,
+                  "Number": 233,
                   "Content": "  verbs:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2389,17 +2359,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 177,
+                  "Number": 234,
                   "Content": "  - get",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "  - get",
                   "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 235,
+                  "Content": "  - list",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - list",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 236,
+                  "Content": "  - watch",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - watch",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 237,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 178,
+                  "Number": 238,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2556,12 +2556,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 229,
-            "EndLine": 239,
+            "StartLine": 169,
+            "EndLine": 182,
             "Code": {
               "Lines": [
                 {
-                  "Number": 229,
+                  "Number": 169,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2571,37 +2571,67 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 230,
-                  "Content": "  - ''",
+                  "Number": 170,
+                  "Content": "  - apps",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "Highlighted": "  - apps",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 231,
+                  "Number": 171,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "  \u001b[38;5;33mresources\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 232,
-                  "Content": "  - replicationcontrollers",
+                  "Number": 172,
+                  "Content": "  - deployments",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - replicationcontrollers",
+                  "Highlighted": "  - deployments",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 233,
+                  "Number": 173,
+                  "Content": "  - replicasets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - replicasets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 174,
+                  "Content": "  - statefulsets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - statefulsets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 175,
+                  "Content": "  - daemonsets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - daemonsets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 176,
                   "Content": "  verbs:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2611,47 +2641,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 234,
+                  "Number": 177,
                   "Content": "  - get",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "  - get",
                   "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 235,
-                  "Content": "  - list",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - list",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 236,
-                  "Content": "  - watch",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - watch",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 237,
-                  "Content": "  - create",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - create",
-                  "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 238,
+                  "Number": 178,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

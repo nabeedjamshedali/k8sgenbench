@@ -31,4 +31,10 @@ if os.path.isdir(figs):
     for f in os.listdir(figs):
         if f.endswith(".pdf"):
             shutil.copy(os.path.join(figs, f), os.path.join(OUT, "figures", f))
+reps = os.path.join(HERE, "reports")
+if os.path.isdir(reps):
+    os.makedirs(os.path.join(OUT, "reports"), exist_ok=True)
+    for f in os.listdir(reps):
+        if f.endswith(".pdf"):
+            shutil.copy(os.path.join(reps, f), os.path.join(OUT, "reports", f))
 print("overleaf_files/ updated:", ", ".join(["main.tex"] + FILES + ["figures/*.pdf"]))

@@ -1,0 +1,561 @@
+{
+  "project": "P03_grafana",
+  "source": "deepseek",
+  "prompt_variant": "production",
+  "sample_k": "3",
+  "timestamp": "2026-11-14T11:43:12Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 13,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 13,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 13,
+    "objects_accepted": 13,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-config",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "grafana-secrets",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "grafana-postgres-secrets",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "name": "grafana-postgres-data",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "grafana-postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "grafana-postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "grafana-postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 552,
+  "resource_counts": {
+    "Namespace": 1,
+    "ConfigMap": 1,
+    "Secret": 2,
+    "PersistentVolumeClaim": 1,
+    "Service": 2,
+    "StatefulSet": 1,
+    "Deployment": 1,
+    "PodDisruptionBudget": 1,
+    "NetworkPolicy": 2,
+    "Ingress": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 93.88889,
+      "frameworks": {
+        "NSA": 90.833336,
+        "MITRE": 98.03922
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 1,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=2565262179/api=/v1/grafana/ConfigMap/grafana-config",
+          "control": "C-0012",
+          "name": "Applications credentials in configuration files"
+        },
+        {
+          "resource": "path=2649150274/api=apps/v1/grafana/StatefulSet/grafana-postgres",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2649150274/api=apps/v1/grafana/StatefulSet/grafana-postgres",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2682705512/api=apps/v1/grafana/Deployment/grafana",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 1,
+        "low": 6
+      },
+      "failed": [
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'postgres' of StatefulSet 'grafana-postgres' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'grafana-postgres' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-postgres' of Deployment 'grafana' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'grafana-postgres' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-postgres' of Deployment 'grafana' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container grafana in deployment grafana (namespace: grafana) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 4,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "GF_SECURITY_ADMIN_PASSWORD"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "GF_SECURITY_SECRET_KEY"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "GF_DATABASE_PASSWORD"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-postgres-secrets",
+          "key": "POSTGRES_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-postgres-secrets",
+          "key": "POSTGRES_DB"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-postgres-secrets",
+          "key": "POSTGRES_USER"
+        }
+      ]
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 2,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 10,
+      "warning": 0,
+      "critical_by_check": {
+        "container-security-context-user-group-id": 2,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "container-image-pull-policy": 2,
+        "pod-probes-identical": 2,
+        "container-ephemeral-storage-request-and-limit": 2,
+        "statefulset-has-servicename": 1
+      },
+      "warning_by_check": {}
+    },
+    "polaris": {
+      "ran": true,
+      "score": 91,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 2,
+        "automountServiceAccountToken[warning]": 2,
+        "priorityClassNotSet[warning]": 2,
+        "topologySpreadConstraint[warning]": 2,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "pullPolicyNotAlways[warning]": 3
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 2,
+      "by_check": {
+        "no-read-only-root-fs": 1,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 1,
+      "zhang_density_per_kloc": 1.8,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 2,
+      "pct": 84.2,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 2,
+          "applicable": 2
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 2,
+          "applicable": 2
+        },
+        "3_liveness": {
+          "met": 2,
+          "applicable": 2
+        },
+        "4_cpu_request": {
+          "met": 2,
+          "applicable": 2
+        },
+        "5_mem_request": {
+          "met": 2,
+          "applicable": 2
+        },
+        "6_mem_limit": {
+          "met": 2,
+          "applicable": 2
+        },
+        "7_rolling_update": {
+          "met": 1,
+          "applicable": 2
+        },
+        "8_pdb": {
+          "met": 1,
+          "applicable": 2
+        },
+        "9_spread": {
+          "met": 1,
+          "applicable": 2
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "StatefulSet",
+          "name": "grafana-postgres",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "grafana",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-grafana-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-data-persistent",
+        "passed": false,
+        "detail": "volume type ['emptyDir']",
+        "oracle": false
+      },
+      {
+        "id": "R03-ui-external",
+        "passed": true,
+        "detail": "Ingress grafana -> grafana",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 2,
+    "requirements_total": 3,
+    "pct": 66.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "busybox:1.36",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "grafana/grafana:11.3.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "postgres:16-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 70.2,
+    "ready_replicas": 3,
+    "expected_replicas": 3,
+    "workloads": [
+      {
+        "ns": "grafana",
+        "kind": "Deployment",
+        "name": "grafana",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "grafana",
+        "kind": "StatefulSet",
+        "name": "grafana-postgres",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-6531f6a7-client",
+      "create_namespace": true,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "grafana"
+    },
+    "smoke": [
+      {
+        "name": "api-health",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "login-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "sqlite-db-in-data-dir",
+        "passed": true,
+        "detail": "output 'type = postgres'"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "grafana",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "grafana-fd6d99696-bcxqp",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 25.5,
+        "availability_pct": 100.0,
+        "n_probes": 138
+      },
+      {
+        "ran": true,
+        "victim": "grafana-fd6d99696-hjq56",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 25.6,
+        "availability_pct": 99.3,
+        "n_probes": 138
+      },
+      {
+        "ran": true,
+        "victim": "grafana-fd6d99696-sxmlk",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 24.0,
+        "availability_pct": 100.0,
+        "n_probes": 132
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "grafana-fd6d99696-8nc68",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 20.7,
+        "availability_pct": 99.1,
+        "n_probes": 115
+      },
+      {
+        "ran": true,
+        "victim": "grafana-fd6d99696-8nc68",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 32.5,
+        "availability_pct": 98.8,
+        "n_probes": 172
+      },
+      {
+        "ran": true,
+        "victim": "grafana-fd6d99696-8nc68",
+        "victim_prior_restarts": 2,
+        "recovery_ok": true,
+        "recovery_time_s": 43.7,
+        "availability_pct": 99.1,
+        "n_probes": 225
+      }
+    ],
+    "gate": "ready"
+  }
+}
