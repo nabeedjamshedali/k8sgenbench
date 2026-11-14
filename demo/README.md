@@ -34,7 +34,7 @@ The badge at the top of the page shows whether the cluster is running.
 
 ## Suggested demonstration
 
-1. Project **P04_voting-app**. Left: Human. Right: Claude, production prompt, sample 1.
+1. Project **Voting App**. Left: Human. Right: Claude, production prompt, sample 1.
 2. The generated configuration scores higher on the scanners (Kubescape 91.3 against 72.7 for the human manifest),
    yet it does not work: its root cause shows the hardening (all capabilities dropped) stops PostgreSQL from starting.
    This is the paper's main finding in one example.

@@ -25,6 +25,8 @@ RESULTS = os.path.join(ROOT, "evaluation", "results")
 RUNS = os.path.join(HERE, "runs")
 ROOT_CAUSES = os.path.join(ROOT, "evaluation", "d5_root_causes.csv")
 PORT = 8800
+PROJECTS = {"P02_n8n": "n8n", "P03_grafana": "Grafana", "P04_voting-app": "Voting App", "P05_emojivoto": "Emojivoto",
+            "P07_online-boutique": "Online Boutique", "P08_sock-shop": "Sock Shop", "P10_k8s-dashboard": "Kubernetes Dashboard"}
 JOBS = {}  # job id -> {"log": [str], "done": bool, "config": str}
 
 # Runs inside a child process: the study's evaluate(), with a progress line per stage and results kept in demo/runs/.
@@ -169,7 +171,7 @@ def merged(rec, live):
 def label(cfg):
     p = cfg.split("__")
     names = {"claude": "Claude", "deepseek": "DeepSeek", "gemini": "Gemini", "gpt": "GPT", "qwen": "Qwen"}
-    return "Human (shipped manifest)" if p[0] == "human" else f"{names.get(p[0], p[0])} – {p[2]} prompt, sample {p[3][1:]}"
+    return "Human (shipped manifest)" if p[0] == "human" else f"{names.get(p[0], p[0])}, {p[2]} prompt, sample {p[3][1:]}"
 
 
 def verdict(r):
@@ -239,7 +241,7 @@ th{color:var(--muted);font-weight:600}.ok{color:var(--ok);font-weight:600}.bad{c
 """
 
 INDEX = """<!doctype html><html><head><meta charset="utf-8"><title>K8sGenBench demo</title><style>%s</style></head><body>
-<header><h1>K8sGenBench &mdash; human vs LLM-generated Kubernetes manifests</h1>
+<header><h1>K8sGenBench: human vs LLM-generated Kubernetes manifests</h1>
 <p>Pick a project and two configurations. Recorded results load instantly; "Run live" re-runs the pipeline now.</p></header>
 <main>
 <div class="bar">
@@ -259,10 +261,11 @@ INDEX = """<!doctype html><html><head><meta charset="utf-8"><title>K8sGenBench d
 <script>
 let CFG={};
 const $=id=>document.getElementById(id);
+let PROJ={};
 const NAMES={claude:'Claude',deepseek:'DeepSeek',gemini:'Gemini',gpt:'GPT',qwen:'Qwen'};
-function label(n){const p=n.split('__');return p[0]=='human'?'Human (shipped manifest)':NAMES[p[0]]+' – '+p[2]+' prompt, sample '+p[3].slice(1)}
-async function init(){CFG=await (await fetch('/api/configs')).json();
- $('proj').innerHTML=Object.keys(CFG).map(p=>`<option>${p}</option>`).join('');$('proj').onchange=fill;fill();cluster()}
+function label(n){const p=n.split('__');return p[0]=='human'?'Human (shipped manifest)':NAMES[p[0]]+', '+p[2]+' prompt, sample '+p[3].slice(1)}
+async function init(){CFG=await (await fetch('/api/configs')).json();PROJ=await (await fetch('/api/projects')).json();
+ $('proj').innerHTML=Object.keys(CFG).map(p=>`<option value="${p}">${PROJ[p]||p}</option>`).join('');$('proj').onchange=fill;fill();cluster()}
 function fill(){const l=CFG[$('proj').value];const o=l.map(n=>`<option value="${n}">${label(n)}</option>`).join('');
  $('a').innerHTML=o;$('b').innerHTML=o;$('a').value=l[0];$('b').value=l.find(n=>n.startsWith('claude'))||l[1];
  $('a').onchange=()=>show('a');$('b').onchange=()=>show('b');show('a');show('b')}
@@ -299,7 +302,7 @@ def report_page(a, b):
                 f"{badge(verdict(live), 'Live') if live else ''}{cause}"
                 f"<table><tr><th>Dimension</th><th>Check</th><th>Recorded</th>{'<th>Live</th>' if live else ''}</tr>{rows}</table></div>")
     return (f"<!doctype html><html><head><meta charset='utf-8'><title>K8sGenBench report</title><style>{CSS}</style></head><body>"
-            f"<header><h1>K8sGenBench comparison report</h1><p>Project {html.escape(a.split('__')[1])} &middot; generated "
+            f"<header><h1>K8sGenBench comparison report</h1><p>Project {html.escape(PROJECTS.get(a.split('__')[1], a.split('__')[1]))} &middot; generated "
             f"{time.strftime('%Y-%m-%d %H:%M')} &middot; D1 correctness, D2 security, D3 reliability, D4 requirements, "
             f"D5 deployment and smoke test, D6 recovery from injected faults</p></header><main>"
             f"<p class='noprint'><button onclick='print()'>Save as PDF / print</button></p>"
@@ -326,6 +329,8 @@ class H(BaseHTTPRequestHandler):
             return self._send(INDEX, "text/html")
         if u.path == "/api/configs":
             return self._send(configs())
+        if u.path == "/api/projects":
+            return self._send(PROJECTS)
         if u.path == "/api/cluster":
             return self._send({"up": cluster_up()})
         if u.path == "/api/config":
