@@ -5,6 +5,19 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{placeins}
+% A figure set in the text, not floated: cas-dc's figure environment ignores [H]. Uses cas-dc's own figure caption style.
+\makeatletter
+\ExplSyntaxOn
+\newenvironment{inlinefigure}
+  { \par\medskip\noindent\begin{minipage}{\columnwidth}
+    \def\@captype{figure}
+    \__reset_fig:
+    \dim_set:Nn \l_fig_width_dim { \linewidth }
+    \cs_set_eq:NN \@makecaption \__make_fig_caption:nn
+    \centering\sffamily\small }
+  { \end{minipage}\par\medskip }
+\ExplSyntaxOff
+\makeatother
 \usepackage{booktabs}
 % a float gets a page of its own only when it fills most of it; otherwise it goes at the top of a text page
 \renewcommand{\topfraction}{0.9}
@@ -59,6 +72,7 @@ Kubernetes \sep Large Language Models \sep Infrastructure as Code \sep Security 
 \input{sections/06_threats}
 \input{sections/07_conclusion}
 
+\FloatBarrier
 \appendix
 \section{Pipeline corrections}\label{app:fixes}
 

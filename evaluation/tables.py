@@ -35,7 +35,9 @@ def cell_bin(s):
 
 def cell_cont(s):
     v = pd.to_numeric(s, errors="coerce").dropna()
-    return f"{v.median():.1f} [{v.quantile(.25):.1f}, {v.quantile(.75):.1f}]" if len(v) else "--"
+    # median above its interquartile range, so the wide overview tables fit the text width at full size
+    return (rf"\shortstack[r]{{{v.median():.1f}\\{{\scriptsize[{v.quantile(.25):.1f}, {v.quantile(.75):.1f}]}}}}"
+            if len(v) else "--")
 
 
 def write(name, body):
@@ -61,9 +63,8 @@ def overview(df, variant):
            "total. D6 downtime depends mainly on the replica count of the faulted workload "
            "(Section~\\ref{sec:res-rq5}).") % variant
     body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n" rf"\caption{{{cap}}}\label{{tab:overview-{variant}}}" "\n"
-            r"\resizebox{\textwidth}{!}{%" "\n"
             rf"\begin{{tabular}}{{{cols}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n" r"\bottomrule" "\n"
-            r"\end{tabular}}" "\n" r"\end{table*}" "\n")
+            r"\end{tabular}" "\n" r"\end{table*}" "\n")
     write(f"tab_overview_{variant}.tex", body)
 
 

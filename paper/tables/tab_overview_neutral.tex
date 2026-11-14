@@ -2,7 +2,6 @@
 \begin{table*}[t]
 \centering\small
 \caption{Six-dimension results, neutral prompt. Binary rows: percentage (count/n); continuous rows: median [interquartile range]. The human column is the shipped manifest of each project (one per project). Continuous rows are computed over the configurations for which the metric is defined: static scores over parsed configurations, D5 time to Ready and D6 over deployed ones, so their n can be smaller than the column total. D6 downtime depends mainly on the replica count of the faulted workload (Section~\ref{sec:res-rq5}).}\label{tab:overview-neutral}
-\resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrr}
 \toprule
 Metric & Human & Claude & DeepSeek & Gemini & GPT & Qwen \\ \midrule
@@ -14,13 +13,13 @@ D2 hard-coded secret & 43 (3/7) & 52 (11/21) & 52 (11/21) & 53 (10/19) & 57 (12/
 D5 fully Ready & 100 (7/7) & 86 (18/21) & 67 (14/21) & 71 (15/21) & 76 (16/21) & 60 (9/15) \\
 D5 smoke test passes & 86 (6/7) & 90 (19/21) & 76 (16/21) & 86 (18/21) & 76 (16/21) & 47 (7/15) \\
 \midrule
-D2 Kubescape compliance (\%) & 75.0 [73.0, 76.6] & 76.7 [76.4, 78.1] & 76.7 [71.7, 80.6] & 76.7 [72.4, 80.0] & 79.8 [76.7, 82.2] & 70.0 [70.0, 73.1] \\
-D3 reliability checklist (\%) & 30.7 [20.0, 40.0] & 50.0 [40.0, 53.1] & 44.9 [23.3, 55.0] & 40.0 [18.6, 55.1] & 54.0 [50.0, 56.7] & 24.5 [17.5, 30.0] \\
-D3 smells per KLOC & 36.0 [23.1, 47.5] & 31.7 [16.3, 36.4] & 33.6 [6.9, 50.8] & 39.0 [11.8, 54.5] & 19.2 [7.1, 36.0] & 69.0 [25.0, 74.3] \\
-D4 requirements met (\%) & 100.0 [95.8, 100.0] & 100.0 [92.3, 100.0] & 96.3 [91.7, 100.0] & 96.3 [91.7, 100.0] & 100.0 [100.0, 100.0] & 100.0 [93.3, 100.0] \\
-D5 time to Ready (s) & 20.1 [14.6, 64.0] & 32.7 [15.8, 37.6] & 18.8 [16.6, 35.7] & 20.5 [11.1, 40.1] & 31.2 [19.9, 43.2] & 16.8 [12.0, 26.2] \\
-D6 recovery time (s) & 7.8 [6.9, 26.2] & 16.1 [9.7, 27.2] & 16.2 [12.9, 20.8] & 14.2 [7.5, 17.2] & 16.7 [13.7, 18.3] & 12.8 [8.4, 17.1] \\
-D6 downtime per fault (s) & 6.2 [2.8, 8.4] & 6.5 [2.4, 7.3] & 5.3 [4.5, 7.2] & 5.6 [3.4, 7.0] & 6.6 [3.7, 7.4] & 5.3 [3.1, 6.3] \\
+D2 Kubescape compliance (\%) & \shortstack[r]{75.0\\{\scriptsize[73.0, 76.6]}} & \shortstack[r]{76.7\\{\scriptsize[76.4, 78.1]}} & \shortstack[r]{76.7\\{\scriptsize[71.7, 80.6]}} & \shortstack[r]{76.7\\{\scriptsize[72.4, 80.0]}} & \shortstack[r]{79.8\\{\scriptsize[76.7, 82.2]}} & \shortstack[r]{70.0\\{\scriptsize[70.0, 73.1]}} \\
+D3 reliability checklist (\%) & \shortstack[r]{30.7\\{\scriptsize[20.0, 40.0]}} & \shortstack[r]{50.0\\{\scriptsize[40.0, 53.1]}} & \shortstack[r]{44.9\\{\scriptsize[23.3, 55.0]}} & \shortstack[r]{40.0\\{\scriptsize[18.6, 55.1]}} & \shortstack[r]{54.0\\{\scriptsize[50.0, 56.7]}} & \shortstack[r]{24.5\\{\scriptsize[17.5, 30.0]}} \\
+D3 smells per KLOC & \shortstack[r]{36.0\\{\scriptsize[23.1, 47.5]}} & \shortstack[r]{31.7\\{\scriptsize[16.3, 36.4]}} & \shortstack[r]{33.6\\{\scriptsize[6.9, 50.8]}} & \shortstack[r]{39.0\\{\scriptsize[11.8, 54.5]}} & \shortstack[r]{19.2\\{\scriptsize[7.1, 36.0]}} & \shortstack[r]{69.0\\{\scriptsize[25.0, 74.3]}} \\
+D4 requirements met (\%) & \shortstack[r]{100.0\\{\scriptsize[95.8, 100.0]}} & \shortstack[r]{100.0\\{\scriptsize[92.3, 100.0]}} & \shortstack[r]{96.3\\{\scriptsize[91.7, 100.0]}} & \shortstack[r]{96.3\\{\scriptsize[91.7, 100.0]}} & \shortstack[r]{100.0\\{\scriptsize[100.0, 100.0]}} & \shortstack[r]{100.0\\{\scriptsize[93.3, 100.0]}} \\
+D5 time to Ready (s) & \shortstack[r]{20.1\\{\scriptsize[14.6, 64.0]}} & \shortstack[r]{32.7\\{\scriptsize[15.8, 37.6]}} & \shortstack[r]{18.8\\{\scriptsize[16.6, 35.7]}} & \shortstack[r]{20.5\\{\scriptsize[11.1, 40.1]}} & \shortstack[r]{31.2\\{\scriptsize[19.9, 43.2]}} & \shortstack[r]{16.8\\{\scriptsize[12.0, 26.2]}} \\
+D6 recovery time (s) & \shortstack[r]{7.8\\{\scriptsize[6.9, 26.2]}} & \shortstack[r]{16.1\\{\scriptsize[9.7, 27.2]}} & \shortstack[r]{16.2\\{\scriptsize[12.9, 20.8]}} & \shortstack[r]{14.2\\{\scriptsize[7.5, 17.2]}} & \shortstack[r]{16.7\\{\scriptsize[13.7, 18.3]}} & \shortstack[r]{12.8\\{\scriptsize[8.4, 17.1]}} \\
+D6 downtime per fault (s) & \shortstack[r]{6.2\\{\scriptsize[2.8, 8.4]}} & \shortstack[r]{6.5\\{\scriptsize[2.4, 7.3]}} & \shortstack[r]{5.3\\{\scriptsize[4.5, 7.2]}} & \shortstack[r]{5.6\\{\scriptsize[3.4, 7.0]}} & \shortstack[r]{6.6\\{\scriptsize[3.7, 7.4]}} & \shortstack[r]{5.3\\{\scriptsize[3.1, 6.3]}} \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table*}

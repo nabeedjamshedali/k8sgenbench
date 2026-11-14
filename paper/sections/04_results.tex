@@ -120,20 +120,17 @@ Requirements met & fully Ready & 2.89 (1.39--6.02) & 0.046 \\
 
 Figure~\ref{fig:tradeoff} summarises the effect for each model, and Table~\ref{tab:overview-production} gives the production-prompt values.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig_tradeoff.pdf}
-\caption{Static security against deployment success, per model: open marker = neutral prompt, filled = production prompt (vertical bars: 95\% Wilson intervals of the smoke-test rate); diamond = human manifests. Two coincident markers (Claude neutral, Gemini production) are offset slightly.}
-\label{fig:tradeoff}
-\end{figure}
-
 \input{tables/tab_overview_production}
 
 Asking for production-ready output raises the static scores. Across the 33 (model, project) cells, the median cell gains 9.1 points of Kubescape compliance, 22.5 points of checklist coverage and 13.3 points of Polaris score, and loses 3.5 high or critical Trivy findings and 16.9 smells per thousand lines (all $p<0.001$); the share of configurations passing the \texttt{restricted} Pod Security Standard also rises ($p=0.001$; 27 configurations pass only under the production prompt and one only under the neutral one). The gains are largest for Claude (Kubescape $+20.1$ points per cell) and GPT ($+14.6$), and absent for Gemini and Qwen on Trivy findings. With seven cells per model (five for Qwen), no per-model test can fall below an adjusted $p$ of 0.078, so per-model effects are reported as Hodges--Lehmann estimates with exact 95\% intervals: the Kubescape gain is $+19.8$ points for Claude [$+15.8$, $+21.4$], $+12.4$ for GPT [$+7.2$, $+17.3$], $+10.1$ for DeepSeek [$+7.4$, $+14.4$], $+3.6$ for Gemini [$+0.3$, $+6.9$] and $+5.7$ for Qwen [$-0.3$, $+11.4$], and its size differs between models (Kruskal--Wallis over cells, $H=19.97$, $p<0.001$); the checklist gain is positive for every model except Qwen, whose interval includes zero, and does not differ significantly between models ($p=0.437$). Requirement satisfaction does not change ($p=0.379$).
 
 Deployment, in contrast, becomes less likely to succeed. Pooled, the smoke-test pass rate falls from 76.8\% (76 of 99) to 60.6\% (60 of 99) and the fully Ready rate from 72.7\% to 56.6\%. Across cells, the fully Ready rate falls in 13 and rises in 3 ($p=0.005$; Wilcoxon on cell rates, which with ties dropped is close to a sign test), and the smoke-test rate falls in 12 and rises in 3 ($p=0.017$). Leaving out any one project keeps the decline in the fully Ready rate ($p\le0.050$) and, except when the voting app is left out ($p=0.125$), in the smoke-test rate; counted by configuration, 21 configurations became fully Ready only under the neutral prompt and 5 only under the production one, and 23 against 7 for the smoke test. Gemini is the exception, with nearly identical rates under both prompts (Figure~\ref{fig:tradeoff}); its Kubescape compliance also changed less than any other model's ($+4.6$ points per cell). The added failures are those of Section~\ref{sec:res-rq4}: hardening that stops a database and liveness probes that kill slow-starting services.
 
-Recovery time does not change ($p=0.902$), and every configuration that recovered from all faults under one prompt also did under the other. Downtime during the faults is almost entirely a matter of replica count: when the faulted workload has one replica, the median downtime is 6.2~s for the human manifests and 6.5~s and 7.1~s under the neutral and production prompts, with no difference between sources ($H=6.64$, $p=0.249$), and when it has two or more it is 0.2~s. The production prompt gives the faulted workload two or more replicas in 55\% of configurations, against 12\% under the neutral prompt and none of the human manifests, which is why median availability during the faults rises under the production prompt ($p=0.010$ across cells).
+% Set in the text: as a float it was deferred past the Conclusion
+\begin{inlinefigure}
+\includegraphics[width=\columnwidth]{figures/fig_tradeoff.pdf}
+\caption{Static security against deployment success, per model: open marker = neutral prompt, filled = production prompt (vertical bars: 95\% Wilson intervals of the smoke-test rate); diamond = human manifests. Two coincident markers (Claude neutral, Gemini production) are offset slightly.}
+\label{fig:tradeoff}
+\end{inlinefigure}
 
-% Keep every Results float within the Results section.
-\FloatBarrier
+Recovery time does not change ($p=0.902$), and every configuration that recovered from all faults under one prompt also did under the other. Downtime during the faults is almost entirely a matter of replica count: when the faulted workload has one replica, the median downtime is 6.2~s for the human manifests and 6.5~s and 7.1~s under the neutral and production prompts, with no difference between sources ($H=6.64$, $p=0.249$), and when it has two or more it is 0.2~s. The production prompt gives the faulted workload two or more replicas in 55\% of configurations, against 12\% under the neutral prompt and none of the human manifests, which is why median availability during the faults rises under the production prompt ($p=0.010$ across cells).
