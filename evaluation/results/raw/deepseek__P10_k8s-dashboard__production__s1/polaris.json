@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-13T14:00:06+05:00",
+  "AuditTime": "2026-11-13T18:33:22+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\deepseek__P10_k8s-dashboard__production__s1\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\deepseek__P10_k8s-dashboard__production__s1\\manifest.yaml",
@@ -12,22 +12,6 @@
     "Controllers": 2
   },
   "Results": [
-    {
-      "Name": "kubernetes-dashboard",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "NetworkPolicy",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "NetworkPolicy",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
     {
       "Name": "kubernetes-dashboard",
       "Namespace": "",
@@ -49,6 +33,24 @@
       "Namespace": "kubernetes-dashboard",
       "Kind": "Secret",
       "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard-settings",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "ConfigMap",
+      "Results": {
+        "sensitiveConfigmapContent": {
+          "ID": "sensitiveConfigmapContent",
+          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
@@ -141,6 +143,60 @@
         "rolebindingRolePodExecAttach": {
           "ID": "rolebindingRolePodExecAttach",
           "Message": "The RoleBinding does not reference a Role allowing Pod exec or attach",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard",
+      "Namespace": "",
+      "Kind": "ClusterRoleBinding",
+      "Results": {
+        "clusterrolebindingClusterAdmin": {
+          "ID": "clusterrolebindingClusterAdmin",
+          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        },
+        "clusterrolebindingPodExecAttach": {
+          "ID": "clusterrolebindingPodExecAttach",
+          "Message": "The ClusterRoleBinding references a ClusterRole that allows Pods/exec, allows pods/attach, or that does not exist",
+          "Details": null,
+          "Success": false,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard-metrics-scraper",
+      "Namespace": "",
+      "Kind": "ClusterRoleBinding",
+      "Results": {
+        "clusterrolebindingClusterAdmin": {
+          "ID": "clusterrolebindingClusterAdmin",
+          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        },
+        "clusterrolebindingPodExecAttach": {
+          "ID": "clusterrolebindingPodExecAttach",
+          "Message": "The ClusterRoleBinding does not reference a ClusterRole allowing pods/exec or pods/attach",
           "Details": null,
           "Success": true,
           "Severity": "danger",
@@ -748,6 +804,38 @@
     {
       "Name": "kubernetes-dashboard",
       "Namespace": "kubernetes-dashboard",
+      "Kind": "ServiceAccount",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "ServiceAccount",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "dashboard-metrics-scraper",
+      "Namespace": "kubernetes-dashboard",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "kubernetes-dashboard",
+      "Namespace": "kubernetes-dashboard",
       "Kind": "PodDisruptionBudget",
       "Results": {
         "pdbDisruptionsIsZero": {
@@ -784,7 +872,7 @@
     {
       "Name": "kubernetes-dashboard",
       "Namespace": "kubernetes-dashboard",
-      "Kind": "ServiceAccount",
+      "Kind": "NetworkPolicy",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
@@ -792,95 +880,7 @@
     {
       "Name": "dashboard-metrics-scraper",
       "Namespace": "kubernetes-dashboard",
-      "Kind": "ServiceAccount",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard-settings",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "ConfigMap",
-      "Results": {
-        "sensitiveConfigmapContent": {
-          "ID": "sensitiveConfigmapContent",
-          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard",
-      "Namespace": "",
-      "Kind": "ClusterRoleBinding",
-      "Results": {
-        "clusterrolebindingClusterAdmin": {
-          "ID": "clusterrolebindingClusterAdmin",
-          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        },
-        "clusterrolebindingPodExecAttach": {
-          "ID": "clusterrolebindingPodExecAttach",
-          "Message": "The ClusterRoleBinding references a ClusterRole that allows Pods/exec, allows pods/attach, or that does not exist",
-          "Details": null,
-          "Success": false,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard-metrics-scraper",
-      "Namespace": "",
-      "Kind": "ClusterRoleBinding",
-      "Results": {
-        "clusterrolebindingClusterAdmin": {
-          "ID": "clusterrolebindingClusterAdmin",
-          "Message": "The ClusterRoleBinding does not reference the default cluster-admin ClusterRole or one with wildcard permissions",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        },
-        "clusterrolebindingPodExecAttach": {
-          "ID": "clusterrolebindingPodExecAttach",
-          "Message": "The ClusterRoleBinding does not reference a ClusterRole allowing pods/exec or pods/attach",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "kubernetes-dashboard",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "dashboard-metrics-scraper",
-      "Namespace": "kubernetes-dashboard",
-      "Kind": "Service",
+      "Kind": "NetworkPolicy",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"

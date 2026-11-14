@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1d422-b425-72b1-adcc-bc8c73d8f6e5",
-  "CreatedAt": "2026-11-13T14:00:06.5651764+05:00",
+  "ReportID": "01a1d51c-e135-7ccf-81a0-8585a31a534c",
+  "CreatedAt": "2026-11-13T18:33:22.1018395+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/deepseek__P10_k8s-dashboard__production__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -666,6 +666,132 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
+            "StartLine": 235,
+            "EndLine": 249,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 235,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 236,
+                  "Content": "  - apps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - apps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 237,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 238,
+                  "Content": "  - deployments",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - deployments",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 239,
+                  "Content": "  - daemonsets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - daemonsets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 240,
+                  "Content": "  - statefulsets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - statefulsets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 241,
+                  "Content": "  - replicasets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - replicasets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 242,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 243,
+                  "Content": "  - get",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - get",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 244,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0048",
+          "Title": "Manage Kubernetes workloads and pods",
+          "Description": "Depending on the policies enforced by the admission controller, this permission ranges from the ability to steal compute (crypto) by running workloads or allowing for creating workloads that escape to the node as root and escalation to cluster-admin.",
+          "Message": "ClusterRole 'kubernetes-dashboard' should not have access to resources [\"pods\", \"deployments\", \"jobs\", \"cronjobs\", \"statefulsets\", \"daemonsets\", \"replicasets\", \"replicationcontrollers\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]",
+          "Namespace": "builtin.kubernetes.KSV048",
+          "Query": "data.builtin.kubernetes.KSV048.deny",
+          "Resolution": "Kubernetes workloads resources are only allowed for verbs 'list', 'watch', 'get'",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0048",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0048"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
             "StartLine": 149,
             "EndLine": 158,
             "Code": {
@@ -769,132 +895,6 @@
                   "Highlighted": "  - create",
                   "FirstCause": false,
                   "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0048",
-          "Title": "Manage Kubernetes workloads and pods",
-          "Description": "Depending on the policies enforced by the admission controller, this permission ranges from the ability to steal compute (crypto) by running workloads or allowing for creating workloads that escape to the node as root and escalation to cluster-admin.",
-          "Message": "ClusterRole 'kubernetes-dashboard' should not have access to resources [\"pods\", \"deployments\", \"jobs\", \"cronjobs\", \"statefulsets\", \"daemonsets\", \"replicasets\", \"replicationcontrollers\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]",
-          "Namespace": "builtin.kubernetes.KSV048",
-          "Query": "data.builtin.kubernetes.KSV048.deny",
-          "Resolution": "Kubernetes workloads resources are only allowed for verbs 'list', 'watch', 'get'",
-          "Severity": "MEDIUM",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0048",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
-            "https://avd.aquasec.com/misconfig/ksv-0048"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 235,
-            "EndLine": 249,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 235,
-                  "Content": "- apiGroups:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 236,
-                  "Content": "  - apps",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - apps",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 237,
-                  "Content": "  resources:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mresources\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 238,
-                  "Content": "  - deployments",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - deployments",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 239,
-                  "Content": "  - daemonsets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - daemonsets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 240,
-                  "Content": "  - statefulsets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - statefulsets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 241,
-                  "Content": "  - replicasets",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - replicasets",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 242,
-                  "Content": "  verbs:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 243,
-                  "Content": "  - get",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - get",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 244,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
                 }
               ]
             }
@@ -1501,12 +1501,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 276,
-            "EndLine": 288,
+            "StartLine": 178,
+            "EndLine": 188,
             "Code": {
               "Lines": [
                 {
-                  "Number": 276,
+                  "Number": 178,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1516,47 +1516,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 277,
-                  "Content": "  - networking.k8s.io",
+                  "Number": 179,
+                  "Content": "  - ''",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - networking.k8s.io",
+                  "Highlighted": "  - \u001b[38;5;37m''",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 278,
+                  "Number": 180,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 279,
-                  "Content": "  - ingresses",
+                  "Number": 181,
+                  "Content": "  - services",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - ingresses",
+                  "Highlighted": "  - services",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 280,
-                  "Content": "  - networkpolicies",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - networkpolicies",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 281,
+                  "Number": 182,
                   "Content": "  verbs:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1566,7 +1556,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 282,
+                  "Number": 183,
                   "Content": "  - get",
                   "IsCause": true,
                   "Annotation": "",
@@ -1576,7 +1566,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 283,
+                  "Number": 184,
                   "Content": "  - list",
                   "IsCause": true,
                   "Annotation": "",
@@ -1586,17 +1576,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 284,
+                  "Number": 185,
                   "Content": "  - watch",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "  - watch",
                   "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 186,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 285,
+                  "Number": 187,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1753,12 +1753,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 178,
-            "EndLine": 188,
+            "StartLine": 276,
+            "EndLine": 288,
             "Code": {
               "Lines": [
                 {
-                  "Number": 178,
+                  "Number": 276,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1768,37 +1768,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 179,
-                  "Content": "  - ''",
+                  "Number": 277,
+                  "Content": "  - networking.k8s.io",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "Highlighted": "  - networking.k8s.io",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 180,
+                  "Number": 278,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "  \u001b[38;5;33mresources\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 181,
-                  "Content": "  - services",
+                  "Number": 279,
+                  "Content": "  - ingresses",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - services",
+                  "Highlighted": "  - ingresses",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 182,
+                  "Number": 280,
+                  "Content": "  - networkpolicies",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - networkpolicies",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 281,
                   "Content": "  verbs:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1808,7 +1818,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 183,
+                  "Number": 282,
                   "Content": "  - get",
                   "IsCause": true,
                   "Annotation": "",
@@ -1818,7 +1828,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 184,
+                  "Number": 283,
                   "Content": "  - list",
                   "IsCause": true,
                   "Annotation": "",
@@ -1828,27 +1838,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 185,
+                  "Number": 284,
                   "Content": "  - watch",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "  - watch",
                   "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 186,
-                  "Content": "  - create",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - create",
-                  "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 187,
+                  "Number": 285,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

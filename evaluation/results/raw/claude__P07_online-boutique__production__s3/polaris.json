@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-12T19:13:53+05:00",
+  "AuditTime": "2026-11-13T19:39:11+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P07_online-boutique__production__s3\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P07_online-boutique__production__s3\\manifest.yaml",
@@ -16,14 +16,6 @@
       "Name": "default-limits",
       "Namespace": "online-boutique",
       "Kind": "LimitRange",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "online-boutique",
-      "Namespace": "online-boutique",
-      "Kind": "ServiceAccount",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
@@ -3086,40 +3078,6 @@
           }
         ]
       },
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "frontend",
-      "Namespace": "online-boutique",
-      "Kind": "Ingress",
-      "Results": {
-        "tlsSettingsMissing": {
-          "ID": "tlsSettingsMissing",
-          "Message": "Ingress has TLS configured",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "online-boutique",
-      "Namespace": "",
-      "Kind": "Namespace",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "online-boutique-quota",
-      "Namespace": "online-boutique",
-      "Kind": "ResourceQuota",
-      "Results": {},
-      "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
@@ -3213,6 +3171,24 @@
     {
       "Name": "frontend",
       "Namespace": "online-boutique",
+      "Kind": "Ingress",
+      "Results": {
+        "tlsSettingsMissing": {
+          "ID": "tlsSettingsMissing",
+          "Message": "Ingress has TLS configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "frontend",
+      "Namespace": "online-boutique",
       "Kind": "HorizontalPodAutoscaler",
       "Results": {
         "hpaMaxAvailability": {
@@ -3227,186 +3203,6 @@
         "hpaMinAvailability": {
           "ID": "hpaMinAvailability",
           "Message": "HPA has a valid min replica configuration",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "frontend",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "cartservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "productcatalogservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "currencyservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "paymentservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "shippingservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "emailservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "checkoutservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "recommendationservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "adservice",
-      "Namespace": "online-boutique",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
           "Details": null,
           "Success": true,
           "Severity": "warning",
@@ -3697,6 +3493,202 @@
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
+      "Name": "online-boutique",
+      "Namespace": "",
+      "Kind": "Namespace",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "online-boutique",
+      "Namespace": "online-boutique",
+      "Kind": "ServiceAccount",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "frontend",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cartservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "productcatalogservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "currencyservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "paymentservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "shippingservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "emailservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "checkoutservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "recommendationservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "adservice",
+      "Namespace": "online-boutique",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
       "Name": "default-deny-ingress",
       "Namespace": "online-boutique",
       "Kind": "NetworkPolicy",
@@ -3724,6 +3716,14 @@
       "Name": "allow-redis-from-cart",
       "Namespace": "online-boutique",
       "Kind": "NetworkPolicy",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "online-boutique-quota",
+      "Namespace": "online-boutique",
+      "Kind": "ResourceQuota",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"

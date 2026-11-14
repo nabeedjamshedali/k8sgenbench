@@ -16,18 +16,6 @@
         "checks": [
             {
                 "check": {
-                    "name": "Stable version",
-                    "id": "stable-version",
-                    "target_type": "all",
-                    "comment": "Checks if the object is using a deprecated apiVersion",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
                     "name": "Label values",
                     "id": "label-values",
                     "target_type": "all",
@@ -40,21 +28,45 @@
             },
             {
                 "check": {
-                    "name": "Container Seccomp Profile",
-                    "id": "container-seccomp-profile",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have at a seccomp policy configured.",
-                    "optional": true
+                    "name": "Stable version",
+                    "id": "stable-version",
+                    "target_type": "all",
+                    "comment": "Checks if the object is using a deprecated apiVersion",
+                    "optional": false
                 },
                 "grade": 10,
-                "skipped": true,
+                "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
+                    "name": "Pod Topology Spread Constraints",
+                    "id": "pod-topology-spread-constraints",
+                    "target_type": "Pod",
+                    "comment": "Pod Topology Spread Constraints",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
                 "comments": [
                     {
                         "path": "",
-                        "summary": "Skipped because container-seccomp-profile is ignored",
-                        "description": ""
+                        "summary": "Pod Topology Spread Constraints",
+                        "description": "No Pod Topology Spread Constraints set, kube-scheduler defaults assumed"
                     }
                 ]
+            },
+            {
+                "check": {
+                    "name": "Container Resources",
+                    "id": "container-resources",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have resource limits and requests set. The --ignore-container-cpu-limit flag can be used to disable the requirement of having a CPU limit",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
             },
             {
                 "check": {
@@ -76,15 +88,21 @@
             },
             {
                 "check": {
-                    "name": "Pod Probes",
-                    "id": "pod-probes",
+                    "name": "Pod NetworkPolicy",
+                    "id": "pod-networkpolicy",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all Pods have safe probe configurations",
+                    "comment": "Makes sure that all Pods are targeted by a NetworkPolicy",
                     "optional": false
                 },
-                "grade": 10,
+                "grade": 1,
                 "skipped": false,
-                "comments": null
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "The pod does not have a matching NetworkPolicy",
+                        "description": "Create a NetworkPolicy that targets this pod to control who/what can communicate with this pod. Note, this feature needs to be supported by the CNI implementation used in the Kubernetes cluster to have an effect."
+                    }
+                ]
             },
             {
                 "check": {
@@ -111,22 +129,28 @@
             },
             {
                 "check": {
-                    "name": "Container Security Context Privileged",
-                    "id": "container-security-context-privileged",
+                    "name": "Container Security Context ReadOnlyRootFilesystem",
+                    "id": "container-security-context-readonlyrootfilesystem",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all pods have a unprivileged security context set",
+                    "comment": "Makes sure that all pods have a security context with read only filesystem set",
                     "optional": false
                 },
-                "grade": 10,
+                "grade": 1,
                 "skipped": false,
-                "comments": null
+                "comments": [
+                    {
+                        "path": "grafana",
+                        "summary": "The pod has a container with a writable root filesystem",
+                        "description": "Set securityContext.readOnlyRootFilesystem to true"
+                    }
+                ]
             },
             {
                 "check": {
-                    "name": "Container Ports Check",
-                    "id": "container-ports-check",
+                    "name": "Container Seccomp Profile",
+                    "id": "container-seccomp-profile",
                     "target_type": "Pod",
-                    "comment": "Container Ports Checks",
+                    "comment": "Makes sure that all pods have at a seccomp policy configured.",
                     "optional": true
                 },
                 "grade": 10,
@@ -134,7 +158,7 @@
                 "comments": [
                     {
                         "path": "",
-                        "summary": "Skipped because container-ports-check is ignored",
+                        "summary": "Skipped because container-seccomp-profile is ignored",
                         "description": ""
                     }
                 ]
@@ -153,21 +177,15 @@
             },
             {
                 "check": {
-                    "name": "Container CPU Requests Equal Limits",
-                    "id": "container-cpu-requests-equal-limits",
+                    "name": "Pod Probes",
+                    "id": "pod-probes",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all pods have the same CPU requests as limits set.",
-                    "optional": true
+                    "comment": "Makes sure that all Pods have safe probe configurations",
+                    "optional": false
                 },
-                "grade": 1,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because container-cpu-requests-equal-limits is ignored",
-                        "description": ""
-                    }
-                ]
+                "grade": 10,
+                "skipped": false,
+                "comments": null
             },
             {
                 "check": {
@@ -184,6 +202,24 @@
                         "path": "",
                         "summary": "Skipped because container-memory-requests-equal-limits is ignored",
                         "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Image Tag",
+                    "id": "container-image-tag",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that a explicit non-latest tag is used",
+                    "optional": false
+                },
+                "grade": 1,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "grafana",
+                        "summary": "Image with latest tag",
+                        "description": "Using a fixed tag is recommended to avoid accidental upgrades"
                     }
                 ]
             },
@@ -230,10 +266,10 @@
             },
             {
                 "check": {
-                    "name": "Container Resources",
-                    "id": "container-resources",
+                    "name": "Container Security Context Privileged",
+                    "id": "container-security-context-privileged",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all pods have resource limits and requests set. The --ignore-container-cpu-limit flag can be used to disable the requirement of having a CPU limit",
+                    "comment": "Makes sure that all pods have a unprivileged security context set",
                     "optional": false
                 },
                 "grade": 10,
@@ -260,6 +296,42 @@
             },
             {
                 "check": {
+                    "name": "Container CPU Requests Equal Limits",
+                    "id": "container-cpu-requests-equal-limits",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have the same CPU requests as limits set.",
+                    "optional": true
+                },
+                "grade": 1,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-cpu-requests-equal-limits is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Ports Check",
+                    "id": "container-ports-check",
+                    "target_type": "Pod",
+                    "comment": "Container Ports Checks",
+                    "optional": true
+                },
+                "grade": 10,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-ports-check is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
                     "name": "Pod Probes Identical",
                     "id": "pod-probes-identical",
                     "target_type": "Pod",
@@ -272,73 +344,37 @@
             },
             {
                 "check": {
-                    "name": "Container Security Context ReadOnlyRootFilesystem",
-                    "id": "container-security-context-readonlyrootfilesystem",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have a security context with read only filesystem set",
+                    "name": "Deployment Strategy",
+                    "id": "deployment-strategy",
+                    "target_type": "Deployment",
+                    "comment": "Makes sure that all Deployments targeted by service use RollingUpdate strategy",
                     "optional": false
                 },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "grafana",
-                        "summary": "The pod has a container with a writable root filesystem",
-                        "description": "Set securityContext.readOnlyRootFilesystem to true"
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Image Tag",
-                    "id": "container-image-tag",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that a explicit non-latest tag is used",
-                    "optional": false
-                },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "grafana",
-                        "summary": "Image with latest tag",
-                        "description": "Using a fixed tag is recommended to avoid accidental upgrades"
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Pod NetworkPolicy",
-                    "id": "pod-networkpolicy",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all Pods are targeted by a NetworkPolicy",
-                    "optional": false
-                },
-                "grade": 1,
+                "grade": 5,
                 "skipped": false,
                 "comments": [
                     {
                         "path": "",
-                        "summary": "The pod does not have a matching NetworkPolicy",
-                        "description": "Create a NetworkPolicy that targets this pod to control who/what can communicate with this pod. Note, this feature needs to be supported by the CNI implementation used in the Kubernetes cluster to have an effect."
+                        "summary": "Deployment update strategy",
+                        "description": "The deployment is used by a service but not using the RollingUpdate strategy which can cause interruptions. Set .spec.strategy.type to RollingUpdate."
                     }
                 ]
             },
             {
                 "check": {
-                    "name": "Pod Topology Spread Constraints",
-                    "id": "pod-topology-spread-constraints",
-                    "target_type": "Pod",
-                    "comment": "Pod Topology Spread Constraints",
+                    "name": "Deployment Replicas",
+                    "id": "deployment-replicas",
+                    "target_type": "Deployment",
+                    "comment": "Makes sure that Deployment has multiple replicas",
                     "optional": false
                 },
-                "grade": 10,
+                "grade": 5,
                 "skipped": false,
                 "comments": [
                     {
                         "path": "",
-                        "summary": "Pod Topology Spread Constraints",
-                        "description": "No Pod Topology Spread Constraints set, kube-scheduler defaults assumed"
+                        "summary": "Deployment few replicas",
+                        "description": "Deployments targeted by Services are recommended to have at least 2 replicas to prevent unwanted downtime."
                     }
                 ]
             },
@@ -407,42 +443,6 @@
                 "grade": 10,
                 "skipped": false,
                 "comments": null
-            },
-            {
-                "check": {
-                    "name": "Deployment Strategy",
-                    "id": "deployment-strategy",
-                    "target_type": "Deployment",
-                    "comment": "Makes sure that all Deployments targeted by service use RollingUpdate strategy",
-                    "optional": false
-                },
-                "grade": 5,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Deployment update strategy",
-                        "description": "The deployment is used by a service but not using the RollingUpdate strategy which can cause interruptions. Set .spec.strategy.type to RollingUpdate."
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Deployment Replicas",
-                    "id": "deployment-replicas",
-                    "target_type": "Deployment",
-                    "comment": "Makes sure that Deployment has multiple replicas",
-                    "optional": false
-                },
-                "grade": 5,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Deployment few replicas",
-                        "description": "Deployments targeted by Services are recommended to have at least 2 replicas to prevent unwanted downtime."
-                    }
-                ]
             }
         ],
         "file_name": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P03_grafana__neutral__s3\\manifest.yaml",
@@ -465,10 +465,10 @@
         "checks": [
             {
                 "check": {
-                    "name": "Stable version",
-                    "id": "stable-version",
+                    "name": "Label values",
+                    "id": "label-values",
                     "target_type": "all",
-                    "comment": "Checks if the object is using a deprecated apiVersion",
+                    "comment": "Validates label values",
                     "optional": false
                 },
                 "grade": 10,
@@ -477,10 +477,10 @@
             },
             {
                 "check": {
-                    "name": "Label values",
-                    "id": "label-values",
+                    "name": "Stable version",
+                    "id": "stable-version",
                     "target_type": "all",
-                    "comment": "Validates label values",
+                    "comment": "Checks if the object is using a deprecated apiVersion",
                     "optional": false
                 },
                 "grade": 10,

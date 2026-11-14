@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1bb91-34d1-71dd-adbd-7ff3733bbd60",
-  "CreatedAt": "2026-11-08T19:30:18.0651222+05:00",
+  "ReportID": "01a1d6f9-d70f-7b1c-ba9a-13397083d384",
+  "CreatedAt": "2026-11-14T03:14:20.1757283+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/gpt__P05_emojivoto__neutral__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -5371,113 +5371,6 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 214,
-            "EndLine": 221,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 214,
-                  "Content": "      - name: vote-bot",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote-bot",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 215,
-                  "Content": "        image: buoyantio/emojivoto-web:v11",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-web:v11",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 216,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 217,
-                  "Content": "        command:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mcommand\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 218,
-                  "Content": "        - /usr/local/bin/emojivoto-vote-bot",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - /usr/local/bin/emojivoto-vote-bot",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 219,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 220,
-                  "Content": "        - name: WEB_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: WEB_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 221,
-                  "Content": "          value: web:8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: web:8080",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
             "StartLine": 150,
             "EndLine": 177,
             "Code": {
@@ -5832,6 +5725,113 @@
                   "Truncated": true,
                   "FirstCause": false,
                   "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 214,
+            "EndLine": 221,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 214,
+                  "Content": "      - name: vote-bot",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote-bot",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 215,
+                  "Content": "        image: buoyantio/emojivoto-web:v11",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-web:v11",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 216,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 217,
+                  "Content": "        command:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mcommand\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 218,
+                  "Content": "        - /usr/local/bin/emojivoto-vote-bot",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - /usr/local/bin/emojivoto-vote-bot",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 219,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 220,
+                  "Content": "        - name: WEB_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: WEB_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 221,
+                  "Content": "          value: web:8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: web:8080",
+                  "FirstCause": false,
+                  "LastCause": true
                 }
               ]
             }
@@ -6467,32 +6467,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 214,
-            "EndLine": 221,
+            "StartLine": 82,
+            "EndLine": 106,
             "Code": {
               "Lines": [
                 {
-                  "Number": 214,
-                  "Content": "      - name: vote-bot",
+                  "Number": 82,
+                  "Content": "      - name: voting-svc",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote-bot",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: voting-svc",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 215,
-                  "Content": "        image: buoyantio/emojivoto-web:v11",
+                  "Number": 83,
+                  "Content": "        image: buoyantio/emojivoto-voting-svc:v11",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-web:v11",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-voting-svc:v11",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 216,
+                  "Number": 84,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -6502,54 +6502,73 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 217,
-                  "Content": "        command:",
+                  "Number": 85,
+                  "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mcommand\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 218,
-                  "Content": "        - /usr/local/bin/emojivoto-vote-bot",
+                  "Number": 86,
+                  "Content": "        - name: grpc",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - /usr/local/bin/emojivoto-vote-bot",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: grpc",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 219,
-                  "Content": "        env:",
+                  "Number": 87,
+                  "Content": "          containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 220,
-                  "Content": "        - name: WEB_HOST",
+                  "Number": 88,
+                  "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: WEB_HOST",
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mprotocol\u001b[0m: TCP",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
-                  "Content": "          value: web:8080",
+                  "Number": 89,
+                  "Content": "        - name: metrics",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: web:8080",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: metrics",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 90,
+                  "Content": "          containerPort: 8801",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8801",
                   "FirstCause": false,
                   "LastCause": true
+                },
+                {
+                  "Number": 91,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
                 }
               ]
             }
@@ -6700,32 +6719,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 82,
-            "EndLine": 106,
+            "StartLine": 214,
+            "EndLine": 221,
             "Code": {
               "Lines": [
                 {
-                  "Number": 82,
-                  "Content": "      - name: voting-svc",
+                  "Number": 214,
+                  "Content": "      - name: vote-bot",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: voting-svc",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote-bot",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
-                  "Content": "        image: buoyantio/emojivoto-voting-svc:v11",
+                  "Number": 215,
+                  "Content": "        image: buoyantio/emojivoto-web:v11",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-voting-svc:v11",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: buoyantio/emojivoto-web:v11",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 216,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -6735,73 +6754,54 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
-                  "Content": "        ports:",
+                  "Number": 217,
+                  "Content": "        command:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33mcommand\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
-                  "Content": "        - name: grpc",
+                  "Number": 218,
+                  "Content": "        - /usr/local/bin/emojivoto-vote-bot",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: grpc",
+                  "Highlighted": "        - /usr/local/bin/emojivoto-vote-bot",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 87,
-                  "Content": "          containerPort: 8080",
+                  "Number": 219,
+                  "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 88,
-                  "Content": "          protocol: TCP",
+                  "Number": 220,
+                  "Content": "        - name: WEB_HOST",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mprotocol\u001b[0m: TCP",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: WEB_HOST",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 89,
-                  "Content": "        - name: metrics",
+                  "Number": 221,
+                  "Content": "          value: web:8080",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: metrics",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 90,
-                  "Content": "          containerPort: 8801",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8801",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: web:8080",
                   "FirstCause": false,
                   "LastCause": true
-                },
-                {
-                  "Number": 91,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
                 }
               ]
             }

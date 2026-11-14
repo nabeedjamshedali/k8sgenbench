@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-12T21:08:17+05:00",
+  "AuditTime": "2026-11-13T22:06:57+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P03_grafana__production__s3\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P03_grafana__production__s3\\manifest.yaml",
@@ -12,14 +12,6 @@
     "Controllers": 1
   },
   "Results": [
-    {
-      "Name": "my-grafana",
-      "Namespace": "",
-      "Kind": "Namespace",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
     {
       "Name": "grafana-config",
       "Namespace": "my-grafana",
@@ -35,6 +27,56 @@
           "Mutations": null
         }
       },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana",
+      "Namespace": "my-grafana",
+      "Kind": "NetworkPolicy",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana",
+      "Namespace": "my-grafana",
+      "Kind": "PodDisruptionBudget",
+      "Results": {
+        "pdbDisruptionsIsZero": {
+          "ID": "pdbDisruptionsIsZero",
+          "Message": "Voluntary evictions are possible",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Reliability",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "my-grafana",
+      "Namespace": "",
+      "Kind": "Namespace",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana",
+      "Namespace": "my-grafana",
+      "Kind": "ServiceAccount",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana-admin",
+      "Namespace": "my-grafana",
+      "Kind": "Secret",
+      "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
@@ -355,6 +397,14 @@
     {
       "Name": "grafana",
       "Namespace": "my-grafana",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana",
+      "Namespace": "my-grafana",
       "Kind": "Ingress",
       "Results": {
         "tlsSettingsMissing": {
@@ -364,56 +414,6 @@
           "Success": true,
           "Severity": "warning",
           "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "my-grafana",
-      "Kind": "NetworkPolicy",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "my-grafana",
-      "Kind": "ServiceAccount",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana-admin",
-      "Namespace": "my-grafana",
-      "Kind": "Secret",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "my-grafana",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "my-grafana",
-      "Kind": "PodDisruptionBudget",
-      "Results": {
-        "pdbDisruptionsIsZero": {
-          "ID": "pdbDisruptionsIsZero",
-          "Message": "Voluntary evictions are possible",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Reliability",
           "Mutations": null
         }
       },

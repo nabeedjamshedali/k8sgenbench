@@ -1,0 +1,2502 @@
+{
+  "project": "P07_online-boutique",
+  "source": "deepseek",
+  "prompt_variant": "neutral",
+  "sample_k": "1",
+  "timestamp": "2026-11-13T14:43:47Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 25,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 25,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 25,
+    "objects_accepted": 25,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "online-boutique",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "redis-config",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "redis",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "redis",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "adservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "adservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "cartservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "cartservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "checkoutservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "checkoutservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "currencyservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "currencyservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "emailservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "emailservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "frontend",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "frontend",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "loadgenerator",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "paymentservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "paymentservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "productcatalogservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "productcatalogservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "recommendationservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "recommendationservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "shippingservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "shippingservice",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 691,
+  "resource_counts": {
+    "Namespace": 1,
+    "ConfigMap": 1,
+    "Deployment": 12,
+    "Service": 11
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 76.666664,
+      "frameworks": {
+        "NSA": 65,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 6,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1387448739/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1387448739/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1387448739/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1387448739/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1387448739/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1387448739/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1421003977/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1421003977/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1421003977/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1421003977/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1421003977/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1421003977/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1437781596/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1437781596/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1437781596/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1437781596/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1437781596/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1437781596/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1454559215/api=apps/v1/online-boutique/Deployment/loadgenerator",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1454559215/api=apps/v1/online-boutique/Deployment/loadgenerator",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1454559215/api=apps/v1/online-boutique/Deployment/loadgenerator",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1454559215/api=apps/v1/online-boutique/Deployment/loadgenerator",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1454559215/api=apps/v1/online-boutique/Deployment/loadgenerator",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1454559215/api=apps/v1/online-boutique/Deployment/loadgenerator",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1488114453/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1488114453/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1488114453/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1488114453/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1488114453/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1488114453/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1505039167/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1505039167/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1505039167/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1505039167/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1505039167/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1505039167/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1538447310/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1538447310/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1538447310/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1538447310/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1538447310/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1538447310/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1538594405/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1538594405/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1538594405/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1538594405/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1538594405/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1538594405/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=757293040/api=/v1//Namespace/online-boutique",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=790848278/api=apps/v1/online-boutique/Deployment/redis",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=790848278/api=apps/v1/online-boutique/Deployment/redis",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=790848278/api=apps/v1/online-boutique/Deployment/redis",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=790848278/api=apps/v1/online-boutique/Deployment/redis",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=790848278/api=apps/v1/online-boutique/Deployment/redis",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=790848278/api=apps/v1/online-boutique/Deployment/redis",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=824403516/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=824403516/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=824403516/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=824403516/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=824403516/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=824403516/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=857958754/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=857958754/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=857958754/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=857958754/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=857958754/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=857958754/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=891513992/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=891513992/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=891513992/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=891513992/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=891513992/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=891513992/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 36,
+        "medium": 47,
+        "low": 72
+      },
+      "failed": [
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'adservice' of Deployment 'adservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'frontend' of Deployment 'frontend' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'adservice' of Deployment 'adservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'frontend' of Deployment 'frontend' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'adservice' of 'deployment' 'adservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'cartservice' of 'deployment' 'cartservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'checkoutservice' of 'deployment' 'checkoutservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'currencyservice' of 'deployment' 'currencyservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'emailservice' of 'deployment' 'emailservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'frontend' of 'deployment' 'frontend' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'loadgenerator' of 'deployment' 'loadgenerator' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'paymentservice' of 'deployment' 'paymentservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'productcatalogservice' of 'deployment' 'productcatalogservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'recommendationservice' of 'deployment' 'recommendationservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'redis' of 'deployment' 'redis' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'shippingservice' of 'deployment' 'shippingservice' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'adservice' of Deployment 'adservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'frontend' of Deployment 'frontend' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'adservice' of Deployment 'adservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'frontend' of Deployment 'frontend' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'adservice' of Deployment 'adservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'frontend' of Deployment 'frontend' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'adservice' of Deployment 'adservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'frontend' of Deployment 'frontend' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'adservice' of Deployment 'adservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'cartservice' of Deployment 'cartservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'checkoutservice' of Deployment 'checkoutservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'currencyservice' of Deployment 'currencyservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'emailservice' of Deployment 'emailservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'frontend' of Deployment 'frontend' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'loadgenerator' of Deployment 'loadgenerator' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'paymentservice' of Deployment 'paymentservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'productcatalogservice' of Deployment 'productcatalogservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'recommendationservice' of Deployment 'recommendationservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'shippingservice' of Deployment 'shippingservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"adservice\" of deployment \"adservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"cartservice\" of deployment \"cartservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"checkoutservice\" of deployment \"checkoutservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"currencyservice\" of deployment \"currencyservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"emailservice\" of deployment \"emailservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"frontend\" of deployment \"frontend\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"loadgenerator\" of deployment \"loadgenerator\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"paymentservice\" of deployment \"paymentservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"productcatalogservice\" of deployment \"productcatalogservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"recommendationservice\" of deployment \"recommendationservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"redis\" of deployment \"redis\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"shippingservice\" of deployment \"shippingservice\" in \"online-boutique\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container adservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container cartservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container checkoutservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container currencyservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container emailservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container frontend in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container loadgenerator in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container paymentservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container productcatalogservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container recommendationservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container redis in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container shippingservice in online-boutique namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment adservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment cartservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment checkoutservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment currencyservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment emailservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment frontend in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment loadgenerator in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment paymentservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment productcatalogservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment recommendationservice in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment redis in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment shippingservice in online-boutique namespace is using the default security context, which allows root privileges"
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 12,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "redis",
+            "detail": "ated (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"redis\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"redis\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"redis\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"redis\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "adservice",
+            "detail": " run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"adservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"adservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"adservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"adservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "cartservice",
+            "detail": "rning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"cartservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"cartservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"cartservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"cartservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "checkoutservice",
+            "detail": "late PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"checkoutservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"checkoutservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"checkoutservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"checkoutservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "currencyservice",
+            "detail": "late PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"currencyservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"currencyservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"currencyservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"currencyservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "emailservice",
+            "detail": "g: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"emailservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"emailservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"emailservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"emailservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "frontend",
+            "detail": " dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"frontend\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"frontend\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"frontend\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"frontend\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "loadgenerator",
+            "detail": "ould violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"loadgenerator\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"loadgenerator\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"loadgenerator\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"loadgenerator\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "paymentservice",
+            "detail": " violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"paymentservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"paymentservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"paymentservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"paymentservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "productcatalogservice",
+            "detail": "cted:latest\": allowPrivilegeEscalation != false (container \"productcatalogservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"productcatalogservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"productcatalogservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"productcatalogservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "recommendationservice",
+            "detail": "cted:latest\": allowPrivilegeEscalation != false (container \"recommendationservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"recommendationservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"recommendationservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"recommendationservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "shippingservice",
+            "detail": "late PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"shippingservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"shippingservice\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"shippingservice\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"shippingservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 80,
+      "warning": 11,
+      "critical_by_check": {
+        "container-image-tag": 11,
+        "container-ephemeral-storage-request-and-limit": 12,
+        "pod-probes-identical": 10,
+        "container-security-context-user-group-id": 12,
+        "container-security-context-readonlyrootfilesystem": 12,
+        "pod-networkpolicy": 12,
+        "deployment-has-poddisruptionbudget": 10,
+        "container-image-pull-policy": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 10,
+        "deployment-replicas": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 68,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 2,
+        "metadataAndInstanceMismatched[warning]": 12,
+        "missingPodDisruptionBudget[warning]": 12,
+        "automountServiceAccountToken[warning]": 12,
+        "missingNetworkPolicy[warning]": 12,
+        "priorityClassNotSet[warning]": 12,
+        "topologySpreadConstraint[warning]": 12,
+        "insecureCapabilities[warning]": 12,
+        "linuxHardening[warning]": 12,
+        "livenessProbeMissing[warning]": 2,
+        "notReadOnlyRootFilesystem[warning]": 12,
+        "privilegeEscalationAllowed[danger]": 12,
+        "pullPolicyNotAlways[warning]": 12,
+        "runAsRootAllowed[danger]": 12,
+        "tagNotSpecified[danger]": 11,
+        "readinessProbeMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 45,
+      "by_check": {
+        "no-read-only-root-fs": 12,
+        "run-as-non-root": 12,
+        "latest-tag": 11,
+        "no-anti-affinity": 10
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 10,
+        "no-read-only-root-fs": 12,
+        "run-as-non-root": 12,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 34,
+      "zhang_density_per_kloc": 49.2,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 12,
+      "pct": 56.7,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 12
+        },
+        "1_replicas_ge_2": {
+          "met": 10,
+          "applicable": 12
+        },
+        "2_readiness": {
+          "met": 11,
+          "applicable": 12
+        },
+        "3_liveness": {
+          "met": 10,
+          "applicable": 12
+        },
+        "4_cpu_request": {
+          "met": 12,
+          "applicable": 12
+        },
+        "5_mem_request": {
+          "met": 12,
+          "applicable": 12
+        },
+        "6_mem_limit": {
+          "met": 12,
+          "applicable": 12
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 12
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 12
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 12
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "redis",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "adservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "cartservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "checkoutservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "currencyservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "emailservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "frontend",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "loadgenerator",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "paymentservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "productcatalogservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "recommendationservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "shippingservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-frontend-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R02-cartservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice",
+        "oracle": true
+      },
+      {
+        "id": "R03-productcatalogservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/productcatalogservice",
+        "oracle": true
+      },
+      {
+        "id": "R04-currencyservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/currencyservice",
+        "oracle": true
+      },
+      {
+        "id": "R05-paymentservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/paymentservice",
+        "oracle": true
+      },
+      {
+        "id": "R06-shippingservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/shippingservice",
+        "oracle": true
+      },
+      {
+        "id": "R07-emailservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice",
+        "oracle": true
+      },
+      {
+        "id": "R08-checkoutservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R09-recommendationservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice",
+        "oracle": true
+      },
+      {
+        "id": "R10-adservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/adservice",
+        "oracle": true
+      },
+      {
+        "id": "R11-loadgenerator-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/loadgenerator",
+        "oracle": true
+      },
+      {
+        "id": "R12-redis-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": true
+      },
+      {
+        "id": "Rfrontend-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rcartservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rproductcatalogservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rcurrencyservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rpaymentservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rshippingservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Remailservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rcheckoutservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rrecommendationservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Radservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rloadgenerator-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R13-frontend-port-8080",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend:8080",
+        "oracle": true
+      },
+      {
+        "id": "R14-cartservice-port-7070",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice:7070",
+        "oracle": true
+      },
+      {
+        "id": "R15-productcatalogservice-port-3550",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/productcatalogservice:3550",
+        "oracle": true
+      },
+      {
+        "id": "R16-currencyservice-port-7000",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/currencyservice:7000",
+        "oracle": true
+      },
+      {
+        "id": "R17-paymentservice-port-50051",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/paymentservice:50051",
+        "oracle": true
+      },
+      {
+        "id": "R18-shippingservice-port-50051",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/shippingservice:50051",
+        "oracle": true
+      },
+      {
+        "id": "R19-emailservice-port-8080",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice:8080",
+        "oracle": true
+      },
+      {
+        "id": "R20-checkoutservice-port-5050",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice:5050",
+        "oracle": true
+      },
+      {
+        "id": "R21-recommendationservice-port-8080",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice:8080",
+        "oracle": true
+      },
+      {
+        "id": "R22-adservice-port-9555",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/adservice:9555",
+        "oracle": true
+      },
+      {
+        "id": "R23-redis-port-6379",
+        "passed": true,
+        "detail": "via Service redis",
+        "oracle": true
+      },
+      {
+        "id": "R24-currency-port",
+        "passed": false,
+        "detail": "PORT=[]",
+        "oracle": true
+      },
+      {
+        "id": "R25-payment-port",
+        "passed": false,
+        "detail": "PORT=[]",
+        "oracle": true
+      },
+      {
+        "id": "R26-frontend-PRODUCT_CATALOG_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R27-frontend-CURRENCY_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R28-frontend-CART_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R29-frontend-RECOMMENDATION_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R30-frontend-CHECKOUT_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R31-frontend-SHIPPING_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R32-frontend-AD_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R33-frontend-SHOPPING_ASSISTANT_SERVICE_ADDR",
+        "passed": false,
+        "detail": "SHOPPING_ASSISTANT_SERVICE_ADDR missing in 0 container(s)",
+        "oracle": true
+      },
+      {
+        "id": "R34-checkout-PRODUCT_CATALOG_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R35-checkout-SHIPPING_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R36-checkout-PAYMENT_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R37-checkout-EMAIL_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R38-checkout-CURRENCY_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R39-checkout-CART_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R40-recommendation-PRODUCT_CATALOG_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice",
+        "oracle": true
+      },
+      {
+        "id": "R41-cart-REDIS_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice",
+        "oracle": true
+      },
+      {
+        "id": "R42-loadgenerator-FRONTEND_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/loadgenerator",
+        "oracle": true
+      },
+      {
+        "id": "R43-frontend-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": true
+      }
+    ],
+    "requirements_met": 11,
+    "requirements_total": 11,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "adservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/adservice:v0.10.7"
+      },
+      {
+        "ref": "cartservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice:v0.10.7"
+      },
+      {
+        "ref": "checkoutservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice:v0.10.7"
+      },
+      {
+        "ref": "currencyservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/currencyservice:v0.10.7"
+      },
+      {
+        "ref": "emailservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice:v0.10.7"
+      },
+      {
+        "ref": "frontend:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend:v0.10.7"
+      },
+      {
+        "ref": "loadgenerator:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/loadgenerator:v0.10.7"
+      },
+      {
+        "ref": "paymentservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/paymentservice:v0.10.7"
+      },
+      {
+        "ref": "productcatalogservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/productcatalogservice:v0.10.7"
+      },
+      {
+        "ref": "recommendationservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice:v0.10.7"
+      },
+      {
+        "ref": "redis:7.2-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "shippingservice:latest",
+        "as_written_pullable": false,
+        "served": "alias:us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/shippingservice:v0.10.7"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [
+      {
+        "object": "Deployment/frontend",
+        "container": "frontend",
+        "env": "SHOPPING_ASSISTANT_SERVICE_ADDR"
+      }
+    ],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 38.1,
+    "ready_replicas": 23,
+    "expected_replicas": 23,
+    "workloads": [
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "adservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "cartservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "checkoutservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "currencyservice",
+        "ready": 3,
+        "want": 3
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "emailservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "frontend",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "loadgenerator",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "paymentservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "productcatalogservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "recommendationservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "redis",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "shippingservice",
+        "ready": 2,
+        "want": 2
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-00b88669",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "home-lists-products",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "product-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "add-to-cart",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "view-cart",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cart-in-redis",
+        "passed": true,
+        "detail": "output '1'"
+      },
+      {
+        "name": "checkout",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "frontend",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "frontend-7f5d9fbc7f-vwj9v",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 12.2,
+        "availability_pct": 100.0,
+        "n_probes": 71
+      },
+      {
+        "ran": true,
+        "victim": "frontend-7f5d9fbc7f-bvldg",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.7,
+        "availability_pct": 98.5,
+        "n_probes": 67
+      },
+      {
+        "ran": true,
+        "victim": "frontend-7f5d9fbc7f-wd6n6",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.5,
+        "availability_pct": 100.0,
+        "n_probes": 71
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "frontend-7f5d9fbc7f-m6tzj",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.6,
+        "availability_pct": 95.8,
+        "n_probes": 72
+      },
+      {
+        "ran": true,
+        "victim": "frontend-7f5d9fbc7f-x9vzv",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.2,
+        "availability_pct": 97.3,
+        "n_probes": 74
+      },
+      {
+        "ran": true,
+        "victim": "frontend-7f5d9fbc7f-m6tzj",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 21.1,
+        "availability_pct": 98.3,
+        "n_probes": 115
+      }
+    ],
+    "gate": "ready"
+  }
+}

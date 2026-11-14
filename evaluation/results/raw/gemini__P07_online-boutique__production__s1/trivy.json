@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1bb90-9fc8-7e82-becd-08b8abfb1e51",
-  "CreatedAt": "2026-11-08T19:29:39.9129509+05:00",
+  "ReportID": "01a1d5af-4053-73e6-9643-1f9b6e62a406",
+  "CreatedAt": "2026-11-13T21:13:14.7072557+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/gemini__P07_online-boutique__production__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -4572,12 +4572,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 22,
-            "EndLine": 54,
+            "StartLine": 394,
+            "EndLine": 424,
             "Code": {
               "Lines": [
                 {
-                  "Number": 22,
+                  "Number": 394,
                   "Content": "      - name: server",
                   "IsCause": true,
                   "Annotation": "",
@@ -4587,17 +4587,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 23,
-                  "Content": "        image: emailservice:latest",
+                  "Number": 395,
+                  "Content": "        image: productcatalogservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: emailservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: productcatalogservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 24,
+                  "Number": 396,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -4607,7 +4607,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 25,
+                  "Number": 397,
                   "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4617,7 +4617,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 26,
+                  "Number": 398,
                   "Content": "          allowPrivilegeEscalation: false",
                   "IsCause": true,
                   "Annotation": "",
@@ -4627,7 +4627,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 27,
+                  "Number": 399,
                   "Content": "          readOnlyRootFilesystem: true",
                   "IsCause": true,
                   "Annotation": "",
@@ -4637,7 +4637,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 28,
+                  "Number": 400,
                   "Content": "          capabilities:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4647,7 +4647,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 29,
+                  "Number": 401,
                   "Content": "            drop:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4657,7 +4657,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 30,
+                  "Number": 402,
                   "Content": "            - ALL",
                   "IsCause": true,
                   "Annotation": "",
@@ -4667,7 +4667,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 31,
+                  "Number": 403,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -4794,510 +4794,6 @@
                 },
                 {
                   "Number": 811,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 170,
-            "EndLine": 204,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 170,
-                  "Content": "      - name: server",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 171,
-                  "Content": "        image: recommendationservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: recommendationservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 172,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 173,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 174,
-                  "Content": "          allowPrivilegeEscalation: false",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 175,
-                  "Content": "          readOnlyRootFilesystem: true",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 176,
-                  "Content": "          capabilities:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 177,
-                  "Content": "            drop:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 178,
-                  "Content": "            - ALL",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - ALL",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 179,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 241,
-            "EndLine": 287,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 241,
-                  "Content": "      - name: server",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 242,
-                  "Content": "        image: frontend:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: frontend:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 243,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 244,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 245,
-                  "Content": "          allowPrivilegeEscalation: false",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 246,
-                  "Content": "          readOnlyRootFilesystem: true",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 247,
-                  "Content": "          capabilities:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 248,
-                  "Content": "            drop:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 249,
-                  "Content": "            - ALL",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - ALL",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 250,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 325,
-            "EndLine": 357,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 325,
-                  "Content": "      - name: server",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 326,
-                  "Content": "        image: paymentservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: paymentservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 327,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 328,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 329,
-                  "Content": "          allowPrivilegeEscalation: false",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 330,
-                  "Content": "          readOnlyRootFilesystem: true",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 331,
-                  "Content": "          capabilities:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 332,
-                  "Content": "            drop:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 333,
-                  "Content": "            - ALL",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - ALL",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 334,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 394,
-            "EndLine": 424,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 394,
-                  "Content": "      - name: server",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 395,
-                  "Content": "        image: productcatalogservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: productcatalogservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 396,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 397,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 398,
-                  "Content": "          allowPrivilegeEscalation: false",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 399,
-                  "Content": "          readOnlyRootFilesystem: true",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 400,
-                  "Content": "          capabilities:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 401,
-                  "Content": "            drop:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 402,
-                  "Content": "            - ALL",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - ALL",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 403,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -5580,6 +5076,636 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
+            "StartLine": 325,
+            "EndLine": 357,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 325,
+                  "Content": "      - name: server",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 326,
+                  "Content": "        image: paymentservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: paymentservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 327,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 328,
+                  "Content": "        securityContext:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 329,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 330,
+                  "Content": "          readOnlyRootFilesystem: true",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 331,
+                  "Content": "          capabilities:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 332,
+                  "Content": "            drop:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 333,
+                  "Content": "            - ALL",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - ALL",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 334,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 241,
+            "EndLine": 287,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 241,
+                  "Content": "      - name: server",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 242,
+                  "Content": "        image: frontend:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: frontend:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 243,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 244,
+                  "Content": "        securityContext:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 245,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 246,
+                  "Content": "          readOnlyRootFilesystem: true",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 247,
+                  "Content": "          capabilities:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 248,
+                  "Content": "            drop:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 249,
+                  "Content": "            - ALL",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - ALL",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 250,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 170,
+            "EndLine": 204,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 170,
+                  "Content": "      - name: server",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 171,
+                  "Content": "        image: recommendationservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: recommendationservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 172,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 173,
+                  "Content": "        securityContext:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 174,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 175,
+                  "Content": "          readOnlyRootFilesystem: true",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 176,
+                  "Content": "          capabilities:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 177,
+                  "Content": "            drop:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 178,
+                  "Content": "            - ALL",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - ALL",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 179,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 91,
+            "EndLine": 133,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 91,
+                  "Content": "      - name: server",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 92,
+                  "Content": "        image: checkoutservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: checkoutservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 93,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 94,
+                  "Content": "        securityContext:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 95,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 96,
+                  "Content": "          readOnlyRootFilesystem: true",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 97,
+                  "Content": "          capabilities:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 98,
+                  "Content": "            drop:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 99,
+                  "Content": "            - ALL",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - ALL",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 100,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 22,
+            "EndLine": 54,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 22,
+                  "Content": "      - name: server",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 23,
+                  "Content": "        image: emailservice:latest",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: emailservice:latest",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 24,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 25,
+                  "Content": "        securityContext:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 26,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 27,
+                  "Content": "          readOnlyRootFilesystem: true",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 28,
+                  "Content": "          capabilities:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 29,
+                  "Content": "            drop:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 30,
+                  "Content": "            - ALL",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "            - ALL",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 31,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
             "StartLine": 599,
             "EndLine": 631,
             "Code": {
@@ -5676,132 +5802,6 @@
                 },
                 {
                   "Number": 608,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 668,
-            "EndLine": 698,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 668,
-                  "Content": "      - name: server",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: server",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 669,
-                  "Content": "        image: shippingservice:latest",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: shippingservice:latest",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 670,
-                  "Content": "        imagePullPolicy: IfNotPresent",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 671,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 672,
-                  "Content": "          allowPrivilegeEscalation: false",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 673,
-                  "Content": "          readOnlyRootFilesystem: true",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mreadOnlyRootFilesystem\u001b[0m: \u001b[38;5;166mtrue",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 674,
-                  "Content": "          capabilities:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mcapabilities\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 675,
-                  "Content": "            drop:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mdrop\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 676,
-                  "Content": "            - ALL",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            - ALL",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 677,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -5958,12 +5958,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 91,
-            "EndLine": 133,
+            "StartLine": 668,
+            "EndLine": 698,
             "Code": {
               "Lines": [
                 {
-                  "Number": 91,
+                  "Number": 668,
                   "Content": "      - name: server",
                   "IsCause": true,
                   "Annotation": "",
@@ -5973,17 +5973,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 92,
-                  "Content": "        image: checkoutservice:latest",
+                  "Number": 669,
+                  "Content": "        image: shippingservice:latest",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: checkoutservice:latest",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: shippingservice:latest",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 93,
+                  "Number": 670,
                   "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
@@ -5993,7 +5993,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 94,
+                  "Number": 671,
                   "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6003,7 +6003,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 95,
+                  "Number": 672,
                   "Content": "          allowPrivilegeEscalation: false",
                   "IsCause": true,
                   "Annotation": "",
@@ -6013,7 +6013,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 96,
+                  "Number": 673,
                   "Content": "          readOnlyRootFilesystem: true",
                   "IsCause": true,
                   "Annotation": "",
@@ -6023,7 +6023,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 97,
+                  "Number": 674,
                   "Content": "          capabilities:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6033,7 +6033,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 98,
+                  "Number": 675,
                   "Content": "            drop:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6043,7 +6043,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 99,
+                  "Number": 676,
                   "Content": "            - ALL",
                   "IsCause": true,
                   "Annotation": "",
@@ -6053,7 +6053,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 100,
+                  "Number": 677,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

@@ -1,0 +1,529 @@
+{
+  "project": "P10_k8s-dashboard",
+  "source": "qwen",
+  "prompt_variant": "production",
+  "sample_k": "2",
+  "timestamp": "2026-11-13T14:04:03Z",
+  "gen_finish_reason": "stop",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 6,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 6,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 6,
+    "objects_accepted": 6,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRole",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 299,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "ClusterRole": 1,
+    "ClusterRoleBinding": 1,
+    "Service": 1,
+    "Deployment": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 78.333336,
+      "frameworks": {
+        "NSA": 77.5,
+        "MITRE": 82.35294
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 6,
+        "low": 0
+      },
+      "failed": [
+        {
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=1917962688/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/kubernetes-dashboard/path=1934740307/api=rbac.authorization.k8s.io/v1//ClusterRole/kubernetes-dashboard",
+          "control": "C-0015",
+          "name": "List Kubernetes secrets"
+        },
+        {
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=1917962688/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/kubernetes-dashboard/path=1934740307/api=rbac.authorization.k8s.io/v1//ClusterRole/kubernetes-dashboard",
+          "control": "C-0053",
+          "name": "Access container service account"
+        },
+        {
+          "resource": "path=1968295545/api=/v1//Namespace/kubernetes-dashboard",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=2018628402/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2018628402/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2018628402/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2018628402/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 2,
+        "high": 3,
+        "medium": 2,
+        "low": 2
+      },
+      "failed": [
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'kubernetes-dashboard' of Deployment 'kubernetes-dashboard' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0041",
+          "title": "Manage secrets",
+          "severity": "CRITICAL",
+          "message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'"
+        },
+        {
+          "id": "KSV-0041",
+          "title": "Manage secrets",
+          "severity": "CRITICAL",
+          "message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'"
+        },
+        {
+          "id": "KSV-0047",
+          "title": "Do not allow privilege escalation from node proxy",
+          "severity": "HIGH",
+          "message": "Role permits privilege escalation from node proxy"
+        },
+        {
+          "id": "KSV-0047",
+          "title": "Do not allow privilege escalation from node proxy",
+          "severity": "HIGH",
+          "message": "Role permits privilege escalation from node proxy"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"kubernetes-dashboard\" of deployment \"kubernetes-dashboard\" in \"kubernetes-dashboard\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment kubernetes-dashboard in kubernetes-dashboard namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container kubernetes-dashboard in deployment kubernetes-dashboard (namespace: kubernetes-dashboard) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "kubernetes-dashboard",
+            "detail": "deployment.apps/kubernetes-dashboard created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": seccompProfile (pod or container \"kubernetes-dashboard\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 5,
+      "warning": 1,
+      "critical_by_check": {
+        "container-image-pull-policy": 1,
+        "container-ephemeral-storage-request-and-limit": 1,
+        "pod-networkpolicy": 1,
+        "container-security-context-user-group-id": 1,
+        "pod-probes-identical": 1
+      },
+      "warning_by_check": {
+        "deployment-replicas": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 78,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 1,
+        "metadataAndInstanceMismatched[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "automountServiceAccountToken[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1,
+        "clusterrolePodExecAttach[danger]": 1,
+        "clusterrolebindingPodExecAttach[danger]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 0,
+      "by_check": {},
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 0,
+      "zhang_density_per_kloc": 0.0,
+      "zhang_any": false
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 60.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "kubernetes-dashboard",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-dashboard-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": true
+      },
+      {
+        "id": "R02-scraper-deployed",
+        "passed": false,
+        "detail": "no workload runs kubernetesui/metrics-scraper",
+        "oracle": true
+      },
+      {
+        "id": "R01b-dashboard-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02b-scraper-component-present",
+        "passed": false,
+        "detail": "no workload runs dashboard-metrics-scraper",
+        "oracle": false
+      },
+      {
+        "id": "R03-dashboard-https-port-in-cluster",
+        "passed": true,
+        "detail": "via Service kubernetes-dashboard",
+        "oracle": false
+      },
+      {
+        "id": "R04-dashboard-serves-https",
+        "passed": true,
+        "detail": "certificate flags present",
+        "oracle": false
+      },
+      {
+        "id": "R05-dashboard-namespace-setting",
+        "passed": true,
+        "detail": "dashboard uses namespace kubernetes-dashboard, runs in kubernetes-dashboard",
+        "oracle": false
+      },
+      {
+        "id": "R06-csrf-secret-exists",
+        "passed": false,
+        "detail": "Secret kubernetes-dashboard-csrf missing in dashboard namespace",
+        "oracle": true
+      },
+      {
+        "id": "R07-scraper-service-name",
+        "passed": false,
+        "detail": "no Service named dashboard-metrics-scraper",
+        "oracle": true
+      },
+      {
+        "id": "R08-scraper-service-same-ns-unnamed-port",
+        "passed": false,
+        "detail": "no Service named dashboard-metrics-scraper",
+        "oracle": true
+      },
+      {
+        "id": "R09-scraper-cluster-wide",
+        "passed": false,
+        "detail": "POD_NAMESPACE or --namespace set on scraper",
+        "oracle": true
+      },
+      {
+        "id": "R10-scraper-db-writable",
+        "passed": false,
+        "detail": "read-only root filesystem without a volume for the db directory",
+        "oracle": true
+      },
+      {
+        "id": "R11-dashboard-csrf-secret-get-update",
+        "passed": false,
+        "detail": "missing: update secrets",
+        "oracle": true
+      },
+      {
+        "id": "R12-dashboard-key-holder",
+        "passed": false,
+        "detail": "get=True create=False Secret kubernetes-dashboard-key-holder pre-created=False",
+        "oracle": true
+      },
+      {
+        "id": "R13-dashboard-settings-configmap",
+        "passed": false,
+        "detail": "get=True create=False ConfigMap kubernetes-dashboard-settings pre-created=False",
+        "oracle": true
+      },
+      {
+        "id": "R14-dashboard-service-proxy",
+        "passed": true,
+        "detail": "granted",
+        "oracle": true
+      },
+      {
+        "id": "R15-scraper-metrics-api",
+        "passed": false,
+        "detail": "no workload runs dashboard-metrics-scraper",
+        "oracle": false
+      },
+      {
+        "id": "R16-scraper-internal",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 4,
+    "requirements_total": 7,
+    "pct": 57.1
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "kubernetesui/dashboard:v2.7.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 0,
+    "expected_replicas": 1,
+    "workloads": [
+      {
+        "ns": "kubernetes-dashboard",
+        "kind": "Deployment",
+        "name": "kubernetes-dashboard",
+        "ready": 0,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "kubernetes-dashboard-cfdf9fd54-xjqrs",
+          "container": "kubernetes-dashboard",
+          "restarts": 5,
+          "last_exit": 2,
+          "last_reason": "Error",
+          "last_log": "github.com/kubernetes/dashboard/src/app/backend/client.(*clientManager).init(0x19aba3a?)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:495 +0x32\ngithub.com/kubernetes/dashboard/src/app/backend/client.NewClientManager(...)\n\t/home/runner/work/dashboard/dashboard/src/app/backend/client/manager.go:594\nmain.main()\n\t/home/runner/work/dashboard/dashboard/src/app/backend/dashboard.go:96 +0x1cf"
+        }
+      ],
+      "warning_events": {
+        "kubernetes-dashboard-cfdf9fd54-xjqrs|BackOff: Back-off restarting failed container kubernetes-dashboard in": 17
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-edcb0592",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "ui-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'Kubernetes Dashboard'"
+      },
+      {
+        "name": "dashboard-health-apiserver",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"running\":true'"
+      },
+      {
+        "name": "scraper-healthz",
+        "passed": false,
+        "detail": "no Service routes to kubernetesui/metrics-scraper:8000"
+      },
+      {
+        "name": "dashboard-reaches-scraper",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"connected\": true'"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

@@ -1,0 +1,653 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: n8n
+  labels:
+    app.kubernetes.io/part-of: n8n
+    app.kubernetes.io/managed-by: kubectl
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: n8n-secrets
+  namespace: n8n
+type: Opaque
+stringData:
+  POSTGRES_USER: n8n_admin
+  POSTGRES_PASSWORD: CHANGE_ME_POSTGRES_ADMIN_PASSWORD
+  POSTGRES_NON_ROOT_USER: n8n_app
+  POSTGRES_NON_ROOT_PASSWORD: CHANGE_ME_POSTGRES_APP_PASSWORD
+  RUNNERS_AUTH_TOKEN: CHANGE_ME_LONG_RANDOM_RUNNER_TOKEN
+  N8N_ENCRYPTION_KEY: CHANGE_ME_TO_A_RANDOM_32_PLUS_CHARACTER_KEY
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: n8n-config
+  namespace: n8n
+data:
+  POSTGRES_DB: n8n
+  DB_TYPE: postgresdb
+  DB_POSTGRESDB_HOST: postgres
+  DB_POSTGRESDB_PORT: '5432'
+  DB_POSTGRESDB_DATABASE: n8n
+  DB_POSTGRESDB_SCHEMA: public
+  N8N_HOST: n8n.example.com
+  N8N_PORT: '5678'
+  N8N_PROTOCOL: https
+  N8N_EDITOR_BASE_URL: https://n8n.example.com/
+  WEBHOOK_URL: https://n8n.example.com/
+  N8N_PROXY_HOPS: '1'
+  N8N_RUNNERS_ENABLED: 'true'
+  N8N_RUNNERS_MODE: external
+  N8N_RUNNERS_BROKER_LISTEN_ADDRESS: 0.0.0.0
+  N8N_RUNNERS_BROKER_PORT: '5679'
+  N8N_DIAGNOSTICS_ENABLED: 'false'
+  N8N_PERSONALIZATION_ENABLED: 'false'
+  N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: 'true'
+  GENERIC_TIMEZONE: UTC
+  TZ: UTC
+  NODE_ENV: production
+  EXECUTIONS_DATA_PRUNE: 'true'
+  EXECUTIONS_DATA_MAX_AGE: '336'
+  N8N_LOG_LEVEL: info
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: n8n
+data:
+  init-data.sh: "#!/bin/bash\nset -Eeuo pipefail\n\nif [[ -z \"${POSTGRES_NON_ROOT_USER:-}\"\
+    \ ]] ||\n   [[ -z \"${POSTGRES_NON_ROOT_PASSWORD:-}\" ]]; then\n  echo \"ERROR:\
+    \ Application database credentials are required.\"\n  exit 1\nfi\n\nif [[ \"$POSTGRES_NON_ROOT_USER\"\
+    \ == \"$POSTGRES_USER\" ]]; then\n  echo \"ERROR: Application user must differ\
+    \ from admin user.\"\n  exit 1\nfi\n\nexport PGUSER=\"$POSTGRES_USER\"\nexport\
+    \ PGDATABASE=\"$POSTGRES_DB\"\n\npsql \\\n  -X \\\n  -v ON_ERROR_STOP=1 \\\n \
+    \ -v app_user=\"$POSTGRES_NON_ROOT_USER\" \\\n  -v app_password=\"$POSTGRES_NON_ROOT_PASSWORD\"\
+    \ \\\n  -v app_database=\"$POSTGRES_DB\" <<'EOSQL'\n\nSELECT format(\n  'CREATE\
+    \ ROLE %I LOGIN PASSWORD %L',\n  :'app_user',\n  :'app_password'\n)\nWHERE NOT\
+    \ EXISTS (\n  SELECT 1 FROM pg_roles\n  WHERE rolname = :'app_user'\n)\n\\gexec\n\
+    \nSELECT format(\n  'GRANT CONNECT, TEMPORARY, CREATE ON DATABASE %I TO %I',\n\
+    \  :'app_database',\n  :'app_user'\n)\n\\gexec\n\nSELECT format(\n  'GRANT USAGE,\
+    \ CREATE ON SCHEMA public TO %I',\n  :'app_user'\n)\n\\gexec\n\nEOSQL\n\necho\
+    \ \"PostgreSQL application user initialization completed.\"\n"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: n8n
+  labels:
+    app: postgres
+spec:
+  type: ClusterIP
+  selector:
+    app: postgres
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: postgres
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: n8n
+  labels:
+    app: postgres
+spec:
+  serviceName: postgres
+  replicas: 1
+  revisionHistoryLimit: 3
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      terminationGracePeriodSeconds: 120
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: postgres
+        image: postgres:18
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: postgres
+          containerPort: 5432
+          protocol: TCP
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: n8n-config
+              key: POSTGRES_DB
+        - name: POSTGRES_NON_ROOT_USER
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_USER
+        - name: POSTGRES_NON_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_PASSWORD
+        - name: PGDATA
+          value: /var/lib/postgresql/18/docker
+        - name: PGHOST
+          value: /var/run/postgresql
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+        startupProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -ec
+            - "pg_isready -h 127.0.0.1 -p 5432 \\\n  -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\"\
+              \n"
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -ec
+            - "pg_isready -h 127.0.0.1 -p 5432 \\\n  -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\"\
+              \n"
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -ec
+            - "pg_isready -h 127.0.0.1 -p 5432 \\\n  -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\"\
+              \n"
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql
+        - name: postgres-init
+          mountPath: /docker-entrypoint-initdb.d/init-data.sh
+          subPath: init-data.sh
+          readOnly: true
+        - name: postgres-run
+          mountPath: /var/run/postgresql
+      volumes:
+      - name: postgres-init
+        configMap:
+          name: postgres-init
+          defaultMode: 365
+      - name: postgres-run
+        emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+      labels:
+        app: postgres
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app: n8n
+spec:
+  type: ClusterIP
+  selector:
+    app: n8n
+  ports:
+  - name: http
+    port: 5678
+    targetPort: http
+    protocol: TCP
+  - name: task-broker
+    port: 5679
+    targetPort: task-broker
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app: n8n
+spec:
+  serviceName: n8n
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  selector:
+    matchLabels:
+      app: n8n
+  template:
+    metadata:
+      labels:
+        app: n8n
+    spec:
+      terminationGracePeriodSeconds: 90
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+      - name: wait-for-postgres
+        image: postgres:18
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - -ec
+        - "until pg_isready \\\n  -h postgres \\\n  -p 5432 \\\n  -U \"$DB_POSTGRESDB_USER\"\
+          \ \\\n  -d \"$DB_POSTGRESDB_DATABASE\"; do\n  echo \"Waiting for PostgreSQL...\"\
+          \n  sleep 3\ndone\necho \"PostgreSQL is ready.\"\n"
+        env:
+        - name: DB_POSTGRESDB_USER
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_USER
+        - name: DB_POSTGRESDB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: n8n-config
+              key: POSTGRES_DB
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      containers:
+      - name: n8n
+        image: docker.n8n.io/n8nio/n8n:2.43.5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 5678
+          protocol: TCP
+        - name: task-broker
+          containerPort: 5679
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: n8n-config
+        env:
+        - name: DB_POSTGRESDB_USER
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_USER
+        - name: DB_POSTGRESDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: POSTGRES_NON_ROOT_PASSWORD
+        - name: N8N_RUNNERS_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: RUNNERS_AUTH_TOKEN
+        - name: N8N_ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: N8N_ENCRYPTION_KEY
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          httpGet:
+            path: /healthz/readiness
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - name: n8n-data
+          mountPath: /home/node/.n8n
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: postgres
+              topologyKey: kubernetes.io/hostname
+  volumeClaimTemplates:
+  - metadata:
+      name: n8n-data
+      labels:
+        app: n8n
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n-runner
+  namespace: n8n
+  labels:
+    app: n8n-runner
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: n8n-runner
+  template:
+    metadata:
+      labels:
+        app: n8n-runner
+    spec:
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: n8n-runner
+        image: n8nio/runners:2.43.5
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: N8N_RUNNERS_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: n8n-secrets
+              key: RUNNERS_AUTH_TOKEN
+        - name: N8N_RUNNERS_TASK_BROKER_URI
+          value: http://n8n:5679
+        - name: N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT
+          value: '0'
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: n8n-config
+              key: TZ
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: n8n
+  namespace: n8n
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '300'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '300'
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - n8n.example.com
+    secretName: n8n-tls
+  rules:
+  - host: n8n.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: n8n
+            port:
+              name: http
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: postgres-pdb
+  namespace: n8n
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: postgres
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: n8n-pdb
+  namespace: n8n
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: n8n
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres-network-policy
+  namespace: n8n
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: n8n
+    ports:
+    - protocol: TCP
+      port: 5432
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: n8n-network-policy
+  namespace: n8n
+spec:
+  podSelector:
+    matchLabels:
+      app: n8n
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 5678
+  - from:
+    - podSelector:
+        matchLabels:
+          app: n8n-runner
+    ports:
+    - protocol: TCP
+      port: 5679
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: postgres
+    ports:
+    - protocol: TCP
+      port: 5432
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  - ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: n8n-runner-network-policy
+  namespace: n8n
+spec:
+  podSelector:
+    matchLabels:
+      app: n8n-runner
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: n8n
+    ports:
+    - protocol: TCP
+      port: 5679
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  - ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80

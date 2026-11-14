@@ -1,0 +1,1343 @@
+{
+  "project": "P04_voting-app",
+  "source": "gpt",
+  "prompt_variant": "production",
+  "sample_k": "3",
+  "timestamp": "2026-11-13T22:04:34Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 24,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 24,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 24,
+    "objects_accepted": 24,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "voting-app",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "postgres-credentials",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "redis",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "redis",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "name": "redis-data",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "db-read",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "vote",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "vote",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "result",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "result",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "worker",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "voting-app",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "HorizontalPodAutoscaler",
+        "name": "vote-hpa",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "HorizontalPodAutoscaler",
+        "name": "result-hpa",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "vote-pdb",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "result-pdb",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "redis-network-policy",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "postgres-network-policy",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "frontend-network-policy",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "worker-network-policy",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ResourceQuota",
+        "name": "voting-app-quota",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "LimitRange",
+        "name": "voting-app-limits",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 906,
+  "resource_counts": {
+    "Namespace": 1,
+    "Secret": 1,
+    "Service": 5,
+    "Deployment": 4,
+    "PersistentVolumeClaim": 1,
+    "StatefulSet": 1,
+    "Ingress": 1,
+    "HorizontalPodAutoscaler": 2,
+    "PodDisruptionBudget": 2,
+    "NetworkPolicy": 4,
+    "ResourceQuota": 1,
+    "LimitRange": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 89.25926,
+      "frameworks": {
+        "NSA": 83.88889,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=4069522740/api=apps/v1/voting-app/Deployment/worker",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=4069522740/api=apps/v1/voting-app/Deployment/worker",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=4069522740/api=apps/v1/voting-app/Deployment/worker",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=4119855597/api=apps/v1/voting-app/Deployment/result",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=4119855597/api=apps/v1/voting-app/Deployment/result",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=4119855597/api=apps/v1/voting-app/Deployment/result",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=4119855597/api=apps/v1/voting-app/Deployment/result",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=606081462/api=apps/v1/voting-app/Deployment/vote",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=606081462/api=apps/v1/voting-app/Deployment/vote",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=606081462/api=apps/v1/voting-app/Deployment/vote",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=606081462/api=apps/v1/voting-app/Deployment/vote",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=706747176/api=apps/v1/voting-app/Deployment/redis",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=706747176/api=apps/v1/voting-app/Deployment/redis",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=706747176/api=apps/v1/voting-app/Deployment/redis",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=773857652/api=apps/v1/voting-app/StatefulSet/db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=773857652/api=apps/v1/voting-app/StatefulSet/db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=773857652/api=apps/v1/voting-app/StatefulSet/db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 13,
+        "medium": 19,
+        "low": 60
+      },
+      "failed": [
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'postgres' of StatefulSet 'db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'result' of Deployment 'result' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'vote' of Deployment 'vote' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'wait-for-postgres' of Deployment 'result' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'wait-for-postgres' of Deployment 'worker' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'wait-for-redis' of Deployment 'vote' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'wait-for-redis' of Deployment 'worker' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'worker' of Deployment 'worker' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'result' of Deployment 'result' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'vote' of Deployment 'vote' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'worker' of Deployment 'worker' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'postgres' of StatefulSet 'db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'result' of Deployment 'result' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'vote' of Deployment 'vote' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'wait-for-postgres' of Deployment 'result' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'wait-for-postgres' of Deployment 'worker' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'wait-for-redis' of Deployment 'vote' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'wait-for-redis' of Deployment 'worker' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'worker' of Deployment 'worker' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'result' of Deployment 'result' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'vote' of Deployment 'vote' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-postgres' of Deployment 'result' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-postgres' of Deployment 'worker' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-redis' of Deployment 'vote' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-redis' of Deployment 'worker' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'worker' of Deployment 'worker' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of Deployment 'redis' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'result' of Deployment 'result' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'vote' of Deployment 'vote' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-postgres' of Deployment 'result' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-postgres' of Deployment 'worker' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-redis' of Deployment 'vote' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'wait-for-redis' of Deployment 'worker' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'worker' of Deployment 'worker' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'result' of Deployment 'result' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0022",
+          "title": "Specific capabilities added",
+          "severity": "MEDIUM",
+          "message": "Container 'vote' of Deployment 'vote' should not set 'securityContext.capabilities.add'"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0039",
+          "title": "limit range usage",
+          "severity": "LOW",
+          "message": "A LimitRange policy with a default requests and limits for each container should be configured"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0040",
+          "title": "resource quota usage",
+          "severity": "LOW",
+          "message": "A resource quota policy with hard memory and CPU limits should be configured per namespace"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment result in voting-app namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment vote in voting-app namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment redis in voting-app namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment result in voting-app namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment vote in voting-app namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment worker in voting-app namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container result in deployment result (namespace: voting-app) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container vote in deployment vote (namespace: voting-app) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container worker in deployment worker (namespace: voting-app) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 1,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-credentials",
+          "key": "POSTGRES_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": [
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-credentials",
+          "key": "POSTGRES_USER"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-credentials",
+          "key": "POSTGRES_DB"
+        }
+      ]
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 5,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "redis",
+            "detail": "deployment.apps/redis created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"redis\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "StatefulSet",
+            "name": "db",
+            "detail": "statefulset.apps/db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"postgres\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "vote",
+            "detail": "deployment.apps/vote created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or containers \"wait-for-redis\", \"vote\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "result",
+            "detail": "deployment.apps/result created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or containers \"wait-for-postgres\", \"result\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "worker",
+            "detail": "deployment.apps/worker created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or containers \"wait-for-redis\", \"wait-for-postgres\", \"worker\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 29,
+      "warning": 4,
+      "critical_by_check": {
+        "container-ephemeral-storage-request-and-limit": 5,
+        "container-security-context-readonlyrootfilesystem": 5,
+        "container-image-pull-policy": 5,
+        "pod-probes-identical": 4,
+        "container-security-context-user-group-id": 5,
+        "container-image-tag": 3,
+        "deployment-targeted-by-hpa-does-not-have-replicas-configured": 2
+      },
+      "warning_by_check": {
+        "deployment-strategy": 1,
+        "deployment-replicas": 1,
+        "deployment-has-host-podantiaffinity": 2
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 80,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 2,
+        "metadataAndInstanceMismatched[warning]": 5,
+        "missingPodDisruptionBudget[warning]": 2,
+        "automountServiceAccountToken[warning]": 5,
+        "missingNetworkPolicy[warning]": 5,
+        "priorityClassNotSet[warning]": 5,
+        "topologySpreadConstraint[warning]": 5,
+        "notReadOnlyRootFilesystem[warning]": 9,
+        "pullPolicyNotAlways[warning]": 6,
+        "runAsRootAllowed[danger]": 9,
+        "tagNotSpecified[danger]": 3,
+        "livenessProbeMissing[warning]": 1,
+        "readinessProbeMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 25,
+      "by_check": {
+        "no-read-only-root-fs": 9,
+        "run-as-non-root": 9,
+        "latest-tag": 3,
+        "no-anti-affinity": 2,
+        "pdb-unhealthy-pod-eviction-policy": 2
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 2,
+        "no-read-only-root-fs": 9,
+        "run-as-non-root": 9,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 20,
+      "zhang_density_per_kloc": 22.1,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 5,
+      "pct": 65.3,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 2,
+          "applicable": 5
+        },
+        "1_replicas_ge_2": {
+          "met": 2,
+          "applicable": 4
+        },
+        "2_readiness": {
+          "met": 4,
+          "applicable": 5
+        },
+        "3_liveness": {
+          "met": 4,
+          "applicable": 5
+        },
+        "4_cpu_request": {
+          "met": 5,
+          "applicable": 5
+        },
+        "5_mem_request": {
+          "met": 5,
+          "applicable": 5
+        },
+        "6_mem_limit": {
+          "met": 5,
+          "applicable": 5
+        },
+        "7_rolling_update": {
+          "met": 3,
+          "applicable": 5
+        },
+        "8_pdb": {
+          "met": 2,
+          "applicable": 5
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 5
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "redis",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "StatefulSet",
+          "name": "db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "vote",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "result",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "worker",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-vote-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-result-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-worker-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-redis-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R05-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R06-redis-hostname",
+        "passed": true,
+        "detail": "Service redis routes to redis:6379",
+        "oracle": false
+      },
+      {
+        "id": "R07-db-hostname",
+        "passed": true,
+        "detail": "Service db routes to postgres:5432",
+        "oracle": false
+      },
+      {
+        "id": "R08-db-user",
+        "passed": true,
+        "detail": "POSTGRES_USER=['postgres']",
+        "oracle": false
+      },
+      {
+        "id": "R09-db-password",
+        "passed": false,
+        "detail": "POSTGRES_PASSWORD=['REPLACE_WITH_STRONG_PASSWORD']",
+        "oracle": false
+      },
+      {
+        "id": "R10-db-persistent",
+        "passed": true,
+        "detail": "volumeClaimTemplate",
+        "oracle": false
+      },
+      {
+        "id": "R11-vote-external",
+        "passed": true,
+        "detail": "Ingress voting-app -> vote",
+        "oracle": false
+      },
+      {
+        "id": "R12-result-external",
+        "passed": true,
+        "detail": "Ingress voting-app -> result",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 11,
+    "requirements_total": 12,
+    "pct": 91.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "dockersamples/examplevotingapp_result:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "dockersamples/examplevotingapp_vote:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "dockersamples/examplevotingapp_worker:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "postgres:15-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "redis:7-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 3,
+    "expected_replicas": 7,
+    "workloads": [
+      {
+        "ns": "voting-app",
+        "kind": "Deployment",
+        "name": "redis",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "voting-app",
+        "kind": "Deployment",
+        "name": "result",
+        "ready": 0,
+        "want": 2
+      },
+      {
+        "ns": "voting-app",
+        "kind": "Deployment",
+        "name": "vote",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "voting-app",
+        "kind": "Deployment",
+        "name": "worker",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "voting-app",
+        "kind": "StatefulSet",
+        "name": "db",
+        "ready": 0,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "db-0",
+          "container": "postgres",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "chmod: /var/run/postgresql: Operation not permitted\nchown: /var/lib/postgresql/data/pgdata: Operation not permitted"
+        },
+        {
+          "pod": "result-57fdcb9455-6qmh9",
+          "container": "result",
+          "restarts": 0,
+          "last_exit": null,
+          "last_reason": null
+        },
+        {
+          "pod": "result-57fdcb9455-qg84h",
+          "container": "result",
+          "restarts": 0,
+          "last_exit": null,
+          "last_reason": null
+        },
+        {
+          "pod": "worker-7dbbd7b665-xpwfn",
+          "container": "worker",
+          "restarts": 0,
+          "last_exit": null,
+          "last_reason": null
+        }
+      ],
+      "warning_events": {
+        "result-hpa|FailedGetResourceMetric: failed to get cpu utilization": 21,
+        "vote-hpa|FailedGetResourceMetric: failed to get cpu utilization": 21,
+        "db-0|BackOff: Back-off restarting failed container postgres in pod db-0_vo": 19,
+        "result-hpa|FailedComputeMetricsReplicas: invalid metrics (1 invalid out of 1), first error is": 12,
+        "vote-hpa|FailedComputeMetricsReplicas: invalid metrics (1 invalid out of 1), first error is": 12,
+        "redis-5849748df4-g7zhs|FailedScheduling: 0/4 nodes are available": 1
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-1394dbe0",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "frontend-network-policy: any source"
+    },
+    "smoke": [
+      {
+        "name": "vote-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "result-page",
+        "passed": false,
+        "detail": "HTTP 000"
+      },
+      {
+        "name": "cast-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "vote-stored",
+        "passed": false,
+        "detail": "exit 1: error: unable to upgrade connection: container not found (\"postgres\")"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

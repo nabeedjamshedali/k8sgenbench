@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-12T21:07:02+05:00",
+  "AuditTime": "2026-11-13T22:00:13+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P03_grafana__production__s2\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P03_grafana__production__s2\\manifest.yaml",
@@ -12,6 +12,24 @@
     "Controllers": 1
   },
   "Results": [
+    {
+      "Name": "grafana",
+      "Namespace": "grafana",
+      "Kind": "Ingress",
+      "Results": {
+        "tlsSettingsMissing": {
+          "ID": "tlsSettingsMissing",
+          "Message": "Ingress has TLS configured",
+          "Details": null,
+          "Success": true,
+          "Severity": "warning",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
     {
       "Name": "grafana",
       "Namespace": "",
@@ -33,6 +51,40 @@
       "Namespace": "grafana",
       "Kind": "PersistentVolumeClaim",
       "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana",
+      "Namespace": "grafana",
+      "Kind": "NetworkPolicy",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana",
+      "Namespace": "grafana",
+      "Kind": "ServiceAccount",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "grafana-config",
+      "Namespace": "grafana",
+      "Kind": "ConfigMap",
+      "Results": {
+        "sensitiveConfigmapContent": {
+          "ID": "sensitiveConfigmapContent",
+          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
@@ -340,58 +392,6 @@
           }
         ]
       },
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "grafana",
-      "Kind": "NetworkPolicy",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "grafana",
-      "Kind": "Ingress",
-      "Results": {
-        "tlsSettingsMissing": {
-          "ID": "tlsSettingsMissing",
-          "Message": "Ingress has TLS configured",
-          "Details": null,
-          "Success": true,
-          "Severity": "warning",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana",
-      "Namespace": "grafana",
-      "Kind": "ServiceAccount",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "grafana-config",
-      "Namespace": "grafana",
-      "Kind": "ConfigMap",
-      "Results": {
-        "sensitiveConfigmapContent": {
-          "ID": "sensitiveConfigmapContent",
-          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
-          "Details": null,
-          "Success": true,
-          "Severity": "danger",
-          "Category": "Security",
-          "Mutations": null
-        }
-      },
-      "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {

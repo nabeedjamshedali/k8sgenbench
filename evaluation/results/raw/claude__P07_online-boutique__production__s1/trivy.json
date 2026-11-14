@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1ce93-b20a-7c11-a631-2e7b9b9f0d9a",
-  "CreatedAt": "2026-11-12T12:05:48.2987908+05:00",
+  "ReportID": "01a1d54b-d6fd-7c7f-bdc1-ca55b8d99d04",
+  "CreatedAt": "2026-11-13T19:24:39.6778191+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/claude__P07_online-boutique__production__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -3062,12 +3062,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 523,
-            "EndLine": 575,
+            "StartLine": 978,
+            "EndLine": 982,
             "Code": {
               "Lines": [
                 {
-                  "Number": 523,
+                  "Number": 978,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3077,17 +3077,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 524,
-                  "Content": "  replicas: 2",
+                  "Number": 979,
+                  "Content": "  minAvailable: 1",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m2",
+                  "Highlighted": "  \u001b[38;5;33mminAvailable\u001b[0m: \u001b[38;5;37m1",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 525,
+                  "Number": 980,
                   "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3097,7 +3097,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 526,
+                  "Number": 981,
                   "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3107,170 +3107,12 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 527,
-                  "Content": "      app: currencyservice",
+                  "Number": 982,
+                  "Content": "      app: checkoutservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: currencyservice",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 528,
-                  "Content": "  strategy:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 529,
-                  "Content": "    rollingUpdate:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 530,
-                  "Content": "      maxSurge: 1",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 531,
-                  "Content": "      maxUnavailable: 0",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 532,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0039",
-          "Title": "limit range usage",
-          "Description": "Ensure that a LimitRange policy is configured to limit resource usage for namespaces or nodes",
-          "Message": "A LimitRange policy with a default requests and limits for each container should be configured",
-          "Namespace": "builtin.kubernetes.KSV039",
-          "Query": "data.builtin.kubernetes.KSV039.deny",
-          "Resolution": "Create a LimitRange policy with default requests and limits for each container",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0039",
-          "References": [
-            "https://kubernetes.io/docs/concepts/policy/limit-range/",
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/",
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0039"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 866,
-            "EndLine": 873,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 866,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 867,
-                  "Content": "  type: ClusterIP",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 868,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 869,
-                  "Content": "    app: emailservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: emailservice",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 870,
-                  "Content": "  ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 871,
-                  "Content": "  - name: grpc",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: grpc",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 872,
-                  "Content": "    port: 5000",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m5000",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 873,
-                  "Content": "    targetPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m8080\u001b[0m",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: checkoutservice",
                   "FirstCause": false,
                   "LastCause": true
                 }
@@ -4059,12 +3901,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 978,
-            "EndLine": 982,
+            "StartLine": 719,
+            "EndLine": 769,
             "Code": {
               "Lines": [
                 {
-                  "Number": 978,
+                  "Number": 719,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4074,17 +3916,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 979,
-                  "Content": "  minAvailable: 1",
+                  "Number": 720,
+                  "Content": "  replicas: 2",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mminAvailable\u001b[0m: \u001b[38;5;37m1",
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m2",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 980,
+                  "Number": 721,
                   "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4094,7 +3936,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 981,
+                  "Number": 722,
                   "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4104,14 +3946,63 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 982,
-                  "Content": "      app: checkoutservice",
+                  "Number": 723,
+                  "Content": "      app: shippingservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: checkoutservice",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: shippingservice",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 724,
+                  "Content": "  strategy:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 725,
+                  "Content": "    rollingUpdate:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 726,
+                  "Content": "      maxSurge: 1",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 727,
+                  "Content": "      maxUnavailable: 0",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
                   "FirstCause": false,
                   "LastCause": true
+                },
+                {
+                  "Number": 728,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
                 }
               ]
             }
@@ -4426,6 +4317,115 @@
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: emailservice",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0039",
+          "Title": "limit range usage",
+          "Description": "Ensure that a LimitRange policy is configured to limit resource usage for namespaces or nodes",
+          "Message": "A LimitRange policy with a default requests and limits for each container should be configured",
+          "Namespace": "builtin.kubernetes.KSV039",
+          "Query": "data.builtin.kubernetes.KSV039.deny",
+          "Resolution": "Create a LimitRange policy with default requests and limits for each container",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0039",
+          "References": [
+            "https://kubernetes.io/docs/concepts/policy/limit-range/",
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/",
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0039"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 866,
+            "EndLine": 873,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 866,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 867,
+                  "Content": "  type: ClusterIP",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 868,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 869,
+                  "Content": "    app: emailservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: emailservice",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 870,
+                  "Content": "  ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 871,
+                  "Content": "  - name: grpc",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: grpc",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 872,
+                  "Content": "    port: 5000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m5000",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 873,
+                  "Content": "    targetPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m8080\u001b[0m",
                   "FirstCause": false,
                   "LastCause": true
                 }
@@ -6726,12 +6726,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 719,
-            "EndLine": 769,
+            "StartLine": 523,
+            "EndLine": 575,
             "Code": {
               "Lines": [
                 {
-                  "Number": 719,
+                  "Number": 523,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6741,7 +6741,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 720,
+                  "Number": 524,
                   "Content": "  replicas: 2",
                   "IsCause": true,
                   "Annotation": "",
@@ -6751,7 +6751,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 721,
+                  "Number": 525,
                   "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6761,7 +6761,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 722,
+                  "Number": 526,
                   "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6771,17 +6771,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 723,
-                  "Content": "      app: shippingservice",
+                  "Number": 527,
+                  "Content": "      app: currencyservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: shippingservice",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: currencyservice",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 724,
+                  "Number": 528,
                   "Content": "  strategy:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6791,7 +6791,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 725,
+                  "Number": 529,
                   "Content": "    rollingUpdate:",
                   "IsCause": true,
                   "Annotation": "",
@@ -6801,7 +6801,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 726,
+                  "Number": 530,
                   "Content": "      maxSurge: 1",
                   "IsCause": true,
                   "Annotation": "",
@@ -6811,7 +6811,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 727,
+                  "Number": 531,
                   "Content": "      maxUnavailable: 0",
                   "IsCause": true,
                   "Annotation": "",
@@ -6821,7 +6821,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 728,
+                  "Number": 532,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -7484,12 +7484,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 510,
-            "EndLine": 514,
+            "StartLine": 880,
+            "EndLine": 884,
             "Code": {
               "Lines": [
                 {
-                  "Number": 510,
+                  "Number": 880,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -7499,7 +7499,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 511,
+                  "Number": 881,
                   "Content": "  minAvailable: 1",
                   "IsCause": true,
                   "Annotation": "",
@@ -7509,7 +7509,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 512,
+                  "Number": 882,
                   "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
@@ -7519,7 +7519,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 513,
+                  "Number": 883,
                   "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -7529,12 +7529,12 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 514,
-                  "Content": "      app: productcatalogservice",
+                  "Number": 884,
+                  "Content": "      app: emailservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: productcatalogservice",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: emailservice",
                   "FirstCause": false,
                   "LastCause": true
                 }
@@ -7561,12 +7561,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 164,
-            "EndLine": 171,
+            "StartLine": 437,
+            "EndLine": 487,
             "Code": {
               "Lines": [
                 {
-                  "Number": 164,
+                  "Number": 437,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -7576,74 +7576,93 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 165,
-                  "Content": "  type: ClusterIP",
+                  "Number": 438,
+                  "Content": "  replicas: 2",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m2",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 166,
+                  "Number": 439,
                   "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 167,
-                  "Content": "    app: redis-cart",
+                  "Number": 440,
+                  "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: redis-cart",
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 168,
-                  "Content": "  ports:",
+                  "Number": 441,
+                  "Content": "      app: productcatalogservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: productcatalogservice",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 169,
-                  "Content": "  - name: redis",
+                  "Number": 442,
+                  "Content": "  strategy:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: redis",
+                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 170,
-                  "Content": "    port: 6379",
+                  "Number": 443,
+                  "Content": "    rollingUpdate:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m6379",
+                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 171,
-                  "Content": "    targetPort: 6379",
+                  "Number": 444,
+                  "Content": "      maxSurge: 1",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m6379\u001b[0m",
+                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 445,
+                  "Content": "      maxUnavailable: 0",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
                   "FirstCause": false,
                   "LastCause": true
+                },
+                {
+                  "Number": 446,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
                 }
               ]
             }
@@ -7826,113 +7845,6 @@
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m9555\u001b[0m",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 778,
-            "EndLine": 785,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 778,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 779,
-                  "Content": "  type: ClusterIP",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 780,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 781,
-                  "Content": "    app: shippingservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: shippingservice",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 782,
-                  "Content": "  ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 783,
-                  "Content": "  - name: grpc",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: grpc",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 784,
-                  "Content": "    port: 50051",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m50051",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 785,
-                  "Content": "    targetPort: 50051",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m50051\u001b[0m",
                   "FirstCause": false,
                   "LastCause": true
                 }
@@ -8705,12 +8617,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 880,
-            "EndLine": 884,
+            "StartLine": 28,
+            "EndLine": 36,
             "Code": {
               "Lines": [
                 {
-                  "Number": 880,
+                  "Number": 28,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -8720,42 +8632,82 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 881,
-                  "Content": "  minAvailable: 1",
+                  "Number": 29,
+                  "Content": "  limits:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mminAvailable\u001b[0m: \u001b[38;5;37m1",
+                  "Highlighted": "  \u001b[38;5;33mlimits\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 882,
-                  "Content": "  selector:",
+                  "Number": 30,
+                  "Content": "  - type: Container",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
+                  "Highlighted": "  - \u001b[38;5;33mtype\u001b[0m: Container",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 883,
-                  "Content": "    matchLabels:",
+                  "Number": 31,
+                  "Content": "    default:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "Highlighted": "    \u001b[38;5;33mdefault\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 884,
-                  "Content": "      app: emailservice",
+                  "Number": 32,
+                  "Content": "      cpu: 200m",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: emailservice",
+                  "Highlighted": "      \u001b[38;5;33mcpu\u001b[0m: 200m",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 33,
+                  "Content": "      memory: 256Mi",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mmemory\u001b[0m: 256Mi",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 34,
+                  "Content": "    defaultRequest:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mdefaultRequest\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 35,
+                  "Content": "      cpu: 50m",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mcpu\u001b[0m: 50m",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 36,
+                  "Content": "      memory: 64Mi",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mmemory\u001b[0m: 64Mi",
                   "FirstCause": false,
                   "LastCause": true
                 }
@@ -9068,6 +9020,1325 @@
                   "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: shippingservice",
                   "FirstCause": false,
                   "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 778,
+            "EndLine": 785,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 778,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 779,
+                  "Content": "  type: ClusterIP",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 780,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 781,
+                  "Content": "    app: shippingservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: shippingservice",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 782,
+                  "Content": "  ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 783,
+                  "Content": "  - name: grpc",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: grpc",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 784,
+                  "Content": "    port: 50051",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m50051",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 785,
+                  "Content": "    targetPort: 50051",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m50051\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 50,
+            "EndLine": 53,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 50,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 51,
+                  "Content": "  podSelector: {}",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mpodSelector\u001b[0m: {}",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 52,
+                  "Content": "  policyTypes:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mpolicyTypes\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 53,
+                  "Content": "  - Ingress",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - Ingress",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 60,
+            "EndLine": 66,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 60,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 61,
+                  "Content": "  podSelector: {}",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mpodSelector\u001b[0m: {}",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 62,
+                  "Content": "  policyTypes:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mpolicyTypes\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 63,
+                  "Content": "  - Ingress",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - Ingress",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 64,
+                  "Content": "  ingress:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mingress\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 65,
+                  "Content": "  - from:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mfrom\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 66,
+                  "Content": "    - podSelector: {}",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    - \u001b[38;5;33mpodSelector\u001b[0m: {}",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 73,
+            "EndLine": 82,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 73,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 74,
+                  "Content": "  podSelector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mpodSelector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 75,
+                  "Content": "    matchLabels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 76,
+                  "Content": "      app: frontend",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: frontend",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 77,
+                  "Content": "  policyTypes:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mpolicyTypes\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 78,
+                  "Content": "  - Ingress",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - Ingress",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 79,
+                  "Content": "  ingress:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mingress\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 80,
+                  "Content": "  - ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 81,
+                  "Content": "    - port: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    - \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 82,
+                  "Content": "      protocol: TCP",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m      \u001b[38;5;33mprotocol\u001b[0m: TCP",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 91,
+            "EndLine": 155,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 91,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 92,
+                  "Content": "  serviceName: redis-cart",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mserviceName\u001b[0m: redis-cart",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 93,
+                  "Content": "  replicas: 1",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 94,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 95,
+                  "Content": "    matchLabels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 96,
+                  "Content": "      app: redis-cart",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: redis-cart",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 97,
+                  "Content": "  template:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtemplate\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 98,
+                  "Content": "    metadata:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmetadata\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 99,
+                  "Content": "      labels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mlabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 100,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 164,
+            "EndLine": 171,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 164,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 165,
+                  "Content": "  type: ClusterIP",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 166,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 167,
+                  "Content": "    app: redis-cart",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: redis-cart",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 168,
+                  "Content": "  ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 169,
+                  "Content": "  - name: redis",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: redis",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 170,
+                  "Content": "    port: 6379",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m6379",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 171,
+                  "Content": "    targetPort: 6379",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m6379\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 180,
+            "EndLine": 264,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 180,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 181,
+                  "Content": "  replicas: 3",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m3",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 182,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 183,
+                  "Content": "    matchLabels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 184,
+                  "Content": "      app: frontend",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: frontend",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 185,
+                  "Content": "  strategy:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 186,
+                  "Content": "    rollingUpdate:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 187,
+                  "Content": "      maxSurge: 1",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 188,
+                  "Content": "      maxUnavailable: 0",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 189,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 273,
+            "EndLine": 280,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 273,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 274,
+                  "Content": "  type: ClusterIP",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 275,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 276,
+                  "Content": "    app: frontend",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: frontend",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 277,
+                  "Content": "  ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 278,
+                  "Content": "  - name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 279,
+                  "Content": "    port: 80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 280,
+                  "Content": "    targetPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m8080\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 289,
+            "EndLine": 305,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 289,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 290,
+                  "Content": "  ingressClassName: nginx",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mingressClassName\u001b[0m: nginx",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 291,
+                  "Content": "  tls:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mtls\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 292,
+                  "Content": "  - hosts:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mhosts\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 293,
+                  "Content": "    - shop.example.com",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    - shop.example.com",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 294,
+                  "Content": "    secretName: frontend-tls",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33msecretName\u001b[0m: frontend-tls",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 295,
+                  "Content": "  rules:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mrules\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 296,
+                  "Content": "  - host: shop.example.com",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mhost\u001b[0m: shop.example.com",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 297,
+                  "Content": "    http:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mhttp\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 298,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 312,
+            "EndLine": 325,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 312,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 313,
+                  "Content": "  scaleTargetRef:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mscaleTargetRef\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 314,
+                  "Content": "    apiVersion: apps/v1",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mapiVersion\u001b[0m: apps/v1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 315,
+                  "Content": "    kind: Deployment",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mkind\u001b[0m: Deployment",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 316,
+                  "Content": "    name: frontend",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mname\u001b[0m: frontend",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 317,
+                  "Content": "  minReplicas: 3",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mminReplicas\u001b[0m: \u001b[38;5;37m3",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 318,
+                  "Content": "  maxReplicas: 10",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mmaxReplicas\u001b[0m: \u001b[38;5;37m10",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 319,
+                  "Content": "  metrics:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mmetrics\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 320,
+                  "Content": "  - type: Resource",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;33mtype\u001b[0m: Resource",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 321,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 332,
+            "EndLine": 336,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 332,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 333,
+                  "Content": "  minAvailable: 2",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mminAvailable\u001b[0m: \u001b[38;5;37m2",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 334,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 335,
+                  "Content": "    matchLabels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 336,
+                  "Content": "      app: frontend",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: frontend",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0040",
+          "Title": "resource quota usage",
+          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
+          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
+          "Namespace": "builtin.kubernetes.KSV040",
+          "Query": "data.builtin.kubernetes.KSV040.deny",
+          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
+          "References": [
+            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
+            "https://avd.aquasec.com/misconfig/ksv-0040"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 345,
+            "EndLine": 401,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 345,
+                  "Content": "spec:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 346,
+                  "Content": "  replicas: 2",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m2",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 347,
+                  "Content": "  selector:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 348,
+                  "Content": "    matchLabels:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 349,
+                  "Content": "      app: cartservice",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: cartservice",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 350,
+                  "Content": "  strategy:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 351,
+                  "Content": "    rollingUpdate:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 352,
+                  "Content": "      maxSurge: 1",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 353,
+                  "Content": "      maxUnavailable: 0",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 354,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
                 }
               ]
             }
@@ -9964,12 +11235,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 1175,
-            "EndLine": 1219,
+            "StartLine": 510,
+            "EndLine": 514,
             "Code": {
               "Lines": [
                 {
-                  "Number": 1175,
+                  "Number": 510,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -9979,17 +11250,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 1176,
-                  "Content": "  replicas: 1",
+                  "Number": 511,
+                  "Content": "  minAvailable: 1",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m1",
+                  "Highlighted": "  \u001b[38;5;33mminAvailable\u001b[0m: \u001b[38;5;37m1",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 1177,
+                  "Number": 512,
                   "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
@@ -9999,7 +11270,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 1178,
+                  "Number": 513,
                   "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -10009,63 +11280,14 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 1179,
-                  "Content": "      app: loadgenerator",
+                  "Number": 514,
+                  "Content": "      app: productcatalogservice",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: loadgenerator",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 1180,
-                  "Content": "  template:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtemplate\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 1181,
-                  "Content": "    metadata:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmetadata\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 1182,
-                  "Content": "      labels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mlabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 1183,
-                  "Content": "        app: loadgenerator",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mapp\u001b[0m: loadgenerator",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: productcatalogservice",
                   "FirstCause": false,
                   "LastCause": true
-                },
-                {
-                  "Number": 1184,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
                 }
               ]
             }
@@ -10197,12 +11419,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 28,
-            "EndLine": 36,
+            "StartLine": 1175,
+            "EndLine": 1219,
             "Code": {
               "Lines": [
                 {
-                  "Number": 28,
+                  "Number": 1175,
                   "Content": "spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -10212,84 +11434,93 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 29,
-                  "Content": "  limits:",
+                  "Number": 1176,
+                  "Content": "  replicas: 1",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mlimits\u001b[0m:",
+                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m1",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 30,
-                  "Content": "  - type: Container",
+                  "Number": 1177,
+                  "Content": "  selector:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mtype\u001b[0m: Container",
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 31,
-                  "Content": "    default:",
+                  "Number": 1178,
+                  "Content": "    matchLabels:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mdefault\u001b[0m:",
+                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 32,
-                  "Content": "      cpu: 200m",
+                  "Number": 1179,
+                  "Content": "      app: loadgenerator",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mcpu\u001b[0m: 200m",
+                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: loadgenerator",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 33,
-                  "Content": "      memory: 256Mi",
+                  "Number": 1180,
+                  "Content": "  template:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mmemory\u001b[0m: 256Mi",
+                  "Highlighted": "  \u001b[38;5;33mtemplate\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 34,
-                  "Content": "    defaultRequest:",
+                  "Number": 1181,
+                  "Content": "    metadata:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mdefaultRequest\u001b[0m:",
+                  "Highlighted": "    \u001b[38;5;33mmetadata\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 35,
-                  "Content": "      cpu: 50m",
+                  "Number": 1182,
+                  "Content": "      labels:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mcpu\u001b[0m: 50m",
+                  "Highlighted": "      \u001b[38;5;33mlabels\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 36,
-                  "Content": "      memory: 64Mi",
+                  "Number": 1183,
+                  "Content": "        app: loadgenerator",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mmemory\u001b[0m: 64Mi",
+                  "Highlighted": "        \u001b[38;5;33mapp\u001b[0m: loadgenerator",
                   "FirstCause": false,
                   "LastCause": true
+                },
+                {
+                  "Number": 1184,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
                 }
               ]
             }
@@ -10472,1237 +11703,6 @@
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m7070\u001b[0m",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 345,
-            "EndLine": 401,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 345,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 346,
-                  "Content": "  replicas: 2",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m2",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 347,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 348,
-                  "Content": "    matchLabels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 349,
-                  "Content": "      app: cartservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: cartservice",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 350,
-                  "Content": "  strategy:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 351,
-                  "Content": "    rollingUpdate:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 352,
-                  "Content": "      maxSurge: 1",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 353,
-                  "Content": "      maxUnavailable: 0",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 354,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 332,
-            "EndLine": 336,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 332,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 333,
-                  "Content": "  minAvailable: 2",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mminAvailable\u001b[0m: \u001b[38;5;37m2",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 334,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 335,
-                  "Content": "    matchLabels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 336,
-                  "Content": "      app: frontend",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: frontend",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 312,
-            "EndLine": 325,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 312,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 313,
-                  "Content": "  scaleTargetRef:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mscaleTargetRef\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 314,
-                  "Content": "    apiVersion: apps/v1",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mapiVersion\u001b[0m: apps/v1",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 315,
-                  "Content": "    kind: Deployment",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mkind\u001b[0m: Deployment",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 316,
-                  "Content": "    name: frontend",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mname\u001b[0m: frontend",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 317,
-                  "Content": "  minReplicas: 3",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mminReplicas\u001b[0m: \u001b[38;5;37m3",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 318,
-                  "Content": "  maxReplicas: 10",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mmaxReplicas\u001b[0m: \u001b[38;5;37m10",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 319,
-                  "Content": "  metrics:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mmetrics\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 320,
-                  "Content": "  - type: Resource",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mtype\u001b[0m: Resource",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 321,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 289,
-            "EndLine": 305,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 289,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 290,
-                  "Content": "  ingressClassName: nginx",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mingressClassName\u001b[0m: nginx",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 291,
-                  "Content": "  tls:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtls\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 292,
-                  "Content": "  - hosts:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mhosts\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 293,
-                  "Content": "    - shop.example.com",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    - shop.example.com",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 294,
-                  "Content": "    secretName: frontend-tls",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33msecretName\u001b[0m: frontend-tls",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 295,
-                  "Content": "  rules:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mrules\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 296,
-                  "Content": "  - host: shop.example.com",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mhost\u001b[0m: shop.example.com",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 297,
-                  "Content": "    http:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mhttp\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 298,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 273,
-            "EndLine": 280,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 273,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 274,
-                  "Content": "  type: ClusterIP",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtype\u001b[0m: ClusterIP",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 275,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 276,
-                  "Content": "    app: frontend",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mapp\u001b[0m: frontend",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 277,
-                  "Content": "  ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 278,
-                  "Content": "  - name: http",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mname\u001b[0m: http",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 279,
-                  "Content": "    port: 80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 280,
-                  "Content": "    targetPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m    \u001b[38;5;33mtargetPort\u001b[0m: \u001b[38;5;37m8080\u001b[0m",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 180,
-            "EndLine": 264,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 180,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 181,
-                  "Content": "  replicas: 3",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m3",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 182,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 183,
-                  "Content": "    matchLabels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 184,
-                  "Content": "      app: frontend",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: frontend",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 185,
-                  "Content": "  strategy:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 186,
-                  "Content": "    rollingUpdate:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 187,
-                  "Content": "      maxSurge: 1",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 188,
-                  "Content": "      maxUnavailable: 0",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 189,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 437,
-            "EndLine": 487,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 437,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 438,
-                  "Content": "  replicas: 2",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m2",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 439,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 440,
-                  "Content": "    matchLabels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 441,
-                  "Content": "      app: productcatalogservice",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: productcatalogservice",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 442,
-                  "Content": "  strategy:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mstrategy\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 443,
-                  "Content": "    rollingUpdate:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mrollingUpdate\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 444,
-                  "Content": "      maxSurge: 1",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mmaxSurge\u001b[0m: \u001b[38;5;37m1",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 445,
-                  "Content": "      maxUnavailable: 0",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m      \u001b[38;5;33mmaxUnavailable\u001b[0m: \u001b[38;5;37m0",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 446,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 91,
-            "EndLine": 155,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 91,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 92,
-                  "Content": "  serviceName: redis-cart",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mserviceName\u001b[0m: redis-cart",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 93,
-                  "Content": "  replicas: 1",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mreplicas\u001b[0m: \u001b[38;5;37m1",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 94,
-                  "Content": "  selector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m  \u001b[38;5;33mselector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 95,
-                  "Content": "    matchLabels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 96,
-                  "Content": "      app: redis-cart",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: redis-cart",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 97,
-                  "Content": "  template:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mtemplate\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 98,
-                  "Content": "    metadata:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmetadata\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 99,
-                  "Content": "      labels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mlabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 100,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 73,
-            "EndLine": 82,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 73,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 74,
-                  "Content": "  podSelector:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mpodSelector\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 75,
-                  "Content": "    matchLabels:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    \u001b[38;5;33mmatchLabels\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 76,
-                  "Content": "      app: frontend",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      \u001b[38;5;33mapp\u001b[0m: frontend",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 77,
-                  "Content": "  policyTypes:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mpolicyTypes\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 78,
-                  "Content": "  - Ingress",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - Ingress",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 79,
-                  "Content": "  ingress:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mingress\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 80,
-                  "Content": "  - ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 81,
-                  "Content": "    - port: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    - \u001b[38;5;33mport\u001b[0m: \u001b[38;5;37m8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 82,
-                  "Content": "      protocol: TCP",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m      \u001b[38;5;33mprotocol\u001b[0m: TCP",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 60,
-            "EndLine": 66,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 60,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 61,
-                  "Content": "  podSelector: {}",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mpodSelector\u001b[0m: {}",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 62,
-                  "Content": "  policyTypes:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mpolicyTypes\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 63,
-                  "Content": "  - Ingress",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - Ingress",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 64,
-                  "Content": "  ingress:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mingress\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 65,
-                  "Content": "  - from:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - \u001b[38;5;33mfrom\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 66,
-                  "Content": "    - podSelector: {}",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "    - \u001b[38;5;33mpodSelector\u001b[0m: {}",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0040",
-          "Title": "resource quota usage",
-          "Description": "Ensure that a ResourceQuota policy is configured to limit aggregate resource usage within a namespace",
-          "Message": "A resource quota policy with hard memory and CPU limits should be configured per namespace",
-          "Namespace": "builtin.kubernetes.KSV040",
-          "Query": "data.builtin.kubernetes.KSV040.deny",
-          "Resolution": "Create a ResourceQuota policy with memory and CPU quotas for each namespace",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0040",
-          "References": [
-            "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/",
-            "https://avd.aquasec.com/misconfig/ksv-0040"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 50,
-            "EndLine": 53,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 50,
-                  "Content": "spec:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[38;5;33mspec\u001b[0m:",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 51,
-                  "Content": "  podSelector: {}",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mpodSelector\u001b[0m: {}",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 52,
-                  "Content": "  policyTypes:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mpolicyTypes\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 53,
-                  "Content": "  - Ingress",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - Ingress",
                   "FirstCause": false,
                   "LastCause": true
                 }
