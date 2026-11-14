@@ -113,10 +113,14 @@ def label_args(labels):
 
 def prober_overrides(pod, command):
     """`kubectl run --overrides` making a prober pod comply with the 'restricted' Pod Security Standard, so it can
-    run in a namespace that a configuration labels as restricted (curlimages/curl already runs as uid 100)."""
+    run in a namespace that a configuration labels as restricted (curlimages/curl already runs as uid 100), and
+    declaring explicit requests/limits, so it is admitted in a namespace whose ResourceQuota covers CPU/memory
+    without a LimitRange to supply defaults. The values sit inside every LimitRange min/max in the dataset."""
     return json.dumps({"spec": {
         "securityContext": {"runAsNonRoot": True, "runAsUser": 100, "seccompProfile": {"type": "RuntimeDefault"}},
         "containers": [{"name": pod, "image": PROBER_IMAGE, "command": command,
+                        "resources": {"requests": {"cpu": "50m", "memory": "64Mi"},
+                                      "limits": {"cpu": "200m", "memory": "128Mi"}},
                         "securityContext": {"allowPrivilegeEscalation": False, "capabilities": {"drop": ["ALL"]}}}]}})
 
 

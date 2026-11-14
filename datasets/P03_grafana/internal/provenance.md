@@ -25,7 +25,7 @@ Other abbreviations: `docker-docs` = `docs/sources/setup-grafana/installation/do
 | No dependencies with default configuration | `conf/defaults.ini` L236 (embedded SQLite default); `docker-docs` L43 (runs with a single `docker run`) |
 | Web UI reachable from outside the cluster | `k8s-docs` L49 ("Enable port `3000` in your network environment"), L234-236 (open the external IP in a browser), L250 |
 
-Smoke check sources: `/api/health` body as above; `/login` route in `pkg/api/api.go` L88 (`r.Get("/login", hs.LoginView)`) and the literal "Grafana" in `public/views/index.html` L219 (both read with `git show HEAD:<path>`); `grafana.db` location as above.
+Smoke check sources: `/api/health` body as above; `/login` route in `pkg/api/api.go` L88 (`r.Get("/login", hs.LoginView)`) and the literal "Grafana" in `public/views/index.html` L219 (both read with `git show HEAD:<path>`); `grafana.db` location as above. Data-path check (Fix 26, 2026-11-14): it also accepts an external PostgreSQL or MySQL database selected through the documented `[database] type` option (`conf/defaults.ini` L236 lists `mysql`, `postgres` and `sqlite3`), because a configuration that moves the state to such a database persists it there rather than in `grafana.db`; `api-health` (`"database": "ok"`) verifies that the configured database is reachable.
 
 ## Excluded facts (appear only in the human manifest, or mirror its decisions)
 - Service type `LoadBalancer` (also mentioned in `k8s-docs` prose L210, but it is a Service-type decision), the port name `http-grafana`, `sessionAffinity: None`.

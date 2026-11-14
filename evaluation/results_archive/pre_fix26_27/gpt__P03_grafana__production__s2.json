@@ -1,0 +1,441 @@
+{
+  "project": "P03_grafana",
+  "source": "gpt",
+  "prompt_variant": "production",
+  "sample_k": "2",
+  "timestamp": "2026-11-14T09:06:50Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 12,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 12,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 12,
+    "objects_accepted": 12,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "my-grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "grafana-secrets",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-config",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "grafana",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "grafana-pdb",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "HorizontalPodAutoscaler",
+        "name": "grafana-hpa",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "grafana-network-policy",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-datasources",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "grafana-dashboard-provider",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 510,
+  "resource_counts": {
+    "Namespace": 1,
+    "Secret": 1,
+    "ConfigMap": 3,
+    "ServiceAccount": 1,
+    "Deployment": 1,
+    "Service": 1,
+    "Ingress": 1,
+    "PodDisruptionBudget": 1,
+    "HorizontalPodAutoscaler": 1,
+    "NetworkPolicy": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 100,
+      "frameworks": {
+        "NSA": 100,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "failed": []
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      },
+      "failed": [
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'grafana' of Deployment 'grafana' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container grafana in deployment grafana (namespace: my-grafana) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 3,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "admin-password"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "secret-key"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "database-password"
+        }
+      ],
+      "nonsensitive_secret_literals": [
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "admin-user"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "database-host"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "database-name"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "grafana-secrets",
+          "key": "database-user"
+        }
+      ]
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 4,
+      "warning": 0,
+      "critical_by_check": {
+        "pod-probes-identical": 1,
+        "container-image-pull-policy": 1,
+        "container-security-context-user-group-id": 1,
+        "deployment-targeted-by-hpa-does-not-have-replicas-configured": 1
+      },
+      "warning_by_check": {}
+    },
+    "polaris": {
+      "ran": true,
+      "score": 92,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 1,
+      "by_check": {
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 0,
+      "zhang_density_per_kloc": 0.0,
+      "zhang_any": false
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 100.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 1,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 1,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 1,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "grafana",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-grafana-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-data-persistent",
+        "passed": false,
+        "detail": "volume type ['emptyDir']",
+        "oracle": false
+      },
+      {
+        "id": "R03-ui-external",
+        "passed": true,
+        "detail": "Ingress grafana -> grafana",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 2,
+    "requirements_total": 3,
+    "pct": 66.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "grafana/grafana:12.1.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 0,
+    "expected_replicas": 2,
+    "workloads": [
+      {
+        "ns": "my-grafana",
+        "kind": "Deployment",
+        "name": "grafana",
+        "ready": 0,
+        "want": 2
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "grafana-76b446968b-4ww5p",
+          "container": "grafana",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "e\":true,\"recordedQueriesMulti\":true,\"skipTokenRotationIfRecent\":true,\"ssoSettingsLDAP\":true,\"ssoSettingsSAML\":true,\"t\":\"2026-11-14T09:13:28.13533747Z\",\"tabularNumbers\":true,\"teamHttpHeadersMimir\":true,\"tlsMemcached\":true,\"transformationsRedesign\":true,\"unifiedRequestLog\":true,\"unifiedStorageHistoryPruner\":true,\"unifiedStorageSearchPermissionFiltering\":true,\"useSessionStorageForRedirection\":true}\n{\"dbtype\":\"postgres\",\"level\":\"info\",\"logger\":\"sqlstore\",\"msg\":\"Connecting to DB\",\"t\":\"2026-11-14T09:13:28.135474386Z\"}\nError: \u2717 dial tcp: lookup postgres.example.internal on 10.96.0.10:53: no such host"
+        },
+        {
+          "pod": "grafana-76b446968b-bg7c4",
+          "container": "grafana",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "\":true,\"recordedQueriesMulti\":true,\"skipTokenRotationIfRecent\":true,\"ssoSettingsLDAP\":true,\"ssoSettingsSAML\":true,\"t\":\"2026-11-14T09:13:35.125871176Z\",\"tabularNumbers\":true,\"teamHttpHeadersMimir\":true,\"tlsMemcached\":true,\"transformationsRedesign\":true,\"unifiedRequestLog\":true,\"unifiedStorageHistoryPruner\":true,\"unifiedStorageSearchPermissionFiltering\":true,\"useSessionStorageForRedirection\":true}\n{\"dbtype\":\"postgres\",\"level\":\"info\",\"logger\":\"sqlstore\",\"msg\":\"Connecting to DB\",\"t\":\"2026-11-14T09:13:35.126039995Z\"}\nError: \u2717 dial tcp: lookup postgres.example.internal on 10.96.0.10:53: no such host"
+        }
+      ],
+      "warning_events": {
+        "grafana-76b446968b-4ww5p|BackOff: Back-off restarting failed container grafana in pod grafana-": 18,
+        "grafana-76b446968b-bg7c4|BackOff: Back-off restarting failed container grafana in pod grafana-": 17,
+        "grafana-hpa|FailedGetResourceMetric: failed to get cpu utilization": 9,
+        "grafana-hpa|FailedGetResourceMetric: failed to get memory utilization": 8,
+        "grafana-hpa|FailedComputeMetricsReplicas: invalid metrics (2 invalid out of 2), first error is": 8,
+        "grafana-76b446968b-4ww5p|Unhealthy: Startup probe failed": 1,
+        "grafana-76b446968b-bg7c4|Unhealthy: Startup probe failed": 1
+      }
+    },
+    "client_placement": {
+      "namespace": "ingress-nginx",
+      "create_namespace": true,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "grafana-network-policy"
+    },
+    "smoke": [
+      {
+        "name": "api-health",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"database\": \"ok\"'"
+      },
+      {
+        "name": "login-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'Grafana'"
+      },
+      {
+        "name": "sqlite-db-in-data-dir",
+        "passed": false,
+        "detail": "exit 1: error: unable to upgrade connection: container not found (\"grafana\")"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

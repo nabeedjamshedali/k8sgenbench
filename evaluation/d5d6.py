@@ -246,14 +246,35 @@ def provision(ref, aliases):
 
 def load_shims(project):
     f = os.path.join(DATASETS, project, "runtime_shims.json")
-    return json.load(open(f)).get("env", []) if os.path.exists(f) else []
+    return json.load(open(f)) if os.path.exists(f) else {}
+
+
+def state_namespace(c, owner_ns, rule):
+    """Namespace in which a container's application reads its own state objects: the value of the `rule["arg"]` flag,
+    else of the `rule["env"]` variable (a fieldRef to metadata.namespace means the pod's own namespace), else
+    `rule["default"]`. None stands for the configuration's default namespace (the D5 namespace)."""
+    argv = [str(a) for a in (c.get("command") or []) + (c.get("args") or [])]
+    for i, a in enumerate(argv):
+        if a.startswith(rule["arg"] + "="):
+            return a.split("=", 1)[1]
+        if a == rule["arg"] and i + 1 < len(argv):
+            return argv[i + 1]
+    for e in c.get("env") or []:
+        if isinstance(e, dict) and e.get("name") == rule["env"]:
+            if e.get("value"):
+                return e["value"]
+            if ((e.get("valueFrom") or {}).get("fieldRef") or {}).get("fieldPath") == "metadata.namespace":
+                return owner_ns
+    return rule["default"]
 
 
 def apply_shims(docs, shims):
     import copy
     docs, applied = copy.deepcopy(docs), []
+    env_shims, obj_shims = shims.get("env", []), shims.get("objects", [])
+    wanted = []  # (object shim, namespace) for containers that need a state object the configuration does not define
 
-    def walk(o, owner):
+    def walk(o, owner, owner_ns):
         if isinstance(o, dict):
             for k, v in o.items():
                 if k in ("containers", "initContainers") and isinstance(v, list):
@@ -261,19 +282,37 @@ def apply_shims(docs, shims):
                         if not isinstance(c, dict) or not c.get("image"):
                             continue
                         base = split_ref(c["image"])[1].rsplit("/", 1)[-1].lower()
-                        for sh in shims:
+                        for sh in env_shims:
                             env = c.setdefault("env", []) if base == sh["image_basename"] else None
                             if env is not None and not any(isinstance(e, dict) and e.get("name") == sh["name"] for e in env):
                                 env.append({"name": sh["name"], "value": sh["value"]})
                                 applied.append({"object": owner, "container": c.get("name"), "env": sh["name"]})
+                        for sh in obj_shims:
+                            if base == sh["image_basename"]:
+                                wanted.append((sh, state_namespace(c, owner_ns, sh["namespace"])))
                 else:
-                    walk(v, owner)
+                    walk(v, owner, owner_ns)
         elif isinstance(o, list):
             for v in o:
-                walk(v, owner)
-    for d in docs:
+                walk(v, owner, owner_ns)
+    for d in list(docs):
         if isinstance(d, dict):
-            walk(d, f"{d.get('kind')}/{(d.get('metadata') or {}).get('name')}")
+            md = d.get("metadata") or {}
+            walk(d, f"{d.get('kind')}/{md.get('name')}", md.get("namespace"))
+    # An object shim fires only when the configuration defines no object of that kind and name at all (like the env
+    # shim's "does not already set it"); the object is created where the application looks for it, and recorded.
+    done = set()
+    for sh, ns in wanted:
+        defined = any(isinstance(d, dict) and d.get("kind") == sh["kind"]
+                      and (d.get("metadata") or {}).get("name") == sh["name"] for d in docs)
+        if defined or (sh["name"], ns) in done:
+            continue
+        obj = {"apiVersion": "v1", "kind": sh["kind"], "metadata": {"name": sh["name"]}, **sh["body"]}
+        if ns:
+            obj["metadata"]["namespace"] = ns
+        docs.append(obj)
+        done.add((sh["name"], ns))
+        applied.append({"object": f"{sh['kind']}/{sh['name']}", "namespace": ns or "(default)", "created": True})
     return docs, applied
 
 

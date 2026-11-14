@@ -1,0 +1,259 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-grafana
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-secrets
+  namespace: my-grafana
+type: Opaque
+stringData:
+  grafana.ini: '[server]
+
+    protocol = http
+
+    http_port = 3000
+
+    domain = localhost
+
+    root_url = %(protocol)s://%(domain)s:%(http_port)s/
+
+    serve_from_sub_path = false
+
+
+    [paths]
+
+    data = /var/lib/grafana
+
+    logs = /var/log/grafana
+
+    plugins = /var/lib/grafana/plugins
+
+    provisioning = /etc/grafana/provisioning
+
+
+    [database]
+
+    type = postgres
+
+    host = grafana-postgres:5432
+
+    name = grafana
+
+    user = grafana
+
+    password = $__file{/etc/grafana/secrets/db-password}
+
+    ssl_mode = disable
+
+
+    [security]
+
+    admin_user = admin
+
+    admin_password = $__file{/etc/grafana/secrets/admin-password}
+
+    secret_key = $__file{/etc/grafana/secrets/secret-key}
+
+
+    [users]
+
+    allow_sign_up = false
+
+    auto_assign_org = true
+
+    auto_assign_org_role = Viewer
+
+
+    [auth.anonymous]
+
+    enabled = false
+
+
+    [log]
+
+    mode = console
+
+    level = info
+
+
+    [analytics]
+
+    reporting_enabled = false
+
+    check_for_updates = false
+
+
+    [unified_alerting]
+
+    enabled = true
+
+    ha_listen_address = 0.0.0.0:9094
+
+
+    [remote_cache]
+
+    type = database
+
+
+    [metrics]
+
+    enabled = true
+
+    '
+  db-password: ChangeMe-DB-Password
+  admin-password: ChangeMe-Admin-Password
+  secret-key: ChangeMe-Secret-Key-At-Least-32-Chars
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning
+  namespace: my-grafana
+data:
+  datasources.yaml: "apiVersion: 1\ndatasources:\n  - name: Prometheus\n    type:\
+    \ prometheus\n    access: proxy\n    url: http://prometheus:9090\n    isDefault:\
+    \ true\n"
+  dashboards.yaml: "apiVersion: 1\nproviders:\n  - name: default\n    orgId: 1\n \
+    \   folder: \"\"\n    type: file\n    disableDeletion: false\n    editable: true\n\
+    \    options:\n      path: /etc/grafana/provisioning/dashboards\n"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: my-grafana
+  labels:
+    app: grafana
+spec:
+  type: LoadBalancer
+  selector:
+    app: grafana
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  - name: alerting
+    port: 9094
+    targetPort: 9094
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: my-grafana
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+      annotations:
+        checksum/config: replace-on-config-change
+    spec:
+      securityContext:
+        runAsUser: 472
+        runAsGroup: 472
+        fsGroup: 472
+        runAsNonRoot: true
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        - name: alerting
+          containerPort: 9094
+          protocol: TCP
+        env:
+        - name: GF_PATHS_CONFIG
+          value: /etc/grafana/grafana.ini
+        - name: GF_PATHS_DATA
+          value: /var/lib/grafana
+        - name: GF_PATHS_HOME
+          value: /usr/share/grafana
+        - name: GF_PATHS_LOGS
+          value: /var/log/grafana
+        - name: GF_PATHS_PLUGINS
+          value: /var/lib/grafana/plugins
+        - name: GF_PATHS_PROVISIONING
+          value: /etc/grafana/provisioning
+        volumeMounts:
+        - name: config
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
+          readOnly: true
+        - name: secrets
+          mountPath: /etc/grafana/secrets
+          readOnly: true
+        - name: provisioning
+          mountPath: /etc/grafana/provisioning
+          readOnly: true
+        - name: data
+          mountPath: /var/lib/grafana
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 5
+        resources:
+          requests:
+            cpu: 250m
+            memory: 750Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: config
+        secret:
+          secretName: grafana-secrets
+          items:
+          - key: grafana.ini
+            path: grafana.ini
+      - name: secrets
+        secret:
+          secretName: grafana-secrets
+          items:
+          - key: db-password
+            path: db-password
+          - key: admin-password
+            path: admin-password
+          - key: secret-key
+            path: secret-key
+      - name: provisioning
+        configMap:
+          name: grafana-provisioning
+      - name: data
+        emptyDir: {}

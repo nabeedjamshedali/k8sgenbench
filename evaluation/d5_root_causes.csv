@@ -27,3 +27,46 @@ gemini__P08_sock-shop__neutral__s3,compose_literalism_aux_only,user-sim segfault
 gemini__P08_sock-shop__production__s1,compose_literalism_aux_only,user-simulator command references a non-existent script (runusr.sh: not found; exit 127); queue-master OOMKilled (memory limit too low); app passes smoke 5/5,observed,last_log + last_reason
 gemini__P08_sock-shop__production__s2,compose_literalism_aux_only,user-sim StartError (exit 128); app passes smoke 5/5,observed,last_reason
 gemini__P08_sock-shop__production__s3,compose_literalism_aux_only,user-sim StartError (exit 128); queue-master OOMKilled; app passes smoke 5/5,observed,last_reason
+deepseek__P02_n8n__production__s3,invalid_yaml_or_object,unfenced reply with 12 objects and a single document separator; objects merge into duplicate keys (D1 parse failure),observed,parse_error
+deepseek__P07_online-boutique__neutral__s3,hardening_breaks_aux,adservice runAsNonRoot without a numeric runAsUser: kubelet cannot verify the image user (CreateContainerConfigError); app passes smoke 6/6,inferred,status + manifest
+deepseek__P07_online-boutique__production__s1,undetermined,Ready but every page returns HTTP 500 from the front end; no diagnostics are captured for Ready configurations,undetermined,smoke
+deepseek__P07_online-boutique__production__s2,empty_required_env,front end sets SHOPPING_ASSISTANT_SERVICE_ADDR to an empty string; the binary panics in mustMapEnv (shim fires only when the variable is absent),observed,last_log + manifest
+deepseek__P07_online-boutique__production__s3,empty_required_env,as production s2,observed,last_log + manifest
+gpt__P07_online-boutique__neutral__s2,empty_required_env,front end sets SHOPPING_ASSISTANT_SERVICE_ADDR to an empty string; mustMapEnv panic,observed,last_log + manifest
+gemini__P07_online-boutique__neutral__s2,probe_missing_binary,exec probes call /bin/grpc_health_probe which the v0.10.x images no longer ship (not in the bundled Dockerfiles); every service NotReady; front end 500,inferred,Unhealthy events + manifest + docs_bundle
+gemini__P07_online-boutique__production__s3,truncated_reply,output budget exhausted (MAX_TOKENS) before the YAML block closed; D1 parse failure,observed,finish_reason
+gemini__P10_k8s-dashboard__neutral__s2,no_output_recitation,provider stopped the response for reproducing training data (RECITATION); no configuration returned,observed,finish_reason
+gemini__P10_k8s-dashboard__neutral__s3,no_output_recitation,as neutral s2,observed,finish_reason
+gemini__P10_k8s-dashboard__production__s2,no_output_recitation,as neutral s2,observed,finish_reason
+qwen__P04_voting-app__production__s2,truncated_reply,output budget exhausted (finish_reason length) before the YAML block closed; D1 parse failure,observed,finish_reason
+qwen__P10_k8s-dashboard__neutral__s1,truncated_reply,model stopped early (finish_reason stop at 4181/8192 tokens) inside an RBAC list; YAML block never closed; D1 parse failure,observed,finish_reason + manifest
+qwen__P05_emojivoto__production__s2,invalid_yaml_or_object,a container declares image twice (duplicate key; D1 parse failure),observed,parse_error
+qwen__P10_k8s-dashboard__production__s1,invalid_yaml_or_object,duplicate securityContext key plus invalid fields runAsNonPrivileged/seccompprofile (D1 parse failure),observed,parse_error
+qwen__P02_n8n__neutral__s1,invalid_yaml_or_object,multi-port Service without port names rejected by the API server (n8n Service never created); postgres init script heredoc broken,observed,apply_errors + last_log
+qwen__P02_n8n__neutral__s2,invalid_yaml_or_object,multi-port Service without port names rejected; workloads Ready but n8n unreachable,observed,apply_errors
+qwen__P02_n8n__neutral__s3,probe_on_non_server_aux,n8n-runner readiness/liveness probes fail (runner restarted); app passes smoke 3/3,inferred,Unhealthy events
+qwen__P02_n8n__production__s1,probe_on_non_server_aux,as neutral s3; app passes smoke 3/3,inferred,Unhealthy events
+qwen__P02_n8n__production__s3,probe_on_non_server_aux,as neutral s3; app passes smoke 3/3,inferred,Unhealthy events
+qwen__P04_voting-app__production__s3,probe_on_non_server_aux,worker (no HTTP server) given HTTP probes that fail; app passes smoke 4/4,inferred,Unhealthy events + manifest
+qwen__P08_sock-shop__neutral__s1,invalid_yaml_or_object,multi-port Services edge-router and rabbitmq without port names rejected; front end partly unreachable,observed,apply_errors
+qwen__P08_sock-shop__neutral__s2,wrong_service_port,front-end Service targets port 8070 while the container listens on 8079,observed,manifest + smoke
+qwen__P08_sock-shop__neutral__s3,invalid_yaml_or_object,every object apiVersion v1 (Deployments invalid); illegal base64 Secret; unknown fields; nothing deployed; images under the non-existent weaveworks/ org,observed,apply_errors + manifest
+qwen__P08_sock-shop__production__s1,invalid_yaml_or_object,unknown fields in Deployments; images under the non-existent weaveworks/ org; catalogue-db chown not permitted under hardening; mongo containers abort,observed,apply_errors + last_log
+qwen__P08_sock-shop__production__s2,unavailable_image,front end references the non-existent weaveworks/ image org (no front end runs); user-db exits; queue-master OOMKilled,observed,smoke + last_reason
+qwen__P08_sock-shop__production__s3,unavailable_image,as production s2 plus a Deployment with misspelled fields rejected,observed,apply_errors + smoke
+gpt__P02_n8n__production__s1,hardening_breaks_aux,n8n-runner runAsNonRoot without a numeric runAsUser: kubelet cannot verify the image user (CreateContainerConfigError); app passes smoke 3/3,inferred,status + manifest
+gpt__P02_n8n__production__s3,hardening_breaks_aux,as production s1,inferred,status + manifest
+gpt__P03_grafana__production__s3,placeholder_domain_enforced,enforce_domain=true with placeholder domain grafana.example.com: every UI request is redirected to an unresolvable host (HTTP 301),observed,manifest + smoke
+gpt__P04_voting-app__production__s1,undetermined,Ready but the vote table never appears in postgres (relation votes does not exist); worker/db wiring suspected,undetermined,smoke
+gpt__P04_voting-app__production__s2,hardening_breaks_db,postgres chown/chmod not permitted after capabilities drop ALL; redis setpriv fails under the same hardening,observed,last_log
+gpt__P04_voting-app__production__s3,hardening_breaks_db,postgres chown/chmod not permitted after capabilities drop ALL,observed,last_log
+gpt__P08_sock-shop__neutral__s1,compose_literalism_aux_only,docker.sock hostPath on queue-master and user-sim Job from Compose; app passes smoke 5/5,observed,FailedMount + events
+gpt__P08_sock-shop__neutral__s2,memory_limit_too_low,carts/orders/shipping OOMKilled (exit 137); cart-read 500; user-sim segfaults,observed,last_reason
+gpt__P08_sock-shop__production__s1,liveness_kills_slow_start,startup probe budget shorter than JVM start: carts/orders/shipping killed (exit 137 Error) during start-up; queue-master OOMKilled,observed,Unhealthy(startup) events + last_reason
+gpt__P10_k8s-dashboard__neutral__s1,networkpolicy_blocks_path,scraper ingress admitted only from dashboard pods and no --sidecar-host: dashboard's documented service-proxy route is blocked,supported (same mechanism as claude P10 production s1),manifest + smoke
+gpt__P10_k8s-dashboard__neutral__s2,hallucinated_flag,scraper started with a non-existent --port flag (exit 2),observed,last_log
+gpt__P10_k8s-dashboard__production__s1,hardening_breaks_api_access,scraper automountServiceAccountToken false: no in-cluster credentials (exit 1),observed,last_log + manifest
+gpt__P10_k8s-dashboard__production__s3,hallucinated_flag,scraper started with a non-existent --port flag (exit 2),observed,last_log
+deepseek__P10_k8s-dashboard__neutral__s2,undetermined,dashboard container StartError (exit 128); arguments look valid,undetermined,last_reason
+deepseek__P10_k8s-dashboard__neutral__s3,undetermined,dashboard Ready but does not reach the scraper although scraper ingress is open (scraper Service port named https),undetermined,smoke + manifest
+deepseek__P10_k8s-dashboard__production__s1,invalid_rbac_object,Role rejected (unquoted resource name parsed as a map); scraper unreachable,observed,apply_errors

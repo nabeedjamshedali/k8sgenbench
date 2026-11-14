@@ -4,8 +4,10 @@
      "method": "GET", "path": "/api/health", "expect_status": 200, "expect_body": "\"database\": \"ok\"", "retry_seconds": 120},
     {"name": "login-page", "target": {"image": "grafana/grafana", "port": 3000},
      "method": "GET", "path": "/login", "expect_status": 200, "expect_body": "Grafana"},
-    {"name": "sqlite-db-in-data-dir", "exec": {"image": "grafana/grafana", "command": ["ls", "/var/lib/grafana/grafana.db"]},
-     "expect_regex": "grafana[.]db"}
+    {"name": "sqlite-db-in-data-dir", "exec": {"image": "grafana/grafana", "command": ["sh", "-c",
+       "ls /var/lib/grafana/grafana.db 2>/dev/null || grep -iE '^[[:space:]]*type[[:space:]]*=[[:space:]]*(postgres|mysql)' \"${GF_PATHS_CONFIG:-/etc/grafana/grafana.ini}\" 2>/dev/null || env | grep -iE '^GF_DATABASE_TYPE=(postgres|mysql)'"]},
+     "expect_regex": "grafana[.]db|postgres|mysql",
+     "note": "Fix 26: state is persisted either in the embedded SQLite file in the data directory (the default) or in an external PostgreSQL/MySQL database selected through the documented [database] type option of conf/defaults.ini; api-health verifies that the configured database is reachable."}
   ],
   "d6_target": {"image": "grafana/grafana", "port": 3000, "path": "/api/health"}
 }

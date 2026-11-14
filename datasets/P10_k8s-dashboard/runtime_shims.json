@@ -1,0 +1,12 @@
+{
+ "why": "Fix 27 (2026-11-14). The dashboard binary exits at start-up unless a Secret named kubernetes-dashboard-csrf exists in the namespace it reads its state from (internal/provenance.md: src/app/backend/client/csrf/manager.go L36-52, called from client/manager.go). Neither the Secret nor its name appears in docs_bundle/; requirements.py already treats it as an oracle fact (R06, excluded from the D4 score). Following the methodology's rule for runtime prerequisites that an image enforces but docs_bundle/ never states, D5 creates an empty Secret of that name, in the namespace the dashboard reads (its --namespace flag, else POD_NAMESPACE, else the documented default kube-system), whenever the configuration defines no Secret with that name. Only the object is created; RBAC is left exactly as the configuration wrote it. No-op for the human manifest. The manifest on disk is never edited; every creation is recorded in the result, and objects in protected namespaces are deleted after the run.",
+ "objects": [
+  {
+   "image_basename": "dashboard",
+   "kind": "Secret",
+   "name": "kubernetes-dashboard-csrf",
+   "body": {"type": "Opaque", "data": {"csrf": ""}},
+   "namespace": {"arg": "--namespace", "env": "POD_NAMESPACE", "default": "kube-system"}
+  }
+ ]
+}
