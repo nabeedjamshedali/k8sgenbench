@@ -35,10 +35,12 @@ def cell_bin(s):
 
 
 def cell_cont(s):
+    """(median, interquartile range) cells; the overview tables put the range on its own line under the median,
+    so the wide tables fit the text width at full size."""
     v = pd.to_numeric(s, errors="coerce").dropna()
-    # median above its interquartile range, so the wide overview tables fit the text width at full size
-    return (rf"\shortstack[r]{{{v.median():.1f}\\{{\scriptsize[{v.quantile(.25):.1f}, {v.quantile(.75):.1f}]}}}}"
-            if len(v) else "--")
+    if not len(v):
+        return "--", ""
+    return f"{v.median():.1f}", rf"{{\scriptsize[{v.quantile(.25):.1f}, {v.quantile(.75):.1f}]}}"
 
 
 def write(name, body):
@@ -56,7 +58,10 @@ def overview(df, variant):
             " & ".join(["Configurations"] + [str(int((sub.source == s).sum())) for s in present]) + r" \\ \midrule"]
     rows += [" & ".join([lab] + [cell_bin(sub[sub.source == s][c]) for s in present]) + r" \\" for c, lab in BIN]
     rows.append(r"\midrule")
-    rows += [" & ".join([lab] + [cell_cont(sub[sub.source == s][c]) for s in present]) + r" \\" for c, lab in CONT]
+    for c, lab in CONT:
+        cells = [cell_cont(sub[sub.source == s][c]) for s in present]
+        rows.append(" & ".join([lab] + [m for m, _ in cells]) + r" \\[-2pt]")
+        rows.append(" & ".join([""] + [q for _, q in cells]) + r" \\ \addlinespace[3pt]")
     cap = ("Six-dimension results, %s prompt. Binary rows: percentage (count/n); continuous rows: median "
            "[interquartile range]. The human column is the shipped manifest of each project (one per project). "
            "Continuous rows are computed over the configurations for which the metric is defined: static scores over "
