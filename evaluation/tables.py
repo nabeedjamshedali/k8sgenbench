@@ -56,8 +56,9 @@ def overview(df, variant):
            "[interquartile range]. The human column is the shipped manifest of each project (one per project). "
            "D5 time to Ready and D6 are conditional on deployment.") % variant
     body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n" rf"\caption{{{cap}}}\label{{tab:overview-{variant}}}" "\n"
+            r"\resizebox{\textwidth}{!}{%" "\n"
             rf"\begin{{tabular}}{{{cols}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n" r"\bottomrule" "\n"
-            r"\end{tabular}" "\n" r"\end{table*}" "\n")
+            r"\end{tabular}}" "\n" r"\end{table*}" "\n")
     write(f"tab_overview_{variant}.tex", body)
 
 
@@ -158,8 +159,9 @@ def root_causes(df):
             r"cluster's record (exit reason, log lines, events, rejected objects or provider stop reason); the remainder "
             r"are inferred from the manifest together with the observed status, or, for two mechanisms, supported by a "
             r"matched contrast.}\label{tab:root-causes}" "\n"
+            r"\resizebox{\textwidth}{!}{%" "\n"  # 10 columns overflow the two-column text width otherwise
             rf"\begin{{tabular}}{{l{'r' * (len(models) + 4)}}}" "\n" r"\toprule" "\n" + "\n".join(rows) + "\n"
-            r"\bottomrule" "\n" r"\end{tabular}" "\n" r"\end{table*}" "\n")
+            r"\bottomrule" "\n" r"\end{tabular}}" "\n" r"\end{table*}" "\n")
     write("tab_root_causes.tex", body)
 
 
@@ -182,8 +184,9 @@ def rahman(df):
     body = (r"\begin{table*}[t]" "\n" r"\centering\small" "\n"
             r"\caption{Share of configurations (\%) exhibiting each security misconfiguration category of Rahman et al., "
             r"detected with the rules of their SLI-KUBE tool. N = neutral prompt, P = production prompt.}"
-            r"\label{tab:rahman}" "\n" rf"\begin{{tabular}}{{l{'r' * len(groups)}}}" "\n" r"\toprule" "\n" +
-            "\n".join(rows) + "\n" r"\bottomrule" "\n" r"\end{tabular}" "\n" r"\end{table*}" "\n")
+            r"\label{tab:rahman}" "\n" r"\resizebox{\textwidth}{!}{%" "\n"
+            rf"\begin{{tabular}}{{l{'r' * len(groups)}}}" "\n" r"\toprule" "\n" +
+            "\n".join(rows) + "\n" r"\bottomrule" "\n" r"\end{tabular}}" "\n" r"\end{table*}" "\n")
     write("tab_rahman.tex", body)
 
 
