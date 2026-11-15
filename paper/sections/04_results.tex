@@ -96,11 +96,12 @@ Figure~\ref{fig:tradeoff} summarises the effect for each model. Table~\ref{tab:o
 
 \textbf{Deployment success goes down.} The smoke-test pass rate falls from 76.8\% (76 of 99) to 60.6\% (60 of 99), and the fully Ready rate from 72.7\% to 56.6\%. Across model--project pairs, the fully Ready rate falls in 13 and rises in 3, and the smoke-test rate falls in 12 and rises in 3; both declines are significant. Gemini is the exception: its rates are nearly the same under both prompts (Figure~\ref{fig:tradeoff}), and its scores also changed least. The added failures are those of Section~\ref{sec:res-rq4}: hardening that stops a database and liveness probes that kill slow-starting services.
 
-% Set in the text: as a float it was deferred past the Conclusion
-\begin{inlinefigure}
-\includegraphics[width=\columnwidth]{figures/fig_tradeoff.pdf}
+% Full-width float: a one-column float queues behind the earlier full-width figure, and an inline one leaves gaps
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.55\textwidth]{figures/fig_tradeoff.pdf}
 \caption{Static security against deployment success, per model. Open marker = neutral prompt, filled = production prompt (vertical bars: 95\% Wilson intervals of the smoke-test rate); diamond = human manifests. Two coincident markers (Claude neutral, Gemini production) are offset slightly.}
 \label{fig:tradeoff}
-\end{inlinefigure}
+\end{figure*}
 
 \textbf{Recovery does not change.} Every configuration that recovered from all faults under one prompt also did under the other. Downtime during a fault depends almost entirely on the number of replicas: about 6--7~s with one replica, for every source, and 0.2~s with two or more. The production prompt gives the faulted workload two or more replicas in 55\% of configurations, against 12\% under the neutral prompt and none of the human manifests.
