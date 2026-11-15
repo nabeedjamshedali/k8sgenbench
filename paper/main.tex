@@ -75,7 +75,26 @@ Kubernetes \sep Large Language Models \sep Infrastructure as Code \sep Security 
 
 \FloatBarrier
 \appendix
-\section{Pipeline corrections}\label{app:fixes}
+\section{Measurement instruments and pipeline corrections}\label{app:fixes}
+
+\begin{table}[t]
+\centering\small
+\caption{Outcome instruments per project. D4: scored and oracle checks. Smoke test: steps in order. Each step is an HTTP request with an expected status and content, except the data-store checks, which run a command in the data-store container. Only Correction~26 (Appendix~\ref{app:fixes}) changed a check's criterion after results were seen. Corrections 5, 17, 20, 21 and 25 changed where the client runs, not what it checks.}\label{tab:instruments}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrp{0.62\columnwidth}}
+\toprule
+Project & D4 & Smoke-test steps \\ \midrule
+n8n & 13/0 & health endpoint; readiness including the database; n8n schema present in PostgreSQL \\
+Grafana & 3/0 & API health reports the database as ok; login page; data store present (SQLite file, or PostgreSQL or MySQL as documented) \\
+Voting app & 12/0 & vote page; result page; cast a vote; vote stored in the database \\
+Emojivoto & 12/0 & web page; emoji list; cast a vote; leaderboard shows the vote \\
+Online Boutique & 11/43 & home page lists products; product page; add to cart; view cart; cart stored in Redis; checkout completes \\
+Sock Shop & 27/7 & home page; catalogue; tags; demo-user login; cart read \\
+Dashboard & 7/11 & UI page; API-server health; metrics-scraper health; dashboard reaches the scraper \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
 
 Table~\ref{tab:fixes} lists every correction to the evaluation pipeline, in the order made (the log numbers them 2--27; no corrections 1 and 18 were recorded). Of the 25, 8 are B, 9 are M, 5 are D and 3 are P (definitions in the caption). Effect: $+$ removes a failure that the investigation traced to the measurement or to an undocumented prerequisite; $-$ makes scoring stricter; 0 affects only the running of the pipeline. Each correction was applied to every configuration it could affect, followed by re-evaluation.
 
