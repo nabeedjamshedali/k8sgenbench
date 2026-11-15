@@ -1,0 +1,92 @@
+\section{Statistical details}\label{app:stats}
+
+% Numbers come from evaluation/analysis/report.md (stats.py) and evaluation/analysis/robust_report.md (robust.py).
+This appendix gives the statistical tests behind the statements in Section~\ref{sec:results}.
+
+\subsection{Analysis approach}
+
+Configurations are clustered. The three samples of a (model, project, prompt) cell share their input, and the projects differ widely. So, wherever the question allows, inference treats the project or the (model, project) cell as the unit. Configuration-level tests are reported as descriptive support. Binary outcomes are shown with 95\% Wilson intervals \citep{wilson1927probable}.
+
+\emph{RQ1} compares each model's neutral-prompt configurations with the human manifests at configuration level. For continuous metrics, it uses the Kruskal--Wallis test \citep{kruskal1952ranks} followed by Dunn's test \citep{dunn1964multiple}. For binary ones, it uses Fisher's exact test. The effect size is Cliff's $\delta$ \citep{cliff1993dominance} (negligible $<0.147$, small $<0.33$, medium $<0.474$, large otherwise \citep{romano2006appropriate}). Only seven human configurations exist, so we repeat RQ1 at project level. Each model's mean over the three samples of a project is paired with that project's human manifest. With $n\le7$ pairs, a Wilcoxon test adjusted over five models cannot reach $p<0.078$. So this analysis reports Hodges--Lehmann differences with exact 95\% intervals. \emph{RQ3} compares the five models with a Friedman test \citep{friedman1937ranks} blocked on project, over the five projects every model completed. The effect size is Kendall's $W$. Five blocks are too few for the $\chi^2$ approximation, so $p$-values come from 20,000 within-block permutations. Configuration-level Kruskal--Wallis tests are reported alongside. Consistency is the across-sample standard deviation of each metric within a cell and the share of cells whose three samples agree on the runtime outcome. \emph{RQ5} pairs the two prompts at the (model, project) cell. It compares the cell's mean (or pass rate) under each prompt with the Wilcoxon signed-rank test. Pairing individual samples is not meaningful, because the sample index carries no information across prompts. As a secondary view, we report exact McNemar tests \citep{mcnemar1947note} on configuration pairs. We report per-model effects as Hodges--Lehmann estimates, and heterogeneity between models with a Kruskal--Wallis test on the per-cell changes. We check robustness by leaving out one project at a time. \emph{RQ4} models each binary runtime outcome with a logistic regression on one standardised static score. Prompt and project are fixed effects, and standard errors are clustered by (model, project) cell \citep{cameron2015cluster}. A second specification adds model fixed effects. A cluster bootstrap over cells (999 replicates) checks the sandwich intervals. RQ2 reports frequencies. We measure agreement between Kubescape and Trivy on their overlapping checks with Cohen's $\kappa$ \citep{cohen1960kappa}.
+
+$P$-values are adjusted with the Holm procedure \citep{holm1979simple} within explicitly defined families: the pairwise comparisons after one omnibus test; the five per-model tests of one metric; the three static scores (and, separately, the two deployment outcomes) of one prompt in RQ3; the ten score--outcome models of each RQ4 specification; and, in RQ5, the six static measures and, separately, the two deployment outcomes. The other RQ5 comparisons (requirement satisfaction, time to Ready and the D6 measures) are secondary and reported unadjusted.
+
+\subsection{RQ1}
+
+\textbf{Correctness.} The share of accepted objects differs across sources (Kruskal--Wallis $H=21.81$, $p<0.001$) only because of Qwen (Dunn, $p\le0.049$ against the human manifests, Claude, DeepSeek and GPT).
+
+\textbf{Security.} Kubescape compliance differs across sources ($H=24.50$, $p<0.001$). GPT (Cliff's $\delta=+0.565$, large) and Claude ($+0.327$, small) lie above the human manifests, and Qwen ($-0.637$, large) below them. However, none of these differences survives adjustment. The significant pairs are Claude--Qwen and GPT--Qwen. For the secret check, the omnibus test gives $\chi^2=1.08$, $p=0.956$, and every pairwise Fisher test against the human manifests gives $p=1.000$.
+
+\textbf{Reliability and requirements.} For checklist coverage, Claude and GPT have $\delta=+0.50$ and $+0.72$, and the GPT--human difference is significant at configuration level ($p=0.040$). KubeLinter smell density does not differ significantly between sources ($H=9.62$, $p=0.087$), and neither does requirement satisfaction ($H=10.47$, $p=0.063$).
+
+\textbf{Deployment and recovery.} No pairwise difference in deployment outcomes with the human manifests is significant (Fisher, all $p\ge0.60$). Time to Ready does not differ ($H=5.84$, $p=0.322$), and neither does recovery time ($H=1.77$, $p=0.880$).
+
+\textbf{Project level.} Table~\ref{tab:rq1-hl} reports the project-level Hodges--Lehmann differences. The intervals for Kubescape compliance and Polaris score include zero for every model; the widest Kubescape interval is GPT's, $-5.3$ to $+9.9$. GPT's and Claude's checklist coverage is higher than the human manifests' ($+20.4$ points, 95\% CI $+5.6$ to $+37.5$, and $+11.1$, CI $+0.5$ to $+30.0$; unadjusted). Restricting the configuration-level comparison to the five projects every model completed leaves the pattern unchanged (for GPT, checklist $\delta=+0.93$). The two production-oriented human manifests (Grafana and the Kubernetes Dashboard) score below most models on Kubescape compliance and checklist coverage. Their large effect sizes cannot be tested meaningfully with only two human configurations.
+
+\begin{table}[t]
+\centering\small
+\caption{RQ1 at project level: Hodges--Lehmann difference (model $-$ human) with exact 95\% CI, over the projects' mean neutral-prompt scores ($n=7$ projects; Qwen $n=5$). Rates in percentage points. A project's smoke-test rate takes values in thirds, so that column is coarse.}\label{tab:rq1-hl}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Model & Kubescape (pts) & Checklist (pts) & Smoke test (pp) \\ \midrule
+Claude & $+1.4$ [$-4.7$, $+4.4$] & $+11.1$ [$+0.5$, $+30.0$] & $0$ [$0$, $+17$] \\
+DeepSeek & $-0.1$ [$-5.3$, $+5.6$] & $+6.9$ [$-10.7$, $+25.0$] & $0$ [$-50$, $+33$] \\
+Gemini & $-0.1$ [$-4.9$, $+4.8$] & $+1.6$ [$-10.4$, $+20.0$] & $0$ [$-33$, $+50$] \\
+GPT & $+5.9$ [$-5.3$, $+9.9$] & $+20.4$ [$+5.6$, $+37.5$] & $0$ [$-50$, $+33$] \\
+Qwen & $-2.5$ [$-9.4$, $+0.3$] & $+6.2$ [$-7.8$, $+25.0$] & $-33$ [$-100$, $0$] \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{RQ2}
+
+Kubescape and Trivy largely agree on the five checks that both implement (Cohen's $\kappa=0.88$ overall, 0.70--1.00 per check). Table~\ref{tab:checklist-items} gives the share of workloads missing each reliability checklist item. Under the production prompt, missing PodDisruptionBudgets fall from 100\% to 34\% for Claude, and every workload from Claude, DeepSeek and GPT sets resource requests and limits.
+
+\input{tables/tab_checklist_items}
+
+Measured the same way, the models' KubeLinter smell densities are comparable to the human manifests'. The exception is that 10.8--16.1 containers per thousand lines may run as root, against 7.7. They are lower than those \citet{zhang2024genaismells} reported for ChatGPT manifests of 2023. However, the units differ (whole multi-object configurations here, mostly single-object files there), so the comparison is not like for like.
+
+\subsection{RQ3}
+
+Blocked on project (Friedman test over the five common projects, permutation $p$-values Holm-adjusted over the three scores of each prompt), the models differ under the neutral prompt in Kubescape compliance ($\chi^2=10.63$, adjusted $p=0.019$, $W=0.53$), checklist coverage ($\chi^2=13.29$, $p=0.005$, $W=0.66$) and Polaris score ($\chi^2=13.60$, $p=0.005$, $W=0.68$). Under the production prompt, $\chi^2\ge16.48$, adjusted $p<0.001$ and $W\ge0.82$. Configuration-level tests over all projects agree ($H=60.80$, $46.91$ and $49.19$ for the production prompt). Requirement satisfaction differs between models only under the neutral prompt, and only between Gemini and GPT ($H=10.27$, $p=0.036$; Dunn $p=0.030$).
+
+For deployment success, the adjusted permutation $p$ are $0.864$ (neutral) and $0.209$ (production) for becoming fully Ready, and $0.241$ and $0.209$ for the smoke test. At configuration level, the smoke-test rate does differ (neutral $\chi^2=10.78$, $p=0.029$; production $\chi^2=13.95$, $p=0.007$, Gemini 90\% against DeepSeek 38\%), but these differences do not persist once projects are blocked, although five blocks give this test little power.
+
+The median across-sample standard deviation is 0 for Gemini on Kubescape compliance and checklist coverage. For Qwen it is 15.8 points for the share of objects accepted and 11.1 for checklist coverage. Gemini and Qwen, the two models whose temperature was fixed, lie at opposite ends, so access settings alone do not explain the differences.
+
+\subsection{RQ4}
+
+Pooled over both prompts, configurations with higher Polaris scores and Kubescape compliance pass the smoke test less often ($r_{pb}=-0.29$ and $-0.23$, Holm-adjusted $p<0.001$ and $p=0.026$), and those with more KubeLinter smells pass it more often ($+0.28$, $p=0.001$). Part of this reflects the prompt, which raises static scores and lowers success together. Table~\ref{tab:rq4} holds prompt and project fixed and clusters errors by cell. The odds ratios per standard deviation of the four scanner-based scores do not differ significantly from 1 for either outcome after adjustment. The point estimates for the smoke test are below 1 (Kubescape 0.46, Polaris 0.47), and lower still with model fixed effects (0.24 and 0.19), whose unadjusted intervals exclude 1 but whose adjusted $p$ are 0.082 and 0.165. So the data give no sign that higher scores go with working deployments, without establishing that they go with failing ones. A cluster bootstrap over the 28 cells, which does not rely on the sandwich approximation, gives the same picture: for Polaris with model fixed effects, the 95\% interval is 0.02--0.95, and for the other scanner scores it includes 1. Only one project drops out of these models: Emojivoto, whose configurations never failed either outcome. Requirement satisfaction is associated with becoming fully Ready (odds ratio 2.89, 95\% CI 1.39--6.02, adjusted $p=0.046$; bootstrap CI 1.66--12.57).
+
+Readiness and the smoke test disagree for 28 configurations. In the 18 that served every request without becoming fully Ready, six were from Gemini, four each from DeepSeek and Qwen, three from GPT and one from Claude. Of the 10 that were Ready but did not work, six had a Service, RBAC object or NetworkPolicy on the request path rejected or misdirected, one enforced a placeholder domain, and in three the cause is unknown.
+
+\begin{table}[t]
+\centering\small
+\caption{RQ4: logistic regression of each runtime outcome on one standardised static score, with prompt and project fixed effects; standard errors clustered by (model, project) cell (28 cells; projects in which the outcome never varies are excluded). OR = odds ratio per standard deviation; $p$ Holm-adjusted across the ten models of each specification. Right: the same models with model fixed effects added.}\label{tab:rq4}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+ & & \multicolumn{2}{c}{Prompt + project} & \multicolumn{2}{c}{+ model} \\
+Static score & Outcome & OR (95\% CI) & $p$ & OR (95\% CI) & $p$ \\ \midrule
+Kubescape compliance & fully Ready & 1.01 (0.52--1.96) & 1.000 & 0.78 (0.28--2.14) & 1.000 \\
+ & smoke test & 0.46 (0.21--1.04) & 0.561 & 0.24 (0.08--0.70) & 0.082 \\
+Checklist coverage & fully Ready & 1.37 (0.74--2.53) & 1.000 & 1.52 (0.72--3.20) & 1.000 \\
+ & smoke test & 0.65 (0.32--1.35) & 1.000 & 0.66 (0.29--1.47) & 1.000 \\
+Polaris score & fully Ready & 1.08 (0.46--2.55) & 1.000 & 0.80 (0.21--3.03) & 1.000 \\
+ & smoke test & 0.47 (0.17--1.29) & 0.856 & 0.19 (0.05--0.78) & 0.165 \\
+Smells per KLOC & fully Ready & 1.11 (0.62--2.00) & 1.000 & 1.13 (0.54--2.33) & 1.000 \\
+ & smoke test & 1.97 (0.92--4.24) & 0.577 & 2.16 (0.91--5.09) & 0.549 \\
+Requirements met & fully Ready & 2.89 (1.39--6.02) & 0.046 & 3.43 (1.44--8.17) & 0.054 \\
+ & smoke test & 1.76 (0.95--3.26) & 0.561 & 2.05 (0.92--4.57) & 0.549 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{RQ5}
+
+Across the 33 (model, project) cells, all five static changes have $p<0.001$, and the rise in configurations passing the \texttt{restricted} Pod Security Standard has $p=0.001$. Per-model Kubescape gains, as Hodges--Lehmann estimates with exact 95\% intervals, are $+19.8$ points for Claude [$+15.8$, $+21.4$], $+12.4$ for GPT [$+7.2$, $+17.3$], $+10.1$ for DeepSeek [$+7.4$, $+14.4$], $+3.6$ for Gemini [$+0.3$, $+6.9$] and $+5.7$ for Qwen [$-0.3$, $+11.4$]. With seven cells per model (five for Qwen), no per-model test can fall below an adjusted $p$ of 0.078. The gain differs in size between models (Kruskal--Wallis over cells, $H=19.97$, $p<0.001$). The checklist gain is positive for every model except Qwen, whose interval includes zero, and does not differ significantly between models ($p=0.437$). Requirement satisfaction does not change ($p=0.379$).
+
+The decline in the fully Ready rate has Holm-adjusted $p=0.010$ (Wilcoxon on cell rates, which with ties dropped is close to a sign test), and the decline in the smoke-test rate $p=0.017$. Leaving out any one project keeps the decline in the fully Ready rate ($p\le0.050$). The same holds for the smoke-test rate, except when the voting app is left out ($p=0.125$). Counted by configuration, 21 became fully Ready only under the neutral prompt and 5 only under the production one; for the smoke test, they are 23 against 7.
+
+Recovery time does not change ($p=0.902$). With one replica, the median downtime is 6.2~s for the human manifests and 6.5~s and 7.1~s under the neutral and production prompts, with no difference between sources ($H=6.64$, $p=0.249$). Median availability during the faults rises under the production prompt ($p=0.010$ across cells).
