@@ -56,9 +56,8 @@ def check(docs):
     # anywhere). A model given only docs_bundle/ cannot discover this exact registry path, so
     # matching against it is diagnostic-only ("did it happen to guess/know the real production
     # registry"), never a scored D4 requirement. This mirrors the same oracle reasoning already
-    # applied to addr_routes() below for env var names. See PROGRESS.md Phase R1 for the pipeline
-    # run that surfaced this (every model except one that reproduced the real registry from prior
-    # knowledge scored near-zero on these checks before this fix).
+    # applied to addr_routes() below for env var names (every model except one that reproduced the
+    # real registry from prior knowledge scored near-zero on these checks before this was made diagnostic).
     for i, img in enumerate([FRONTEND, CART, CATALOG, CURRENCY, PAYMENT, SHIPPING, EMAIL, CHECKOUT,
                              RECOMMENDATION, AD, LOADGEN, REDIS], 1):
         c.image_deployed(f"R{i:02d}-{img.rsplit('/', 1)[-1]}-deployed", img, oracle=True)

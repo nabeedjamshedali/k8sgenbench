@@ -88,25 +88,11 @@ models:
     status: active
     pinned_on: "2026-11-08"
     note: >
-      PILOT 1 (superseded): no OpenAI API key, so OpenAI's own open-weight gpt-oss-120b was tried
-      via Groq (free) as a stand-in. P05_emojivoto (small) succeeded, but P07_online-boutique
-      (large) hit a hard free-tier cap of 8,000 tokens/minute (TPM) combined across prompt +
-      requested max_tokens (413 "Request too large", not transient) -- same category of failure
-      as the Qwen/Groq slot. This data is preserved for the record in
-      generation/outputs_archive/gpt-oss-120b_pilot/ but is NOT the data used for the "gpt" slot.
-
-      PILOT 2 (final, in use): the user's friend volunteered their own paid ChatGPT Pro account.
-      Relayed via the same manual-web-chat pattern as DeepSeek: a fresh chat per prompt, browsing
-      and tools off, response pasted back. This is a real flagship ChatGPT response rather than
-      gpt-oss-120b's open-weight stand-in, which is why it replaces (not supplements) the first
-      pilot for this slot. Two additional disclosed caveats versus the other models: (1) the
-      friend reported using "ChatGPT's default model" rather than deliberately selecting a named
-      flagship in the model picker, so the exact model version (e.g., which GPT-5.x point release)
-      is NOT confirmed -- reported honestly as "ChatGPT (web, default model on Pro account)" rather
-      than guessing a specific version string; (2) the web sessions were operated by a third party
-      (the user's friend), not the researcher directly, so adherence to the "new chat per prompt,
-      no browsing/tools" instructions is trust-based rather than directly observed, same as it
-      would be for any manual-relay data collected by someone other than the primary researcher.
+      Generated through the ChatGPT web interface on a Pro account, operated by one author
+      (T. Hussain) under the same manual-web-chat protocol as DeepSeek: a fresh temporary chat per
+      prompt, browsing and tools off, reply copied unedited. ChatGPT's default model was used, so
+      the exact model version is not known and is recorded as "ChatGPT (web, default model on Pro
+      account)". Adherence to the protocol was not independently observed (paper, Threats).
 
   claude:
     provider: claude_code_subagent

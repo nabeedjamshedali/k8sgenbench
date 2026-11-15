@@ -33,8 +33,8 @@ nothing in it is ever read by a model or by the evaluation pipeline.
 
 ## Building `docs_bundle/`
 
-Use `datasets/build_docs_bundle.py <project>`. It takes the same kind of file list `deploy_check.py`
-uses, copies each file from the cache unmodified, then runs the redaction passes in
+Use `datasets/build_docs_bundle.py <project>`. It takes the project's list of documentation files,
+copies each file from the cache unmodified, then runs the redaction passes in
 `datasets/common/redact.py` and writes `internal/redaction_log.md`. Nothing in the bundle is
 written by a person or a model — a file is included whole or excluded whole, except for the
 specific redactions below.

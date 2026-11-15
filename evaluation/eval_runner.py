@@ -1,10 +1,8 @@
-"""K8sGenBench evaluation runner — Phase R1: D1 (correctness) + D4 (requirement satisfaction).
+"""K8sGenBench evaluation runner: one configuration through D1 (correctness), D2 (security), D3 (static
+reliability) and D4 (requirement satisfaction), and with --runtime also D5 (deployment and smoke test) and
+D6 (recovery from injected faults), via d2d3.py and d5d6.py. Writes evaluation/results/<config>.json.
 
-D2 (security), D3 (static reliability), D5 (deploy) and D6 (resilience) are added in later phases
-(see PROGRESS.md, Phase R2-R4). This script only ever reads manifest files and runs read-only /
-dry-run / throwaway-namespace operations; it never deploys a real workload.
-
-Usage: python evaluation/eval_runner.py <source> <project> [<variant> <sample_k>]
+Usage: python evaluation/eval_runner.py <source> <project> [<variant> <sample_k>] [--runtime]
   source   "human" or a model slot name (gemini|qwen|claude|gpt|deepseek)
   project  e.g. P05_emojivoto
   variant  neutral|production (omit for source=human)
@@ -121,8 +119,7 @@ def d1_kubeconform(text):
 
 def d1_server_dry_run(docs, run_id):
     """Create any namespaces the manifest needs (for real, so NamespaceLifecycle admission
-    doesn't reject the dry-run), apply everything else with --dry-run=server, then clean up.
-    Mirrors the explicit/implicit namespace split in datasets/deploy_check.py."""
+    doesn't reject the dry-run), apply everything else with --dry-run=server, then clean up."""
     if not docs:
         return {"ran": False, "reason": "no parseable documents"}
 
