@@ -1,6 +1,6 @@
-\section{Literature Review}\label{sec:literature}
+\section{Related Work}\label{sec:literature}
 
-This section reviews five lines of prior work and then states the research gap (Section~\ref{sec:lit-gap}).
+This section reviews six lines of prior work. Section~\ref{sec:comparative} compares the closest studies with ours and states the research gap.
 
 \subsection{Misconfigurations in human-written Kubernetes configurations}\label{sec:lit-human}
 
@@ -28,31 +28,6 @@ Recent studies also measure deployability and security. Only 20.8--30.2\% of Clo
 
 So validity, deployability and security diverge, and each must be measured. But these works use curated or synthetic tasks with reference solutions. None compares LLM outputs with the configurations developers maintain for real applications, or tests behaviour under failures.
 
-\begin{table*}[t]
-\caption{Comparison of the most closely related studies with this work. Gen.\ = generation from requirements; Det./Rep.\ = detection or repair of existing configurations; \checkmark\ = covered; $\circ$ = partially covered; -- = not covered.}\label{tab:related}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llllcccccc@{}}
-\toprule
-Study & Artefact & Task & LLMs & \shortstack{Matched\\human} & \shortstack{Multi-\\tool} & Security & Reliability & Deploy & Recovery \\
-\midrule
-\citet{rahman2023k8smisconfig} & K8s & -- (human only) & -- & -- & -- & \checkmark & $\circ$ & -- & -- \\
-\citet{zhang2026k8sconfigdefects} & K8s & -- (human only) & -- & -- & \checkmark & $\circ$ & \checkmark & -- & -- \\
-\citet{xu2024cloudevalyaml} & K8s/Istio/Envoy & Gen. & 12 & -- & -- & -- & -- & \checkmark & -- \\
-\citet{zhang2026iacgen} & CloudFormation & Gen. & 6 & -- & -- & $\circ$ & -- & \checkmark & -- \\
-\citet{santosvargas2026secureterraform} & Terraform & Gen. & 7 & -- & \checkmark & \checkmark & -- & -- & -- \\
-\citet{ding2026fdebench} & Docker/K8s & Gen. (agentic) & 7 & -- & -- & -- & $\circ$ & \checkmark & -- \\
-\citet{zhang2024genaismells} & K8s & Gen. (in the wild) & 1 & -- & -- & \checkmark & $\circ$ & -- & -- \\
-\citet{jcomsec2026aivshumank8s} & K8s & Gen. (reused) & 1 & -- & -- & \checkmark & $\circ$ & -- & -- \\
-\citet{malul2024genkubesec} & K8s & Det./Rep. & 5+ & -- & \checkmark & \checkmark & -- & -- & -- \\
-\citet{ye2025llmsecconfig} & K8s/Helm & Rep. & 2 & -- & -- & \checkmark & -- & -- & -- \\
-\citet{sgancohen2025kubeguard} & K8s & Hardening & 2+ & -- & -- & \checkmark & -- & $\circ$ & -- \\
-\midrule
-\textbf{This study} & K8s & Gen. & 5 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-\bottomrule
-\end{tabular}}
-\end{table*}
-
 \subsection{Studies of LLM-generated Kubernetes manifests}\label{sec:lit-llmk8s}
 
 Two studies examine LLM-generated Kubernetes manifests directly. \citet{zhang2024genaismells} analysed 98 ChatGPT-generated manifests from the DevGPT dataset with KubeLinter. Unset CPU and memory requirements were the most frequent smells, and each affected 35.8\% of the manifests. The authors noted that their findings were limited to one model, one tool and manifests of unknown origin. \citet{jcomsec2026aivshumank8s} compared these measurements with 1,985 human-written manifests from the corpus of Rahman et al. Missing CPU and memory specifications were the most robust weakness of the AI-generated manifests, while missing \texttt{runAsNonRoot} and \texttt{readOnlyRootFilesystem} settings were common in both corpora.
@@ -64,15 +39,3 @@ These studies show that LLM-generated manifests inherit known weaknesses and som
 Other work uses LLMs on existing configurations. Fine-tuned models matched or exceeded rule-based tools in detecting misconfigurations \citep{malul2024genkubesec,ghorab2025k8sllm}, while off-the-shelf models such as ChatGPT, Gemini and Claude did poorly (best F1 $\approx$ 0.51) \citep{malul2024genkubesec}. For repair, LLMSecConfig combined Checkov findings with retrieval-augmented generation and found large differences in repair success between models (94.3\% for Mistral Large 2 versus 40.2\% for GPT-4o-mini) \citep{ye2025llmsecconfig}. Schema-guided correction raised LLM repair accuracy to 98.5\% \citep{ghorab2026inthewild}. Yet LLM fixes for Helm charts can satisfy scanners while deleting unrelated configuration and breaking the application \citep{minna2025helm}. KubeGuard derived least-privilege roles, network policies and deployments from runtime logs \citep{sgancohen2025kubeguard}. KuTIE showed that LLM security patches that ignore the live service topology are correct in only 11.1\% of topology-dependent cases \citep{shaikh2026kutie}.
 
 So models disagree, and a scanner-compliant configuration can still break a running service. But all these works start from an existing manifest. None asks how well an LLM writes the complete configuration of an application from a requirements description, as developers already do \citep{zhang2024genaismells}.
-
-\subsection{Research gap}\label{sec:lit-gap}
-
-Table~\ref{tab:related} compares the closest studies with ours. The review shows five gaps.
-\begin{enumerate}
-    \item \textbf{Real-project comparison.} Benchmarks use curated tasks, and the only human-versus-AI Kubernetes comparison uses unmatched corpora. No study compares LLM and human configurations of the \emph{same} applications, generated from the same requirements.
-    \item \textbf{Current LLMs.} Evidence rests on a single 2023 ChatGPT corpus. Current proprietary and open-weight models, and their consistency across repeated generations, have not been systematically compared.
-    \item \textbf{Reliability.} Work on LLM-generated configurations focuses on security. Reliability controls (probes, resource requests, replicas, disruption budgets, anti-affinity) have been studied only for human-written configurations.
-    \item \textbf{Runtime resilience.} Prior work stops at static analysis or a ready state. No study injects failures to test whether generated configurations recover and keep the service available.
-    \item \textbf{Linking static and runtime evidence.} Scanners disagree, and compliant configurations can still fail at runtime. No study evaluates the same configurations on static correctness, security, reliability, deployment and recovery to test whether static findings predict runtime behaviour.
-\end{enumerate}
-This study addresses these gaps by comparing human-written configurations with those of five current LLMs for the same projects on a six-dimension benchmark that covers static analysis, requirement satisfaction, real deployment and fault injection.

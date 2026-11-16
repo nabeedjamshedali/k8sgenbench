@@ -1,0 +1,44 @@
+\section{Comparative Analysis}\label{sec:comparative}
+
+Table~\ref{tab:related} compares the eleven studies closest to ours on the properties that matter for this question: what artefact they study, whether an LLM generates it, how many models they compare, whether they compare with a matched human configuration, whether they use more than one tool, and which outcomes they measure.
+
+Three patterns stand out. First, the studies split by artefact owner. The two human-only studies \citep{rahman2023k8smisconfig,zhang2026k8sconfigdefects} measure security and, in one case, reliability, but they never generate a configuration, while the generation studies never compare their outputs with what a project's maintainers ship. No row has a matched human baseline. Second, outcomes are measured in isolation. Security is the most common outcome (covered by seven of the eleven studies and partly by two more), and only the human-only defect study covers reliability fully. Deployment is measured only on benchmark tasks with reference solutions \citep{xu2024cloudevalyaml,zhang2026iacgen,ding2026fdebench}, and partly by KubeGuard \citep{sgancohen2025kubeguard}. No study measures recovery from failures. Third, the two studies of LLM-generated Kubernetes manifests \citep{zhang2024genaismells,jcomsec2026aivshumank8s} rest on a single model and a single tool, and on manifests whose prompts and applications are unknown.
+
+Our study is the only row that covers all columns. It generates complete configurations from the projects' own documentation with five current models, compares them with the human manifests of the same projects, uses several tools per dimension, and links static security and reliability findings to deployment and recovery on a real cluster.
+
+\begin{table*}[t]
+\caption{Comparison of the most closely related studies with this work. Gen.\ = generation from requirements; Det./Rep.\ = detection or repair of existing configurations; \checkmark\ = covered; $\circ$ = partially covered; -- = not covered.}\label{tab:related}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llllcccccc@{}}
+\toprule
+Study & Artefact & Task & LLMs & \shortstack{Matched\\human} & \shortstack{Multi-\\tool} & Security & Reliability & Deploy & Recovery \\
+\midrule
+\citet{rahman2023k8smisconfig} & K8s & -- (human only) & -- & -- & -- & \checkmark & $\circ$ & -- & -- \\
+\citet{zhang2026k8sconfigdefects} & K8s & -- (human only) & -- & -- & \checkmark & $\circ$ & \checkmark & -- & -- \\
+\citet{xu2024cloudevalyaml} & K8s/Istio/Envoy & Gen. & 12 & -- & -- & -- & -- & \checkmark & -- \\
+\citet{zhang2026iacgen} & CloudFormation & Gen. & 6 & -- & -- & $\circ$ & -- & \checkmark & -- \\
+\citet{santosvargas2026secureterraform} & Terraform & Gen. & 7 & -- & \checkmark & \checkmark & -- & -- & -- \\
+\citet{ding2026fdebench} & Docker/K8s & Gen. (agentic) & 7 & -- & -- & -- & $\circ$ & \checkmark & -- \\
+\citet{zhang2024genaismells} & K8s & Gen. (in the wild) & 1 & -- & -- & \checkmark & $\circ$ & -- & -- \\
+\citet{jcomsec2026aivshumank8s} & K8s & Gen. (reused) & 1 & -- & -- & \checkmark & $\circ$ & -- & -- \\
+\citet{malul2024genkubesec} & K8s & Det./Rep. & 5+ & -- & \checkmark & \checkmark & -- & -- & -- \\
+\citet{ye2025llmsecconfig} & K8s/Helm & Rep. & 2 & -- & -- & \checkmark & -- & -- & -- \\
+\citet{sgancohen2025kubeguard} & K8s & Hardening & 2+ & -- & -- & \checkmark & -- & $\circ$ & -- \\
+\midrule
+\textbf{This study} & K8s & Gen. & 5 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
+\subsection{Research gap}\label{sec:lit-gap}
+
+The review and the comparison show five gaps.
+\begin{enumerate}
+    \item \textbf{Real-project comparison.} Benchmarks use curated tasks, and the only human-versus-AI Kubernetes comparison uses unmatched corpora. No study compares LLM and human configurations of the \emph{same} applications, generated from the same requirements.
+    \item \textbf{Current LLMs.} Evidence rests on a single 2023 ChatGPT corpus. Current proprietary and open-weight models, and their consistency across repeated generations, have not been systematically compared.
+    \item \textbf{Reliability.} Work on LLM-generated configurations focuses on security. Reliability controls (probes, resource requests, replicas, disruption budgets, anti-affinity) have been studied only for human-written configurations.
+    \item \textbf{Runtime resilience.} Prior work stops at static analysis or a ready state. No study injects failures to test whether generated configurations recover and keep the service available.
+    \item \textbf{Linking static and runtime evidence.} Scanners disagree, and compliant configurations can still fail at runtime. No study evaluates the same configurations on static correctness, security, reliability, deployment and recovery to test whether static findings predict runtime behaviour.
+\end{enumerate}
+This study addresses these gaps by comparing human-written configurations with those of five current LLMs for the same projects on a six-dimension benchmark that covers static analysis, requirement satisfaction, real deployment and fault injection.

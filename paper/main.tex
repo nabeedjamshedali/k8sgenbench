@@ -1,6 +1,15 @@
-\documentclass[a4paper,fleqn]{cas-dc}
+\documentclass[a4paper,fleqn,11pt]{cas-dc}
 
 \usepackage[authoryear,longnamesfirst]{natbib}
+% CEP handout: Times New Roman, 11 pt text, 12/14 pt headings (math stays in the class's STIX, a Times design)
+\usepackage{newtxtext}
+\def\sectionfont{\rmfamily\fontsize{14pt}{16pt}\bfseries\selectfont}
+\def\ssectionfont{\rmfamily\fontsize{12pt}{14pt}\bfseries\selectfont}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{url}
@@ -35,6 +44,26 @@
 \def\floatpagepagefraction{1}
 \def\textpagefraction{.001}
 
+% CEP handout: the grading rubric (names filled in by make_rubric.py) and a title page go in front of the report.
+\includepdf[pages=-,pagecommand={\thispagestyle{empty}}]{figures/rubric_filled.pdf}
+\begin{titlepage}
+\centering\large
+{\Large\bfseries NED University of Engineering and Technology\par}
+\vspace{2mm}Department of Software Engineering\par
+\vspace{18mm}{\bfseries SE-490 Cloud Computing\par}
+\vspace{2mm}Complex Engineering Problem (CEP)\par
+\vspace{2mm}BE Batch 2023, Fall Semester 2026\par
+\vspace{22mm}{\LARGE\bfseries Reliability and Security Analysis of LLM-Generated Kubernetes Configurations\par}
+\vspace{4mm}{\large A Project-Matched Comparison of Human-Written and Multi-LLM Manifests\par}
+\vspace{25mm}{\bfseries Group members\par}\vspace{3mm}
+\begin{tabular}{ll}
+Nabeed Ali & \confirm{Roll No.} \\
+Talha Hussain & \confirm{Roll No.} \\
+\end{tabular}\par
+\vfill November 2026\par
+\end{titlepage}
+\setcounter{page}{1}
+
 \shorttitle{Reliability and Security of LLM-Generated Kubernetes Configurations}
 \shortauthors{N. Ali and T. Hussain}
 
@@ -67,7 +96,9 @@ Kubernetes \sep Large Language Models \sep Infrastructure as Code \sep Security 
 
 \input{sections/01_introduction}
 \input{sections/02_literature_review}
+\input{sections/02b_comparative}
 \input{sections/03_methodology}
+\input{sections/03b_setup}
 \input{sections/04_results}
 \input{sections/05_discussion}
 \input{sections/06_threats}

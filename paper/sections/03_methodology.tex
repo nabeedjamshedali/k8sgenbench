@@ -1,5 +1,40 @@
 \section{Methodology}\label{sec:methodology}
 
+Figure~\ref{fig:pipeline} gives an overview. For each project we take the maintainers' own documentation, ask five LLMs to write the Kubernetes configuration with two prompts, three times each, and evaluate every generated configuration and the project's own manifest with the same pipeline on six dimensions. Sections~\ref{sec:method-dataset} to \ref{sec:method-benchmark} describe the dataset, the generation and the benchmark, and Section~\ref{sec:method-threat} explains how the benchmark addresses the threat of insecure or broken generated configurations. Section~\ref{sec:setup} gives the experimental setup.
+
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=4mm and 5mm, font=\sffamily\small,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=11mm, text width=24mm, fill=white},
+  stage/.style={box, fill=black!6},
+  arr/.style={-{Stealth[length=2mm]}, thick}]
+\node[box] (docs) {Project docs\\(README, Dockerfiles,\\Compose file)};
+\node[box, right=of docs] (prompt) {Prompt:\\neutral or\\production};
+\node[box, right=of prompt] (llm) {5 LLMs\\$\times$ 3 samples};
+\node[box, right=of llm] (yaml) {Generated\\manifest};
+\node[box, above=of yaml] (human) {Human manifest\\(shipped by\\the project)};
+\node[stage, right=of yaml] (d1) {D1 Correctness\\parse, schema,\\server dry-run};
+\node[stage, right=of d1] (d23) {D2 Security\\D3 Reliability\\(static scanners)};
+\node[stage, right=of d23] (d4) {D4 Requirements\\(documented\\facts)};
+\node[stage, below=of d4] (d5) {D5 Deployment\\kind cluster,\\Ready + smoke test};
+\node[stage, left=10mm of d5] (d6) {D6 Recovery\\pod delete,\\container crash};
+\node[box, left=of d6] (rec) {Result record\\(JSON) and\\root-cause label};
+\draw[arr] (docs) -- (prompt);
+\draw[arr] (prompt) -- (llm);
+\draw[arr] (llm) -- (yaml);
+\draw[arr] (yaml) -- (d1);
+\draw[arr] (human) -| (d1.north);
+\draw[arr] (d1) -- (d23);
+\draw[arr] (d23) -- (d4);
+\draw[arr] (d4) -- (d5);
+\draw[arr] (d5) -- node[above, font=\sffamily\scriptsize]{serves} (d6);
+\draw[arr] (d6) -- (rec);
+\draw[arr] (d5.south) -- ++(0,-4mm) -| node[pos=0.25, below, font=\sffamily\scriptsize]{fails: capture evidence} (rec.south);
+\end{tikzpicture}}
+\caption{Study design. Every generated configuration and every human manifest passes through the same evaluation pipeline. A configuration that fails a stage is recorded, not discarded; D6 runs only on configurations that serve (Section~\ref{sec:method-pipeline}).}\label{fig:pipeline}
+\end{figure*}
+
 \subsection{Dataset}\label{sec:method-dataset}
 
 The dataset has seven non-trivial open-source applications whose maintainers ship their own Kubernetes manifests (Table~\ref{tab:dataset}). A project is eligible if all of the following hold. (i) Its container images are public and pullable without credentials. (ii) It runs on a local \texttt{kind} cluster \citep{tool_kind} without cloud-specific dependencies. (iii) Its manifests may be redistributed; otherwise, we store only the commit. (iv) It is a real application, not a single-container toy. It must have at least two cooperating components, persistent state, or real functionality such as a workflow engine or a storefront. The seven cover four classes and both manifest intents, so the production stratum of RQ1 is not empty. We selected a candidate only if its human manifest could be deployed and measured on the evaluation cluster. So every source of configurations could be scored on all six dimensions. This rule makes the human runtime outcomes partly true by construction. We therefore report them as a reference, not as a test of human against LLM deployability (Section~\ref{sec:res-rq1}).
@@ -69,14 +104,25 @@ The same automated pipeline evaluates every configuration. It uses deterministic
 
 We compute no composite score across dimensions.
 
-\subsection{Evaluation pipeline and environment}\label{sec:method-pipeline}
+\subsection{Threat model: how the benchmark addresses insecure generated configurations}\label{sec:method-threat}
 
-Each configuration passes through the pipeline in a fixed order: parsing, schema validation, the D2/D3 scanners, the D4 checks, the server-side dry-run, deployment and smoke test (D5), and fault injection (D6). Failures are recorded as data. A parse failure marks every later stage as skipped. A schema failure does not block the static scanners or D4, which read the manifest text. D6 runs when the configuration is fully Ready. Otherwise, it runs when its smoke test passes, because an application can serve correctly while an auxiliary workload (for example, a load generator) is not Ready. We also report D6 for fully Ready configurations only.
+The threat we study is a developer who deploys an LLM-generated configuration without expert review. Such a configuration can harm a cluster in two ways. It can be \emph{insecure}: it grants more privilege than needed, exposes credentials or omits isolation, which the misconfiguration categories of \citet{rahman2023k8smisconfig} and the hardening guides \citep{nsacisa2022k8shardening,k8s_pod_security_standards} describe. Or it can be \emph{unreliable}: it looks valid but does not run, does not serve, or does not survive the failures that every cluster sees. The attacker in the first case is anyone who later exploits the deployed workload; the cost in the second case is an outage. We do not consider a model that is deliberately manipulated to produce harmful output.
 
-Every configuration is deployed into its own namespace, and we recreate the cluster between projects. Every image comes from a local registry mirror filled before deployment, so network latency does not confound time to Ready. Two deployment-time adjustments supply facts that the bundles do not contain. Both are applied identically to every source and recorded per configuration, and no human manifest ever needs them. First, in some projects the exact image path appears only in unbundled build scripts. There, a reference that cannot be pulled as written but whose repository name identifies a documented component is served that component's canonical image. A reference that identifies no documented component fails. Second, an image may enforce a start-up prerequisite that the bundle never states. We supply it when the configuration does not provide it. These prerequisites are two environment variables in Online Boutique (one its front end requires, one that disables a cloud profiler in two services), and an empty Secret with the fixed name that the Kubernetes Dashboard expects. Permissions are never added. Section~\ref{sec:threats} bounds the effect of both adjustments.
+K8sGenBench is the mechanism we propose against this threat: a gate that a configuration must pass before it is trusted. Table~\ref{tab:threat-map} shows which part of the threat each dimension detects. The static dimensions (D1--D4) catch what can be seen in the file. D5 and D6 catch what can only be seen by running it. Section~\ref{sec:res-rq4} tests whether the static dimensions alone would have been enough; they were not.
 
-The cluster has one control-plane node and three worker nodes. So configurations that use pod anti-affinity or a topology spread across three replicas can schedule. One setting differs from \texttt{kind}'s defaults. The container runtime limits each container to 1,048,576 open files (Docker's default). We set this because some older images size internal tables from that limit and could otherwise exhaust the host's memory. Image tags are resolved when the mirror is filled, at evaluation time. A \texttt{LoadBalancer} Service is treated as valid but pending. An Ingress is created but not exercised. PersistentVolumeClaims use \texttt{kind}'s local-path StorageClass. So a configuration that requests a StorageClass absent from this environment fails, and the reason is recorded.
-
-\subsection{Statistical analysis}\label{sec:method-analysis}
-
-We report medians for scores and percentages for pass/fail outcomes. Because the three samples of a (model, project, prompt) cell share their input, and the projects differ widely, our tests treat the project or the (model, project) cell as the unit wherever possible. We use rank-based tests: Kruskal--Wallis and Fisher's exact test to compare sources (RQ1), a Friedman test blocked on project to compare models (RQ3), a logistic regression to relate static scores to deployment success (RQ4), and a Wilcoxon signed-rank test to compare the two prompts within each (model, project) cell (RQ5). $P$-values are Holm-adjusted for multiple comparisons. Appendix~\ref{app:stats} describes every test, the effect sizes and the robustness checks, and reports their results.
+\begin{table*}[t]
+\centering\small
+\caption{How each dimension of K8sGenBench addresses the threat of insecure or unreliable generated configurations.}\label{tab:threat-map}
+\begin{tabular}{p{0.24\textwidth}p{0.14\textwidth}p{0.27\textwidth}p{0.25\textwidth}}
+\toprule
+Threat & Dimension & Instrument & Detected when \\ \midrule
+Invalid or unaccepted file & D1 & PyYAML (strict), kubeconform, server-side dry-run & parse, schema or API-server rejection \\
+Excess privilege, missing isolation, host access & D2 & Kubescape, Trivy, Pod Security Standards, SLI-KUBE rules & failed controls, findings, \texttt{baseline}/\texttt{restricted} rejection \\
+Credentials written into the file & D2 & secret check & literal value under a credential-named key \\
+Missing reliability controls & D3 & kube-score, Polaris, KubeLinter, 10-item checklist & missing probes, requests, limits, replicas, budgets \\
+Missing components or settings & D4 & per-project requirement checks & a documented fact is absent \\
+Valid file that does not run or serve & D5 & deployment on \texttt{kind}, smoke test, root-cause label & not fully Ready, or a smoke-test step fails \\
+Workload that does not survive failures & D6 & pod delete and container crash with a 5~Hz prober & no recovery, or downtime \\
+\bottomrule
+\end{tabular}
+\end{table*}
