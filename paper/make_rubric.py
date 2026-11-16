@@ -9,7 +9,7 @@ import sys
 
 import fitz  # PyMuPDF
 
-MEMBERS = [("Nabeed Ali", ""), ("Talha Hussain", "")]  # (name, roll number)
+MEMBERS = [("Nabeed Ali", "SE-23054"), ("Talha Hussain", "SE-23062")]  # (name, roll number)
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 src = fitz.open(sys.argv[1])
