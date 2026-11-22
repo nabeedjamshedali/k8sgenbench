@@ -57,6 +57,8 @@ def load():
     rows = []
     for f in sorted(glob.glob(os.path.join(HERE, "results", "*.json"))):
         r = json.load(open(f, encoding="utf-8"))
+        if not flatten.in_study(r):
+            continue
         x = flatten.row(r)
         parsed = b(x["d1_parse_ok"])
         tot, acc = x["d1_objects_total"], x["d1_objects_accepted"]

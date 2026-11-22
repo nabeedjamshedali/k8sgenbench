@@ -429,7 +429,7 @@ Figure~\ref{fig:attrition} follows every configuration through the pipeline. Of 
 
 Being Ready and passing the smoke test are not the same. In 18 configurations, the application served every smoke-test request, but some workload never became Ready, most often an extra component copied from the Compose file, such as Sock Shop's load generator. In 10 others, every workload was Ready, but the application did not work, usually because a Service, RBAC object or NetworkPolicy on the request path was rejected or misdirected.
 
-Table~\ref{tab:root-causes} gives the root cause of each of the 81 configurations (80 generated, one human) that were not both fully Ready and passing the smoke test. For 51, the cause is visible in the cluster's record; 22 are inferred, 5 are supported by a matched contrast and 3 remain undetermined. The most frequent causes are:
+Table~\ref{tab:root-causes} gives the root cause of each of the 81 configurations (80 generated, one human) that were not both fully Ready and passing the smoke test. For 51, the cause is visible in the cluster's record; 22 are inferred, 6 are supported by a matched contrast or a controlled re-deployment, and 2 remain undetermined. The most frequent causes are:
 \begin{itemize}
 \item host-level Compose services that fail while the application works (10);
 \item invalid YAML or objects that the API server rejects (8);
@@ -461,6 +461,7 @@ Mechanism & Claude & DeepSeek & Gemini & GPT & Qwen & N & P & Human & Obs. \\ \m
 \quad Host-level Compose services fail; application works & 1 & 2 & 6 & 1 & 0 & 7 & 3 & 0 & 10/10 \\
 \multicolumn{10}{l}{\textit{Wrong values or references}} \\
 \quad Service targets the wrong container port & 0 & 1 & 0 & 0 & 1 & 2 & 0 & 0 & 1/2 \\
+\quad Named Service port unreachable through the API-server proxy & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0/1 \\
 \quad API server address overridden & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0/1 \\
 \quad Volume references an undefined Secret & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1/1 \\
 \quad RBAC does not allow updating the CSRF Secret & 0 & 0 & 0 & 1 & 3 & 2 & 2 & 0 & 0/4 \\
@@ -477,7 +478,7 @@ Mechanism & Claude & DeepSeek & Gemini & GPT & Qwen & N & P & Human & Obs. \\ \m
 \quad Reply ends before the YAML block closes & 0 & 0 & 1 & 0 & 2 & 1 & 2 & 0 & 3/3 \\
 \quad Provider withheld the reply (recitation) & 0 & 0 & 3 & 0 & 0 & 2 & 1 & 0 & 3/3 \\
 \multicolumn{10}{l}{\textit{Other}} \\
-\quad Cause not determined & 0 & 2 & 0 & 1 & 0 & 2 & 1 & 0 & 0/3 \\
+\quad Cause not determined & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & 0/2 \\
 \quad Unpinned image tag drifted & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1/1 \\
 \midrule
 Total & 10 & 22 & 11 & 17 & 20 & 32 & 48 & 1 & 51/81 \\

@@ -42,6 +42,13 @@ BUNDLES = {
         ("docker-compose.yml", "docker-compose.yml", []),
         ("Dockerfile-multi-arch", "Dockerfile-multi-arch", []),
     ]),
+    "P06_wordsmith": ("wordsmith", [
+        ("README.md", "README.md", []),
+        ("docker-compose.yml", "docker-compose.yml",
+         [(r"replicas:\s*5", "excluded fact: api replica count (also in README, excluded per the no-replica-count rule)")]),
+        ("api/Dockerfile", "api.Dockerfile", []),
+        ("web/Dockerfile", "web.Dockerfile", []),
+    ]),
     "P07_online-boutique": ("online-boutique", [
         ("README.md", "README.md", []),
         ("src/frontend/Dockerfile", "frontend.Dockerfile", []),
@@ -60,10 +67,20 @@ BUNDLES = {
         ("README.md", "README.md", []),
         ("deploy/docker-compose/docker-compose.yml", "docker-compose.yml", []),
     ]),
+    "P09_teastore": ("teastore", [
+        ("README.md", "README.md", []),
+        ("GET_STARTED.md", "GET_STARTED.md", []),
+        ("examples/docker/docker-compose_default.yaml", "docker-compose_default.yaml", []),
+    ]),
     "P10_k8s-dashboard": ("dashboard", [
         ("README.md", "README.md", []),
         ("docs/common/dashboard-arguments.md", "dashboard-arguments.md", []),
         ("docs/user/integrations.md", "integrations.md", []),
+    ]),
+    "P12_headlamp": ("headlamp", [
+        ("README.md", "README.md", []),
+        ("docs/installation/in-cluster/index.md", "in-cluster-install.md", []),
+        ("Dockerfile", "Dockerfile", []),
     ]),
 }
 

@@ -1,0 +1,40 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (CrashLoopBackOff): Deployment kubernetes-dashboard 0/2 Ready.
+- Pod coredns-559f6c778d-dtzms container coredns: 1 restarts, last exit code 255 (Unknown). Last log lines:
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38508->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38702->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:40097->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:43301->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:39639->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:48060->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:36430->192.168.65.254:53: i/o timeout
+    [ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:52956->192.168.65.254:53: i/o timeout
+- Pod kindnet-pvrkx container kindnet-cni: 1 restarts, last exit code 255 (Unknown). Last log lines:
+    I1120 19:56:50.149927       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]
+    I1120 19:56:50.151224       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24]
+- Pod kube-controller-manager-k8sgen-control-plane container kube-controller-manager: 5 restarts, last exit code 255 (Unknown). Last log lines:
+    asets.apps" logger="UnhandledError"
+    E1120 19:48:43.778109       1 replica_set.go:640] "Unhandled Error" err="sync \"sock-shop/orders-6b56d8d9cc\" failed with read version: 36385 is not as new as written version: 36393 for group resource replicasets.apps" logger="UnhandledError"
+    E1120 19:48:43.817060       1 replica_set.go:640] "Unhandled Error" err="sync \"sock-shop/orders-6b56d8d9cc\" failed with read version: 36393 is not as new as written version: 36397 for group resource replicasets.apps" logger="UnhandledError"
+    E1120 19:48:44.897732       1 stateful_set.go:509] "Error syncing StatefulSet, requeuing" err="read version: 36419 is not as new as written version: 36423 for group resource statefulsets.apps" logger="UnhandledError" key="sock-shop/orders-db"
+    E1120 19:48:45.848733       1 replica_set.go:640] "Unhandled Error" err="sync \"sock-shop/shipping-677d9bbc87\" failed with read version: 36468 is not as new as written version: 36470 for group resource replicasets.apps" logger="UnhandledError"
+    E1120 19:48:46.737973       1 replica_set.go:640] "Unhandled Error" err="sync \"sock-shop/queue-master-5d6db997dd\" failed with read version: 36510 is not as new as written version: 36515 for group resource replicasets.apps" logger="UnhandledError"
+    E1120 19:48:47.919696       1 stateful_set.go:509] "Error syncing StatefulSet, requeuing" err="read version: 36545 is not as new as written version: 36554 for group resource statefulsets.apps" logger="UnhandledError" key="sock-shop/rabbitmq"
+- Pod kube-proxy-58rl7 container kube-proxy: 1 restarts, last exit code 255 (Unknown). Last log lines:
+    I1120 16:39:11.419549       1 shared_informer.go:510] "Caches are synced" controller="endpoint slice config"
+    I1120 16:39:11.419981       1 shared_informer.go:510] "Caches are synced" controller="serviceCIDR config"
+- Pod kube-scheduler-k8sgen-control-plane container kube-scheduler: 5 restarts, last exit code 255 (Unknown). Last log lines:
+    E1120 17:51:01.405291       1 leaderelection.go:509] "Failed to update lease" err="Operation cannot be fulfilled on leases.coordination.k8s.io \"kube-scheduler\": the object has been modified; please apply your changes to the latest version and try again" lock="kube-system/kube-scheduler"
+    E1120 19:06:48.161226       1 framework.go:1803] "Plugin failed" err="Operation cannot be fulfilled on persistentvolumeclaims \"n8n-data\": the object has been modified; please apply your changes to the latest version and try again" pod="n8n/n8n-6b58446f5f-wr5jw" plugin="VolumeBinding" node="k8sgen-
+    E1120 19:06:48.198295       1 schedule_one.go:1198] "Error scheduling pod; retrying" err="running PreBind plugin \"VolumeBinding\": Operation cannot be fulfilled on persistentvolumeclaims \"n8n-data\": the object has been modified; please apply your changes to the latest version and try again" logge
+    E1120 19:19:21.641396       1 framework.go:1803] "Plugin failed" err="Operation cannot be fulfilled on persistentvolumeclaims \"n8n-data\": the object has been modified; please apply your changes to the latest version and try again" pod="n8n/n8n-7fbc5f566c-4vjnh" plugin="VolumeBinding" node="k8sgen-
+    E1120 19:19:21.641837       1 schedule_one.go:1198] "Error scheduling pod; retrying" err="running PreBind plugin \"VolumeBinding\": Operation cannot be fulfilled on persistentvolumeclaims \"n8n-data\": the object has been modified; please apply your changes to the latest version and try again" logge
+- Pod kubernetes-dashboard-74cbd5b8b8-gd7v4 container kubernetes-dashboard: 5 restarts, last exit code 2 (Error).
+- Warning event on kube-apiserver-k8sgen-control-plane (85x): Unhealthy: Readiness probe failed
+- Warning event on kubernetes-dashboard-74cbd5b8b8-gd7v4 (17x): BackOff: Back-off restarting failed container kubernetes-dashboard in
+- Warning event on kubernetes-dashboard-74cbd5b8b8-h4q7l (16x): BackOff: Back-off restarting failed container kubernetes-dashboard in
+- Warning event on coredns-559f6c778d-dtzms (4x): Unhealthy: Readiness probe failed
+- Warning event on coredns-559f6c778d-p54bb (4x): Unhealthy: Readiness probe failed
+- Warning event on kube-apiserver-k8sgen-control-plane (3x): Unhealthy: Startup probe failed
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

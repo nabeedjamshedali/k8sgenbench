@@ -1,0 +1,243 @@
+=== SYSTEM ===
+You are an experienced DevOps engineer. Respond with Kubernetes YAML manifests only.
+
+The manifests will be applied as they are to a standard Kubernetes cluster and must start, become Ready and serve the application without manual fixes. Follow these rules.
+
+Use only facts from the provided documentation.
+1. Use exactly the image names, tags, ports, commands, arguments and environment variables that the documentation gives. Do not invent command-line flags, image repositories or configuration keys. If the documentation does not give a value, leave the setting at the image's default.
+
+Hardening must fit the image.
+2. Apply securityContext settings only where the image can run with them. Images that initialise their own data directory or switch user at start-up (for example official database, cache and message-broker images) need their default user and the capabilities their entrypoint uses (such as CHOWN, FOWNER, SETUID, SETGID, DAC_OVERRIDE). For these, set allowPrivilegeEscalation: false and seccompProfile RuntimeDefault, but do not drop ALL capabilities or force a different user.
+3. When you set runAsNonRoot: true, also set a numeric runAsUser (and runAsGroup/fsGroup) that the image actually uses.
+4. When you set readOnlyRootFilesystem: true, mount an emptyDir at /tmp and at every other path the application writes to.
+5. Never use privileged containers, hostPath volumes, hostNetwork, hostPID or the Docker socket. The pods must meet the Pod Security "baseline" level.
+
+Probes must fit how the process starts.
+6. Add probes only for a port and path the container actually serves. Background workers, queue consumers and other processes without a server get no HTTP or TCP probes.
+7. For slow-starting runtimes (JVM, large interpreters, services that migrate a database at start-up) add a startupProbe that allows at least 5 minutes (failureThreshold x periodSeconds >= 300) before liveness checks begin. Liveness probes must be lenient (failureThreshold >= 3, timeoutSeconds >= 5).
+
+Resources must fit the workload.
+8. Set requests and limits, but never set a memory limit below what the runtime needs: at least 512Mi for JVM services and at least 256Mi for databases. Do not set CPU limits so low that start-up takes minutes.
+
+Wiring must be consistent.
+9. Every Service selector must match the labels of the pods it routes to, and every targetPort must be the port the container listens on. When a Service exposes more than one port, give every port a name.
+10. Hostnames that the application expects (from the documentation or compose service names) must exist as Service names in the same namespace.
+11. Define every Secret, ConfigMap, PersistentVolumeClaim and ServiceAccount that you reference.
+12. Components that call the Kubernetes API need a ServiceAccount with RBAC rules that cover everything the documentation says they do, including creating or updating the Secrets and ConfigMaps they manage. Do not disable automountServiceAccountToken for them.
+13. Add a NetworkPolicy only if it admits every path the application uses, including traffic that arrives through the Kubernetes API server proxy. If unsure, omit NetworkPolicies.
+
+Translating Docker Compose.
+14. Translate the application's services, not the host setup. Drop host-specific settings (Docker socket mounts, privileged mode, host ports, build sections) and omit development-only helpers such as load generators or test clients unless the documentation says they are part of the application.
+
+Production settings that do not risk start-up.
+15. Stateful components (databases, brokers) run as a single-replica StatefulSet with a PersistentVolumeClaim; for PostgreSQL set PGDATA to a subdirectory of the mount. Stateless user-facing services run with 2 replicas.
+
+Output.
+16. Return all manifests in a single YAML code block, documents separated by ---, no comments. Quote string values that contain a colon. Keep the output complete; do not stop part-way through a list.
+
+=== USER ===
+--- docker-compose-withPostgres.yml ---
+volumes:
+  db_storage:
+  n8n_storage:
+
+services:
+  postgres:
+    image: postgres:18
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_NON_ROOT_USER
+      - POSTGRES_NON_ROOT_PASSWORD
+      # postgres:18 moved its default data dir. Pinning it keeps the volume
+      # mount stable across major versions.
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - db_storage:/var/lib/postgresql/data
+      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:${N8N_VERSION}
+    restart: always
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+      - N8N_RUNNERS_MODE=external
+      - N8N_RUNNERS_AUTH_TOKEN=${RUNNERS_AUTH_TOKEN}
+      - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
+    ports:
+      - 5678:5678
+    links:
+      - postgres
+    volumes:
+      - n8n_storage:/home/node/.n8n
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  n8n-runner:
+    image: n8nio/runners:${N8N_VERSION}
+    restart: always
+    environment:
+      - N8N_RUNNERS_AUTH_TOKEN=${RUNNERS_AUTH_TOKEN}
+      - N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679
+    depends_on:
+      - n8n
+
+
+--- init-data.sh ---
+#!/bin/bash
+set -e;
+
+
+if [ -n "${POSTGRES_NON_ROOT_USER:-}" ] && [ -n "${POSTGRES_NON_ROOT_PASSWORD:-}" ]; then
+	psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+		CREATE USER ${POSTGRES_NON_ROOT_USER} WITH PASSWORD '${POSTGRES_NON_ROOT_PASSWORD}';
+		GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO ${POSTGRES_NON_ROOT_USER};
+		GRANT CREATE ON SCHEMA public TO ${POSTGRES_NON_ROOT_USER};
+	EOSQL
+else
+	echo "SETUP INFO: No Environment variables given!"
+fi
+
+
+--- kubernetes-README.md ---
+# n8n-kubernetes-hosting
+[Kubernetes deployment instructions removed from this bundle]
+## Prerequisites
+
+Self-hosting n8n requires technical knowledge, including:
+
+* Setting up and configuring servers and containers
+* Managing application resources and scaling
+* Securing servers and applications
+* Configuring n8n
+
+n8n recommends self-hosting for expert users. Mistakes can lead to data loss, security issues, and downtime. If you aren't experienced at managing servers, n8n recommends [n8n Cloud](https://n8n.io/cloud/).
+
+## Upgrade Considerations
+
+### PostgreSQL 18
+
+`postgres-deployment.yaml` runs `postgres:18`.
+
+**Installing fresh:** nothing to do. Apply the manifests as usual.
+
+**Upgrading an existing cluster:** this is a major version upgrade and it is breaking. Postgres 18
+cannot open a data directory written by 16, and moving the folder does not help, because the check
+is on the format and not the path. The pod stays in `CrashLoopBackOff` with
+`FATAL: database files are incompatible with server`. Nothing is deleted, and you can pin the image
+back to `postgres:16` at any point.
+
+Follow the official guide,
+[Upgrading a PostgreSQL Cluster](https://www.postgresql.org/docs/18/upgrading.html). It covers the
+three supported methods and which to pick.
+
+For a small cluster, dump and restore is usually simplest. n8n is offline while you do it:
+
+```bash
+# 0. The Postgres superuser name, as set in postgres-secret.yaml
+POSTGRES_USER=changeUser
+
+# 1. Export, with the old image still running
+kubectl exec -n n8n deploy/postgres -- pg_dumpall -U "$POSTGRES_USER" > n8n-backup.sql
+
+# 2. Check the export worked. This must print 1
+grep -c "PostgreSQL database cluster dump complete" n8n-backup.sql
+
+# 3. Stop n8n, so it cannot rebuild its schema against the empty database and
+#    collide with the import
+[Kubernetes deployment instructions removed from this bundle]
+# 4. Delete Postgres and ONLY its claim, then recreate just Postgres. The guard
+#    repeats the check, so a failed export stops here instead of deleting
+[Kubernetes deployment instructions removed from this bundle]
+# 5. Import
+kubectl exec -i -n n8n deploy/postgres -- psql -U "$POSTGRES_USER" -d n8n < n8n-backup.sql
+
+# 6. Import done, start n8n again
+[Kubernetes deployment instructions removed from this bundle]
+## Contributions
+
+Please open PRs to the `main` branch.
+
+
+--- README.md ---
+# n8n Hosting
+
+Official hosting configurations for [n8n](https://n8n.io) -- the workflow automation platform.
+
+## Requirements & supported versions
+
+n8n doesn't publish a version-by-version support matrix -- its policy is to support
+actively-maintained releases of its dependencies. Use the table below as a starting point and
+confirm against the linked n8n docs for the release you're deploying.
+
+| Component | Supported / recommended | Notes |
+|---|---|---|
+| n8n | Latest stable release | Pin a specific image tag for production rather than relying on `stable`/`latest`. |
+| PostgreSQL | **17** or **18**; **16** for compatibility | Recommended database for production. n8n supports the latest two actively-maintained majors, plus one older major for compatibility. Run the latest minor of your major. The templates here deploy **18**. |
+| Amazon Aurora PostgreSQL | **Experimental** | Offered by the HA CloudFormation template for its faster failover. PostgreSQL-compatible rather than upstream PostgreSQL, so n8n doesn't test or certify it and the version policy above doesn't cover it. |
+| SQLite | Bundled | Default when queue mode is off. Fine for development and small single-instance setups. |
+| MySQL / MariaDB | **Not supported** | Deprecated as the n8n backend in v1.0 and removed in v2.0 -- use PostgreSQL. (The MySQL *node* is unaffected.) |
+| Redis | **7+** recommended | Only needed for queue mode. Redis 6+ is required if you set a Redis username. |
+| Valkey | Redis-compatible drop-in for queue mode | Not separately version-guaranteed by n8n; verify against your n8n release. |
+
+For the authoritative details, see:
+
+- [Supported databases and settings](https://docs.n8n.io/hosting/configuration/supported-databases-settings/)
+- [Configuring queue mode](https://docs.n8n.io/hosting/scaling/queue-mode/)
+- [Queue mode environment variables](https://docs.n8n.io/hosting/configuration/environment-variables/queue-mode/) (Redis)
+
+## Kubernetes (Helm Chart)
+[Kubernetes deployment instructions removed from this bundle]
+## Docker Compose
+
+| Directory | Description |
+|---|---|
+| [docker-compose/withPostgres](./docker-compose/withPostgres/) | n8n + PostgreSQL |
+| [docker-compose/withPostgresAndWorker](./docker-compose/withPostgresAndWorker/) | n8n + PostgreSQL + Redis + worker (queue mode) |
+| [docker-compose/subfolderWithSSL](./docker-compose/subfolderWithSSL/) | n8n behind SSL reverse proxy in subfolder |
+| [docker-caddy](./docker-caddy/) | n8n with Caddy reverse proxy |
+
+## AWS CloudFormation (ECS Fargate)
+
+See [`aws-cloudformation/ecs-fargate/`](./aws-cloudformation/ecs-fargate/) for an AWS ECS Fargate example with multi-main queue mode, RDS PostgreSQL, ElastiCache Redis, S3 binary storage, HTTPS through an Application Load Balancer, and worker autoscaling.
+
+## Kubernetes (Raw Manifests)
+[Kubernetes deployment instructions removed from this bundle]
+## Documentation
+
+- [n8n docs](https://docs.n8n.io/)
+- [Self-hosting guides](https://docs.n8n.io/hosting/)
+- [Community forum](https://community.n8n.io/)
+
+## License
+
+This project is licensed under the MIT License -- see [LICENSE.md](./LICENSE.md) for details.
+
+
+--- withPostgres.env ---
+N8N_VERSION=2.43.5
+
+POSTGRES_USER=changeUser
+POSTGRES_PASSWORD=changePassword
+POSTGRES_DB=n8n
+
+POSTGRES_NON_ROOT_USER=changeUser
+POSTGRES_NON_ROOT_PASSWORD=changePassword
+
+RUNNERS_AUTH_TOKEN=changeRunnerAuthToken
+
+
+Write production-ready Kubernetes manifests to deploy this application. Output all manifests in a single YAML code block.

@@ -1,0 +1,989 @@
+{
+  "project": "P06_wordsmith",
+  "source": "human",
+  "prompt_variant": null,
+  "sample_k": null,
+  "timestamp": "2026-11-20T16:40:17Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 7,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 7,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 7,
+    "objects_accepted": 7,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "ConfigMap",
+        "name": "db-schema",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "api",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "api",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 171,
+  "resource_counts": {
+    "ConfigMap": 1,
+    "Service": 3,
+    "Deployment": 3
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 73.333336,
+      "frameworks": {
+        "NSA": 60,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 2,
+        "medium": 5,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=386681136/api=apps/v1//Deployment/web",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=420236374/api=apps/v1//Deployment/api",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
+          "resource": "path=437013993/api=apps/v1//Deployment/db",
+          "control": "C-0271",
+          "name": "Ensure memory limits are set"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 9,
+        "medium": 14,
+        "low": 33
+      },
+      "failed": [
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'api' of 'deployment' 'api' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'db' of 'deployment' 'db' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'web' of 'deployment' 'web' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'api' of Deployment 'api' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0015",
+          "title": "CPU requests not specified",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.requests.cpu'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0016",
+          "title": "Memory requests not specified",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.requests.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0018",
+          "title": "Memory not limited",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.limits.memory'"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"api\" of deployment \"api\" in \"default\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"db\" of deployment \"db\" in \"default\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"web\" of deployment \"web\" in \"default\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment api in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment db in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment web in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment web in default namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container api in default namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container db in default namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container web in default namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment api in default namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment db in default namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment web in default namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container api in deployment api (namespace: default) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container web in deployment web (namespace: default) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 3,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "api",
+            "detail": "/api created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"api\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"api\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"api\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"api\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "db",
+            "detail": ".apps/db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "web",
+            "detail": "/web created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"web\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"web\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"web\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"web\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 24,
+      "warning": 5,
+      "critical_by_check": {
+        "container-security-context-user-group-id": 3,
+        "container-ephemeral-storage-request-and-limit": 3,
+        "pod-probes": 3,
+        "container-resources": 3,
+        "container-security-context-readonlyrootfilesystem": 3,
+        "pod-networkpolicy": 3,
+        "container-image-tag": 2,
+        "deployment-has-poddisruptionbudget": 3,
+        "container-image-pull-policy": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 3,
+        "deployment-replicas": 2
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 52,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 3,
+        "missingPodDisruptionBudget[warning]": 3,
+        "automountServiceAccountToken[warning]": 3,
+        "missingNetworkPolicy[warning]": 3,
+        "priorityClassNotSet[warning]": 3,
+        "topologySpreadConstraint[warning]": 3,
+        "cpuLimitsMissing[warning]": 3,
+        "cpuRequestsMissing[warning]": 3,
+        "insecureCapabilities[warning]": 3,
+        "linuxHardening[warning]": 3,
+        "livenessProbeMissing[warning]": 3,
+        "memoryLimitsMissing[warning]": 3,
+        "memoryRequestsMissing[warning]": 3,
+        "notReadOnlyRootFilesystem[warning]": 3,
+        "privilegeEscalationAllowed[danger]": 3,
+        "pullPolicyNotAlways[warning]": 3,
+        "readinessProbeMissing[warning]": 3,
+        "runAsRootAllowed[danger]": 3,
+        "tagNotSpecified[danger]": 2,
+        "deploymentMissingReplicas[warning]": 2
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 15,
+      "by_check": {
+        "latest-tag": 2,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 3,
+        "run-as-non-root": 3,
+        "unset-cpu-requirements": 3,
+        "unset-memory-requirements": 3
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 3,
+        "run-as-non-root": 3,
+        "unset-cpu-requirements": 3,
+        "unset-memory-requirements": 3
+      },
+      "zhang_total": 13,
+      "zhang_density_per_kloc": 76.0,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 3,
+      "pct": 6.7,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 3
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 3
+        },
+        "2_readiness": {
+          "met": 0,
+          "applicable": 3
+        },
+        "3_liveness": {
+          "met": 0,
+          "applicable": 3
+        },
+        "4_cpu_request": {
+          "met": 0,
+          "applicable": 3
+        },
+        "5_mem_request": {
+          "met": 0,
+          "applicable": 3
+        },
+        "6_mem_limit": {
+          "met": 0,
+          "applicable": 3
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 3
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 3
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 3
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "api",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "web",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 0,
+            "5_mem_request": 0,
+            "6_mem_limit": 0,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-web-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-api-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-api-hostname",
+        "passed": true,
+        "detail": "Service api headless",
+        "oracle": false
+      },
+      {
+        "id": "R05-db-hostname",
+        "passed": true,
+        "detail": "Service db headless",
+        "oracle": false
+      },
+      {
+        "id": "R06-db-passwordless",
+        "passed": true,
+        "detail": "[True]",
+        "oracle": true
+      },
+      {
+        "id": "R07-db-seeded",
+        "passed": true,
+        "detail": "seed in ['ConfigMap/db-schema'], /docker-entrypoint-initdb.d mounted=True",
+        "oracle": true
+      },
+      {
+        "id": "R08-web-external",
+        "passed": true,
+        "detail": "Service web type LoadBalancer",
+        "oracle": false
+      },
+      {
+        "id": "R09-api-internal",
+        "passed": true,
+        "detail": "internal",
+        "oracle": false
+      },
+      {
+        "id": "R10-db-internal",
+        "passed": true,
+        "detail": "internal",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 8,
+    "requirements_total": 8,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "dockersamples/wordsmith-api",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "dockersamples/wordsmith-web",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "postgres:10.0-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 29.0,
+    "ready_replicas": 7,
+    "expected_replicas": 7,
+    "workloads": [
+      {
+        "ns": "d5-751a7682",
+        "kind": "Deployment",
+        "name": "api",
+        "ready": 5,
+        "want": 5
+      },
+      {
+        "ns": "d5-751a7682",
+        "kind": "Deployment",
+        "name": "db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "d5-751a7682",
+        "kind": "Deployment",
+        "name": "web",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-751a7682",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "web-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "seed-loaded",
+        "passed": true,
+        "detail": "output '18'"
+      },
+      {
+        "name": "api-noun",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "web-proxies-verb",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "web-proxies-adjective",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true
+  },
+  "d6": {
+    "ran": true,
+    "service": "web",
+    "n_ready_before": 1,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "web-865d9fd58f-rv245",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.2,
+        "availability_pct": 91.3,
+        "n_probes": 23
+      },
+      {
+        "ran": true,
+        "victim": "web-865d9fd58f-b8bpp",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.7,
+        "availability_pct": 90.5,
+        "n_probes": 21
+      },
+      {
+        "ran": true,
+        "victim": "web-865d9fd58f-vdxgn",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.2,
+        "availability_pct": 89.5,
+        "n_probes": 19
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "web-865d9fd58f-xnj67",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.6,
+        "availability_pct": 57.7,
+        "n_probes": 26
+      },
+      {
+        "ran": true,
+        "victim": "web-865d9fd58f-xnj67",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 15.2,
+        "availability_pct": 51.4,
+        "n_probes": 37
+      },
+      {
+        "ran": true,
+        "victim": "web-865d9fd58f-xnj67",
+        "victim_prior_restarts": 2,
+        "recovery_ok": true,
+        "recovery_time_s": 24.0,
+        "availability_pct": 30.8,
+        "n_probes": 52
+      }
+    ],
+    "gate": "ready"
+  }
+}

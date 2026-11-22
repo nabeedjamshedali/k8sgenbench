@@ -20,6 +20,7 @@ import os
 import shlex
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -371,12 +372,21 @@ def failure_reason(targets):
     return sorted(set(reasons))[0]
 
 
-def diagnostics(targets):
+def diagnostics(targets, docs=()):
     """Evidence for a failed deployment, taken before the namespace is deleted: per pod, restarts and how the
-    container last ended; per object, warning-event counts (e.g. 'Unhealthy: Liveness probe failed', FailedMount)."""
+    container last ended; per object, warning-event counts (e.g. 'Unhealthy: Liveness probe failed', FailedMount).
+    In a shared system namespace (a config that deploys into kube-system), only the config's own pods and events
+    count; the cluster's pods would otherwise take the log slots."""
+    owners = [(d.get("metadata") or {}).get("name") for d in docs if d.get("kind") in WORKLOAD_KINDS | {"Job", "CronJob", "Pod"}]
+
+    def own(n, obj):
+        return n not in PROTECTED_NAMESPACES or any(obj == w or obj.startswith(f"{w}-") for w in owners if w)
+
     pods, events = [], {}
     for n in targets:
         for p in kjson("get", "pods", "-n", n)["items"]:
+            if not own(n, p["metadata"]["name"]):
+                continue
             for cs in (p.get("status") or {}).get("containerStatuses") or []:
                 term = ((cs.get("lastState") or {}).get("terminated")) or {}
                 if cs.get("restartCount") or not cs.get("ready"):
@@ -386,14 +396,80 @@ def diagnostics(targets):
                     if cs.get("restartCount") and len(pods) < 12:
                         # the crashed run's last lines usually name the cause (e.g. "chown: Operation not permitted")
                         lg = kubectl("logs", "-n", n, p["metadata"]["name"], "-c", cs["name"], "--previous",
-                                     "--tail", "6", timeout=30)
-                        entry["last_log"] = (lg.stdout or "").strip()[-600:]
+                                     "--tail", "40", timeout=30)
+                        entry["last_log"] = (lg.stdout or "").strip()[-3000:]
                     pods.append(entry)
         for e in kjson("get", "events", "-n", n, "--field-selector", "type=Warning").get("items", []):
+            if not own(n, e["involvedObject"].get("name") or ""):
+                continue
             msg = (e.get("message") or "").split(":")[0][:60]
             key = f"{e['involvedObject'].get('name')}|{e.get('reason')}: {msg}"
             events[key] = events.get(key, 0) + (e.get("count") or 1)
     return {"pods": pods[:40], "warning_events": dict(sorted(events.items(), key=lambda kv: -kv[1])[:40])}
+
+
+# an ephemeral container that meets Pod Security "restricted", so it is admitted in any namespace; it only reads files
+LISTEN_SPEC = {"securityContext": {"runAsNonRoot": True, "runAsUser": 65534, "allowPrivilegeEscalation": False,
+                                   "capabilities": {"drop": ["ALL"]}, "seccompProfile": {"type": "RuntimeDefault"}}}
+
+
+def listening(ns, pod):
+    """TCP ports the pod listens on, read from /proc/net/tcp{,6} by an ephemeral container that shares the pod's
+    network namespace (no traffic is sent, so NetworkPolicies cannot affect the answer); None if it cannot be read."""
+    spec = os.path.join(tempfile.gettempdir(), "k8sgen_listen_spec.json")
+    with open(spec, "w") as f:
+        json.dump(LISTEN_SPEC, f)
+    # not --attach: a container that exits within milliseconds can end before the attach, losing its output
+    name = f"listen-{int(time.time() * 1000) % 10**8}"
+    if kubectl("debug", "-n", ns, f"pod/{pod}", "--image", PROBER_IMAGE, "--profile", "restricted", "--custom", spec,
+               "--container", name, "--quiet", "--", "cat", "/proc/net/tcp", "/proc/net/tcp6", timeout=60).returncode:
+        return None
+    deadline = time.time() + 60
+    while time.time() < deadline:
+        st = kubectl("get", "pod", "-n", ns, pod, "-o",
+                     f"jsonpath={{.status.ephemeralContainerStatuses[?(@.name=='{name}')].state.terminated.reason}}").stdout
+        if st.strip():
+            break
+        time.sleep(1)
+    r = kubectl("logs", "-n", ns, pod, "-c", name, timeout=30)
+    ports = set()
+    for line in (r.stdout or "").splitlines():
+        f = line.split()
+        # 0A = LISTEN; a socket bound to loopback only (127.0.0.1, ::1) is not reachable through a Service
+        if len(f) > 3 and ":" in f[1] and f[3] == "0A":
+            addr, port = f[1].rsplit(":", 1)
+            if addr not in ("0100007F", "00000000000000000000000001000000"):
+                ports.add(int(port, 16))
+    return sorted(ports) or None
+
+
+def service_listen_check(docs, ns):
+    """For every Service with a selector: does a running selected pod listen on each targetPort? Evidence for the
+    repair gate only (an all-Ready deployment can still route its Services to ports nobody serves); no metric uses it.
+    Runs after D5 and D6, so it cannot affect their measurements."""
+    out, cache = [], {}
+    for s in docs:
+        if s.get("kind") != "Service" or not (s.get("spec") or {}).get("selector"):
+            continue
+        sns = (s.get("metadata") or {}).get("namespace") or ns
+        pods = [p for p in service_pods(s, sns) if (p.get("status") or {}).get("phase") == "Running"]
+        for port in s["spec"].get("ports") or []:
+            entry = {"service": s["metadata"]["name"], "namespace": sns, "port": port.get("port"),
+                     "target_port": port.get("targetPort", port.get("port")), "pod": None, "listening": None, "ok": None}
+            if pods:
+                p = pods[0]
+                tp = entry["target_port"]
+                if isinstance(tp, str) and not tp.isdigit():
+                    tp = next((cp.get("containerPort") for c in p["spec"]["containers"] for cp in c.get("ports") or []
+                               if cp.get("name") == tp), None)
+                key = (sns, p["metadata"]["name"])
+                if key not in cache:
+                    cache[key] = listening(sns, p["metadata"]["name"])
+                entry.update({"pod": p["metadata"]["name"], "listening": cache[key]})
+                if tp is not None and cache[key] is not None:
+                    entry["ok"] = int(tp) in cache[key]
+            out.append(entry)
+    return out
 
 
 def cleanup(docs, targets):
@@ -599,7 +675,7 @@ def run_runtime(docs, project, run_id, with_d6=True):
         })
         if not ready_ok:
             try:
-                d5["diagnostics"] = diagnostics(targets)
+                d5["diagnostics"] = diagnostics(targets, docs)
             except Exception as e:  # evidence only; never fail the measurement over it
                 d5["diagnostics"] = {"error": str(e)[:200]}
         spec = json.load(open(os.path.join(DATASETS, project, "smoke.json")))
@@ -627,6 +703,11 @@ def run_runtime(docs, project, run_id, with_d6=True):
         if (ready_ok or d5["smoke_ok"]) and with_d6:
             d6_res = d6(docs, project, ns, client)
             d6_res["gate"] = "ready" if ready_ok else "smoke_only"
+        if status:
+            try:
+                d5["service_listen"] = service_listen_check(docs, ns)
+            except Exception as e:  # evidence only; never fail the measurement over it
+                d5["service_listen_error"] = str(e)[:200]
     finally:
         try:
             cleanup(docs, targets)

@@ -202,6 +202,8 @@ def d6_rows():
     rows = []
     for f in glob.glob(os.path.join(S.HERE, "results", "*.json")):
         r = json.load(open(f, encoding="utf-8"))
+        if not S.flatten.in_study(r):
+            continue
         d6 = r.get("d6") or {}
         if not d6.get("ran"):
             continue

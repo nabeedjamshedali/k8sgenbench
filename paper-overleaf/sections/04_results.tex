@@ -66,7 +66,7 @@ Figure~\ref{fig:attrition} follows every configuration through the pipeline. Of 
 
 Being Ready and passing the smoke test are not the same. In 18 configurations, the application served every smoke-test request, but some workload never became Ready, most often an extra component copied from the Compose file, such as Sock Shop's load generator. In 10 others, every workload was Ready, but the application did not work, usually because a Service, RBAC object or NetworkPolicy on the request path was rejected or misdirected.
 
-Table~\ref{tab:root-causes} gives the root cause of each of the 81 configurations (80 generated, one human) that were not both fully Ready and passing the smoke test. For 51, the cause is visible in the cluster's record; 22 are inferred, 5 are supported by a matched contrast and 3 remain undetermined. The most frequent causes are:
+Table~\ref{tab:root-causes} gives the root cause of each of the 81 configurations (80 generated, one human) that were not both fully Ready and passing the smoke test. For 51, the cause is visible in the cluster's record; 22 are inferred, 6 are supported by a matched contrast or a controlled re-deployment, and 2 remain undetermined. The most frequent causes are:
 \begin{itemize}
 \item host-level Compose services that fail while the application works (10);
 \item invalid YAML or objects that the API server rejects (8);

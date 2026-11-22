@@ -1,0 +1,731 @@
+{
+  "project": "P02_n8n",
+  "source": "claude",
+  "prompt_variant": "guided_r0",
+  "sample_k": "1",
+  "timestamp": "2026-11-20T18:00:16Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 9,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 9,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 9,
+    "objects_accepted": 9,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Secret",
+        "name": "postgres-secret",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "n8n-secret",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "postgres-init",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "postgres",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PersistentVolumeClaim",
+        "name": "n8n-storage",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "n8n",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "n8n",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "n8n-runner",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 332,
+  "resource_counts": {
+    "Secret": 2,
+    "ConfigMap": 1,
+    "Service": 2,
+    "StatefulSet": 1,
+    "PersistentVolumeClaim": 1,
+    "Deployment": 2
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 87.77779,
+      "frameworks": {
+        "NSA": 81.66667,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=2126983785/api=apps/v1//Deployment/n8n-runner",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2126983785/api=apps/v1//Deployment/n8n-runner",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2126983785/api=apps/v1//Deployment/n8n-runner",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2126983785/api=apps/v1//Deployment/n8n-runner",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2277982356/api=apps/v1//Deployment/n8n",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2277982356/api=apps/v1//Deployment/n8n",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2277982356/api=apps/v1//Deployment/n8n",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2328315213/api=apps/v1//StatefulSet/postgres",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2328315213/api=apps/v1//StatefulSet/postgres",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2328315213/api=apps/v1//StatefulSet/postgres",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2328315213/api=apps/v1//StatefulSet/postgres",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 6,
+        "medium": 4,
+        "low": 15
+      },
+      "failed": [
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'n8n-runner' of Deployment 'n8n-runner' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'n8n-runner' of 'deployment' 'n8n-runner' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'postgres' of 'statefulset' 'postgres' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'n8n-runner' of Deployment 'n8n-runner' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'n8n' of Deployment 'n8n' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'n8n-runner' of Deployment 'n8n-runner' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'n8n' of Deployment 'n8n' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'n8n-runner' of Deployment 'n8n-runner' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'n8n' of Deployment 'n8n' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'n8n-runner' of Deployment 'n8n-runner' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'postgres' of StatefulSet 'postgres' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0109",
+          "title": "ConfigMap with secrets",
+          "severity": "HIGH",
+          "message": "ConfigMap 'postgres-init' in 'default' namespace stores secrets in key(s) or value(s) '{\"if [ -n \\\"${POSTGRES_NON_ROOT_USER\"}'"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment n8n in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment n8n-runner in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "statefulset postgres in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment n8n-runner in default namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "statefulset postgres in default namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container n8n in deployment n8n (namespace: default) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container n8n-runner in deployment n8n-runner (namespace: default) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 3,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-secret",
+          "key": "POSTGRES_PASSWORD"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-secret",
+          "key": "POSTGRES_NON_ROOT_PASSWORD"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "n8n-secret",
+          "key": "RUNNERS_AUTH_TOKEN"
+        }
+      ],
+      "nonsensitive_secret_literals": [
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-secret",
+          "key": "POSTGRES_USER"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-secret",
+          "key": "POSTGRES_DB"
+        },
+        {
+          "type": "secret-object-literal",
+          "object": "postgres-secret",
+          "key": "POSTGRES_NON_ROOT_USER"
+        }
+      ]
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 3,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "StatefulSet",
+            "name": "postgres",
+            "detail": "statefulset.apps/postgres created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"postgres\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"postgres\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "n8n-runner",
+            "detail": "deployment.apps/n8n-runner created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"n8n-runner\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"n8n-runner\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 18,
+      "warning": 2,
+      "critical_by_check": {
+        "pod-networkpolicy": 3,
+        "container-image-pull-policy": 3,
+        "container-security-context-readonlyrootfilesystem": 3,
+        "pod-probes-identical": 2,
+        "container-ephemeral-storage-request-and-limit": 3,
+        "container-security-context-user-group-id": 3,
+        "statefulset-has-servicename": 1
+      },
+      "warning_by_check": {
+        "deployment-replicas": 1,
+        "deployment-strategy": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 78,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 2,
+        "metadataAndInstanceMismatched[warning]": 3,
+        "missingPodDisruptionBudget[warning]": 2,
+        "automountServiceAccountToken[warning]": 3,
+        "missingNetworkPolicy[warning]": 3,
+        "priorityClassNotSet[warning]": 3,
+        "topologySpreadConstraint[warning]": 3,
+        "notReadOnlyRootFilesystem[warning]": 3,
+        "pullPolicyNotAlways[warning]": 3,
+        "insecureCapabilities[warning]": 2,
+        "livenessProbeMissing[warning]": 1,
+        "readinessProbeMissing[warning]": 1,
+        "runAsRootAllowed[danger]": 2
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 5,
+      "by_check": {
+        "no-read-only-root-fs": 3,
+        "run-as-non-root": 2
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 3,
+        "run-as-non-root": 2,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 5,
+      "zhang_density_per_kloc": 15.1,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 3,
+      "pct": 55.2,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 3,
+          "applicable": 3
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 2
+        },
+        "2_readiness": {
+          "met": 2,
+          "applicable": 3
+        },
+        "3_liveness": {
+          "met": 2,
+          "applicable": 3
+        },
+        "4_cpu_request": {
+          "met": 3,
+          "applicable": 3
+        },
+        "5_mem_request": {
+          "met": 3,
+          "applicable": 3
+        },
+        "6_mem_limit": {
+          "met": 3,
+          "applicable": 3
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 3
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 3
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 3
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "StatefulSet",
+          "name": "postgres",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "n8n",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "n8n-runner",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-n8n-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-postgres-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-db-type",
+        "passed": true,
+        "detail": "DB_TYPE=['postgresdb']",
+        "oracle": false
+      },
+      {
+        "id": "R04-db-host-routes-to-postgres",
+        "passed": true,
+        "detail": "DB_POSTGRESDB_HOST=['postgres']; Services routing to postgres:5432: ['postgres']",
+        "oracle": false
+      },
+      {
+        "id": "R05-db-port",
+        "passed": true,
+        "detail": "DB_POSTGRESDB_PORT=['5432']",
+        "oracle": false
+      },
+      {
+        "id": "R06-db-name",
+        "passed": true,
+        "detail": "DB_POSTGRESDB_DATABASE=['n8n']",
+        "oracle": false
+      },
+      {
+        "id": "R07-db-credentials-match",
+        "passed": true,
+        "detail": "n8n uses user ['changeNonRootUser']; postgres accounts ['changeNonRootUser', 'changeUser']",
+        "oracle": false
+      },
+      {
+        "id": "R08-postgres-password",
+        "passed": true,
+        "detail": "POSTGRES_PASSWORD set in 1 container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R09-postgres-db",
+        "passed": true,
+        "detail": "POSTGRES_DB=['n8n']",
+        "oracle": false
+      },
+      {
+        "id": "R10-pgdata-in-volume",
+        "passed": true,
+        "detail": "PGDATA=['/var/lib/postgresql/data/pgdata']",
+        "oracle": false
+      },
+      {
+        "id": "R11-postgres-persistent",
+        "passed": true,
+        "detail": "volumeClaimTemplate",
+        "oracle": false
+      },
+      {
+        "id": "R12-n8n-persistent",
+        "passed": true,
+        "detail": "PVC n8n-storage",
+        "oracle": false
+      },
+      {
+        "id": "R13-n8n-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 12,
+    "requirements_total": 13,
+    "pct": 92.3
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "docker.n8n.io/n8nio/n8n:2.43.5",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "n8nio/runners:2.43.5",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "postgres:18",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 2,
+    "expected_replicas": 3,
+    "workloads": [
+      {
+        "ns": "d5-9f529611",
+        "kind": "Deployment",
+        "name": "n8n",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "d5-9f529611",
+        "kind": "Deployment",
+        "name": "n8n-runner",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "d5-9f529611",
+        "kind": "StatefulSet",
+        "name": "postgres",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": "NotReady(probe)",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "n8n-6987fd9b65-btddp",
+          "container": "n8n",
+          "restarts": 4,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "Invalid number value for N8N_PORT: tcp://10.96.167.135:5678\nLast session crashed\nInitializing n8n process\nInitial database connection attempt 1 failed: password authentication failed for user \"changeNonRootUser\". Retrying in 1000ms\nInitial database connection attempt 2 failed: password authentication failed for user \"changeNonRootUser\". Retrying in 2000ms\nInitial database connection attempt 3 failed: password authentication failed for user \"changeNonRootUser\". Retrying in 4000ms\nInitial database connection attempt 4 failed: password authentication failed for user \"changeNonRootUser\". Retrying in 8000ms\nInitial database connection attempt 5 failed: password authentication failed for user \"changeNonRootUser\". Retrying in 16000ms\nThere was an error initializing DB\nThere was an error initializing DB\nError: There was an error initializing DB\n    at Start.exitWithCrash (/usr/local/lib/node_modules/n8n/src/commands/base-command.ts:361:28)\n    at /usr/local/lib/node_modules/n8n/src/commands/base-command.ts:184:18\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/base-command.ts:180:4)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:219:3)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\n\npassword authentication failed for user \"changeNonRootUser\"\nerror: password authentication failed for user \"changeNonRootUser\"\n    at parseErrorMessage (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/pg-protocol@1.15.0/node_modules/pg-protocol/dist/parser.js:305:11)\n    at Parser.handlePacket (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/pg-protocol@1.15.0/node_modules/pg-protocol/dist/parser.js:143:27)\n    at Parser.parse (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/pg-protocol@1.15.0/node_modules/pg-protocol/dist/parser.js:37:38)\n    at Socket.<anonymous> (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/pg-protocol@1.15.0/node_modules/pg-protocol/dist/index.js:12:42)\n    at Socket.emit (node:events:514:20)\n    at addChunk (node:internal/streams/readable:568:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)\n    at Socket.Readable.push (node:internal/streams/readable:399:5)\n    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)"
+        }
+      ],
+      "warning_events": {
+        "n8n-6987fd9b65-btddp|Unhealthy: Startup probe failed": 22,
+        "n8n-6987fd9b65-btddp|BackOff: Back-off restarting failed container n8n in pod n8n-6987fd9b": 6
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-9f529611",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "n8n-healthz",
+        "passed": false,
+        "detail": "HTTP 000"
+      },
+      {
+        "name": "n8n-readiness-db",
+        "passed": false,
+        "detail": "HTTP 000"
+      },
+      {
+        "name": "n8n-schema-in-postgres",
+        "passed": false,
+        "detail": "output '0'"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "checks": [
+    {"name": "store-home-lists-categories", "target": {"image": "descartesresearch/teastore-webui", "port": 8080},
+     "method": "GET", "path": "/tools.descartes.teastore.webui/", "expect_status": 200, "expect_body": "Black Tea", "retry_seconds": 300},
+    {"name": "status-db-populated", "target": {"image": "descartesresearch/teastore-webui", "port": 8080},
+     "method": "GET", "path": "/tools.descartes.teastore.webui/status", "expect_status": 200, "expect_body": "OK and populated", "retry_seconds": 300},
+    {"name": "category-page", "target": {"image": "descartesresearch/teastore-webui", "port": 8080},
+     "method": "GET", "path": "/tools.descartes.teastore.webui/category?category=2&page=1", "expect_status": 200, "expect_body": "TeaStore Categorie", "retry_seconds": 120}
+  ],
+  "d6_target": {"image": "descartesresearch/teastore-webui", "port": 8080, "path": "/tools.descartes.teastore.webui/"}
+}

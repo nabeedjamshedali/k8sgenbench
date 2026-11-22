@@ -10,6 +10,15 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 RESULTS = os.path.join(HERE, "results")
+# the published study (RQ1-RQ5): seven projects, the human manifest and the neutral and production prompts. results/
+# also holds the phase-2 runs (guided rounds, three new projects), which the RQ6 analysis reads on its own.
+STUDY_PROJECTS = {"P02_n8n", "P03_grafana", "P04_voting-app", "P05_emojivoto", "P07_online-boutique",
+                  "P08_sock-shop", "P10_k8s-dashboard"}
+
+
+def in_study(r):
+    return r["project"] in STUDY_PROJECTS and (r["source"] == "human" or r.get("prompt_variant") in
+                                               ("neutral", "production"))
 
 
 def meta(project):
@@ -74,7 +83,8 @@ def row(r):
 
 
 def main():
-    rows = [row(json.load(open(f, encoding="utf-8"))) for f in sorted(glob.glob(os.path.join(RESULTS, "*.json")))]
+    rows = [row(r) for r in (json.load(open(f, encoding="utf-8")) for f in sorted(glob.glob(os.path.join(RESULTS, "*.json"))))
+            if in_study(r)]
     if not rows:
         print("no results")
         return

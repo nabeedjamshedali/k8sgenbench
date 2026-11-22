@@ -1,0 +1,631 @@
+{
+  "project": "P10_k8s-dashboard",
+  "source": "qwen",
+  "prompt_variant": "guided_r1",
+  "sample_k": "1",
+  "timestamp": "2026-11-22T19:09:47Z",
+  "gen_finish_reason": "stop",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 6,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 6,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 6,
+    "objects_accepted": 6,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRole",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "kubernetes-dashboard",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 178,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "ClusterRole": 1,
+    "ClusterRoleBinding": 1,
+    "Service": 1,
+    "Deployment": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 81.666664,
+      "frameworks": {
+        "NSA": 82.5,
+        "MITRE": 82.35294
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 4,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=2766880360/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/kubernetes-dashboard/path=2783657979/api=rbac.authorization.k8s.io/v1//ClusterRole/kubernetes-dashboard",
+          "control": "C-0015",
+          "name": "List Kubernetes secrets"
+        },
+        {
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=2766880360/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/kubernetes-dashboard/path=2783657979/api=rbac.authorization.k8s.io/v1//ClusterRole/kubernetes-dashboard",
+          "control": "C-0053",
+          "name": "Access container service account"
+        },
+        {
+          "resource": "path=2817213217/api=/v1//Namespace/kubernetes-dashboard",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=2867546074/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2867546074/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2867546074/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 1,
+        "high": 1,
+        "medium": 1,
+        "low": 2
+      },
+      "failed": [
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'kubernetes-dashboard' of Deployment 'kubernetes-dashboard' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'kubernetes-dashboard' of Deployment 'kubernetes-dashboard' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'kubernetes-dashboard' of Deployment 'kubernetes-dashboard' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0041",
+          "title": "Manage secrets",
+          "severity": "CRITICAL",
+          "message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container kubernetes-dashboard in deployment kubernetes-dashboard (namespace: kubernetes-dashboard) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 7,
+      "warning": 1,
+      "critical_by_check": {
+        "container-image-pull-policy": 1,
+        "container-ephemeral-storage-request-and-limit": 1,
+        "container-security-context-user-group-id": 1,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "pod-probes-identical": 1,
+        "pod-networkpolicy": 1,
+        "deployment-has-poddisruptionbudget": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 85,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "automountServiceAccountToken[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 2,
+      "by_check": {
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 2,
+      "zhang_density_per_kloc": 11.2,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 70.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "kubernetes-dashboard",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-dashboard-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": true
+      },
+      {
+        "id": "R02-scraper-deployed",
+        "passed": false,
+        "detail": "no workload runs kubernetesui/metrics-scraper",
+        "oracle": true
+      },
+      {
+        "id": "R01b-dashboard-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02b-scraper-component-present",
+        "passed": false,
+        "detail": "no workload runs dashboard-metrics-scraper",
+        "oracle": false
+      },
+      {
+        "id": "R03-dashboard-https-port-in-cluster",
+        "passed": true,
+        "detail": "via Service kubernetes-dashboard",
+        "oracle": false
+      },
+      {
+        "id": "R04-dashboard-serves-https",
+        "passed": true,
+        "detail": "certificate flags present",
+        "oracle": false
+      },
+      {
+        "id": "R05-dashboard-namespace-setting",
+        "passed": false,
+        "detail": "dashboard uses namespace kube-system, runs in kubernetes-dashboard",
+        "oracle": false
+      },
+      {
+        "id": "R06-csrf-secret-exists",
+        "passed": false,
+        "detail": "Secret kubernetes-dashboard-csrf missing in dashboard namespace",
+        "oracle": true
+      },
+      {
+        "id": "R07-scraper-service-name",
+        "passed": false,
+        "detail": "no Service named dashboard-metrics-scraper",
+        "oracle": true
+      },
+      {
+        "id": "R08-scraper-service-same-ns-unnamed-port",
+        "passed": false,
+        "detail": "no Service named dashboard-metrics-scraper",
+        "oracle": true
+      },
+      {
+        "id": "R09-scraper-cluster-wide",
+        "passed": false,
+        "detail": "POD_NAMESPACE or --namespace set on scraper",
+        "oracle": true
+      },
+      {
+        "id": "R10-scraper-db-writable",
+        "passed": false,
+        "detail": "read-only root filesystem without a volume for the db directory",
+        "oracle": true
+      },
+      {
+        "id": "R11-dashboard-csrf-secret-get-update",
+        "passed": false,
+        "detail": "missing: update secrets",
+        "oracle": true
+      },
+      {
+        "id": "R12-dashboard-key-holder",
+        "passed": false,
+        "detail": "get=True create=False Secret kubernetes-dashboard-key-holder pre-created=False",
+        "oracle": true
+      },
+      {
+        "id": "R13-dashboard-settings-configmap",
+        "passed": false,
+        "detail": "get=True create=False ConfigMap kubernetes-dashboard-settings pre-created=False",
+        "oracle": true
+      },
+      {
+        "id": "R14-dashboard-service-proxy",
+        "passed": true,
+        "detail": "granted",
+        "oracle": true
+      },
+      {
+        "id": "R15-scraper-metrics-api",
+        "passed": false,
+        "detail": "no workload runs dashboard-metrics-scraper",
+        "oracle": false
+      },
+      {
+        "id": "R16-scraper-internal",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 3,
+    "requirements_total": 7,
+    "pct": 42.9
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "kubernetesui/dashboard:v2.7.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [
+      {
+        "object": "Secret/kubernetes-dashboard-csrf",
+        "namespace": "kube-system",
+        "created": true
+      }
+    ],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 10,
+    "expected_replicas": 12,
+    "workloads": [
+      {
+        "ns": "kube-system",
+        "kind": "Deployment",
+        "name": "coredns",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "kube-system",
+        "kind": "DaemonSet",
+        "name": "kindnet",
+        "ready": 4,
+        "want": 4
+      },
+      {
+        "ns": "kube-system",
+        "kind": "DaemonSet",
+        "name": "kube-proxy",
+        "ready": 4,
+        "want": 4
+      },
+      {
+        "ns": "kubernetes-dashboard",
+        "kind": "Deployment",
+        "name": "kubernetes-dashboard",
+        "ready": 0,
+        "want": 2
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "coredns-559f6c778d-dtzms",
+          "container": "coredns",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "A: read udp 10.244.0.2:47445->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:54245->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38501->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:33934->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:43202->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:46196->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:37352->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:46211->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:35095->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38247->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:39888->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38918->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:50913->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:35929->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:37458->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:52563->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:55384->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:45627->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:34586->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:53897->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:47789->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:59078->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:56571->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38508->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:38702->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:40097->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:43301->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:39639->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:48060->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:36430->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.2:52956->192.168.65.254:53: i/o timeout"
+        },
+        {
+          "pod": "coredns-559f6c778d-p54bb",
+          "container": "coredns",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "A: read udp 10.244.0.4:38360->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:55551->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:45355->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:33727->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:33670->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:35063->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:55942->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:58689->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:32866->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:48071->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:40368->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:50360->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:33575->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:49070->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:59034->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:53601->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:60875->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:54321->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:38920->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:37808->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:43811->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:50495->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:38394->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:49014->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:35331->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:41211->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:41276->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:48104->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:42881->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:41360->192.168.65.254:53: i/o timeout\n[ERROR] plugin/errors: 2 session-db. A: read udp 10.244.0.4:59171->192.168.65.254:53: i/o timeout"
+        },
+        {
+          "pod": "kindnet-pvrkx",
+          "container": "kindnet-cni",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "    1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:10.921836       1 main.go:324] handling current node\nI1120 19:56:10.921881       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:10.921902       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:20.087895       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:20.088051       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:20.088600       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:20.088751       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:20.088983       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:20.089089       1 main.go:324] handling current node\nI1120 19:56:20.089132       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:20.089162       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:30.090672       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:30.091653       1 main.go:324] handling current node\nI1120 19:56:30.092138       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:30.092534       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:30.093780       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:30.094360       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:30.108129       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:30.108706       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:40.088278       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:40.090057       1 main.go:324] handling current node\nI1120 19:56:40.092473       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:40.093146       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:40.099032       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:40.120633       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:40.164761       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:40.164838       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:50.083105       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:50.083473       1 main.go:324] handling current node\nI1120 19:56:50.098269       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:50.098521       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:50.104358       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:50.120499       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:50.149927       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:50.151224       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24]"
+        },
+        {
+          "pod": "kindnet-qpd7d",
+          "container": "kindnet-cni",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "node with IPs: map[172.22.0.6:{}]\nI1120 19:56:03.689469       1 main.go:324] handling current node\nI1120 19:56:03.689569       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:03.689594       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:13.636094       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:13.636218       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:13.672574       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:13.672740       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:13.680137       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:13.680266       1 main.go:324] handling current node\nI1120 19:56:13.680380       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:13.680403       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:22.792936       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:22.793437       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:22.794185       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:22.794218       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:22.794428       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:22.794461       1 main.go:324] handling current node\nI1120 19:56:22.794514       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:22.794533       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:32.808229       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:32.808407       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:32.808930       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:32.808969       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:32.809221       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:32.809251       1 main.go:324] handling current node\nI1120 19:56:32.809290       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:32.809308       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:42.811592       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:42.811744       1 main.go:324] handling current node\nI1120 19:56:42.811801       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:42.811828       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:42.984454       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:42.984548       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:42.985037       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:42.985072       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24]"
+        },
+        {
+          "pod": "kindnet-wbn8t",
+          "container": "kindnet-cni",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "ing node with IPs: map[172.22.0.3:{}]\nI1120 19:56:01.680840       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:01.681353       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:01.681459       1 main.go:324] handling current node\nI1120 19:56:11.681933       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:11.682026       1 main.go:324] handling current node\nI1120 19:56:11.682070       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:11.682091       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:11.682539       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:11.682573       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:11.682808       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:11.682831       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:20.866665       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:20.866821       1 main.go:324] handling current node\nI1120 19:56:20.866953       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:20.866979       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:20.868629       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:20.868786       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:20.870101       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:20.870359       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:30.944402       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:30.944627       1 main.go:324] handling current node\nI1120 19:56:30.944688       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:30.944717       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:30.947210       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:30.947555       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:30.948098       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:30.948152       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24] \nI1120 19:56:40.944361       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:40.944809       1 main.go:324] handling current node\nI1120 19:56:40.944906       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:40.945044       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:40.948415       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:40.948591       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:41.181291       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:41.187211       1 main.go:347] Node k8sgen-worker2 has CIDR [10.244.2.0/24]"
+        },
+        {
+          "pod": "kindnet-wwr89",
+          "container": "kindnet-cni",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "ing node with IPs: map[172.22.0.3:{}]\nI1120 19:56:03.524165       1 main.go:324] handling current node\nI1120 19:56:03.524204       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:03.524224       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:13.528509       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:13.528599       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:13.529051       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:13.529129       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:13.529353       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:13.529382       1 main.go:324] handling current node\nI1120 19:56:13.529415       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:13.529432       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:22.715958       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:22.716952       1 main.go:324] handling current node\nI1120 19:56:22.716999       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:22.717022       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:22.720249       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:22.720669       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:22.721748       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:22.722016       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:33.304507       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:33.304648       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:33.305444       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:33.305485       1 main.go:324] handling current node\nI1120 19:56:33.305539       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:33.305563       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24] \nI1120 19:56:33.305984       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:33.306010       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:42.712529       1 main.go:320] Handling node with IPs: map[172.22.0.4:{}]\nI1120 19:56:42.712630       1 main.go:347] Node k8sgen-control-plane has CIDR [10.244.0.0/24] \nI1120 19:56:42.713111       1 main.go:320] Handling node with IPs: map[172.22.0.6:{}]\nI1120 19:56:42.713156       1 main.go:347] Node k8sgen-worker has CIDR [10.244.3.0/24] \nI1120 19:56:42.713547       1 main.go:320] Handling node with IPs: map[172.22.0.3:{}]\nI1120 19:56:42.713583       1 main.go:324] handling current node\nI1120 19:56:42.713628       1 main.go:320] Handling node with IPs: map[172.22.0.5:{}]\nI1120 19:56:42.713653       1 main.go:347] Node k8sgen-worker3 has CIDR [10.244.1.0/24]"
+        },
+        {
+          "pod": "kube-controller-manager-k8sgen-control-plane",
+          "container": "kube-controller-manager",
+          "restarts": 5,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": " version: 36185 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:39.342717       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/front-end-6d9766bb99\\\" failed with read version: 36185 is not as new as written version: 36188 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:40.743622       1 stateful_set.go:509] \"Error syncing StatefulSet, requeuing\" err=\"read version: 36279 is not as new as written version: 36281 for group resource statefulsets.apps\" logger=\"UnhandledError\" key=\"sock-shop/catalogue-db\"\nE1120 19:48:41.727600       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/carts-7979984d8\\\" failed with read version: 36307 is not as new as written version: 36319 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:41.776854       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/carts-7979984d8\\\" failed with read version: 36319 is not as new as written version: 36323 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:43.000751       1 stateful_set.go:509] \"Error syncing StatefulSet, requeuing\" err=\"read version: 36357 is not as new as written version: 36359 for group resource statefulsets.apps\" logger=\"UnhandledError\" key=\"sock-shop/carts-db\"\nE1120 19:48:43.771844       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/orders-6b56d8d9cc\\\" failed with read version: 36385 is not as new as written version: 36393 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:43.778109       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/orders-6b56d8d9cc\\\" failed with read version: 36385 is not as new as written version: 36393 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:43.817060       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/orders-6b56d8d9cc\\\" failed with read version: 36393 is not as new as written version: 36397 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:44.897732       1 stateful_set.go:509] \"Error syncing StatefulSet, requeuing\" err=\"read version: 36419 is not as new as written version: 36423 for group resource statefulsets.apps\" logger=\"UnhandledError\" key=\"sock-shop/orders-db\"\nE1120 19:48:45.848733       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/shipping-677d9bbc87\\\" failed with read version: 36468 is not as new as written version: 36470 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:46.737973       1 replica_set.go:640] \"Unhandled Error\" err=\"sync \\\"sock-shop/queue-master-5d6db997dd\\\" failed with read version: 36510 is not as new as written version: 36515 for group resource replicasets.apps\" logger=\"UnhandledError\"\nE1120 19:48:47.919696       1 stateful_set.go:509] \"Error syncing StatefulSet, requeuing\" err=\"read version: 36545 is not as new as written version: 36554 for group resource statefulsets.apps\" logger=\"UnhandledError\" key=\"sock-shop/rabbitmq\""
+        },
+        {
+          "pod": "kube-proxy-58rl7",
+          "container": "kube-proxy",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "I1120 16:39:11.159069       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 16:39:11.259866       1 shared_informer.go:531] \"Caches are synced\"\nI1120 16:39:11.260041       1 server.go:228] \"Successfully retrieved NodeIPs\" NodeIPs=[\"172.22.0.6\"]\nI1120 16:39:11.260430       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_established\" value=86400\nI1120 16:39:11.260718       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_close_wait\" value=3600\nE1120 16:39:11.260805       1 server.go:256] \"Kube-proxy configuration may be incomplete or incorrect\" err=\"nodePortAddresses is unset; NodePort connections will be accepted on all local IPs. Consider using `--nodeport-addresses primary`\"\nI1120 16:39:11.305066       1 server.go:265] \"kube-proxy running in dual-stack mode\" primary ipFamily=\"IPv4\"\nI1120 16:39:11.305188       1 server_linux.go:144] \"Using iptables Proxier\"\nI1120 16:39:11.313010       1 proxier.go:231] \"Setting route_localnet=1 to allow node-ports on localhost; to change this either disable iptables.localhostNodePorts (--iptables-localhost-nodeports) or set nodePortAddresses (--nodeport-addresses) to filter loopback addresses\" ipFamily=\"IPv4\"\nI1120 16:39:11.313887       1 server.go:530] \"Version info\" version=\"v1.37.0\"\nI1120 16:39:11.313921       1 server.go:532] \"Golang settings\" GOGC=\"\" GOMAXPROCS=\"\" GOTRACEBACK=\"\"\nI1120 16:39:11.317073       1 config.go:200] \"Starting service config controller\"\nI1120 16:39:11.317389       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"service config\"\nI1120 16:39:11.318457       1 config.go:106] \"Starting endpoint slice config controller\"\nI1120 16:39:11.318624       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"endpoint slice config\"\nI1120 16:39:11.319034       1 config.go:403] \"Starting serviceCIDR config controller\"\nI1120 16:39:11.319676       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"serviceCIDR config\"\nI1120 16:39:11.319541       1 config.go:309] \"Starting node config controller\"\nI1120 16:39:11.321488       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"node config\"\nI1120 16:39:11.321553       1 shared_informer.go:510] \"Caches are synced\" controller=\"node config\"\nI1120 16:39:11.417798       1 shared_informer.go:510] \"Caches are synced\" controller=\"service config\"\nI1120 16:39:11.419549       1 shared_informer.go:510] \"Caches are synced\" controller=\"endpoint slice config\"\nI1120 16:39:11.419981       1 shared_informer.go:510] \"Caches are synced\" controller=\"serviceCIDR config\""
+        },
+        {
+          "pod": "kube-proxy-d48d8",
+          "container": "kube-proxy",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "I1120 16:39:00.445854       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 16:39:00.547571       1 shared_informer.go:531] \"Caches are synced\"\nI1120 16:39:00.547679       1 server.go:228] \"Successfully retrieved NodeIPs\" NodeIPs=[\"172.22.0.4\"]\nI1120 16:39:00.547974       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_established\" value=86400\nI1120 16:39:00.548125       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_close_wait\" value=3600\nE1120 16:39:00.548225       1 server.go:256] \"Kube-proxy configuration may be incomplete or incorrect\" err=\"nodePortAddresses is unset; NodePort connections will be accepted on all local IPs. Consider using `--nodeport-addresses primary`\"\nI1120 16:39:00.591986       1 server.go:265] \"kube-proxy running in dual-stack mode\" primary ipFamily=\"IPv4\"\nI1120 16:39:00.592096       1 server_linux.go:144] \"Using iptables Proxier\"\nI1120 16:39:00.599209       1 proxier.go:231] \"Setting route_localnet=1 to allow node-ports on localhost; to change this either disable iptables.localhostNodePorts (--iptables-localhost-nodeports) or set nodePortAddresses (--nodeport-addresses) to filter loopback addresses\" ipFamily=\"IPv4\"\nI1120 16:39:00.622371       1 server.go:530] \"Version info\" version=\"v1.37.0\"\nI1120 16:39:00.622414       1 server.go:532] \"Golang settings\" GOGC=\"\" GOMAXPROCS=\"\" GOTRACEBACK=\"\"\nI1120 16:39:00.627275       1 config.go:200] \"Starting service config controller\"\nI1120 16:39:00.627319       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"service config\"\nI1120 16:39:00.627191       1 config.go:106] \"Starting endpoint slice config controller\"\nI1120 16:39:00.627446       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"endpoint slice config\"\nI1120 16:39:00.628791       1 config.go:309] \"Starting node config controller\"\nI1120 16:39:00.628865       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"node config\"\nI1120 16:39:00.629264       1 config.go:403] \"Starting serviceCIDR config controller\"\nI1120 16:39:00.629286       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"serviceCIDR config\"\nI1120 16:39:00.728319       1 shared_informer.go:510] \"Caches are synced\" controller=\"service config\"\nI1120 16:39:00.728303       1 shared_informer.go:510] \"Caches are synced\" controller=\"endpoint slice config\"\nI1120 16:39:00.729817       1 shared_informer.go:510] \"Caches are synced\" controller=\"serviceCIDR config\"\nI1120 16:39:00.729897       1 shared_informer.go:510] \"Caches are synced\" controller=\"node config\""
+        },
+        {
+          "pod": "kube-proxy-h4wkb",
+          "container": "kube-proxy",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "I1120 16:39:08.293649       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 16:39:08.508307       1 shared_informer.go:531] \"Caches are synced\"\nI1120 16:39:08.508384       1 server.go:228] \"Successfully retrieved NodeIPs\" NodeIPs=[\"172.22.0.5\"]\nI1120 16:39:08.508716       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_established\" value=86400\nI1120 16:39:08.508812       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_close_wait\" value=3600\nE1120 16:39:08.508867       1 server.go:256] \"Kube-proxy configuration may be incomplete or incorrect\" err=\"nodePortAddresses is unset; NodePort connections will be accepted on all local IPs. Consider using `--nodeport-addresses primary`\"\nI1120 16:39:08.594210       1 server.go:265] \"kube-proxy running in dual-stack mode\" primary ipFamily=\"IPv4\"\nI1120 16:39:08.594326       1 server_linux.go:144] \"Using iptables Proxier\"\nI1120 16:39:08.602651       1 proxier.go:231] \"Setting route_localnet=1 to allow node-ports on localhost; to change this either disable iptables.localhostNodePorts (--iptables-localhost-nodeports) or set nodePortAddresses (--nodeport-addresses) to filter loopback addresses\" ipFamily=\"IPv4\"\nI1120 16:39:08.607748       1 server.go:530] \"Version info\" version=\"v1.37.0\"\nI1120 16:39:08.607846       1 server.go:532] \"Golang settings\" GOGC=\"\" GOMAXPROCS=\"\" GOTRACEBACK=\"\"\nI1120 16:39:08.610847       1 config.go:403] \"Starting serviceCIDR config controller\"\nI1120 16:39:08.610902       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"serviceCIDR config\"\nI1120 16:39:08.612271       1 config.go:200] \"Starting service config controller\"\nI1120 16:39:08.612301       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"service config\"\nI1120 16:39:08.612329       1 config.go:309] \"Starting node config controller\"\nI1120 16:39:08.612344       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"node config\"\nI1120 16:39:08.612354       1 shared_informer.go:510] \"Caches are synced\" controller=\"node config\"\nI1120 16:39:08.610813       1 config.go:106] \"Starting endpoint slice config controller\"\nI1120 16:39:08.612696       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"endpoint slice config\"\nI1120 16:39:08.810959       1 shared_informer.go:510] \"Caches are synced\" controller=\"serviceCIDR config\"\nI1120 16:39:08.812652       1 shared_informer.go:510] \"Caches are synced\" controller=\"service config\"\nI1120 16:39:08.913154       1 shared_informer.go:510] \"Caches are synced\" controller=\"endpoint slice config\""
+        },
+        {
+          "pod": "kube-proxy-t7742",
+          "container": "kube-proxy",
+          "restarts": 1,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "I1120 16:39:10.598077       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 16:39:10.699658       1 shared_informer.go:531] \"Caches are synced\"\nI1120 16:39:10.699786       1 server.go:228] \"Successfully retrieved NodeIPs\" NodeIPs=[\"172.22.0.3\"]\nI1120 16:39:10.700167       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_established\" value=86400\nI1120 16:39:10.700345       1 sysctls.go:192] \"Set sysctl\" entry=\"net/netfilter/nf_conntrack_tcp_timeout_close_wait\" value=3600\nE1120 16:39:10.700418       1 server.go:256] \"Kube-proxy configuration may be incomplete or incorrect\" err=\"nodePortAddresses is unset; NodePort connections will be accepted on all local IPs. Consider using `--nodeport-addresses primary`\"\nI1120 16:39:10.795871       1 server.go:265] \"kube-proxy running in dual-stack mode\" primary ipFamily=\"IPv4\"\nI1120 16:39:10.795989       1 server_linux.go:144] \"Using iptables Proxier\"\nI1120 16:39:10.811956       1 proxier.go:231] \"Setting route_localnet=1 to allow node-ports on localhost; to change this either disable iptables.localhostNodePorts (--iptables-localhost-nodeports) or set nodePortAddresses (--nodeport-addresses) to filter loopback addresses\" ipFamily=\"IPv4\"\nI1120 16:39:10.816126       1 server.go:530] \"Version info\" version=\"v1.37.0\"\nI1120 16:39:10.817081       1 server.go:532] \"Golang settings\" GOGC=\"\" GOMAXPROCS=\"\" GOTRACEBACK=\"\"\nI1120 16:39:10.821759       1 config.go:200] \"Starting service config controller\"\nI1120 16:39:10.822246       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"service config\"\nI1120 16:39:10.822696       1 config.go:309] \"Starting node config controller\"\nI1120 16:39:10.823582       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"node config\"\nI1120 16:39:10.822735       1 config.go:106] \"Starting endpoint slice config controller\"\nI1120 16:39:10.828106       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"endpoint slice config\"\nI1120 16:39:10.823287       1 config.go:403] \"Starting serviceCIDR config controller\"\nI1120 16:39:10.828242       1 shared_informer.go:503] \"Waiting for caches to sync\" controller=\"serviceCIDR config\"\nI1120 16:39:10.923330       1 shared_informer.go:510] \"Caches are synced\" controller=\"service config\"\nI1120 16:39:10.928528       1 shared_informer.go:510] \"Caches are synced\" controller=\"node config\"\nI1120 16:39:10.928615       1 shared_informer.go:510] \"Caches are synced\" controller=\"serviceCIDR config\"\nI1120 16:39:10.928647       1 shared_informer.go:510] \"Caches are synced\" controller=\"endpoint slice config\""
+        },
+        {
+          "pod": "kube-scheduler-k8sgen-control-plane",
+          "container": "kube-scheduler",
+          "restarts": 5,
+          "last_exit": 255,
+          "last_reason": "Unknown",
+          "last_log": "s\" GOGC=\"\" GOMAXPROCS=\"\" GOTRACEBACK=\"\"\nI1120 17:16:30.888834       1 requestheader_controller.go:180] Starting RequestHeaderAuthRequestController\nI1120 17:16:30.888873       1 configmap_cafile_content.go:205] \"Starting controller\" name=\"client-ca::kube-system::extension-apiserver-authentication::client-ca-file\"\nI1120 17:16:30.888880       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 17:16:30.888902       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 17:16:30.888909       1 configmap_cafile_content.go:205] \"Starting controller\" name=\"client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file\"\nI1120 17:16:30.888933       1 shared_informer.go:524] \"Waiting for caches to sync\"\nI1120 17:16:30.889055       1 secure_serving.go:214] Serving securely on 127.0.0.1:10259\nI1120 17:16:30.889101       1 tlsconfig.go:243] \"Starting DynamicServingCertificateController\"\nI1120 17:16:30.990287       1 shared_informer.go:531] \"Caches are synced\"\nI1120 17:16:30.990447       1 shared_informer.go:531] \"Caches are synced\"\nI1120 17:16:30.990692       1 shared_informer.go:531] \"Caches are synced\"\nI1120 17:16:31.036064       1 leaderelection.go:258] \"Attempting to acquire leader lease...\" lock=\"kube-system/kube-scheduler\"\nI1120 17:16:31.209333       1 leaderelection.go:272] \"Successfully acquired lease\" lock=\"kube-system/kube-scheduler\"\nE1120 17:51:01.405291       1 leaderelection.go:509] \"Failed to update lease\" err=\"Operation cannot be fulfilled on leases.coordination.k8s.io \\\"kube-scheduler\\\": the object has been modified; please apply your changes to the latest version and try again\" lock=\"kube-system/kube-scheduler\"\nE1120 19:06:48.161226       1 framework.go:1803] \"Plugin failed\" err=\"Operation cannot be fulfilled on persistentvolumeclaims \\\"n8n-data\\\": the object has been modified; please apply your changes to the latest version and try again\" pod=\"n8n/n8n-6b58446f5f-wr5jw\" plugin=\"VolumeBinding\" node=\"k8sgen-worker\"\nE1120 19:06:48.198295       1 schedule_one.go:1198] \"Error scheduling pod; retrying\" err=\"running PreBind plugin \\\"VolumeBinding\\\": Operation cannot be fulfilled on persistentvolumeclaims \\\"n8n-data\\\": the object has been modified; please apply your changes to the latest version and try again\" logger=\"UnhandledError\" pod=\"n8n/n8n-6b58446f5f-wr5jw\"\nE1120 19:19:21.641396       1 framework.go:1803] \"Plugin failed\" err=\"Operation cannot be fulfilled on persistentvolumeclaims \\\"n8n-data\\\": the object has been modified; please apply your changes to the latest version and try again\" pod=\"n8n/n8n-7fbc5f566c-4vjnh\" plugin=\"VolumeBinding\" node=\"k8sgen-worker3\"\nE1120 19:19:21.641837       1 schedule_one.go:1198] \"Error scheduling pod; retrying\" err=\"running PreBind plugin \\\"VolumeBinding\\\": Operation cannot be fulfilled on persistentvolumeclaims \\\"n8n-data\\\": the object has been modified; please apply your changes to the latest version and try again\" logger=\"UnhandledError\" pod=\"n8n/n8n-7fbc5f566c-4vjnh\""
+        },
+        {
+          "pod": "kubernetes-dashboard-74cbd5b8b8-gd7v4",
+          "container": "kubernetes-dashboard",
+          "restarts": 5,
+          "last_exit": 2,
+          "last_reason": "Error"
+        },
+        {
+          "pod": "kubernetes-dashboard-74cbd5b8b8-h4q7l",
+          "container": "kubernetes-dashboard",
+          "restarts": 5,
+          "last_exit": 2,
+          "last_reason": "Error"
+        }
+      ],
+      "warning_events": {
+        "kube-apiserver-k8sgen-control-plane|Unhealthy: Readiness probe failed": 85,
+        "kubernetes-dashboard-74cbd5b8b8-gd7v4|BackOff: Back-off restarting failed container kubernetes-dashboard in": 17,
+        "kubernetes-dashboard-74cbd5b8b8-h4q7l|BackOff: Back-off restarting failed container kubernetes-dashboard in": 16,
+        "coredns-559f6c778d-dtzms|Unhealthy: Readiness probe failed": 4,
+        "coredns-559f6c778d-p54bb|Unhealthy: Readiness probe failed": 4,
+        "kube-apiserver-k8sgen-control-plane|Unhealthy: Startup probe failed": 3
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-b0927607",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "ui-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'Kubernetes Dashboard'"
+      },
+      {
+        "name": "dashboard-health-apiserver",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"running\":true'"
+      },
+      {
+        "name": "scraper-healthz",
+        "passed": false,
+        "detail": "no Service routes to kubernetesui/metrics-scraper:8000"
+      },
+      {
+        "name": "dashboard-reaches-scraper",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"connected\": true'"
+      }
+    ],
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

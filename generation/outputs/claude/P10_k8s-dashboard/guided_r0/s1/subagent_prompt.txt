@@ -1,0 +1,179 @@
+=== SYSTEM ===
+You are an experienced DevOps engineer. Respond with Kubernetes YAML manifests only.
+
+The manifests will be applied as they are to a standard Kubernetes cluster and must start, become Ready and serve the application without manual fixes. Follow these rules.
+
+Use only facts from the provided documentation.
+1. Use exactly the image names, tags, ports, commands, arguments and environment variables that the documentation gives. Do not invent command-line flags, image repositories or configuration keys. If the documentation does not give a value, leave the setting at the image's default.
+
+Hardening must fit the image.
+2. Apply securityContext settings only where the image can run with them. Images that initialise their own data directory or switch user at start-up (for example official database, cache and message-broker images) need their default user and the capabilities their entrypoint uses (such as CHOWN, FOWNER, SETUID, SETGID, DAC_OVERRIDE). For these, set allowPrivilegeEscalation: false and seccompProfile RuntimeDefault, but do not drop ALL capabilities or force a different user.
+3. When you set runAsNonRoot: true, also set a numeric runAsUser (and runAsGroup/fsGroup) that the image actually uses.
+4. When you set readOnlyRootFilesystem: true, mount an emptyDir at /tmp and at every other path the application writes to.
+5. Never use privileged containers, hostPath volumes, hostNetwork, hostPID or the Docker socket. The pods must meet the Pod Security "baseline" level.
+
+Probes must fit how the process starts.
+6. Add probes only for a port and path the container actually serves. Background workers, queue consumers and other processes without a server get no HTTP or TCP probes.
+7. For slow-starting runtimes (JVM, large interpreters, services that migrate a database at start-up) add a startupProbe that allows at least 5 minutes (failureThreshold x periodSeconds >= 300) before liveness checks begin. Liveness probes must be lenient (failureThreshold >= 3, timeoutSeconds >= 5).
+
+Resources must fit the workload.
+8. Set requests and limits, but never set a memory limit below what the runtime needs: at least 512Mi for JVM services and at least 256Mi for databases. Do not set CPU limits so low that start-up takes minutes.
+
+Wiring must be consistent.
+9. Every Service selector must match the labels of the pods it routes to, and every targetPort must be the port the container listens on. When a Service exposes more than one port, give every port a name.
+10. Hostnames that the application expects (from the documentation or compose service names) must exist as Service names in the same namespace.
+11. Define every Secret, ConfigMap, PersistentVolumeClaim and ServiceAccount that you reference.
+12. Components that call the Kubernetes API need a ServiceAccount with RBAC rules that cover everything the documentation says they do, including creating or updating the Secrets and ConfigMaps they manage. Do not disable automountServiceAccountToken for them.
+13. Add a NetworkPolicy only if it admits every path the application uses, including traffic that arrives through the Kubernetes API server proxy. If unsure, omit NetworkPolicies.
+
+Translating Docker Compose.
+14. Translate the application's services, not the host setup. Drop host-specific settings (Docker socket mounts, privileged mode, host ports, build sections) and omit development-only helpers such as load generators or test clients unless the documentation says they are part of the application.
+
+Production settings that do not risk start-up.
+15. Stateful components (databases, brokers) run as a single-replica StatefulSet with a PersistentVolumeClaim; for PostgreSQL set PGDATA to a subdirectory of the mount. Stateless user-facing services run with 2 replicas.
+
+Output.
+16. Return all manifests in a single YAML code block, documents separated by ---, no comments. Quote string values that contain a colon. Keep the output complete; do not stop part-way through a list.
+
+=== USER ===
+--- dashboard-arguments.md ---
+# Dashboard arguments
+
+Dashboard container accepts multiple arguments that can be used to customize it a bit. For example, we are using `--auto-generate-certificates` flag in our recommended setup [YAML files](https://github.com/kubernetes/dashboard/blob/master/aio/deploy/recommended.yaml) to pass certificates to Dashboard.
+
+## Arguments
+
+| Argument name               | Default value      | Description                                                                                                                                                                                                                                                                                               |
+|-----------------------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| insecure-port	              | 9090               | The port to listen to for incoming HTTP requests.                                                                                                                                                                                                                                                         |
+| port                        | 8443               | The secure port to listen to for incoming HTTPS requests.                                                                                                                                                                                                                                                 |
+| insecure-bind-address       | 127.0.0.1          | The IP address on which to serve the `--insecure-port` (set to 127.0.0.1 for loopback only).                                                                                                                                                                                                              |
+| bind-address                | 0.0.0.0            | The IP address on which to serve the `--port` (set to 0.0.0.0 for all interfaces).                                                                                                                                                                                                                        |
+| default-cert-dir            | /certs             | Directory path containing `--tls-cert-file` and `--tls-key-file` files. Used also when auto-generating certificates flag is set. Relative to the container, not the host.                                                                                                                                 |
+| tls-cert-file               | -                  | File containing the default x509 Certificate for HTTPS.                                                                                                                                                                                                                                                   |
+| tls-key-file                | -                  | File containing the default x509 private key matching --tls-cert-file.                                                                                                                                                                                                                                    |
+| auto-generate-certificates  | false              | When set to true, Dashboard will automatically generate certificates used to serve HTTPS.                                                                                                                                                                                                                 |
+| apiserver-host              | -                  | The address of the Kubernetes Apiserver to connect to in the format of protocol://address:port, e.g., http://localhost:8080. If not specified, the assumption is that the binary runs inside a Kubernetes cluster and local discovery is attempted.                                                       |
+| api-log-level               | INFO               | Level of API request logging. Should be one of `INFO\|NONE\|DEBUG`. |
+| heapster-host               | -                  | The address of the Heapster Apiserver to connect to in the format of protocol://address:port, e.g., http://localhost:8082. If not specified, the assumption is that the binary runs inside a Kubernetes cluster and service proxy will be used.                                                           |
+| sidecar-host                | -                  | The address of the Sidecar Apiserver to connect to in the format of protocol://address:port, e.g., http://localhost:8000. If not specified, the assumption is that the binary runs inside a Kubernetes cluster and service proxy will be used.                                                            |
+| metrics-provider            | sidecar            | Select provider type for metrics. 'none' will not check metrics.                                                                                                                                                                                                                                          |
+| metric-client-check-period  | 30                 | Time in seconds that defines how often configured metric client health check should be run.                                                                                                                                                                                                               |
+| kubeconfig                  | -                  | Path to kubeconfig file with authorization and master location information.                                                                                                                                                                                                                               |
+| namespace                   | kube-system        | When non-default namespace is used, create encryption key in the specified namespace.                                                                                                                                                                                                                     |
+| token-ttl                   | 900                | Expiration time (in seconds) of JWE tokens generated by dashboard. '0' never expires.                                                                                                                                                                                                                     |
+| authentication-mode         | token              | Enables authentication options that will be reflected on the login screen in the same order as provided. Multiple options can be used at once. Supported values: token, basic. Note that basic option should only be used if apiserver has '--authorization-mode=ABAC' and '--basic-auth-file' flags set. |
+| enable-insecure-login       | false              | When enabled, Dashboard login view will also be shown when Dashboard is not served over HTTPS.                                                                                                                                                                                                            |
+| enable-skip-login           | false              | When enabled, the skip button on the login page will be shown.                                                                                                                                                                                                                                            |
+| disable-settings-authorizer | false              | When enabled, Dashboard settings page will not require user to be logged in and authorized to access settings page.                                                                                                                                                                                       |
+| locale-config               | ./locale_conf.json | File containing the configuration of locales.                                                                                                                                                                                                                                                             |
+| system-banner               | -                  | When non-empty displays message to Dashboard users. Accepts simple HTML tags.                                                                                                                                                                                                                             |
+| system-banner-severity      | INFO               | Severity of system banner. Should be one of `INFO\|WARNING\|ERROR`. |
+
+----
+_Copyright 2019 [The Kubernetes Dashboard Authors](https://github.com/kubernetes/dashboard/graphs/contributors)_
+
+
+--- integrations.md ---
+# Integrations
+
+Currently Dashboard implements [metrics-server](https://github.com/kubernetes-sigs/metrics-server) and [Heapster](https://github.com/kubernetes/heapster) integrations. They are using [integration framework](../../src/app/backend/integration/manager.go) that allows to support and integrate more metric providers as well as additional applications such as [Weave Scope](https://github.com/weaveworks/scope) or [Grafana](https://github.com/grafana/grafana).
+
+## Metric integrations
+
+Metric integrations allow Dashboard to show cpu/memory usage graphs and sparklines of resources running inside the cluster. In order to make Dashboard resilient to metric provider crashes there was `--metric-client-check-period` flag introduced. By default every 30 seconds health of the metric provider will be checked and in case it crashes metrics will be disabled.
+
+### metrics-server
+
+For the sparklines and graphs to be shown in Dashboard you need to have [metrics-server](https://github.com/kubernetes-sigs/metrics-server) running in your cluster. It now uses [dashboard-metrics-scraper](https://github.com/kubernetes-sigs/dashboard-metrics-scraper) that is deployed by default with Kubernetes Dashboard. It uses the Metrics API to gather metrics.
+The easiest way to check if `metrics-server` is installed and working properly is to run `kubectl top pod` or `kubectl top node`.
+
+### Heapster
+
+Starting from Kubernetes Dashboard v2.0.0 Heapster is no longer maintained. Use [metrics-server](#metrics-server) integration to enable metrics.
+
+----
+_Copyright 2019 [The Kubernetes Dashboard Authors](https://github.com/kubernetes/dashboard/graphs/contributors)_
+
+
+--- README.md ---
+# Kubernetes Dashboard
+[Kubernetes deployment instructions removed from this bundle]
+## ! IMPORTANT !
+We are introducing a soft code-freeze due to an ongoing major architecture changes. This means that only important or non-breaking changes can be merged to master such as:
+- Documentation updates
+- Security fixes
+- Critical bug fixes
+- Compatibility changes required to support new Kubernetes versions
+
+Tracking issues/pull requests:
+- https://github.com/kubernetes/dashboard/pull/7047
+
+## Introduction
+
+Kubernetes Dashboard is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage applications running in the cluster and troubleshoot them, as well as manage the cluster itself.
+
+![Dashboard UI workloads page](docs/images/dashboard-ui.png)
+
+## Getting Started
+
+**IMPORTANT:** Read the [Access Control](docs/user/access-control/README.md) guide before performing any further steps. The default Dashboard deployment contains a minimal set of RBAC privileges needed to run.
+
+### Install
+[Kubernetes deployment instructions removed from this bundle]
+### Access
+
+To access Dashboard from your local workstation you must create a secure channel to your Kubernetes cluster. Run the following command:
+
+```shell
+kubectl proxy
+```
+Now access Dashboard at:
+
+[`http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/`](
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
+
+## Create An Authentication Token (RBAC)
+To find out how to create sample user and log in follow [Creating sample user](docs/user/access-control/creating-sample-user.md) guide.
+
+**NOTE:**
+* Kubeconfig Authentication method does not support external identity providers or certificate-based authentication.
+* [Metrics-Server](https://github.com/kubernetes-sigs/metrics-server) has to be running in the cluster for the metrics and graphs to be available. Read more about it in [Integrations](docs/user/integrations.md) guide.
+
+## Documentation
+
+Dashboard documentation can be found on [docs](docs/README.md) directory which contains:
+
+* [Common](docs/common/README.md): Entry-level overview.
+* [User Guide](docs/user/README.md): [Installation](docs/user/installation.md), [Accessing Dashboard](docs/user/accessing-dashboard/README.md) and more for users.
+* [Developer Guide](docs/developer/README.md): [Getting Started](docs/developer/getting-started.md), [Dependency Management](docs/developer/dependency-management.md) and more for anyone interested in contributing.
+
+## Community, discussion, contribution, and support
+
+Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
+
+You can reach the maintainers of this project at:
+
+* [**#sig-ui on Kubernetes Slack**](https://kubernetes.slack.com)
+* [**kubernetes-sig-ui mailing list** ](https://groups.google.com/forum/#!forum/kubernetes-sig-ui)
+* [**Issue tracker**](https://github.com/kubernetes/dashboard/issues)
+* [**SIG info**](https://github.com/kubernetes/community/tree/master/sig-ui)
+* [**Roles**](ROLES.md)
+
+### Contribution
+
+Learn how to start contribution on the [Contributing Guideline](CONTRIBUTING.md).
+
+### Code of conduct
+
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
+
+## License
+
+[Apache License 2.0](https://github.com/kubernetes/dashboard/blob/master/LICENSE)
+
+----
+_Copyright 2019 [The Kubernetes Dashboard Authors](https://github.com/kubernetes/dashboard/graphs/contributors)_
+
+
+Write production-ready Kubernetes manifests to deploy this application. Output all manifests in a single YAML code block.

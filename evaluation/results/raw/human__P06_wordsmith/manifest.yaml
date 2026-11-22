@@ -1,0 +1,138 @@
+apiVersion: v1
+data:
+  words.sql: "CREATE TABLE nouns (word TEXT NOT NULL);\nCREATE TABLE verbs (word TEXT\
+    \ NOT NULL);\nCREATE TABLE adjectives (word TEXT NOT NULL);\n\nINSERT INTO nouns(word)\
+    \ VALUES\n  ('cloud'),\n  ('elephant'),\n  ('g\xF8 language'),\n  ('lapt\xF8p'),\n\
+    \  ('c\xF8ntainer'),\n  ('micr\xF8-service'),\n  ('turtle'),\n  ('whale'),\n \
+    \ ('g\xF8pher'),\n  ('m\xF8by d\xF8ck'),\n  ('server'),\n  ('bicycle'),\n  ('viking'),\n\
+    \  ('mermaid'),\n  ('fj\xF8rd'),\n  ('leg\xF8'),\n  ('fl\xF8debolle'),\n  ('sm\xF8\
+    rrebr\xF8d');\n\nINSERT INTO verbs(word) VALUES\n  ('will drink'),\n  ('smashes'),\n\
+    \  ('sm\xF8kes'),\n  ('eats'),\n  ('walks t\xF8wards'),\n  ('l\xF8ves'),\n  ('helps'),\n\
+    \  ('pushes'),\n  ('debugs'),\n  ('invites'),\n  ('hides'),\n  ('will ship');\n\
+    \nINSERT INTO adjectives(word) VALUES\n  ('the exquisite'),\n  ('a pink'),\n \
+    \ ('the r\xF8tten'),\n  ('a red'),\n  ('the serverless'),\n  ('a br\xF8ken'),\n\
+    \  ('a shiny'),\n  ('the pretty'),\n  ('the impressive'),\n  ('an awes\xF8me'),\n\
+    \  ('the fam\xF8us'),\n  ('a gigantic'),\n  ('the gl\xF8ri\xF8us'),\n  ('the n\xF8\
+    rdic'),\n  ('the welc\xF8ming'),\n  ('the delici\xF8us');\n"
+kind: ConfigMap
+metadata:
+  name: db-schema
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  clusterIP: None
+  ports:
+  - name: api
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db
+  name: db
+spec:
+  clusterIP: None
+  ports:
+  - name: db
+    port: 5432
+    targetPort: 5432
+  selector:
+    app: db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web
+  name: web
+spec:
+  ports:
+  - name: web
+    port: 8080
+    targetPort: 80
+  selector:
+    app: web
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - image: dockersamples/wordsmith-api
+        name: api
+        ports:
+        - containerPort: 8080
+          name: api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - image: postgres:10.0-alpine
+        name: db
+        ports:
+        - containerPort: 5432
+          name: db
+        volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d
+          name: db-schema
+      volumes:
+      - configMap:
+          name: db-schema
+        name: db-schema
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - image: dockersamples/wordsmith-web
+        name: web
+        ports:
+        - containerPort: 80
+          name: web

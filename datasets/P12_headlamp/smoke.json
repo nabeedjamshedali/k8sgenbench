@@ -1,0 +1,9 @@
+{
+  "checks": [
+    {"name": "ui-page", "target": {"image": "ghcr.io/headlamp-k8s/headlamp", "port": 4466},
+     "method": "GET", "path": "/", "expect_status": 200, "expect_body": "<div id=\"root\">", "retry_seconds": 90},
+    {"name": "backend-config-incluster", "target": {"image": "ghcr.io/headlamp-k8s/headlamp", "port": 4466},
+     "method": "GET", "path": "/config", "expect_status": 200, "expect_body": "\"source\":\"incluster\"", "retry_seconds": 60}
+  ],
+  "d6_target": {"image": "ghcr.io/headlamp-k8s/headlamp", "port": 4466, "path": "/"}
+}

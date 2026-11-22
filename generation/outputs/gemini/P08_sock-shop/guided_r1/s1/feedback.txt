@@ -1,0 +1,17 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (NotReady(probe)): Deployment queue-master 0/2 Ready.
+- Pod queue-master-5f59d4fcbf-5pj2k container queue-master: 3 restarts, last exit code 137 (OOMKilled). Last log lines:
+    2026-11-20 19:32:09.444  INFO 10 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+    2026-11-20 19:32:09.458  INFO 10 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 42840 ms
+- Warning event on queue-master-5f59d4fcbf-5pj2k (23x): Unhealthy: Startup probe failed
+- Warning event on queue-master-5f59d4fcbf-9jfqp (23x): Unhealthy: Startup probe failed
+- Warning event on carts-5d69bf99d8-srcbr (16x): Unhealthy: Startup probe failed
+- Warning event on carts-5d69bf99d8-vm6pf (16x): Unhealthy: Startup probe failed
+- Warning event on orders-7b69f4d549-4zg9s (16x): Unhealthy: Startup probe failed
+- Warning event on orders-7b69f4d549-drdqp (16x): Unhealthy: Startup probe failed
+- Warning event on shipping-67c47997c-ng84v (15x): Unhealthy: Startup probe failed
+- Warning event on shipping-67c47997c-fsb9z (14x): Unhealthy: Startup probe failed
+- Warning event on user-867c7cbfc8-q9lsb (5x): Unhealthy: Readiness probe failed
+- Warning event on user-867c7cbfc8-85w4l (4x): Unhealthy: Readiness probe failed
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

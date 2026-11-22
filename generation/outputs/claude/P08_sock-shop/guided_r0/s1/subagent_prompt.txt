@@ -1,0 +1,251 @@
+=== SYSTEM ===
+You are an experienced DevOps engineer. Respond with Kubernetes YAML manifests only.
+
+The manifests will be applied as they are to a standard Kubernetes cluster and must start, become Ready and serve the application without manual fixes. Follow these rules.
+
+Use only facts from the provided documentation.
+1. Use exactly the image names, tags, ports, commands, arguments and environment variables that the documentation gives. Do not invent command-line flags, image repositories or configuration keys. If the documentation does not give a value, leave the setting at the image's default.
+
+Hardening must fit the image.
+2. Apply securityContext settings only where the image can run with them. Images that initialise their own data directory or switch user at start-up (for example official database, cache and message-broker images) need their default user and the capabilities their entrypoint uses (such as CHOWN, FOWNER, SETUID, SETGID, DAC_OVERRIDE). For these, set allowPrivilegeEscalation: false and seccompProfile RuntimeDefault, but do not drop ALL capabilities or force a different user.
+3. When you set runAsNonRoot: true, also set a numeric runAsUser (and runAsGroup/fsGroup) that the image actually uses.
+4. When you set readOnlyRootFilesystem: true, mount an emptyDir at /tmp and at every other path the application writes to.
+5. Never use privileged containers, hostPath volumes, hostNetwork, hostPID or the Docker socket. The pods must meet the Pod Security "baseline" level.
+
+Probes must fit how the process starts.
+6. Add probes only for a port and path the container actually serves. Background workers, queue consumers and other processes without a server get no HTTP or TCP probes.
+7. For slow-starting runtimes (JVM, large interpreters, services that migrate a database at start-up) add a startupProbe that allows at least 5 minutes (failureThreshold x periodSeconds >= 300) before liveness checks begin. Liveness probes must be lenient (failureThreshold >= 3, timeoutSeconds >= 5).
+
+Resources must fit the workload.
+8. Set requests and limits, but never set a memory limit below what the runtime needs: at least 512Mi for JVM services and at least 256Mi for databases. Do not set CPU limits so low that start-up takes minutes.
+
+Wiring must be consistent.
+9. Every Service selector must match the labels of the pods it routes to, and every targetPort must be the port the container listens on. When a Service exposes more than one port, give every port a name.
+10. Hostnames that the application expects (from the documentation or compose service names) must exist as Service names in the same namespace.
+11. Define every Secret, ConfigMap, PersistentVolumeClaim and ServiceAccount that you reference.
+12. Components that call the Kubernetes API need a ServiceAccount with RBAC rules that cover everything the documentation says they do, including creating or updating the Secrets and ConfigMaps they manage. Do not disable automountServiceAccountToken for them.
+13. Add a NetworkPolicy only if it admits every path the application uses, including traffic that arrives through the Kubernetes API server proxy. If unsure, omit NetworkPolicies.
+
+Translating Docker Compose.
+14. Translate the application's services, not the host setup. Drop host-specific settings (Docker socket mounts, privileged mode, host ports, build sections) and omit development-only helpers such as load generators or test clients unless the documentation says they are part of the application.
+
+Production settings that do not risk start-up.
+15. Stateful components (databases, brokers) run as a single-replica StatefulSet with a PersistentVolumeClaim; for PostgreSQL set PGDATA to a subdirectory of the mount. Stateless user-facing services run with 2 replicas.
+
+Output.
+16. Return all manifests in a single YAML code block, documents separated by ---, no comments. Quote string values that contain a colon. Keep the output complete; do not stop part-way through a list.
+
+=== USER ===
+--- docker-compose.yml ---
+version: '2'
+
+services:
+  front-end:
+    image: weaveworksdemos/front-end:0.3.12
+    hostname: front-end
+    restart: always
+    cap_drop:
+      - all
+    read_only: true
+  edge-router:
+    image: weaveworksdemos/edge-router:0.1.1
+    ports:
+      - '80:80'
+      - '8080:8080'
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    read_only: true
+    tmpfs:
+      - /var/run:rw,noexec,nosuid
+    hostname: edge-router
+    restart: always
+  catalogue:
+    image: weaveworksdemos/catalogue:0.3.5
+    hostname: catalogue
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+  catalogue-db:
+    image: weaveworksdemos/catalogue-db:0.3.0
+    hostname: catalogue-db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=socksdb
+  carts:
+    image: weaveworksdemos/carts:0.4.8
+    hostname: carts
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+  carts-db:
+    image: mongo:3.4
+    hostname: carts-db
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+  orders:
+    image: weaveworksdemos/orders:0.4.7
+    hostname: orders
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+  orders-db:
+    image: mongo:3.4
+    hostname: orders-db
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+  shipping:
+    image: weaveworksdemos/shipping:0.4.8
+    hostname: shipping
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+  queue-master:
+    image: weaveworksdemos/queue-master:0.3.1
+    hostname: queue-master
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+  rabbitmq:
+    image: rabbitmq:3.6.8
+    hostname: rabbitmq
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    read_only: true
+  payment:
+    image: weaveworksdemos/payment:0.4.3
+    hostname: payment
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+  user:
+    image: weaveworksdemos/user:0.4.4
+    hostname: user
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    environment:
+      - MONGO_HOST=user-db:27017
+  user-db:
+    image: weaveworksdemos/user-db:0.4.0
+    hostname: user-db
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+  user-sim:
+    image: weaveworksdemos/load-test:0.1.1
+    cap_drop:
+      - all
+    read_only: true
+    hostname: user-simulator
+    command: "-d 60 -r 200 -c 2 -h edge-router"
+
+
+--- README.md ---
+[![Build Status](https://travis-ci.org/microservices-demo/microservices-demo.svg?branch=master)](https://travis-ci.org/microservices-demo/microservices-demo)
+
+# DEPRECATED: Sock Shop : A Microservice Demo Application
+
+The application is the user-facing part of an online shop that sells socks. It is intended to aid the demonstration and testing of microservice and cloud native technologies.
+
+It is built using [Spring Boot](http://projects.spring.io/spring-boot/), [Go kit](http://gokit.io) and [Node.js](https://nodejs.org/) and is packaged in Docker containers.
+
+You can read more about the [application design](./internal-docs/design.md).
+
+## Deployment Platforms
+
+The [deploy folder](./deploy/) contains scripts and instructions to provision the application onto your favourite platform. 
+
+Please let us know if there is a platform that you would like to see supported.
+
+## Bugs, Feature Requests and Contributing
+
+We'd love to see community contributions. We like to keep it simple and use Github issues to track bugs and feature requests and pull requests to manage contributions. See the [contribution information](.github/CONTRIBUTING.md) for more information.
+
+## Screenshot
+
+![Sock Shop frontend](https://github.com/microservices-demo/microservices-demo.github.io/raw/master/assets/sockshop-frontend.png)
+
+## Visualizing the application
+
+Use [Weave Scope](http://weave.works/products/weave-scope/) or [Weave Cloud](http://cloud.weave.works/) to visualize the application once it's running in the selected [target platform](./deploy/).
+
+![Sock Shop in Weave Scope](https://github.com/microservices-demo/microservices-demo.github.io/raw/master/assets/sockshop-scope.png)
+
+## 
+
+
+Write production-ready Kubernetes manifests to deploy this application. Output all manifests in a single YAML code block.

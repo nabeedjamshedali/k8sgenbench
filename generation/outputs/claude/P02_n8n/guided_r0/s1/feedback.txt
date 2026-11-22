@@ -1,0 +1,16 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (NotReady(probe)): Deployment n8n 0/1 Ready.
+- Pod n8n-6987fd9b65-btddp container n8n: 4 restarts, last exit code 1 (Error). Last log lines:
+    Initial database connection attempt 3 failed: password authentication failed for user "changeNonRootUser". Retrying in 4000ms
+    Initial database connection attempt 4 failed: password authentication failed for user "changeNonRootUser". Retrying in 8000ms
+    Initial database connection attempt 5 failed: password authentication failed for user "changeNonRootUser". Retrying in 16000ms
+    There was an error initializing DB
+    Error: There was an error initializing DB
+    password authentication failed for user "changeNonRootUser"
+    error: password authentication failed for user "changeNonRootUser"
+        at Socket.Readable.push (node:internal/streams/readable:399:5)
+        at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+- Warning event on n8n-6987fd9b65-btddp (22x): Unhealthy: Startup probe failed
+- Warning event on n8n-6987fd9b65-btddp (6x): BackOff: Back-off restarting failed container n8n in pod n8n-6987fd9b
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

@@ -10,6 +10,8 @@ import os
 import numpy as np
 import pandas as pd
 
+from flatten import in_study
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 AN = os.path.join(HERE, "analysis")
 OUT = os.path.join(os.path.dirname(HERE), "paper", "tables")
@@ -108,6 +110,7 @@ THEMES = [  # (theme, [(category, label)]) for evaluation/d5_root_causes.csv
         ("compose_literalism_aux_only", "Host-level Compose services fail; application works")]),
     ("Wrong values or references", [
         ("wrong_service_port", "Service targets the wrong container port"),
+        ("named_port_breaks_service_proxy", "Named Service port unreachable through the API-server proxy"),
         ("wrong_api_server_endpoint", "API server address overridden"),
         ("missing_referenced_secret", "Volume references an undefined Secret"),
         ("insufficient_rbac", "RBAC does not allow updating the CSRF Secret"),
@@ -224,6 +227,8 @@ def checklist_items():
     agg = {}
     for f in glob.glob(os.path.join(HERE, "results", "*.json")):
         r = json.load(open(f, encoding="utf-8"))
+        if not in_study(r):
+            continue
         c = ((r.get("d3") or {}).get("checklist") or {}).get("by_item") or {}
         key = ("human", "human") if r["source"] == "human" else (r["source"], r["prompt_variant"])
         for it, _ in ITEMS:
