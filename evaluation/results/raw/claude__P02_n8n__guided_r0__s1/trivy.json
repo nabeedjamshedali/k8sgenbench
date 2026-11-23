@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1fa1d-e8ff-794f-a78e-a91a03e1a6f1",
-  "CreatedAt": "2026-11-20T23:00:26.6236102+05:00",
+  "ReportID": "01a2089f-91d4-726d-9035-e2ce9ae2fba9",
+  "CreatedAt": "2026-11-23T18:36:45.0121591+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/claude__P02_n8n__guided_r0__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -14,135 +14,9 @@
       "Type": "kubernetes",
       "MisconfSummary": {
         "Successes": 101,
-        "Failures": 25
+        "Failures": 22
       },
       "Misconfigurations": [
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0003",
-          "Title": "Default capabilities: some containers do not drop all",
-          "Description": "The container should drop all default capabilities and add only those that are needed for its execution.",
-          "Message": "Container 'n8n-runner' of Deployment 'n8n-runner' should add 'ALL' to 'securityContext.capabilities.drop'",
-          "Namespace": "builtin.kubernetes.KSV003",
-          "Query": "data.builtin.kubernetes.KSV003.deny",
-          "Resolution": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0003",
-          "References": [
-            "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
-            "https://avd.aquasec.com/misconfig/ksv-0003"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 316,
-                  "Content": "      - name: n8n-runner",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: n8n-runner",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 317,
-                  "Content": "        image: n8nio/runners:2.43.5",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: n8nio/runners:2.43.5",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 318,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 319,
-                  "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: N8N_RUNNERS_AUTH_TOKEN",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 320,
-                  "Content": "          valueFrom:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 321,
-                  "Content": "            secretKeyRef:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33msecretKeyRef\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 322,
-                  "Content": "              name: n8n-secret",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mname\u001b[0m: n8n-secret",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 323,
-                  "Content": "              key: RUNNERS_AUTH_TOKEN",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mkey\u001b[0m: RUNNERS_AUTH_TOKEN",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 324,
-                  "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: N8N_RUNNERS_TASK_BROKER_URI",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 325,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
         {
           "Type": "Kubernetes Security Check",
           "ID": "KSV-0003",
@@ -162,12 +36,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -177,7 +51,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -187,7 +61,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -197,7 +71,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -207,7 +81,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -217,7 +91,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -227,7 +101,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -237,7 +111,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -247,7 +121,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -257,133 +131,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0004",
-          "Title": "Default capabilities: some containers do not drop any",
-          "Description": "Security best practices require containers to run with minimal required capabilities.",
-          "Message": "Container 'n8n-runner' of 'deployment' 'n8n-runner' in 'default' namespace should set securityContext.capabilities.drop",
-          "Namespace": "builtin.kubernetes.KSV004",
-          "Query": "data.builtin.kubernetes.KSV004.deny",
-          "Resolution": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0004",
-          "References": [
-            "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
-            "https://avd.aquasec.com/misconfig/ksv-0004"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 316,
-                  "Content": "      - name: n8n-runner",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: n8n-runner",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 317,
-                  "Content": "        image: n8nio/runners:2.43.5",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: n8nio/runners:2.43.5",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 318,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 319,
-                  "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: N8N_RUNNERS_AUTH_TOKEN",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 320,
-                  "Content": "          valueFrom:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 321,
-                  "Content": "            secretKeyRef:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33msecretKeyRef\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 322,
-                  "Content": "              name: n8n-secret",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mname\u001b[0m: n8n-secret",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 323,
-                  "Content": "              key: RUNNERS_AUTH_TOKEN",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mkey\u001b[0m: RUNNERS_AUTH_TOKEN",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 324,
-                  "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: N8N_RUNNERS_TASK_BROKER_URI",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 325,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -414,12 +162,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -429,7 +177,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -439,7 +187,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -449,7 +197,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -459,7 +207,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -469,7 +217,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -479,7 +227,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -489,7 +237,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -499,7 +247,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -509,7 +257,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -540,12 +288,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
+            "StartLine": 298,
+            "EndLine": 321,
             "Code": {
               "Lines": [
                 {
-                  "Number": 316,
+                  "Number": 298,
                   "Content": "      - name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -555,7 +303,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 317,
+                  "Number": 299,
                   "Content": "        image: n8nio/runners:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -565,7 +313,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 318,
+                  "Number": 300,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -575,7 +323,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 319,
+                  "Number": 301,
                   "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -585,7 +333,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 320,
+                  "Number": 302,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -595,7 +343,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 321,
+                  "Number": 303,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -605,7 +353,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 322,
+                  "Number": 304,
                   "Content": "              name: n8n-secret",
                   "IsCause": true,
                   "Annotation": "",
@@ -615,7 +363,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 323,
+                  "Number": 305,
                   "Content": "              key: RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -625,7 +373,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 324,
+                  "Number": 306,
                   "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
                   "IsCause": true,
                   "Annotation": "",
@@ -635,7 +383,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 325,
+                  "Number": 307,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -666,12 +414,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -681,7 +429,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -691,7 +439,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -701,7 +449,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -711,7 +459,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -721,7 +469,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -731,7 +479,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -741,7 +489,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -751,7 +499,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -761,7 +509,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -792,12 +540,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 293,
+            "StartLine": 203,
+            "EndLine": 275,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 203,
                   "Content": "      - name: n8n",
                   "IsCause": true,
                   "Annotation": "",
@@ -807,7 +555,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 204,
                   "Content": "        image: docker.n8n.io/n8nio/n8n:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -817,7 +565,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 205,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -827,7 +575,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 206,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -837,7 +585,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 207,
                   "Content": "          containerPort: 5678",
                   "IsCause": true,
                   "Annotation": "",
@@ -847,17 +595,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
-                  "Content": "        - name: broker",
+                  "Number": 208,
+                  "Content": "        - name: task-broker",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: broker",
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: task-broker",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 209,
                   "Content": "          containerPort: 5679",
                   "IsCause": true,
                   "Annotation": "",
@@ -867,7 +615,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 210,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -877,7 +625,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
+                  "Number": 211,
                   "Content": "        - name: DB_TYPE",
                   "IsCause": true,
                   "Annotation": "",
@@ -887,7 +635,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 212,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -918,12 +666,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
+            "StartLine": 298,
+            "EndLine": 321,
             "Code": {
               "Lines": [
                 {
-                  "Number": 316,
+                  "Number": 298,
                   "Content": "      - name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -933,7 +681,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 317,
+                  "Number": 299,
                   "Content": "        image: n8nio/runners:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -943,7 +691,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 318,
+                  "Number": 300,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -953,7 +701,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 319,
+                  "Number": 301,
                   "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -963,7 +711,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 320,
+                  "Number": 302,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -973,7 +721,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 321,
+                  "Number": 303,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -983,7 +731,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 322,
+                  "Number": 304,
                   "Content": "              name: n8n-secret",
                   "IsCause": true,
                   "Annotation": "",
@@ -993,7 +741,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 323,
+                  "Number": 305,
                   "Content": "              key: RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -1003,7 +751,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 324,
+                  "Number": 306,
                   "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
                   "IsCause": true,
                   "Annotation": "",
@@ -1013,7 +761,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 325,
+                  "Number": 307,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1044,12 +792,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1059,7 +807,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -1069,7 +817,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1079,7 +827,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1089,7 +837,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1099,7 +847,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1109,7 +857,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1119,7 +867,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1129,7 +877,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1139,7 +887,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1170,12 +918,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 293,
+            "StartLine": 203,
+            "EndLine": 275,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 203,
                   "Content": "      - name: n8n",
                   "IsCause": true,
                   "Annotation": "",
@@ -1185,7 +933,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 204,
                   "Content": "        image: docker.n8n.io/n8nio/n8n:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -1195,7 +943,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 205,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1205,7 +953,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 206,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1215,7 +963,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 207,
                   "Content": "          containerPort: 5678",
                   "IsCause": true,
                   "Annotation": "",
@@ -1225,17 +973,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
-                  "Content": "        - name: broker",
+                  "Number": 208,
+                  "Content": "        - name: task-broker",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: broker",
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: task-broker",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 209,
                   "Content": "          containerPort: 5679",
                   "IsCause": true,
                   "Annotation": "",
@@ -1245,7 +993,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 210,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1255,7 +1003,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
+                  "Number": 211,
                   "Content": "        - name: DB_TYPE",
                   "IsCause": true,
                   "Annotation": "",
@@ -1265,7 +1013,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 212,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1296,12 +1044,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
+            "StartLine": 298,
+            "EndLine": 321,
             "Code": {
               "Lines": [
                 {
-                  "Number": 316,
+                  "Number": 298,
                   "Content": "      - name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -1311,7 +1059,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 317,
+                  "Number": 299,
                   "Content": "        image: n8nio/runners:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -1321,7 +1069,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 318,
+                  "Number": 300,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1331,7 +1079,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 319,
+                  "Number": 301,
                   "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -1341,7 +1089,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 320,
+                  "Number": 302,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1351,7 +1099,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 321,
+                  "Number": 303,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1361,7 +1109,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 322,
+                  "Number": 304,
                   "Content": "              name: n8n-secret",
                   "IsCause": true,
                   "Annotation": "",
@@ -1371,7 +1119,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 323,
+                  "Number": 305,
                   "Content": "              key: RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -1381,7 +1129,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 324,
+                  "Number": 306,
                   "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
                   "IsCause": true,
                   "Annotation": "",
@@ -1391,7 +1139,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 325,
+                  "Number": 307,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1422,12 +1170,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1437,7 +1185,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -1447,7 +1195,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1457,7 +1205,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1467,7 +1215,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1477,7 +1225,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1487,7 +1235,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1497,7 +1245,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1507,7 +1255,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1517,7 +1265,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1548,12 +1296,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 293,
+            "StartLine": 203,
+            "EndLine": 275,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 203,
                   "Content": "      - name: n8n",
                   "IsCause": true,
                   "Annotation": "",
@@ -1563,7 +1311,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 204,
                   "Content": "        image: docker.n8n.io/n8nio/n8n:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -1573,7 +1321,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 205,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1583,7 +1331,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 206,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1593,7 +1341,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 207,
                   "Content": "          containerPort: 5678",
                   "IsCause": true,
                   "Annotation": "",
@@ -1603,17 +1351,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
-                  "Content": "        - name: broker",
+                  "Number": 208,
+                  "Content": "        - name: task-broker",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: broker",
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: task-broker",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 209,
                   "Content": "          containerPort: 5679",
                   "IsCause": true,
                   "Annotation": "",
@@ -1623,7 +1371,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 210,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1633,7 +1381,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
+                  "Number": 211,
                   "Content": "        - name: DB_TYPE",
                   "IsCause": true,
                   "Annotation": "",
@@ -1643,7 +1391,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 212,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1674,12 +1422,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
+            "StartLine": 298,
+            "EndLine": 321,
             "Code": {
               "Lines": [
                 {
-                  "Number": 316,
+                  "Number": 298,
                   "Content": "      - name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -1689,7 +1437,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 317,
+                  "Number": 299,
                   "Content": "        image: n8nio/runners:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -1699,7 +1447,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 318,
+                  "Number": 300,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1709,7 +1457,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 319,
+                  "Number": 301,
                   "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -1719,7 +1467,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 320,
+                  "Number": 302,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1729,7 +1477,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 321,
+                  "Number": 303,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1739,7 +1487,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 322,
+                  "Number": 304,
                   "Content": "              name: n8n-secret",
                   "IsCause": true,
                   "Annotation": "",
@@ -1749,7 +1497,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 323,
+                  "Number": 305,
                   "Content": "              key: RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -1759,7 +1507,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 324,
+                  "Number": 306,
                   "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
                   "IsCause": true,
                   "Annotation": "",
@@ -1769,7 +1517,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 325,
+                  "Number": 307,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1800,12 +1548,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1815,7 +1563,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -1825,7 +1573,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1835,7 +1583,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1845,7 +1593,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1855,7 +1603,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1865,7 +1613,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1875,7 +1623,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1885,7 +1633,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1895,7 +1643,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1926,12 +1674,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 72,
-            "EndLine": 148,
+            "StartLine": 64,
+            "EndLine": 131,
             "Code": {
               "Lines": [
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1941,7 +1689,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -1951,7 +1699,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1961,7 +1709,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1971,7 +1719,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1981,7 +1729,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1991,7 +1739,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -2001,7 +1749,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2011,7 +1759,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2021,133 +1769,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 81,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 316,
-                  "Content": "      - name: n8n-runner",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: n8n-runner",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 317,
-                  "Content": "        image: n8nio/runners:2.43.5",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: n8nio/runners:2.43.5",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 318,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 319,
-                  "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: N8N_RUNNERS_AUTH_TOKEN",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 320,
-                  "Content": "          valueFrom:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 321,
-                  "Content": "            secretKeyRef:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33msecretKeyRef\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 322,
-                  "Content": "              name: n8n-secret",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mname\u001b[0m: n8n-secret",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 323,
-                  "Content": "              key: RUNNERS_AUTH_TOKEN",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "              \u001b[38;5;33mkey\u001b[0m: RUNNERS_AUTH_TOKEN",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 324,
-                  "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: N8N_RUNNERS_TASK_BROKER_URI",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 325,
+                  "Number": 73,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2198,12 +1820,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 196,
-            "EndLine": 199,
+            "StartLine": 179,
+            "EndLine": 182,
             "Code": {
               "Lines": [
                 {
-                  "Number": 196,
+                  "Number": 179,
                   "Content": "metadata:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2213,7 +1835,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 197,
+                  "Number": 180,
                   "Content": "  name: n8n",
                   "IsCause": true,
                   "Annotation": "",
@@ -2223,7 +1845,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 198,
+                  "Number": 181,
                   "Content": "  labels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2233,7 +1855,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 199,
+                  "Number": 182,
                   "Content": "    app: n8n",
                   "IsCause": true,
                   "Annotation": "",
@@ -2265,12 +1887,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 301,
-            "EndLine": 304,
+            "StartLine": 283,
+            "EndLine": 286,
             "Code": {
               "Lines": [
                 {
-                  "Number": 301,
+                  "Number": 283,
                   "Content": "metadata:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2280,7 +1902,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 284,
                   "Content": "  name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -2290,7 +1912,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 285,
                   "Content": "  labels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2300,7 +1922,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 286,
                   "Content": "    app: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -2332,12 +1954,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 56,
-            "EndLine": 59,
+            "StartLine": 48,
+            "EndLine": 51,
             "Code": {
               "Lines": [
                 {
-                  "Number": 56,
+                  "Number": 48,
                   "Content": "metadata:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2347,7 +1969,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 57,
+                  "Number": 49,
                   "Content": "  name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -2357,7 +1979,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 58,
+                  "Number": 50,
                   "Content": "  labels:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2367,7 +1989,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 59,
+                  "Number": 51,
                   "Content": "    app: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -2399,12 +2021,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 314,
-            "EndLine": 336,
+            "StartLine": 296,
+            "EndLine": 321,
             "Code": {
               "Lines": [
                 {
-                  "Number": 314,
+                  "Number": 296,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2414,7 +2036,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 315,
+                  "Number": 297,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2424,7 +2046,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 316,
+                  "Number": 298,
                   "Content": "      - name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -2434,7 +2056,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 317,
+                  "Number": 299,
                   "Content": "        image: n8nio/runners:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -2444,7 +2066,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 318,
+                  "Number": 300,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2454,7 +2076,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 319,
+                  "Number": 301,
                   "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -2464,7 +2086,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 320,
+                  "Number": 302,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2474,7 +2096,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 321,
+                  "Number": 303,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2484,7 +2106,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 322,
+                  "Number": 304,
                   "Content": "              name: n8n-secret",
                   "IsCause": true,
                   "Annotation": "",
@@ -2494,7 +2116,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 323,
+                  "Number": 305,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2525,12 +2147,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 70,
-            "EndLine": 153,
+            "StartLine": 62,
+            "EndLine": 136,
             "Code": {
               "Lines": [
                 {
-                  "Number": 70,
+                  "Number": 62,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2540,7 +2162,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 71,
+                  "Number": 63,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2550,7 +2172,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 72,
+                  "Number": 64,
                   "Content": "      - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -2560,7 +2182,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 73,
+                  "Number": 65,
                   "Content": "        image: postgres:18",
                   "IsCause": true,
                   "Annotation": "",
@@ -2570,7 +2192,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 74,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2580,7 +2202,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 67,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -2590,7 +2212,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 68,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -2600,7 +2222,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 69,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2610,7 +2232,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 70,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -2620,7 +2242,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2652,12 +2274,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 293,
+            "StartLine": 203,
+            "EndLine": 275,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 203,
                   "Content": "      - name: n8n",
                   "IsCause": true,
                   "Annotation": "",
@@ -2667,7 +2289,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 204,
                   "Content": "        image: docker.n8n.io/n8nio/n8n:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -2677,7 +2299,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 205,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2687,7 +2309,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 206,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2697,7 +2319,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 207,
                   "Content": "          containerPort: 5678",
                   "IsCause": true,
                   "Annotation": "",
@@ -2707,17 +2329,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
-                  "Content": "        - name: broker",
+                  "Number": 208,
+                  "Content": "        - name: task-broker",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: broker",
+                  "Highlighted": "\u001b[0m        - \u001b[38;5;33mname\u001b[0m: task-broker",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 209,
                   "Content": "          containerPort: 5679",
                   "IsCause": true,
                   "Annotation": "",
@@ -2727,7 +2349,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 210,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2737,7 +2359,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
+                  "Number": 211,
                   "Content": "        - name: DB_TYPE",
                   "IsCause": true,
                   "Annotation": "",
@@ -2747,7 +2369,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 212,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2779,12 +2401,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 316,
-            "EndLine": 336,
+            "StartLine": 298,
+            "EndLine": 321,
             "Code": {
               "Lines": [
                 {
-                  "Number": 316,
+                  "Number": 298,
                   "Content": "      - name: n8n-runner",
                   "IsCause": true,
                   "Annotation": "",
@@ -2794,7 +2416,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 317,
+                  "Number": 299,
                   "Content": "        image: n8nio/runners:2.43.5",
                   "IsCause": true,
                   "Annotation": "",
@@ -2804,7 +2426,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 318,
+                  "Number": 300,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2814,7 +2436,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 319,
+                  "Number": 301,
                   "Content": "        - name: N8N_RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -2824,7 +2446,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 320,
+                  "Number": 302,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2834,7 +2456,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 321,
+                  "Number": 303,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2844,7 +2466,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 322,
+                  "Number": 304,
                   "Content": "              name: n8n-secret",
                   "IsCause": true,
                   "Annotation": "",
@@ -2854,7 +2476,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 323,
+                  "Number": 305,
                   "Content": "              key: RUNNERS_AUTH_TOKEN",
                   "IsCause": true,
                   "Annotation": "",
@@ -2864,7 +2486,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 324,
+                  "Number": 306,
                   "Content": "        - name: N8N_RUNNERS_TASK_BROKER_URI",
                   "IsCause": true,
                   "Annotation": "",
@@ -2874,7 +2496,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 325,
+                  "Number": 307,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

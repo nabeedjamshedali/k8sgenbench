@@ -2,8 +2,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: kubernetes-dashboard
-  labels:
-    kubernetes.io/metadata.name: kubernetes-dashboard
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -21,24 +19,32 @@ rules:
   resources:
   - namespaces
   - namespaces/status
-  - namespaces/finalize
-  - pods
-  - pods/log
-  - services
-  - services/proxy
-  - endpoints
-  - persistentvolumes
-  - persistentvolumeclaims
-  - replicationcontrollers
-  - replicationcontrollers/scale
-  - serviceaccounts
-  - serviceaccounts/token
   - configmaps
   - secrets
+  - endpoints
+  - services
+  - services/status
+  - replicationcontrollers
+  - replicationcontrollers/scale
+  - pods
+  - pods/log
+  - pods/exec
+  - pods/attach
+  - pods/portforward
+  - pods/proxy
+  - pods/status
+  - nodes
+  - nodes/proxy
+  - nodes/stats
+  - persistentvolumes
+  - persistentvolumeclaims
+  - persistentvolumeclaims/status
+  - serviceaccounts
+  - serviceaccounts/token
   - events
   verbs:
-  - list
   - get
+  - list
   - watch
 - apiGroups:
   - apps
@@ -46,11 +52,14 @@ rules:
   - deployments
   - deployments/scale
   - replicasets
+  - replicasets/scale
   - statefulsets
+  - statefulsets/scale
   - daemonsets
+  - controllerrevisions
   verbs:
-  - list
   - get
+  - list
   - watch
 - apiGroups:
   - batch
@@ -58,34 +67,49 @@ rules:
   - jobs
   - cronjobs
   verbs:
-  - list
   - get
+  - list
   - watch
 - apiGroups:
   - extensions
   resources:
   - ingresses
-  - networkpolicies
   verbs:
-  - list
   - get
+  - list
   - watch
 - apiGroups:
   - networking.k8s.io
   resources:
   - ingresses
-  - networkpolicies
   verbs:
-  - list
   - get
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - get
+  - list
   - watch
 - apiGroups:
   - storage.k8s.io
   resources:
   - storageclasses
+  - volumeattachments
   verbs:
-  - list
   - get
+  - list
   - watch
 - apiGroups:
   - metrics.k8s.io
@@ -96,17 +120,50 @@ rules:
   - get
   - list
 - apiGroups:
-  - authentication.k8s.io
+  - ''
   resources:
-  - tokenreviews
+  - secrets
+  resourceNames:
+  - kubernetes-dashboard-certs
+  verbs:
+  - get
+- apiGroups:
+  - ''
+  resources:
+  - configmaps
+  resourceNames:
+  - kubernetes-dashboard-certs
+  - kubernetes-dashboard-settings
+  verbs:
+  - get
+- apiGroups:
+  - ''
+  resources:
+  - configmaps
   verbs:
   - create
 - apiGroups:
-  - authorization.k8s.io
+  - ''
   resources:
-  - subjectaccessreviews
+  - configmaps
+  resourceNames:
+  - kubernetes-dashboard-settings
+  verbs:
+  - update
+- apiGroups:
+  - ''
+  resources:
+  - secrets
   verbs:
   - create
+- apiGroups:
+  - ''
+  resources:
+  - secrets
+  resourceNames:
+  - kubernetes-dashboard-certs
+  verbs:
+  - update
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -122,12 +179,17 @@ subjects:
   namespace: kubernetes-dashboard
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubernetes-dashboard-settings
+  namespace: kubernetes-dashboard
+data: {}
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
-  labels:
-    k8s-app: kubernetes-dashboard
 spec:
   type: ClusterIP
   ports:
@@ -167,7 +229,7 @@ spec:
         image: kubernetesui/dashboard:v2.7.0
         args:
         - --auto-generate-certificates
-        - --enable-skip-login
+        - --namespace=kubernetes-dashboard
         ports:
         - name: https
           containerPort: 8443
@@ -184,12 +246,21 @@ spec:
             memory: 128Mi
           limits:
             cpu: 500m
-            memory: 256Mi
+            memory: 512Mi
         volumeMounts:
         - name: tmp
           mountPath: /tmp
         - name: certs
           mountPath: /certs
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /
@@ -197,15 +268,6 @@ spec:
             scheme: HTTPS
           initialDelaySeconds: 30
           periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8443
-            scheme: HTTPS
-          initialDelaySeconds: 5
-          periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 3
       volumes:

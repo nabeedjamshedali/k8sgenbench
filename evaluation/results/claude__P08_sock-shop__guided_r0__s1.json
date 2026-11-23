@@ -3,7 +3,7 @@
   "source": "claude",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-20T18:13:45Z",
+  "timestamp": "2026-11-23T13:51:58Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -204,7 +204,7 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 1028,
+  "loc": 1128,
   "resource_counts": {
     "Secret": 1,
     "Deployment": 9,
@@ -214,9 +214,9 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 88.333336,
+      "compliance": 90.23809,
       "frameworks": {
-        "NSA": 82.5,
+        "NSA": 85.35714,
         "MITRE": 99.579834
       },
       "failed_controls_by_severity": {
@@ -248,11 +248,6 @@
         },
         {
           "resource": "path=1277558833/api=apps/v1//Deployment/payment",
-          "control": "C-0013",
-          "name": "Non-root containers"
-        },
-        {
-          "resource": "path=1277558833/api=apps/v1//Deployment/payment",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -260,11 +255,6 @@
           "resource": "path=1277558833/api=apps/v1//Deployment/payment",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=1311114071/api=apps/v1//Deployment/user",
-          "control": "C-0013",
-          "name": "Non-root containers"
         },
         {
           "resource": "path=1311114071/api=apps/v1//Deployment/user",
@@ -298,11 +288,6 @@
         },
         {
           "resource": "path=1894455737/api=apps/v1//Deployment/carts",
-          "control": "C-0013",
-          "name": "Non-root containers"
-        },
-        {
-          "resource": "path=1894455737/api=apps/v1//Deployment/carts",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -330,11 +315,6 @@
           "resource": "path=1995121451/api=apps/v1//Deployment/edge-router",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=2028676689/api=apps/v1//Deployment/front-end",
-          "control": "C-0013",
-          "name": "Non-root containers"
         },
         {
           "resource": "path=2028676689/api=apps/v1//Deployment/front-end",
@@ -373,11 +353,6 @@
         },
         {
           "resource": "path=2095787165/api=apps/v1//Deployment/catalogue",
-          "control": "C-0013",
-          "name": "Non-root containers"
-        },
-        {
-          "resource": "path=2095787165/api=apps/v1//Deployment/catalogue",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -405,11 +380,6 @@
           "resource": "path=3123538208/api=apps/v1//StatefulSet/carts-db",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=3157093446/api=apps/v1//Deployment/orders",
-          "control": "C-0013",
-          "name": "Non-root containers"
         },
         {
           "resource": "path=3157093446/api=apps/v1//Deployment/orders",
@@ -443,11 +413,6 @@
         },
         {
           "resource": "path=3224203922/api=apps/v1//Deployment/shipping",
-          "control": "C-0013",
-          "name": "Non-root containers"
-        },
-        {
-          "resource": "path=3224203922/api=apps/v1//Deployment/shipping",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -455,11 +420,6 @@
           "resource": "path=3224203922/api=apps/v1//Deployment/shipping",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=3257759160/api=apps/v1//Deployment/queue-master",
-          "control": "C-0013",
-          "name": "Non-root containers"
         },
         {
           "resource": "path=3257759160/api=apps/v1//Deployment/queue-master",
@@ -477,9 +437,9 @@
       "ran": true,
       "by_severity": {
         "critical": 0,
-        "high": 20,
+        "high": 12,
         "medium": 32,
-        "low": 52
+        "low": 44
       },
       "failed": [
         {
@@ -666,19 +626,7 @@
           "id": "KSV-0021",
           "title": "Runs with GID <= 10000",
           "severity": "LOW",
-          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
           "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
-          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsGroup' > 10000"
         },
         {
           "id": "KSV-0021",
@@ -696,49 +644,13 @@
           "id": "KSV-0021",
           "title": "Runs with GID <= 10000",
           "severity": "LOW",
-          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
-          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
           "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsGroup' > 10000"
         },
         {
           "id": "KSV-0021",
           "title": "Runs with GID <= 10000",
           "severity": "LOW",
-          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
-          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
           "message": "Container 'rabbitmq' of StatefulSet 'rabbitmq' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
-          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsGroup' > 10000"
-        },
-        {
-          "id": "KSV-0021",
-          "title": "Runs with GID <= 10000",
-          "severity": "LOW",
-          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsGroup' > 10000"
         },
         {
           "id": "KSV-0021",
@@ -960,55 +872,7 @@
           "id": "KSV-0118",
           "title": "Default security context configured",
           "severity": "HIGH",
-          "message": "deployment carts in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment catalogue in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
           "message": "deployment edge-router in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment front-end in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment orders in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment payment in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment queue-master in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment shipping in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment user in default namespace is using the default security context, which allows root privileges"
         },
         {
           "id": "KSV-0118",
@@ -1170,22 +1034,20 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 89,
+      "critical": 82,
       "warning": 9,
       "critical_by_check": {
         "container-ephemeral-storage-request-and-limit": 14,
-        "pod-probes-identical": 13,
-        "container-image-pull-policy": 14,
-        "pod-networkpolicy": 14,
-        "container-security-context-user-group-id": 14,
-        "deployment-has-poddisruptionbudget": 8,
         "container-security-context-readonlyrootfilesystem": 6,
-        "statefulset-has-servicename": 5,
-        "pod-probes": 1
+        "container-image-pull-policy": 14,
+        "container-security-context-user-group-id": 6,
+        "pod-networkpolicy": 14,
+        "pod-probes-identical": 14,
+        "deployment-has-poddisruptionbudget": 9,
+        "statefulset-has-servicename": 5
       },
       "warning_by_check": {
-        "deployment-has-host-podantiaffinity": 8,
-        "deployment-replicas": 1
+        "deployment-has-host-podantiaffinity": 9
       }
     },
     "polaris": {
@@ -1193,60 +1055,57 @@
       "score": 83,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 14,
-        "missingPodDisruptionBudget[warning]": 9,
         "automountServiceAccountToken[warning]": 14,
         "missingNetworkPolicy[warning]": 14,
         "priorityClassNotSet[warning]": 14,
         "topologySpreadConstraint[warning]": 14,
-        "pullPolicyNotAlways[warning]": 14,
         "insecureCapabilities[warning]": 6,
         "notReadOnlyRootFilesystem[warning]": 6,
+        "pullPolicyNotAlways[warning]": 14,
         "runAsRootAllowed[danger]": 6,
-        "deploymentMissingReplicas[warning]": 1,
-        "livenessProbeMissing[warning]": 1,
-        "readinessProbeMissing[warning]": 1,
-        "sensitiveContainerEnvVar[danger]": 1
+        "sensitiveContainerEnvVar[danger]": 1,
+        "missingPodDisruptionBudget[warning]": 9
       }
     },
     "kube_linter": {
       "ran": true,
-      "total": 20,
+      "total": 21,
       "by_check": {
-        "no-anti-affinity": 8,
+        "no-anti-affinity": 9,
         "no-read-only-root-fs": 6,
         "run-as-non-root": 6
       },
       "zhang_smells": {
         "dangling-service": 0,
-        "no-anti-affinity": 8,
+        "no-anti-affinity": 9,
         "no-read-only-root-fs": 6,
         "run-as-non-root": 6,
         "unset-cpu-requirements": 0,
         "unset-memory-requirements": 0
       },
-      "zhang_total": 20,
-      "zhang_density_per_kloc": 19.5,
+      "zhang_total": 21,
+      "zhang_density_per_kloc": 18.6,
       "zhang_any": true
     },
     "checklist": {
       "ran": true,
       "n_workloads": 14,
-      "pct": 66.7,
+      "pct": 68.9,
       "by_item": {
         "10_pinned_tag": {
           "met": 14,
           "applicable": 14
         },
         "1_replicas_ge_2": {
-          "met": 8,
+          "met": 9,
           "applicable": 9
         },
         "2_readiness": {
-          "met": 13,
+          "met": 14,
           "applicable": 14
         },
         "3_liveness": {
-          "met": 13,
+          "met": 14,
           "applicable": 14
         },
         "4_cpu_request": {
@@ -1423,9 +1282,9 @@
           "kind": "Deployment",
           "name": "queue-master",
           "items": {
-            "1_replicas_ge_2": 0,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1793,103 +1652,103 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 142.4,
-    "ready_replicas": 22,
-    "expected_replicas": 22,
+    "time_to_ready_s": 189.0,
+    "ready_replicas": 23,
+    "expected_replicas": 23,
     "workloads": [
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "carts",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "catalogue",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "edge-router",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "front-end",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "orders",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "payment",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "queue-master",
-        "ready": 1,
-        "want": 1
+        "ready": 2,
+        "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "shipping",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "Deployment",
         "name": "user",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "StatefulSet",
         "name": "carts-db",
         "ready": 1,
         "want": 1
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "StatefulSet",
         "name": "catalogue-db",
         "ready": 1,
         "want": 1
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "StatefulSet",
         "name": "orders-db",
         "ready": 1,
         "want": 1
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "StatefulSet",
         "name": "rabbitmq",
         "ready": 1,
         "want": 1
       },
       {
-        "ns": "d5-4c0042a6",
+        "ns": "d5-835352c8",
         "kind": "StatefulSet",
         "name": "user-db",
         "ready": 1,
@@ -1898,7 +1757,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-4c0042a6",
+      "namespace": "d5-835352c8",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -1931,7 +1790,178 @@
         "detail": "HTTP 200"
       }
     ],
-    "smoke_ok": true
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "front-end",
+        "namespace": "d5-835352c8",
+        "port": 8079,
+        "target_port": 8079,
+        "pod": "front-end-9f76d9996-rzgcr",
+        "listening": [
+          8079
+        ],
+        "ok": true
+      },
+      {
+        "service": "edge-router",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "edge-router-5bc5d8c946-7r22q",
+        "listening": [
+          80,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "edge-router",
+        "namespace": "d5-835352c8",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "edge-router-5bc5d8c946-7r22q",
+        "listening": [
+          80,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "catalogue",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "catalogue-5b5c9fbdcc-g6zw7",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "catalogue-db",
+        "namespace": "d5-835352c8",
+        "port": 3306,
+        "target_port": 3306,
+        "pod": "catalogue-db-0",
+        "listening": [
+          3306
+        ],
+        "ok": true
+      },
+      {
+        "service": "carts",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "carts-cb9f74676-fpvqs",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "carts-db",
+        "namespace": "d5-835352c8",
+        "port": 27017,
+        "target_port": 27017,
+        "pod": "carts-db-0",
+        "listening": [
+          27017
+        ],
+        "ok": true
+      },
+      {
+        "service": "orders",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "orders-84d4d48c5f-8x9nm",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "orders-db",
+        "namespace": "d5-835352c8",
+        "port": 27017,
+        "target_port": 27017,
+        "pod": "orders-db-0",
+        "listening": [
+          27017
+        ],
+        "ok": true
+      },
+      {
+        "service": "shipping",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "shipping-554565c777-jjjcw",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "queue-master",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "queue-master-7d989cf954-kljgr",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "rabbitmq",
+        "namespace": "d5-835352c8",
+        "port": 5672,
+        "target_port": 5672,
+        "pod": "rabbitmq-0",
+        "listening": [
+          4369,
+          5672,
+          25672
+        ],
+        "ok": true
+      },
+      {
+        "service": "payment",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "payment-f76755b7-m6s29",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "user",
+        "namespace": "d5-835352c8",
+        "port": 80,
+        "target_port": 80,
+        "pod": "user-fbd5867dc-6zd5g",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "user-db",
+        "namespace": "d5-835352c8",
+        "port": 27017,
+        "target_port": 27017,
+        "pod": "user-db-0",
+        "listening": [
+          27017
+        ],
+        "ok": true
+      }
+    ]
   },
   "d6": {
     "ran": true,
@@ -1940,59 +1970,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "front-end-5b9fcb8cf8-58n79",
+        "victim": "front-end-9f76d9996-gjc65",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 9.4,
+        "recovery_time_s": 15.1,
         "availability_pct": 100.0,
-        "n_probes": 70
+        "n_probes": 48
       },
       {
         "ran": true,
-        "victim": "front-end-5b9fcb8cf8-d2s5j",
+        "victim": "front-end-9f76d9996-gh7p9",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.0,
+        "recovery_time_s": 16.6,
         "availability_pct": 100.0,
-        "n_probes": 71
+        "n_probes": 79
       },
       {
         "ran": true,
-        "victim": "front-end-5b9fcb8cf8-q6fs9",
+        "victim": "front-end-9f76d9996-lnmdm",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.3,
+        "recovery_time_s": 11.4,
         "availability_pct": 100.0,
-        "n_probes": 73
+        "n_probes": 55
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "front-end-5b9fcb8cf8-qhb69",
+        "victim": "front-end-9f76d9996-rzgcr",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 9.6,
-        "availability_pct": 97.1,
-        "n_probes": 68
+        "recovery_time_s": 9.0,
+        "availability_pct": 100.0,
+        "n_probes": 65
       },
       {
         "ran": true,
-        "victim": "front-end-5b9fcb8cf8-zmqdb",
+        "victim": "front-end-9f76d9996-t56t9",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 12.9,
-        "availability_pct": 96.5,
-        "n_probes": 57
+        "recovery_time_s": 8.5,
+        "availability_pct": 97.3,
+        "n_probes": 75
       },
       {
         "ran": true,
-        "victim": "front-end-5b9fcb8cf8-qhb69",
+        "victim": "front-end-9f76d9996-rzgcr",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 21.4,
-        "availability_pct": 98.9,
-        "n_probes": 87
+        "recovery_time_s": 23.1,
+        "availability_pct": 97.8,
+        "n_probes": 138
       }
     ],
     "gate": "ready"

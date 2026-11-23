@@ -1,0 +1,15 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (CrashLoopBackOff): Deployment n8n 0/2 Ready.
+- Pod n8n-6b58446f5f-vttnb container n8n: 4 restarts, last exit code 1 (Error). Last log lines:
+    Error: ENOENT: no such file or directory, mkdir '/home/node/.cache'
+    Exiting due to an error.
+    Error: Exiting due to an error.
+        at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)
+        at /usr/local/lib/node_modules/n8n/bin/n8n:67:2
+- Warning event on n8n-6b58446f5f-vttnb (14x): Unhealthy: Startup probe failed
+- Warning event on n8n-6b58446f5f-wr5jw (13x): Unhealthy: Startup probe failed
+- Warning event on n8n-6b58446f5f-vttnb (10x): BackOff: Back-off restarting failed container n8n in pod n8n-6b58446f
+- Warning event on n8n-6b58446f5f-wr5jw (10x): BackOff: Back-off restarting failed container n8n in pod n8n-6b58446f
+- Warning event on n8n-6b58446f5f-wr5jw (1x): FailedScheduling: running PreBind plugin "VolumeBinding"
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

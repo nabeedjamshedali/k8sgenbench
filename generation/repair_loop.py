@@ -92,7 +92,7 @@ def call_gemini(env, turns):
     }
     key = env[env.get("GEMINI_KEY_VAR", "GEMINI_API_KEY")]
     t0 = time.time()
-    r = g.post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=300)
+    r = g.post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=600)  # client-side only; long thinking replies took over 300 s on 2026-11-23
     latency = time.time() - t0
     r.raise_for_status()
     data = r.json()

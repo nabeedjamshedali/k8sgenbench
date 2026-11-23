@@ -3,7 +3,7 @@
   "source": "claude",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-20T18:21:23Z",
+  "timestamp": "2026-11-23T13:43:27Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -35,12 +35,6 @@
       },
       {
         "kind": "ServiceAccount",
-        "name": "kubernetes-dashboard",
-        "accepted": true,
-        "error": null
-      },
-      {
-        "kind": "Service",
         "name": "kubernetes-dashboard",
         "accepted": true,
         "error": null
@@ -89,12 +83,18 @@
       },
       {
         "kind": "Service",
-        "name": "dashboard-metrics-scraper",
+        "name": "kubernetes-dashboard",
         "accepted": true,
         "error": null
       },
       {
         "kind": "Deployment",
+        "name": "dashboard-metrics-scraper",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
         "name": "dashboard-metrics-scraper",
         "accepted": true,
         "error": null
@@ -114,25 +114,25 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 286,
+  "loc": 282,
   "resource_counts": {
     "Namespace": 1,
     "ServiceAccount": 1,
-    "Service": 2,
     "Secret": 3,
     "ConfigMap": 1,
     "Role": 1,
-    "ClusterRole": 1,
     "RoleBinding": 1,
+    "ClusterRole": 1,
     "ClusterRoleBinding": 1,
-    "Deployment": 2
+    "Deployment": 2,
+    "Service": 2
   },
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 83.61111,
+      "compliance": 83.611115,
       "frameworks": {
-        "NSA": 86.66667,
+        "NSA": 86.666664,
         "MITRE": 80.882355
       },
       "failed_controls_by_severity": {
@@ -143,22 +143,22 @@
       },
       "failed": [
         {
-          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3139685174/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/Role/kubernetes-dashboard/path=3307461364/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/RoleBinding/kubernetes-dashboard",
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3139685174/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/RoleBinding/kubernetes-dashboard/path=3156462793/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/Role/kubernetes-dashboard",
           "control": "C-0007",
           "name": "Roles with delete capabilities"
         },
         {
-          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3139685174/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/Role/kubernetes-dashboard/path=3307461364/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/RoleBinding/kubernetes-dashboard",
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3139685174/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/RoleBinding/kubernetes-dashboard/path=3156462793/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/Role/kubernetes-dashboard",
           "control": "C-0015",
           "name": "List Kubernetes secrets"
         },
         {
-          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3139685174/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/Role/kubernetes-dashboard/path=3307461364/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/RoleBinding/kubernetes-dashboard",
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3139685174/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/RoleBinding/kubernetes-dashboard/path=3156462793/api=rbac.authorization.k8s.io/v1/kubernetes-dashboard/Role/kubernetes-dashboard",
           "control": "C-0053",
           "name": "Access container service account"
         },
         {
-          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3324238983/api=rbac.authorization.k8s.io/v1//ClusterRole/kubernetes-dashboard/path=727577604/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/kubernetes-dashboard",
+          "resource": "/kubernetes-dashboard/ServiceAccount/kubernetes-dashboard/path=3307461364/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/kubernetes-dashboard/path=3324238983/api=rbac.authorization.k8s.io/v1//ClusterRole/kubernetes-dashboard",
           "control": "C-0053",
           "name": "Access container service account"
         },
@@ -168,27 +168,27 @@
           "name": "Cluster internal networking"
         },
         {
-          "resource": "path=744355223/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "resource": "path=727577604/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=744355223/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
+          "resource": "path=727577604/api=apps/v1/kubernetes-dashboard/Deployment/kubernetes-dashboard",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=777910461/api=apps/v1/kubernetes-dashboard/Deployment/dashboard-metrics-scraper",
+          "resource": "path=761132842/api=apps/v1/kubernetes-dashboard/Deployment/dashboard-metrics-scraper",
           "control": "C-0014",
           "name": "Access Kubernetes dashboard"
         },
         {
-          "resource": "path=777910461/api=apps/v1/kubernetes-dashboard/Deployment/dashboard-metrics-scraper",
+          "resource": "path=761132842/api=apps/v1/kubernetes-dashboard/Deployment/dashboard-metrics-scraper",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=777910461/api=apps/v1/kubernetes-dashboard/Deployment/dashboard-metrics-scraper",
+          "resource": "path=761132842/api=apps/v1/kubernetes-dashboard/Deployment/dashboard-metrics-scraper",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         }
@@ -199,7 +199,7 @@
       "by_severity": {
         "critical": 0,
         "high": 0,
-        "medium": 4,
+        "medium": 6,
         "low": 4
       },
       "failed": [
@@ -232,6 +232,18 @@
           "title": "Manage configmaps",
           "severity": "MEDIUM",
           "message": "Role 'kubernetes-dashboard' should not have access to resource 'configmaps' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0049",
+          "title": "Manage configmaps",
+          "severity": "MEDIUM",
+          "message": "Role 'kubernetes-dashboard' should not have access to resource 'configmaps' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0113",
+          "title": "Manage namespace secrets",
+          "severity": "MEDIUM",
+          "message": "Role 'kubernetes-dashboard' shouldn't have access to manage secrets in namespace 'kubernetes-dashboard'"
         },
         {
           "id": "KSV-0113",
@@ -272,15 +284,15 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 11,
+      "critical": 12,
       "warning": 2,
       "critical_by_check": {
-        "container-ephemeral-storage-request-and-limit": 2,
         "pod-networkpolicy": 2,
-        "container-security-context-user-group-id": 2,
         "pod-probes-identical": 2,
-        "deployment-has-poddisruptionbudget": 2,
-        "container-image-pull-policy": 1
+        "container-image-pull-policy": 2,
+        "container-ephemeral-storage-request-and-limit": 2,
+        "container-security-context-user-group-id": 2,
+        "deployment-has-poddisruptionbudget": 2
       },
       "warning_by_check": {
         "deployment-has-host-podantiaffinity": 2
@@ -288,7 +300,7 @@
     },
     "polaris": {
       "ran": true,
-      "score": 89,
+      "score": 88,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 2,
         "missingPodDisruptionBudget[warning]": 2,
@@ -296,7 +308,7 @@
         "missingNetworkPolicy[warning]": 2,
         "priorityClassNotSet[warning]": 2,
         "topologySpreadConstraint[warning]": 2,
-        "pullPolicyNotAlways[warning]": 1
+        "pullPolicyNotAlways[warning]": 2
       }
     },
     "kube_linter": {
@@ -314,7 +326,7 @@
         "unset-memory-requirements": 0
       },
       "zhang_total": 2,
-      "zhang_density_per_kloc": 7.0,
+      "zhang_density_per_kloc": 7.1,
       "zhang_any": true
     },
     "checklist": {
@@ -410,8 +422,8 @@
       },
       {
         "id": "R02-scraper-deployed",
-        "passed": false,
-        "detail": "no workload runs kubernetesui/metrics-scraper",
+        "passed": true,
+        "detail": "1 workload(s)",
         "oracle": true
       },
       {
@@ -458,8 +470,8 @@
       },
       {
         "id": "R08-scraper-service-same-ns-unnamed-port",
-        "passed": false,
-        "detail": "namespace kubernetes-dashboard vs dashboard kubernetes-dashboard; unnamed port to 8000: False",
+        "passed": true,
+        "detail": "namespace kubernetes-dashboard vs dashboard kubernetes-dashboard; unnamed port to 8000: True",
         "oracle": true
       },
       {
@@ -483,13 +495,13 @@
       {
         "id": "R12-dashboard-key-holder",
         "passed": true,
-        "detail": "get=True create=False Secret kubernetes-dashboard-key-holder pre-created=True",
+        "detail": "get=True create=True Secret kubernetes-dashboard-key-holder pre-created=True",
         "oracle": true
       },
       {
         "id": "R13-dashboard-settings-configmap",
         "passed": true,
-        "detail": "get=True create=False ConfigMap kubernetes-dashboard-settings pre-created=True",
+        "detail": "get=True create=True ConfigMap kubernetes-dashboard-settings pre-created=True",
         "oracle": true
       },
       {
@@ -519,12 +531,12 @@
     "ran": true,
     "images": [
       {
-        "ref": "kubernetesui/dashboard-metrics-scraper:v1.0.8",
-        "as_written_pullable": false,
-        "served": "alias:kubernetesui/metrics-scraper:v1.0.8"
+        "ref": "kubernetesui/dashboard:v2.7.0",
+        "as_written_pullable": true,
+        "served": "mirror"
       },
       {
-        "ref": "kubernetesui/dashboard:v2.7.0",
+        "ref": "kubernetesui/metrics-scraper:v1.0.8",
         "as_written_pullable": true,
         "served": "mirror"
       },
@@ -539,7 +551,7 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 20.5,
+    "time_to_ready_s": 14.4,
     "ready_replicas": 4,
     "expected_replicas": 4,
     "workloads": [
@@ -560,7 +572,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-abf3c312",
+      "namespace": "d5-89b20efc",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -584,11 +596,35 @@
       },
       {
         "name": "dashboard-reaches-scraper",
-        "passed": false,
-        "detail": "HTTP 200, body lacks '\"connected\": true'"
+        "passed": true,
+        "detail": "HTTP 200"
       }
     ],
-    "smoke_ok": false
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "kubernetes-dashboard",
+        "namespace": "kubernetes-dashboard",
+        "port": 443,
+        "target_port": 8443,
+        "pod": "kubernetes-dashboard-567b4fbdf6-rqbqr",
+        "listening": [
+          8443
+        ],
+        "ok": true
+      },
+      {
+        "service": "dashboard-metrics-scraper",
+        "namespace": "kubernetes-dashboard",
+        "port": 8000,
+        "target_port": 8000,
+        "pod": "dashboard-metrics-scraper-dd9cc6756-6dvq7",
+        "listening": [
+          8000
+        ],
+        "ok": true
+      }
+    ]
   },
   "d6": {
     "ran": true,
@@ -597,59 +633,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "kubernetes-dashboard-688556c4db-66tj9",
+        "victim": "kubernetes-dashboard-567b4fbdf6-pdx8x",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.5,
-        "availability_pct": 100.0,
-        "n_probes": 59
+        "recovery_time_s": 11.1,
+        "availability_pct": 98.8,
+        "n_probes": 84
       },
       {
         "ran": true,
-        "victim": "kubernetes-dashboard-688556c4db-9h8ch",
+        "victim": "kubernetes-dashboard-567b4fbdf6-7twcg",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 19.5,
-        "availability_pct": 99.0,
-        "n_probes": 97
+        "recovery_time_s": 11.4,
+        "availability_pct": 98.7,
+        "n_probes": 75
       },
       {
         "ran": true,
-        "victim": "kubernetes-dashboard-688556c4db-hqvpf",
+        "victim": "kubernetes-dashboard-567b4fbdf6-7rntx",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.0,
+        "recovery_time_s": 7.7,
         "availability_pct": 100.0,
-        "n_probes": 62
+        "n_probes": 72
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "kubernetes-dashboard-688556c4db-bc6c6",
+        "victim": "kubernetes-dashboard-567b4fbdf6-rqbqr",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.8,
-        "availability_pct": 97.2,
-        "n_probes": 72
+        "recovery_time_s": 11.9,
+        "availability_pct": 96.6,
+        "n_probes": 87
       },
       {
         "ran": true,
-        "victim": "kubernetes-dashboard-688556c4db-qq7lq",
+        "victim": "kubernetes-dashboard-567b4fbdf6-w8hxp",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.8,
-        "availability_pct": 100.0,
-        "n_probes": 63
+        "recovery_time_s": 11.4,
+        "availability_pct": 98.6,
+        "n_probes": 73
       },
       {
         "ran": true,
-        "victim": "kubernetes-dashboard-688556c4db-bc6c6",
+        "victim": "kubernetes-dashboard-567b4fbdf6-rqbqr",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 23.8,
-        "availability_pct": 95.7,
-        "n_probes": 116
+        "recovery_time_s": 20.3,
+        "availability_pct": 99.2,
+        "n_probes": 128
       }
     ],
     "gate": "ready"

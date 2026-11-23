@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-22T18:27:44Z",
+  "timestamp": "2026-11-23T14:17:34Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -234,7 +234,7 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 915,
+  "loc": 1168,
   "resource_counts": {
     "Namespace": 1,
     "Service": 14,
@@ -245,9 +245,9 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 87.38095,
+      "compliance": 85.23809,
       "frameworks": {
-        "NSA": 81.071434,
+        "NSA": 77.85715,
         "MITRE": 93.69748
       },
       "failed_controls_by_severity": {
@@ -284,6 +284,11 @@
         },
         {
           "resource": "path=1907587659/api=apps/v1/sock-shop/Deployment/edge-router",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1907587659/api=apps/v1/sock-shop/Deployment/edge-router",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -291,6 +296,11 @@
           "resource": "path=1907587659/api=apps/v1/sock-shop/Deployment/edge-router",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1941142897/api=apps/v1/sock-shop/Deployment/catalogue",
+          "control": "C-0013",
+          "name": "Non-root containers"
         },
         {
           "resource": "path=1941142897/api=apps/v1/sock-shop/Deployment/catalogue",
@@ -309,6 +319,11 @@
         },
         {
           "resource": "path=2008253373/api=apps/v1/sock-shop/Deployment/front-end",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2008253373/api=apps/v1/sock-shop/Deployment/front-end",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -339,6 +354,11 @@
         },
         {
           "resource": "path=3901832118/api=apps/v1/sock-shop/Deployment/orders",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=3901832118/api=apps/v1/sock-shop/Deployment/orders",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -349,6 +369,11 @@
         },
         {
           "resource": "path=3952164975/api=apps/v1/sock-shop/Deployment/carts",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=3952164975/api=apps/v1/sock-shop/Deployment/carts",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -379,6 +404,11 @@
         },
         {
           "resource": "path=4103604831/api=apps/v1/sock-shop/Deployment/payment",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=4103604831/api=apps/v1/sock-shop/Deployment/payment",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -409,6 +439,11 @@
         },
         {
           "resource": "path=4137012974/api=apps/v1/sock-shop/Deployment/user",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=4137012974/api=apps/v1/sock-shop/Deployment/user",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -439,6 +474,11 @@
         },
         {
           "resource": "path=4221048164/api=apps/v1/sock-shop/Deployment/shipping",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=4221048164/api=apps/v1/sock-shop/Deployment/shipping",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -446,6 +486,11 @@
           "resource": "path=4221048164/api=apps/v1/sock-shop/Deployment/shipping",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=4254603402/api=apps/v1/sock-shop/Deployment/queue-master",
+          "control": "C-0013",
+          "name": "Non-root containers"
         },
         {
           "resource": "path=4254603402/api=apps/v1/sock-shop/Deployment/queue-master",
@@ -464,7 +509,7 @@
       "by_severity": {
         "critical": 0,
         "high": 19,
-        "medium": 38,
+        "medium": 47,
         "low": 34
       },
       "failed": [
@@ -472,7 +517,19 @@
           "id": "KSV-0012",
           "title": "Runs as root user",
           "severity": "MEDIUM",
+          "message": "Container 'carts' of Deployment 'carts' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
           "message": "Container 'carts-db' of StatefulSet 'carts-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'catalogue' of Deployment 'catalogue' should set 'securityContext.runAsNonRoot' to true"
         },
         {
           "id": "KSV-0012",
@@ -484,13 +541,55 @@
           "id": "KSV-0012",
           "title": "Runs as root user",
           "severity": "MEDIUM",
+          "message": "Container 'edge-router' of Deployment 'edge-router' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'front-end' of Deployment 'front-end' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'orders' of Deployment 'orders' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
           "message": "Container 'orders-db' of StatefulSet 'orders-db' should set 'securityContext.runAsNonRoot' to true"
         },
         {
           "id": "KSV-0012",
           "title": "Runs as root user",
           "severity": "MEDIUM",
+          "message": "Container 'payment' of Deployment 'payment' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'queue-master' of Deployment 'queue-master' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
           "message": "Container 'rabbitmq' of StatefulSet 'rabbitmq' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'shipping' of Deployment 'shipping' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'user' of Deployment 'user' should set 'securityContext.runAsNonRoot' to true"
         },
         {
           "id": "KSV-0012",
@@ -1043,8 +1142,18 @@
         "restricted": [
           {
             "kind": "Deployment",
+            "name": "front-end",
+            "detail": "deployment.apps/front-end created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"front-end\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
             "name": "edge-router",
-            "detail": "deployment.apps/edge-router created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"edge-router\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add)"
+            "detail": "deployment.apps/edge-router created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"edge-router\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"edge-router\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "catalogue",
+            "detail": "deployment.apps/catalogue created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"catalogue\" must set securityContext.runAsNonRoot=true)"
           },
           {
             "kind": "StatefulSet",
@@ -1052,9 +1161,19 @@
             "detail": "statefulset.apps/catalogue-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"catalogue-db\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"catalogue-db\" must set securityContext.runAsNonRoot=true)"
           },
           {
+            "kind": "Deployment",
+            "name": "carts",
+            "detail": "deployment.apps/carts created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"carts\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
             "kind": "StatefulSet",
             "name": "carts-db",
             "detail": "statefulset.apps/carts-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"carts-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"carts-db\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "orders",
+            "detail": "deployment.apps/orders created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"orders\" must set securityContext.runAsNonRoot=true)"
           },
           {
             "kind": "StatefulSet",
@@ -1062,9 +1181,29 @@
             "detail": "statefulset.apps/orders-db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"orders-db\" must not include \"CHOWN\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"orders-db\" must set securityContext.runAsNonRoot=true)"
           },
           {
+            "kind": "Deployment",
+            "name": "shipping",
+            "detail": "deployment.apps/shipping created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"shipping\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "queue-master",
+            "detail": "deployment.apps/queue-master created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"queue-master\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
             "kind": "StatefulSet",
             "name": "rabbitmq",
             "detail": "statefulset.apps/rabbitmq created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"rabbitmq\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"rabbitmq\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "payment",
+            "detail": "deployment.apps/payment created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"payment\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "user",
+            "detail": "deployment.apps/user created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"user\" must set securityContext.runAsNonRoot=true)"
           },
           {
             "kind": "StatefulSet",
@@ -1079,25 +1218,26 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 89,
+      "critical": 88,
       "warning": 9,
       "critical_by_check": {
         "container-image-pull-policy": 14,
-        "pod-probes": 14,
+        "pod-probes-identical": 14,
         "pod-networkpolicy": 14,
-        "container-ephemeral-storage-request-and-limit": 14,
         "container-security-context-user-group-id": 14,
-        "deployment-has-poddisruptionbudget": 9,
         "container-security-context-readonlyrootfilesystem": 5,
-        "statefulset-has-servicename": 5
+        "container-ephemeral-storage-request-and-limit": 14,
+        "statefulset-has-servicename": 5,
+        "deployment-has-poddisruptionbudget": 8
       },
       "warning_by_check": {
-        "deployment-has-host-podantiaffinity": 9
+        "deployment-has-host-podantiaffinity": 8,
+        "deployment-replicas": 1
       }
     },
     "polaris": {
       "ran": true,
-      "score": 80,
+      "score": 82,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 14,
         "missingPodDisruptionBudget[warning]": 9,
@@ -1105,53 +1245,52 @@
         "missingNetworkPolicy[warning]": 14,
         "priorityClassNotSet[warning]": 14,
         "topologySpreadConstraint[warning]": 14,
-        "livenessProbeMissing[warning]": 14,
         "pullPolicyNotAlways[warning]": 14,
-        "readinessProbeMissing[warning]": 14,
+        "runAsRootAllowed[danger]": 14,
+        "deploymentMissingReplicas[warning]": 1,
         "notReadOnlyRootFilesystem[warning]": 5,
-        "runAsRootAllowed[danger]": 5,
         "sensitiveContainerEnvVar[danger]": 1
       }
     },
     "kube_linter": {
       "ran": true,
-      "total": 19,
+      "total": 27,
       "by_check": {
-        "no-anti-affinity": 9,
-        "no-read-only-root-fs": 5,
-        "run-as-non-root": 5
+        "no-anti-affinity": 8,
+        "run-as-non-root": 14,
+        "no-read-only-root-fs": 5
       },
       "zhang_smells": {
         "dangling-service": 0,
-        "no-anti-affinity": 9,
+        "no-anti-affinity": 8,
         "no-read-only-root-fs": 5,
-        "run-as-non-root": 5,
+        "run-as-non-root": 14,
         "unset-cpu-requirements": 0,
         "unset-memory-requirements": 0
       },
-      "zhang_total": 19,
-      "zhang_density_per_kloc": 20.8,
+      "zhang_total": 27,
+      "zhang_density_per_kloc": 23.1,
       "zhang_any": true
     },
     "checklist": {
       "ran": true,
       "n_workloads": 14,
-      "pct": 48.1,
+      "pct": 68.1,
       "by_item": {
         "10_pinned_tag": {
           "met": 14,
           "applicable": 14
         },
         "1_replicas_ge_2": {
-          "met": 9,
+          "met": 8,
           "applicable": 9
         },
         "2_readiness": {
-          "met": 0,
+          "met": 14,
           "applicable": 14
         },
         "3_liveness": {
-          "met": 0,
+          "met": 14,
           "applicable": 14
         },
         "4_cpu_request": {
@@ -1185,8 +1324,8 @@
           "name": "front-end",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1201,8 +1340,8 @@
           "name": "edge-router",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1217,8 +1356,8 @@
           "name": "catalogue",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1233,8 +1372,8 @@
           "name": "catalogue-db",
           "items": {
             "1_replicas_ge_2": null,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1249,8 +1388,8 @@
           "name": "carts",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1265,8 +1404,8 @@
           "name": "carts-db",
           "items": {
             "1_replicas_ge_2": null,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1281,8 +1420,8 @@
           "name": "orders",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1297,8 +1436,8 @@
           "name": "orders-db",
           "items": {
             "1_replicas_ge_2": null,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1313,8 +1452,8 @@
           "name": "shipping",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1328,9 +1467,9 @@
           "kind": "Deployment",
           "name": "queue-master",
           "items": {
-            "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1345,8 +1484,8 @@
           "name": "rabbitmq",
           "items": {
             "1_replicas_ge_2": null,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1361,8 +1500,8 @@
           "name": "payment",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1377,8 +1516,8 @@
           "name": "user",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1393,8 +1532,8 @@
           "name": "user-db",
           "items": {
             "1_replicas_ge_2": null,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -1697,10 +1836,10 @@
     "prepull_failed": [],
     "apply_ok": true,
     "apply_errors": [],
-    "ready_ok": true,
-    "time_to_ready_s": 33.7,
-    "ready_replicas": 23,
-    "expected_replicas": 23,
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 11,
+    "expected_replicas": 22,
     "workloads": [
       {
         "ns": "sock-shop",
@@ -1713,21 +1852,21 @@
         "ns": "sock-shop",
         "kind": "Deployment",
         "name": "catalogue",
-        "ready": 2,
+        "ready": 0,
         "want": 2
       },
       {
         "ns": "sock-shop",
         "kind": "Deployment",
         "name": "edge-router",
-        "ready": 2,
+        "ready": 0,
         "want": 2
       },
       {
         "ns": "sock-shop",
         "kind": "Deployment",
         "name": "front-end",
-        "ready": 2,
+        "ready": 0,
         "want": 2
       },
       {
@@ -1741,15 +1880,15 @@
         "ns": "sock-shop",
         "kind": "Deployment",
         "name": "payment",
-        "ready": 2,
+        "ready": 0,
         "want": 2
       },
       {
         "ns": "sock-shop",
         "kind": "Deployment",
         "name": "queue-master",
-        "ready": 2,
-        "want": 2
+        "ready": 0,
+        "want": 1
       },
       {
         "ns": "sock-shop",
@@ -1762,7 +1901,7 @@
         "ns": "sock-shop",
         "kind": "Deployment",
         "name": "user",
-        "ready": 2,
+        "ready": 0,
         "want": 2
       },
       {
@@ -1801,9 +1940,133 @@
         "want": 1
       }
     ],
-    "failure_reason": null,
+    "failure_reason": "NotReady(probe)",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "catalogue-5fbb59fc76-4crs7",
+          "container": "catalogue",
+          "restarts": 5,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "images: \"./images/\"\nAbs(images): \"/images\" (<nil>)\nGetwd: \"/\" (<nil>)\nls: [\"images/WAT.jpg\" \"images/WAT2.jpg\" \"images/bit_of_leg_1.jpeg\" \"images/bit_of_leg_2.jpeg\" \"images/catsocks.jpg\" \"images/catsocks2.jpg\" \"images/classic.jpg\" \"images/classic2.jpg\" \"images/colourful_socks.jpg\" \"images/cross_1.jpeg\" \"images/cross_2.jpeg\" \"images/holy_1.jpeg\" \"images/holy_2.jpeg\" \"images/holy_3.jpeg\" \"images/puma_1.jpeg\" \"images/puma_2.jpeg\" \"images/rugby_socks.jpg\" \"images/sock.jpeg\" \"images/youtube_1.jpeg\" \"images/youtube_2.jpeg\"]\nts=2026-11-23T14:22:24Z caller=main.go:136 transport=HTTP port=80\nts=2026-11-23T14:23:18Z caller=main.go:147 exit=terminated"
+        },
+        {
+          "pod": "catalogue-5fbb59fc76-kr67c",
+          "container": "catalogue",
+          "restarts": 5,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "images: \"./images/\"\nAbs(images): \"/images\" (<nil>)\nGetwd: \"/\" (<nil>)\nls: [\"images/WAT.jpg\" \"images/WAT2.jpg\" \"images/bit_of_leg_1.jpeg\" \"images/bit_of_leg_2.jpeg\" \"images/catsocks.jpg\" \"images/catsocks2.jpg\" \"images/classic.jpg\" \"images/classic2.jpg\" \"images/colourful_socks.jpg\" \"images/cross_1.jpeg\" \"images/cross_2.jpeg\" \"images/holy_1.jpeg\" \"images/holy_2.jpeg\" \"images/holy_3.jpeg\" \"images/puma_1.jpeg\" \"images/puma_2.jpeg\" \"images/rugby_socks.jpg\" \"images/sock.jpeg\" \"images/youtube_1.jpeg\" \"images/youtube_2.jpeg\"]\nts=2026-11-23T14:22:24Z caller=main.go:136 transport=HTTP port=80\nts=2026-11-23T14:23:18Z caller=main.go:147 exit=terminated"
+        },
+        {
+          "pod": "edge-router-5b7457cc67-gdt58",
+          "container": "edge-router",
+          "restarts": 4,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "time=\"2026-11-23T14:22:18Z\" level=info msg=\"Traefik version v1.1.2 built on 2016-12-15_10:21:15AM\" \ntime=\"2026-11-23T14:22:18Z\" level=info msg=\"Using TOML configuration file /etc/traefik/traefik.toml\" \ntime=\"2026-11-23T14:22:18Z\" level=info msg=\"Preparing server http &{Network: Address::80 TLS:<nil> Redirect:<nil> Auth:<nil> Compress:false}\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Starting provider *provider.File {\\\"Watch\\\":true,\\\"Filename\\\":\\\"/etc/traefik/traefik.toml\\\",\\\"Constraints\\\":null}\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Starting provider *main.WebProvider {\\\"Address\\\":\\\":8080\\\",\\\"CertFile\\\":\\\"\\\",\\\"KeyFile\\\":\\\"\\\",\\\"ReadOnly\\\":false,\\\"Auth\\\":null}\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Server configuration reloaded on :80\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Starting server on :80\" \ntime=\"2026-11-23T14:22:19Z\" level=warning msg=\"Error checking new version: Get https://update.traefik.io/repos/containous/traefik/releases: x509: certificate signed by unknown authority\" \ntime=\"2026-11-23T14:22:49Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:22:56Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:00Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:06Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:16Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:20Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:22Z\" level=info msg=\"I have to go... terminated\" \ntime=\"2026-11-23T14:23:22Z\" level=info msg=\"Stopping server\" \ntime=\"2026-11-23T14:23:24Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:29Z\" level=info msg=\"Shutting down\""
+        },
+        {
+          "pod": "edge-router-5b7457cc67-k4jhw",
+          "container": "edge-router",
+          "restarts": 4,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "time=\"2026-11-23T14:22:19Z\" level=info msg=\"Traefik version v1.1.2 built on 2016-12-15_10:21:15AM\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Using TOML configuration file /etc/traefik/traefik.toml\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Preparing server http &{Network: Address::80 TLS:<nil> Redirect:<nil> Auth:<nil> Compress:false}\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Starting provider *provider.File {\\\"Watch\\\":true,\\\"Filename\\\":\\\"/etc/traefik/traefik.toml\\\",\\\"Constraints\\\":null}\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Starting provider *main.WebProvider {\\\"Address\\\":\\\":8080\\\",\\\"CertFile\\\":\\\"\\\",\\\"KeyFile\\\":\\\"\\\",\\\"ReadOnly\\\":false,\\\"Auth\\\":null}\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Starting server on :80\" \ntime=\"2026-11-23T14:22:19Z\" level=info msg=\"Server configuration reloaded on :80\" \ntime=\"2026-11-23T14:22:19Z\" level=warning msg=\"Error checking new version: Get https://update.traefik.io/repos/containous/traefik/releases: x509: certificate signed by unknown authority\" \ntime=\"2026-11-23T14:22:51Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:22:58Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:00Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:08Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:18Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:20Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:22Z\" level=info msg=\"I have to go... terminated\" \ntime=\"2026-11-23T14:23:22Z\" level=info msg=\"Stopping server\" \ntime=\"2026-11-23T14:23:25Z\" level=warning msg=\"Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused\" \ntime=\"2026-11-23T14:23:30Z\" level=info msg=\"Shutting down\""
+        },
+        {
+          "pod": "front-end-6cc7ffd5c4-645mg",
+          "container": "front-end",
+          "restarts": 3,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "npm info it worked if it ends with ok\nnpm info using npm@2.15.11\nnpm info using node@v4.8.0\nnpm info prestart microservices-demo-front-end@0.0.1\nnpm info start microservices-demo-front-end@0.0.1\n\n> microservices-demo-front-end@0.0.1 start /usr/src/app\n> node server.js\n\nUsing local session manager\nWarning: connect.session() MemoryStore is not\ndesigned for a production environment, as it will leak\nmemory, and will not scale past a single process.\nApp now running in production mode on port 8079"
+        },
+        {
+          "pod": "front-end-6cc7ffd5c4-c4sdv",
+          "container": "front-end",
+          "restarts": 3,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": "npm info it worked if it ends with ok\nnpm info using npm@2.15.11\nnpm info using node@v4.8.0\nnpm info prestart microservices-demo-front-end@0.0.1\nnpm info start microservices-demo-front-end@0.0.1\n\n> microservices-demo-front-end@0.0.1 start /usr/src/app\n> node server.js\n\nUsing local session manager\nWarning: connect.session() MemoryStore is not\ndesigned for a production environment, as it will leak\nmemory, and will not scale past a single process.\nApp now running in production mode on port 8079"
+        },
+        {
+          "pod": "payment-7568775866-9d9c6",
+          "container": "payment",
+          "restarts": 5,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "ts=2026-11-23T14:22:34Z caller=main.go:70 transport=HTTP port=80\nts=2026-11-23T14:23:27Z caller=main.go:81 exit=terminated"
+        },
+        {
+          "pod": "payment-7568775866-xcqxm",
+          "container": "payment",
+          "restarts": 5,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "ts=2026-11-23T14:22:34Z caller=main.go:70 transport=HTTP port=80\nts=2026-11-23T14:23:27Z caller=main.go:81 exit=terminated"
+        },
+        {
+          "pod": "queue-master-557c4dcd9c-5h4tm",
+          "container": "queue-master",
+          "restarts": 4,
+          "last_exit": 137,
+          "last_reason": "OOMKilled",
+          "last_log": ".   ____          _            __ _ _\n /\\\\ / ___'_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | '_ | '_| | '_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  '  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n :: Spring Boot ::        (v1.4.0.RELEASE)\n\n2026-11-23 14:22:47.818  INFO 11 --- [           main] w.w.s.q.QueueMasterApplication           : Starting QueueMasterApplication v1.4.0.RELEASE on queue-master-557c4dcd9c-5h4tm with PID 11 (/usr/src/app/app.jar started by root in /usr/src/app)\n2026-11-23 14:22:47.922  INFO 11 --- [           main] w.w.s.q.QueueMasterApplication           : No active profile set, falling back to default profiles: default\n2026-11-23 14:22:50.317  INFO 11 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5a2e4553: startup date [Mon Nov 23 14:22:50 GMT 2026]; root of context hierarchy"
+        },
+        {
+          "pod": "user-58cf595794-jvkl9",
+          "container": "user",
+          "restarts": 5,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "ts=2026-11-23T14:22:35Z caller=main.go:145 transport=HTTP port=80\nts=2026-11-23T14:23:29Z caller=main.go:156 exit=terminated"
+        },
+        {
+          "pod": "user-58cf595794-pqlp9",
+          "container": "user",
+          "restarts": 5,
+          "last_exit": 0,
+          "last_reason": "Completed",
+          "last_log": "ts=2026-11-23T14:22:35Z caller=main.go:145 transport=HTTP port=80\nts=2026-11-23T14:23:28Z caller=main.go:156 exit=terminated"
+        }
+      ],
+      "warning_events": {
+        "front-end-6cc7ffd5c4-c4sdv|Unhealthy: Readiness probe failed": 32,
+        "queue-master-557c4dcd9c-5h4tm|Unhealthy: Readiness probe failed": 29,
+        "carts-6bd6c8844c-6bfmx|Unhealthy: Startup probe failed": 24,
+        "orders-679d7b8d5b-b4qwr|Unhealthy: Startup probe failed": 24,
+        "orders-679d7b8d5b-nksh9|Unhealthy: Startup probe failed": 24,
+        "shipping-5c7f4844bb-8qqr8|Unhealthy: Startup probe failed": 23,
+        "shipping-5c7f4844bb-tlftd|Unhealthy: Startup probe failed": 22,
+        "carts-6bd6c8844c-kskl4|Unhealthy: Startup probe failed": 21,
+        "edge-router-5b7457cc67-k4jhw|Unhealthy: Readiness probe failed": 21,
+        "edge-router-5b7457cc67-gdt58|Unhealthy: Readiness probe failed": 20,
+        "front-end-6cc7ffd5c4-645mg|Unhealthy: Readiness probe failed": 19,
+        "catalogue-5fbb59fc76-4crs7|Unhealthy: Readiness probe failed": 17,
+        "catalogue-5fbb59fc76-kr67c|Unhealthy: Readiness probe failed": 17,
+        "payment-7568775866-9d9c6|Unhealthy: Readiness probe failed": 17,
+        "payment-7568775866-xcqxm|Unhealthy: Readiness probe failed": 17,
+        "user-58cf595794-jvkl9|Unhealthy: Readiness probe failed": 17,
+        "user-58cf595794-pqlp9|Unhealthy: Readiness probe failed": 17,
+        "catalogue-5fbb59fc76-4crs7|Unhealthy: Liveness probe failed": 16,
+        "catalogue-5fbb59fc76-kr67c|Unhealthy: Liveness probe failed": 16,
+        "payment-7568775866-9d9c6|Unhealthy: Liveness probe failed": 16,
+        "payment-7568775866-xcqxm|Unhealthy: Liveness probe failed": 16,
+        "user-58cf595794-jvkl9|Unhealthy: Liveness probe failed": 16,
+        "user-58cf595794-pqlp9|Unhealthy: Liveness probe failed": 16,
+        "front-end-6cc7ffd5c4-645mg|Unhealthy: Liveness probe failed": 10,
+        "edge-router-5b7457cc67-gdt58|Unhealthy: Liveness probe failed": 7,
+        "edge-router-5b7457cc67-k4jhw|Unhealthy: Liveness probe failed": 7,
+        "front-end-6cc7ffd5c4-c4sdv|Unhealthy: Liveness probe failed": 6,
+        "queue-master-557c4dcd9c-5h4tm|Unhealthy: Liveness probe failed": 6,
+        "catalogue-db-0|Unhealthy: Readiness probe failed": 2,
+        "rabbitmq-0|Unhealthy: Readiness probe failed": 2
+      }
+    },
     "client_placement": {
-      "namespace": "d5-3dfa26dd",
+      "namespace": "d5-6b81b5c7",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -1836,11 +2099,190 @@
         "detail": "no Service routes to weaveworksdemos/front-end:8079"
       }
     ],
-    "smoke_ok": false
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "front-end",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "front-end-6cc7ffd5c4-645mg",
+        "listening": null,
+        "ok": null
+      },
+      {
+        "service": "edge-router",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "edge-router-5b7457cc67-gdt58",
+        "listening": [
+          80,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "edge-router",
+        "namespace": "sock-shop",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "edge-router-5b7457cc67-gdt58",
+        "listening": [
+          80,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "catalogue",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "catalogue-5fbb59fc76-4crs7",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "catalogue-db",
+        "namespace": "sock-shop",
+        "port": 3306,
+        "target_port": 3306,
+        "pod": "catalogue-db-0",
+        "listening": [
+          3306
+        ],
+        "ok": true
+      },
+      {
+        "service": "carts",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "carts-6bd6c8844c-6bfmx",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "carts-db",
+        "namespace": "sock-shop",
+        "port": 27017,
+        "target_port": 27017,
+        "pod": "carts-db-0",
+        "listening": [
+          27017
+        ],
+        "ok": true
+      },
+      {
+        "service": "orders",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "orders-679d7b8d5b-b4qwr",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "orders-db",
+        "namespace": "sock-shop",
+        "port": 27017,
+        "target_port": 27017,
+        "pod": "orders-db-0",
+        "listening": [
+          27017
+        ],
+        "ok": true
+      },
+      {
+        "service": "shipping",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "shipping-5c7f4844bb-8qqr8",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "queue-master",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "queue-master-557c4dcd9c-5h4tm",
+        "listening": null,
+        "ok": null
+      },
+      {
+        "service": "rabbitmq",
+        "namespace": "sock-shop",
+        "port": 5672,
+        "target_port": 5672,
+        "pod": "rabbitmq-0",
+        "listening": [
+          4369,
+          5672,
+          25672
+        ],
+        "ok": true
+      },
+      {
+        "service": "rabbitmq",
+        "namespace": "sock-shop",
+        "port": 15672,
+        "target_port": 15672,
+        "pod": "rabbitmq-0",
+        "listening": [
+          4369,
+          5672,
+          25672
+        ],
+        "ok": false
+      },
+      {
+        "service": "payment",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "payment-7568775866-9d9c6",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "user",
+        "namespace": "sock-shop",
+        "port": 80,
+        "target_port": 80,
+        "pod": "user-58cf595794-jvkl9",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "user-db",
+        "namespace": "sock-shop",
+        "port": 27017,
+        "target_port": 27017,
+        "pod": "user-db-0",
+        "listening": [
+          27017
+        ],
+        "ok": true
+      }
+    ]
   },
   "d6": {
     "ran": false,
-    "reason": "no Service routes to the D6 target weaveworksdemos/front-end",
-    "gate": "ready"
+    "reason": "SKIPPED(not_deployed)"
   }
 }

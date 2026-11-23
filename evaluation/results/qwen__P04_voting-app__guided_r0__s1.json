@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-20T18:36:51Z",
+  "timestamp": "2026-11-23T13:47:12Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -87,12 +87,6 @@
       },
       {
         "kind": "Deployment",
-        "name": "worker",
-        "accepted": false,
-        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.containers[0].securityContext.fsGroup\""
-      },
-      {
-        "kind": "Deployment",
         "name": "result",
         "accepted": false,
         "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.containers[0].securityContext.fsGroup\""
@@ -102,11 +96,17 @@
         "name": "result",
         "accepted": true,
         "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "worker",
+        "accepted": false,
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.containers[0].securityContext.fsGroup\""
       }
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 417,
+  "loc": 397,
   "resource_counts": {
     "Namespace": 1,
     "Secret": 1,
@@ -131,12 +131,12 @@
       },
       "failed": [
         {
-          "resource": "path=2921315956/api=apps/v1/voting-app/Deployment/result",
+          "resource": "path=2938093575/api=apps/v1/voting-app/Deployment/worker",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=2921315956/api=apps/v1/voting-app/Deployment/result",
+          "resource": "path=2938093575/api=apps/v1/voting-app/Deployment/worker",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
@@ -196,12 +196,12 @@
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=4135529636/api=apps/v1/voting-app/Deployment/worker",
+          "resource": "path=4135529636/api=apps/v1/voting-app/Deployment/result",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=4135529636/api=apps/v1/voting-app/Deployment/worker",
+          "resource": "path=4135529636/api=apps/v1/voting-app/Deployment/result",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         }
@@ -528,14 +528,14 @@
       "warning": 3,
       "critical_by_check": {
         "container-ephemeral-storage-request-and-limit": 5,
-        "container-image-tag": 3,
         "pod-networkpolicy": 5,
-        "container-security-context-user-group-id": 5,
-        "deployment-has-poddisruptionbudget": 3,
-        "pod-probes-identical": 4,
         "container-image-pull-policy": 2,
         "container-security-context-readonlyrootfilesystem": 2,
-        "statefulset-has-servicename": 2
+        "pod-probes-identical": 4,
+        "container-security-context-user-group-id": 5,
+        "statefulset-has-servicename": 2,
+        "container-image-tag": 3,
+        "deployment-has-poddisruptionbudget": 3
       },
       "warning_by_check": {
         "deployment-has-host-podantiaffinity": 3
@@ -579,7 +579,7 @@
         "unset-memory-requirements": 0
       },
       "zhang_total": 7,
-      "zhang_density_per_kloc": 16.8,
+      "zhang_density_per_kloc": 17.6,
       "zhang_any": true
     },
     "checklist": {
@@ -679,11 +679,11 @@
         },
         {
           "kind": "Deployment",
-          "name": "worker",
+          "name": "result",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -695,11 +695,11 @@
         },
         {
           "kind": "Deployment",
-          "name": "result",
+          "name": "worker",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 1,
-            "3_liveness": 1,
+            "2_readiness": 0,
+            "3_liveness": 0,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -837,17 +837,17 @@
       },
       {
         "kind": "Deployment",
-        "name": "worker",
+        "name": "result",
         "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.containers[0].securityContext.fsGroup\""
       },
       {
         "kind": "Deployment",
-        "name": "result",
+        "name": "worker",
         "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.containers[0].securityContext.fsGroup\""
       }
     ],
     "ready_ok": true,
-    "time_to_ready_s": 17.7,
+    "time_to_ready_s": 15.5,
     "ready_replicas": 2,
     "expected_replicas": 2,
     "workloads": [
@@ -868,7 +868,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-48c486fd",
+      "namespace": "d5-355c90e2",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -896,7 +896,49 @@
         "detail": "exit 1: ERROR:  relation \"votes\" does not exist\nLINE 1: SELECT count(*) FROM votes\n                             ^\ncommand termin"
       }
     ],
-    "smoke_ok": false
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "db",
+        "namespace": "voting-app",
+        "port": 5432,
+        "target_port": 5432,
+        "pod": "db-0",
+        "listening": [
+          5432
+        ],
+        "ok": true
+      },
+      {
+        "service": "redis",
+        "namespace": "voting-app",
+        "port": 6379,
+        "target_port": 6379,
+        "pod": "redis-0",
+        "listening": [
+          6379
+        ],
+        "ok": true
+      },
+      {
+        "service": "vote",
+        "namespace": "voting-app",
+        "port": 80,
+        "target_port": 80,
+        "pod": null,
+        "listening": null,
+        "ok": null
+      },
+      {
+        "service": "result",
+        "namespace": "voting-app",
+        "port": 80,
+        "target_port": 80,
+        "pod": null,
+        "listening": null,
+        "ok": null
+      }
+    ]
   },
   "d6": {
     "ran": true,

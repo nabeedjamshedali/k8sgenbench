@@ -3,16 +3,16 @@
   "source": "qwen",
   "prompt_variant": "guided_r1",
   "sample_k": "1",
-  "timestamp": "2026-11-20T19:18:44Z",
+  "timestamp": "2026-11-23T15:11:36Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
-  "d1_n_documents": 11,
+  "d1_n_documents": 10,
   "d1_kubeconform": {
     "ran": true,
     "valid": true,
     "summary": {
-      "valid": 11,
+      "valid": 10,
       "invalid": 0,
       "errors": 0,
       "skipped": 0
@@ -23,8 +23,8 @@
   "d1_server_dry_run": {
     "ran": true,
     "server_ok": true,
-    "objects_total": 11,
-    "objects_accepted": 11,
+    "objects_total": 10,
+    "objects_accepted": 10,
     "errors": [],
     "per_object": [
       {
@@ -35,25 +35,19 @@
       },
       {
         "kind": "Secret",
-        "name": "postgres-secret",
+        "name": "postgres-credentials",
         "accepted": true,
         "error": null
       },
       {
         "kind": "Secret",
-        "name": "n8n-secret",
+        "name": "n8n-credentials",
         "accepted": true,
         "error": null
       },
       {
         "kind": "ConfigMap",
         "name": "postgres-init",
-        "accepted": true,
-        "error": null
-      },
-      {
-        "kind": "PersistentVolumeClaim",
-        "name": "postgres-data",
         "accepted": true,
         "error": null
       },
@@ -96,12 +90,12 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 372,
+  "loc": 344,
   "resource_counts": {
     "Namespace": 1,
     "Secret": 2,
     "ConfigMap": 1,
-    "PersistentVolumeClaim": 2,
+    "PersistentVolumeClaim": 1,
     "StatefulSet": 1,
     "Service": 2,
     "Deployment": 2
@@ -122,12 +116,12 @@
       },
       "failed": [
         {
-          "resource": "path=1943712019/api=apps/v1/n8n/Deployment/n8n",
+          "resource": "path=1926934400/api=apps/v1/n8n/Deployment/n8n-runner",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=1943712019/api=apps/v1/n8n/Deployment/n8n",
+          "resource": "path=1926934400/api=apps/v1/n8n/Deployment/n8n-runner",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
@@ -137,32 +131,32 @@
           "name": "Cluster internal networking"
         },
         {
-          "resource": "path=2178598685/api=apps/v1/n8n/StatefulSet/postgres",
+          "resource": "path=2128265828/api=apps/v1/n8n/StatefulSet/postgres",
           "control": "C-0013",
           "name": "Non-root containers"
         },
         {
-          "resource": "path=2178598685/api=apps/v1/n8n/StatefulSet/postgres",
+          "resource": "path=2128265828/api=apps/v1/n8n/StatefulSet/postgres",
           "control": "C-0017",
           "name": "Immutable container filesystem"
         },
         {
-          "resource": "path=2178598685/api=apps/v1/n8n/StatefulSet/postgres",
+          "resource": "path=2128265828/api=apps/v1/n8n/StatefulSet/postgres",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=2178598685/api=apps/v1/n8n/StatefulSet/postgres",
+          "resource": "path=2128265828/api=apps/v1/n8n/StatefulSet/postgres",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=2388013816/api=apps/v1/n8n/Deployment/n8n-runner",
+          "resource": "path=2161821066/api=apps/v1/n8n/Deployment/n8n",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=2388013816/api=apps/v1/n8n/Deployment/n8n-runner",
+          "resource": "path=2161821066/api=apps/v1/n8n/Deployment/n8n",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         }
@@ -329,34 +323,34 @@
       "findings": [
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_PASSWORD"
         },
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_NON_ROOT_PASSWORD"
         },
         {
           "type": "secret-object-literal",
-          "object": "n8n-secret",
+          "object": "n8n-credentials",
           "key": "RUNNERS_AUTH_TOKEN"
         }
       ],
       "nonsensitive_secret_literals": [
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_USER"
         },
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_DB"
         },
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_NON_ROOT_USER"
         }
       ]
@@ -390,25 +384,26 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 18,
+      "critical": 17,
       "warning": 2,
       "critical_by_check": {
+        "container-image-pull-policy": 3,
+        "container-ephemeral-storage-request-and-limit": 3,
+        "container-security-context-readonlyrootfilesystem": 1,
         "pod-networkpolicy": 3,
         "container-security-context-user-group-id": 3,
-        "container-security-context-readonlyrootfilesystem": 1,
-        "container-ephemeral-storage-request-and-limit": 3,
         "pod-probes-identical": 2,
-        "container-image-pull-policy": 3,
         "statefulset-has-servicename": 1,
-        "deployment-has-poddisruptionbudget": 2
+        "deployment-has-poddisruptionbudget": 1
       },
       "warning_by_check": {
-        "deployment-has-host-podantiaffinity": 2
+        "deployment-replicas": 1,
+        "deployment-has-host-podantiaffinity": 1
       }
     },
     "polaris": {
       "ran": true,
-      "score": 82,
+      "score": 81,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 3,
         "automountServiceAccountToken[warning]": 3,
@@ -419,6 +414,7 @@
         "notReadOnlyRootFilesystem[warning]": 1,
         "pullPolicyNotAlways[warning]": 3,
         "runAsRootAllowed[danger]": 1,
+        "deploymentMissingReplicas[warning]": 1,
         "missingPodDisruptionBudget[warning]": 2,
         "livenessProbeMissing[warning]": 1,
         "readinessProbeMissing[warning]": 1
@@ -426,36 +422,36 @@
     },
     "kube_linter": {
       "ran": true,
-      "total": 5,
+      "total": 4,
       "by_check": {
         "drop-net-raw-capability": 1,
         "no-read-only-root-fs": 1,
         "run-as-non-root": 1,
-        "no-anti-affinity": 2
+        "no-anti-affinity": 1
       },
       "zhang_smells": {
         "dangling-service": 0,
-        "no-anti-affinity": 2,
+        "no-anti-affinity": 1,
         "no-read-only-root-fs": 1,
         "run-as-non-root": 1,
         "unset-cpu-requirements": 0,
         "unset-memory-requirements": 0
       },
-      "zhang_total": 4,
-      "zhang_density_per_kloc": 10.8,
+      "zhang_total": 3,
+      "zhang_density_per_kloc": 8.7,
       "zhang_any": true
     },
     "checklist": {
       "ran": true,
       "n_workloads": 3,
-      "pct": 62.1,
+      "pct": 58.6,
       "by_item": {
         "10_pinned_tag": {
           "met": 3,
           "applicable": 3
         },
         "1_replicas_ge_2": {
-          "met": 2,
+          "met": 1,
           "applicable": 2
         },
         "2_readiness": {
@@ -512,7 +508,7 @@
           "kind": "Deployment",
           "name": "n8n",
           "items": {
-            "1_replicas_ge_2": 1,
+            "1_replicas_ge_2": 0,
             "2_readiness": 1,
             "3_liveness": 1,
             "4_cpu_request": 1,
@@ -657,17 +653,17 @@
     "prepull_failed": [],
     "apply_ok": true,
     "apply_errors": [],
-    "ready_ok": true,
-    "time_to_ready_s": 29.4,
-    "ready_replicas": 5,
-    "expected_replicas": 5,
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 3,
+    "expected_replicas": 4,
     "workloads": [
       {
         "ns": "n8n",
         "kind": "Deployment",
         "name": "n8n",
-        "ready": 2,
-        "want": 2
+        "ready": 0,
+        "want": 1
       },
       {
         "ns": "n8n",
@@ -684,9 +680,25 @@
         "want": 1
       }
     ],
-    "failure_reason": null,
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "n8n-bbfd95c7b-skpfr",
+          "container": "n8n",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "Initializing n8n process\nn8n ready on ::, port 5678\nAcquiring database migration lock...\nn8n Task Broker ready on 0.0.0.0, port 5679\n\nThere are deprecations related to your n8n setup. Please take the recommended actions to update your configuration:\n - N8N_UNVERIFIED_PACKAGES_ENABLED -> The default for this variable will change to `false` in a future version. Set it to `true` explicitly to keep installing unverified community packages.\n - N8N_RUNNERS_TASK_TIMEOUT -> The default for this variable will be reduced from 300 (5 minutes) to 60 (1 minute) in a future version. Set it explicitly to keep your current task timeout.\n - N8N_COMPRESSION_NODE_MAX_DECOMPRESSED_SIZE_BYTES -> The default for this variable will be reduced from 2 GiB to 256 MiB in a future version. Set it explicitly to keep your current limit.\n - N8N_COMPRESSION_NODE_MAX_ZIP_ENTRIES -> The default for this variable will be reduced from 5000 to 1000 in a future version. Set it explicitly to keep your current limit.\n\n[license SDK] Skipping renewal on init: license cert is not initialized\n(node:11) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\nError: ENOENT: no such file or directory, mkdir '/home/node/.cache'\n    at mkdir (node:internal/fs/promises:1605:10)\n    at compileFile (/usr/local/lib/node_modules/n8n/src/commands/start.ts:178:5)\n    at async Promise.all (index 0)\n    at Start.generateStaticAssets (/usr/local/lib/node_modules/n8n/src/commands/start.ts:202:3)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:301:4)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\nExiting due to an error.\nExiting due to an error.\nError: Exiting due to an error.\n    at Start.exitWithCrash (/usr/local/lib/node_modules/n8n/src/commands/base-command.ts:361:28)\n    at Start.catch (/usr/local/lib/node_modules/n8n/src/commands/start.ts:509:14)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:102:25)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\n\nENOENT: no such file or directory, mkdir '/home/node/.cache'\nError: ENOENT: no such file or directory, mkdir '/home/node/.cache'\n    at mkdir (node:internal/fs/promises:1605:10)\n    at compileFile (/usr/local/lib/node_modules/n8n/src/commands/start.ts:178:5)\n    at async Promise.all (index 0)\n    at Start.generateStaticAssets (/usr/local/lib/node_modules/n8n/src/commands/start.ts:202:3)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:301:4)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2"
+        }
+      ],
+      "warning_events": {
+        "n8n-bbfd95c7b-skpfr|BackOff: Back-off restarting failed container n8n in pod n8n-bbfd95c7": 15,
+        "n8n-bbfd95c7b-skpfr|Unhealthy: Startup probe failed": 11
+      }
+    },
     "client_placement": {
-      "namespace": "d5-b04677e6",
+      "namespace": "d5-f0edfaf2",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -695,13 +707,13 @@
     "smoke": [
       {
         "name": "n8n-healthz",
-        "passed": true,
-        "detail": "HTTP 200"
+        "passed": false,
+        "detail": "HTTP 000"
       },
       {
         "name": "n8n-readiness-db",
-        "passed": true,
-        "detail": "HTTP 200"
+        "passed": false,
+        "detail": "HTTP 000"
       },
       {
         "name": "n8n-schema-in-postgres",
@@ -709,70 +721,41 @@
         "detail": "output '1'"
       }
     ],
-    "smoke_ok": true
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "postgres",
+        "namespace": "n8n",
+        "port": 5432,
+        "target_port": 5432,
+        "pod": "postgres-0",
+        "listening": [
+          5432
+        ],
+        "ok": true
+      },
+      {
+        "service": "n8n",
+        "namespace": "n8n",
+        "port": 5678,
+        "target_port": 5678,
+        "pod": "n8n-bbfd95c7b-skpfr",
+        "listening": null,
+        "ok": null
+      },
+      {
+        "service": "n8n",
+        "namespace": "n8n",
+        "port": 5679,
+        "target_port": 5679,
+        "pod": "n8n-bbfd95c7b-skpfr",
+        "listening": null,
+        "ok": null
+      }
+    ]
   },
   "d6": {
-    "ran": true,
-    "service": "n8n",
-    "n_ready_before": 2,
-    "pod_delete": [
-      {
-        "ran": true,
-        "victim": "n8n-7fbc5f566c-4vjnh",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 20.6,
-        "availability_pct": 99.0,
-        "n_probes": 105
-      },
-      {
-        "ran": true,
-        "victim": "n8n-7fbc5f566c-2hdmk",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 20.4,
-        "availability_pct": 98.2,
-        "n_probes": 111
-      },
-      {
-        "ran": true,
-        "victim": "n8n-7fbc5f566c-9kv7c",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 19.0,
-        "availability_pct": 98.0,
-        "n_probes": 101
-      }
-    ],
-    "container_crash": [
-      {
-        "ran": true,
-        "victim": "n8n-7fbc5f566c-j6ldq",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 26.2,
-        "availability_pct": 99.3,
-        "n_probes": 139
-      },
-      {
-        "ran": true,
-        "victim": "n8n-7fbc5f566c-sh4vs",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 26.1,
-        "availability_pct": 99.3,
-        "n_probes": 140
-      },
-      {
-        "ran": true,
-        "victim": "n8n-7fbc5f566c-j6ldq",
-        "victim_prior_restarts": 1,
-        "recovery_ok": true,
-        "recovery_time_s": 40.8,
-        "availability_pct": 98.5,
-        "n_probes": 199
-      }
-    ],
-    "gate": "ready"
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
   }
 }

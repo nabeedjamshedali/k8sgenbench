@@ -8,10 +8,7 @@
         "object_meta": {
             "name": "kubernetes-dashboard",
             "namespace": "kubernetes-dashboard",
-            "creationTimestamp": null,
-            "labels": {
-                "k8s-app": "kubernetes-dashboard"
-            }
+            "creationTimestamp": null
         },
         "checks": [
             {
@@ -40,18 +37,6 @@
             },
             {
                 "check": {
-                    "name": "Service Targets Pod",
-                    "id": "service-targets-pod",
-                    "target_type": "Service",
-                    "comment": "Makes sure that all Services targets a Pod",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
                     "name": "Service Type",
                     "id": "service-type",
                     "target_type": "Service",
@@ -61,10 +46,22 @@
                 "grade": 10,
                 "skipped": false,
                 "comments": null
+            },
+            {
+                "check": {
+                    "name": "Service Targets Pod",
+                    "id": "service-targets-pod",
+                    "target_type": "Service",
+                    "comment": "Makes sure that all Services targets a Pod",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
             }
         ],
         "file_name": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\qwen__P10_k8s-dashboard__guided_r0__s1\\manifest.yaml",
-        "file_row": 124
+        "file_row": 188
     },
     {
         "object_name": "Deployment/apps/v1/kubernetes-dashboard/kubernetes-dashboard",
@@ -83,10 +80,10 @@
         "checks": [
             {
                 "check": {
-                    "name": "Label values",
-                    "id": "label-values",
+                    "name": "Stable version",
+                    "id": "stable-version",
                     "target_type": "all",
-                    "comment": "Validates label values",
+                    "comment": "Checks if the object is using a deprecated apiVersion",
                     "optional": false
                 },
                 "grade": 10,
@@ -95,10 +92,10 @@
             },
             {
                 "check": {
-                    "name": "Stable version",
-                    "id": "stable-version",
+                    "name": "Label values",
+                    "id": "label-values",
                     "target_type": "all",
-                    "comment": "Checks if the object is using a deprecated apiVersion",
+                    "comment": "Validates label values",
                     "optional": false
                 },
                 "grade": 10,
@@ -120,84 +117,6 @@
                         "path": "",
                         "summary": "Skipped because container-resource-requests-equal-limits is ignored",
                         "description": ""
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Ports Check",
-                    "id": "container-ports-check",
-                    "target_type": "Pod",
-                    "comment": "Container Ports Checks",
-                    "optional": true
-                },
-                "grade": 10,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because container-ports-check is ignored",
-                        "description": ""
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Security Context Privileged",
-                    "id": "container-security-context-privileged",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have a unprivileged security context set",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
-                    "name": "Pod Topology Spread Constraints",
-                    "id": "pod-topology-spread-constraints",
-                    "target_type": "Pod",
-                    "comment": "Pod Topology Spread Constraints",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Pod Topology Spread Constraints",
-                        "description": "No Pod Topology Spread Constraints set, kube-scheduler defaults assumed"
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Container Resources",
-                    "id": "container-resources",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have resource limits and requests set. The --ignore-container-cpu-limit flag can be used to disable the requirement of having a CPU limit",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
-            },
-            {
-                "check": {
-                    "name": "Container Image Pull Policy",
-                    "id": "container-image-pull-policy",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that the pullPolicy is set to Always. This makes sure that imagePullSecrets are always validated.",
-                    "optional": false
-                },
-                "grade": 1,
-                "skipped": false,
-                "comments": [
-                    {
-                        "path": "kubernetes-dashboard",
-                        "summary": "ImagePullPolicy is not set to Always",
-                        "description": "It's recommended to always set the ImagePullPolicy to Always, to make sure that the imagePullSecrets are always correct, and to always get the image you want."
                     }
                 ]
             },
@@ -226,33 +145,15 @@
             },
             {
                 "check": {
-                    "name": "Container Security Context ReadOnlyRootFilesystem",
-                    "id": "container-security-context-readonlyrootfilesystem",
+                    "name": "Pod Probes",
+                    "id": "pod-probes",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all pods have a security context with read only filesystem set",
+                    "comment": "Makes sure that all Pods have safe probe configurations",
                     "optional": false
                 },
                 "grade": 10,
                 "skipped": false,
                 "comments": null
-            },
-            {
-                "check": {
-                    "name": "Container Seccomp Profile",
-                    "id": "container-seccomp-profile",
-                    "target_type": "Pod",
-                    "comment": "Makes sure that all pods have at a seccomp policy configured.",
-                    "optional": true
-                },
-                "grade": 10,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because container-seccomp-profile is ignored",
-                        "description": ""
-                    }
-                ]
             },
             {
                 "check": {
@@ -286,6 +187,24 @@
             },
             {
                 "check": {
+                    "name": "Container Ports Check",
+                    "id": "container-ports-check",
+                    "target_type": "Pod",
+                    "comment": "Container Ports Checks",
+                    "optional": true
+                },
+                "grade": 10,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-ports-check is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
                     "name": "Environment Variable Key Duplication",
                     "id": "environment-variable-key-duplication",
                     "target_type": "Pod",
@@ -298,15 +217,21 @@
             },
             {
                 "check": {
-                    "name": "Pod Probes",
-                    "id": "pod-probes",
+                    "name": "Pod Probes Identical",
+                    "id": "pod-probes-identical",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all Pods have safe probe configurations",
+                    "comment": "Container has the same readiness and liveness probe",
                     "optional": false
                 },
-                "grade": 10,
+                "grade": 1,
                 "skipped": false,
-                "comments": null
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Container has the same readiness and liveness probe",
+                        "description": "Using the same probe for liveness and readiness is very likely dangerous. It's generally better to avoid re-using the same probe."
+                    }
+                ]
             },
             {
                 "check": {
@@ -330,6 +255,90 @@
                         "description": "A groupid above 10 000 is recommended to avoid conflicts with the host. Set securityContext.runAsGroup to a value \u003e 10000"
                     }
                 ]
+            },
+            {
+                "check": {
+                    "name": "Pod Topology Spread Constraints",
+                    "id": "pod-topology-spread-constraints",
+                    "target_type": "Pod",
+                    "comment": "Pod Topology Spread Constraints",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Pod Topology Spread Constraints",
+                        "description": "No Pod Topology Spread Constraints set, kube-scheduler defaults assumed"
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Image Pull Policy",
+                    "id": "container-image-pull-policy",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that the pullPolicy is set to Always. This makes sure that imagePullSecrets are always validated.",
+                    "optional": false
+                },
+                "grade": 1,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "kubernetes-dashboard",
+                        "summary": "ImagePullPolicy is not set to Always",
+                        "description": "It's recommended to always set the ImagePullPolicy to Always, to make sure that the imagePullSecrets are always correct, and to always get the image you want."
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Pod NetworkPolicy",
+                    "id": "pod-networkpolicy",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all Pods are targeted by a NetworkPolicy",
+                    "optional": false
+                },
+                "grade": 1,
+                "skipped": false,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "The pod does not have a matching NetworkPolicy",
+                        "description": "Create a NetworkPolicy that targets this pod to control who/what can communicate with this pod. Note, this feature needs to be supported by the CNI implementation used in the Kubernetes cluster to have an effect."
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Seccomp Profile",
+                    "id": "container-seccomp-profile",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have at a seccomp policy configured.",
+                    "optional": true
+                },
+                "grade": 10,
+                "skipped": true,
+                "comments": [
+                    {
+                        "path": "",
+                        "summary": "Skipped because container-seccomp-profile is ignored",
+                        "description": ""
+                    }
+                ]
+            },
+            {
+                "check": {
+                    "name": "Container Resources",
+                    "id": "container-resources",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have resource limits and requests set. The --ignore-container-cpu-limit flag can be used to disable the requirement of having a CPU limit",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
             },
             {
                 "check": {
@@ -369,39 +378,57 @@
             },
             {
                 "check": {
-                    "name": "Pod NetworkPolicy",
-                    "id": "pod-networkpolicy",
+                    "name": "Container Security Context Privileged",
+                    "id": "container-security-context-privileged",
                     "target_type": "Pod",
-                    "comment": "Makes sure that all Pods are targeted by a NetworkPolicy",
+                    "comment": "Makes sure that all pods have a unprivileged security context set",
                     "optional": false
                 },
-                "grade": 1,
+                "grade": 10,
                 "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
+                    "name": "Container Security Context ReadOnlyRootFilesystem",
+                    "id": "container-security-context-readonlyrootfilesystem",
+                    "target_type": "Pod",
+                    "comment": "Makes sure that all pods have a security context with read only filesystem set",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": false,
+                "comments": null
+            },
+            {
+                "check": {
+                    "name": "Deployment targeted by HPA does not have replicas configured",
+                    "id": "deployment-targeted-by-hpa-does-not-have-replicas-configured",
+                    "target_type": "Deployment",
+                    "comment": "Makes sure that Deployments using a HorizontalPodAutoscaler doesn't have a statically configured replica count set",
+                    "optional": false
+                },
+                "grade": 10,
+                "skipped": true,
                 "comments": [
                     {
                         "path": "",
-                        "summary": "The pod does not have a matching NetworkPolicy",
-                        "description": "Create a NetworkPolicy that targets this pod to control who/what can communicate with this pod. Note, this feature needs to be supported by the CNI implementation used in the Kubernetes cluster to have an effect."
+                        "summary": "Skipped because the deployment is not targeted by a HorizontalPodAutoscaler",
+                        "description": ""
                     }
                 ]
             },
             {
                 "check": {
-                    "name": "Pod Probes Identical",
-                    "id": "pod-probes-identical",
-                    "target_type": "Pod",
-                    "comment": "Container has the same readiness and liveness probe",
+                    "name": "Deployment Pod Selector labels match template metadata labels",
+                    "id": "deployment-pod-selector-labels-match-template-metadata-labels",
+                    "target_type": "Deployment",
+                    "comment": "Ensure the StatefulSet selector labels match the template metadata labels.",
                     "optional": false
                 },
-                "grade": 1,
+                "grade": 10,
                 "skipped": false,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Container has the same readiness and liveness probe",
-                        "description": "Using the same probe for liveness and readiness is very likely dangerous. It's generally better to avoid re-using the same probe."
-                    }
-                ]
+                "comments": null
             },
             {
                 "check": {
@@ -462,39 +489,9 @@
                         "description": "It's recommended to set a podAntiAffinity that stops multiple pods from a deployment from being scheduled on the same node. This increases availability in case the node becomes unavailable."
                     }
                 ]
-            },
-            {
-                "check": {
-                    "name": "Deployment targeted by HPA does not have replicas configured",
-                    "id": "deployment-targeted-by-hpa-does-not-have-replicas-configured",
-                    "target_type": "Deployment",
-                    "comment": "Makes sure that Deployments using a HorizontalPodAutoscaler doesn't have a statically configured replica count set",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": true,
-                "comments": [
-                    {
-                        "path": "",
-                        "summary": "Skipped because the deployment is not targeted by a HorizontalPodAutoscaler",
-                        "description": ""
-                    }
-                ]
-            },
-            {
-                "check": {
-                    "name": "Deployment Pod Selector labels match template metadata labels",
-                    "id": "deployment-pod-selector-labels-match-template-metadata-labels",
-                    "target_type": "Deployment",
-                    "comment": "Ensure the StatefulSet selector labels match the template metadata labels.",
-                    "optional": false
-                },
-                "grade": 10,
-                "skipped": false,
-                "comments": null
             }
         ],
         "file_name": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\qwen__P10_k8s-dashboard__guided_r0__s1\\manifest.yaml",
-        "file_row": 140
+        "file_row": 202
     }
 ]

@@ -1,0 +1,6 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- The API server rejected Deployment vote: Error from server (BadRequest): error when creating "STDIN": Deployment in version "v1" cannot be handled as a Deployment: strict decoding error: unknown field "spec.template.spec.containers[0].securityContext.fsGroup"
+- The API server rejected Deployment worker: Error from server (BadRequest): error when creating "STDIN": Deployment in version "v1" cannot be handled as a Deployment: strict decoding error: unknown field "spec.template.spec.containers[0].securityContext.fsGroup"
+- The API server rejected Deployment result: Error from server (BadRequest): error when creating "STDIN": Deployment in version "v1" cannot be handled as a Deployment: strict decoding error: unknown field "spec.template.spec.containers[0].securityContext.fsGroup"
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

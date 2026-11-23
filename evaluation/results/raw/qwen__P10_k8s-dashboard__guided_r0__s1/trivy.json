@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a204df-6c65-7c07-8f7b-1265c92f1552",
-  "CreatedAt": "2026-11-23T01:08:00.8697883+05:00",
+  "ReportID": "01a208df-2451-72fa-b07a-c712bb2d0df6",
+  "CreatedAt": "2026-11-23T19:46:11.2811951+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/qwen__P10_k8s-dashboard__guided_r0__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -13,8 +13,8 @@
       "Class": "config",
       "Type": "kubernetes",
       "MisconfSummary": {
-        "Successes": 113,
-        "Failures": 4
+        "Successes": 115,
+        "Failures": 10
       },
       "Misconfigurations": [
         {
@@ -36,12 +36,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 166,
-            "EndLine": 210,
+            "StartLine": 228,
+            "EndLine": 272,
             "Code": {
               "Lines": [
                 {
-                  "Number": 166,
+                  "Number": 228,
                   "Content": "      - name: kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -51,7 +51,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 167,
+                  "Number": 229,
                   "Content": "        image: kubernetesui/dashboard:v2.7.0",
                   "IsCause": true,
                   "Annotation": "",
@@ -61,7 +61,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 168,
+                  "Number": 230,
                   "Content": "        args:",
                   "IsCause": true,
                   "Annotation": "",
@@ -71,7 +71,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 169,
+                  "Number": 231,
                   "Content": "        - --auto-generate-certificates",
                   "IsCause": true,
                   "Annotation": "",
@@ -81,17 +81,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 170,
-                  "Content": "        - --enable-skip-login",
+                  "Number": 232,
+                  "Content": "        - --namespace=kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - --enable-skip-login",
+                  "Highlighted": "        - --namespace=kubernetes-dashboard",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 171,
+                  "Number": 233,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -101,7 +101,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 172,
+                  "Number": 234,
                   "Content": "        - name: https",
                   "IsCause": true,
                   "Annotation": "",
@@ -111,7 +111,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 173,
+                  "Number": 235,
                   "Content": "          containerPort: 8443",
                   "IsCause": true,
                   "Annotation": "",
@@ -121,7 +121,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 174,
+                  "Number": 236,
                   "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
@@ -131,7 +131,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 175,
+                  "Number": 237,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -162,12 +162,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 166,
-            "EndLine": 210,
+            "StartLine": 228,
+            "EndLine": 272,
             "Code": {
               "Lines": [
                 {
-                  "Number": 166,
+                  "Number": 228,
                   "Content": "      - name: kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -177,7 +177,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 167,
+                  "Number": 229,
                   "Content": "        image: kubernetesui/dashboard:v2.7.0",
                   "IsCause": true,
                   "Annotation": "",
@@ -187,7 +187,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 168,
+                  "Number": 230,
                   "Content": "        args:",
                   "IsCause": true,
                   "Annotation": "",
@@ -197,7 +197,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 169,
+                  "Number": 231,
                   "Content": "        - --auto-generate-certificates",
                   "IsCause": true,
                   "Annotation": "",
@@ -207,17 +207,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 170,
-                  "Content": "        - --enable-skip-login",
+                  "Number": 232,
+                  "Content": "        - --namespace=kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - --enable-skip-login",
+                  "Highlighted": "        - --namespace=kubernetes-dashboard",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 171,
+                  "Number": 233,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -227,7 +227,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 172,
+                  "Number": 234,
                   "Content": "        - name: https",
                   "IsCause": true,
                   "Annotation": "",
@@ -237,7 +237,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 173,
+                  "Number": 235,
                   "Content": "          containerPort: 8443",
                   "IsCause": true,
                   "Annotation": "",
@@ -247,7 +247,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 174,
+                  "Number": 236,
                   "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
@@ -257,7 +257,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 175,
+                  "Number": 237,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -288,12 +288,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 19,
-            "EndLine": 42,
+            "StartLine": 17,
+            "EndLine": 48,
             "Code": {
               "Lines": [
                 {
-                  "Number": 19,
+                  "Number": 17,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -303,7 +303,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 20,
+                  "Number": 18,
                   "Content": "  - ''",
                   "IsCause": true,
                   "Annotation": "",
@@ -313,7 +313,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 21,
+                  "Number": 19,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
@@ -323,7 +323,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 22,
+                  "Number": 20,
                   "Content": "  - namespaces",
                   "IsCause": true,
                   "Annotation": "",
@@ -333,7 +333,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 23,
+                  "Number": 21,
                   "Content": "  - namespaces/status",
                   "IsCause": true,
                   "Annotation": "",
@@ -343,37 +343,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 24,
-                  "Content": "  - namespaces/finalize",
+                  "Number": 22,
+                  "Content": "  - configmaps",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "  - namespaces/finalize",
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 23,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 24,
+                  "Content": "  - endpoints",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - endpoints",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 25,
-                  "Content": "  - pods",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - pods",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 26,
-                  "Content": "  - pods/log",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - pods/log",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 27,
                   "Content": "  - services",
                   "IsCause": true,
                   "Annotation": "",
@@ -383,13 +383,634 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 28,
+                  "Number": 26,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
                   "Truncated": true,
                   "FirstCause": false,
                   "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0041",
+          "Title": "Manage secrets",
+          "Description": "Viewing secrets at the cluster-scope is akin to cluster-admin in most clusters as there are typically at least one service accounts (their token stored in a secret) bound to cluster-admin directly or a role/clusterrole that gives similar permissions.",
+          "Message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'",
+          "Namespace": "builtin.kubernetes.KSV041",
+          "Query": "data.builtin.kubernetes.KSV041.deny",
+          "Resolution": "Manage secrets are not allowed. Remove resource 'secrets' from cluster role",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0041",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0041"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 122,
+            "EndLine": 129,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 122,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 123,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 124,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 125,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 126,
+                  "Content": "  resourceNames:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mresourceNames\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 127,
+                  "Content": "  - kubernetes-dashboard-certs",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - kubernetes-dashboard-certs",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 128,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 129,
+                  "Content": "  - get",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - get",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0041",
+          "Title": "Manage secrets",
+          "Description": "Viewing secrets at the cluster-scope is akin to cluster-admin in most clusters as there are typically at least one service accounts (their token stored in a secret) bound to cluster-admin directly or a role/clusterrole that gives similar permissions.",
+          "Message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'",
+          "Namespace": "builtin.kubernetes.KSV041",
+          "Query": "data.builtin.kubernetes.KSV041.deny",
+          "Resolution": "Manage secrets are not allowed. Remove resource 'secrets' from cluster role",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0041",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0041"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 153,
+            "EndLine": 158,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 153,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 154,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 155,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 156,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 157,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 158,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0041",
+          "Title": "Manage secrets",
+          "Description": "Viewing secrets at the cluster-scope is akin to cluster-admin in most clusters as there are typically at least one service accounts (their token stored in a secret) bound to cluster-admin directly or a role/clusterrole that gives similar permissions.",
+          "Message": "ClusterRole 'kubernetes-dashboard' shouldn't have access to manage resource 'secrets'",
+          "Namespace": "builtin.kubernetes.KSV041",
+          "Query": "data.builtin.kubernetes.KSV041.deny",
+          "Resolution": "Manage secrets are not allowed. Remove resource 'secrets' from cluster role",
+          "Severity": "CRITICAL",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0041",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0041"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 159,
+            "EndLine": 166,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 159,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 160,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 161,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 162,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 163,
+                  "Content": "  resourceNames:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mresourceNames\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 164,
+                  "Content": "  - kubernetes-dashboard-certs",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - kubernetes-dashboard-certs",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 165,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 166,
+                  "Content": "  - update",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - update",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0047",
+          "Title": "Do not allow privilege escalation from node proxy",
+          "Description": "Check whether role permits privilege escalation from node proxy",
+          "Message": "Role permits privilege escalation from node proxy",
+          "Namespace": "builtin.kubernetes.KSV047",
+          "Query": "data.builtin.kubernetes.KSV047.deny",
+          "Resolution": "Create a role which does not permit privilege escalation from node proxy",
+          "Severity": "HIGH",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0047",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0047"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 17,
+            "EndLine": 48,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 17,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 18,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 19,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 20,
+                  "Content": "  - namespaces",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - namespaces",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 21,
+                  "Content": "  - namespaces/status",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - namespaces/status",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 22,
+                  "Content": "  - configmaps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 23,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 24,
+                  "Content": "  - endpoints",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - endpoints",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 25,
+                  "Content": "  - services",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - services",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 26,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0049",
+          "Title": "Manage configmaps",
+          "Description": "Some workloads leverage configmaps to store sensitive data or configuration parameters that affect runtime behavior that can be modified by an attacker or combined with another issue to potentially lead to compromise.",
+          "Message": "ClusterRole 'kubernetes-dashboard' should not have access to resource 'configmaps' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]",
+          "Namespace": "builtin.kubernetes.KSV049",
+          "Query": "data.builtin.kubernetes.KSV049.deny",
+          "Resolution": "Remove write permission verbs for resource 'configmaps'",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0049",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0049"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 139,
+            "EndLine": 144,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 139,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 140,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 141,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 142,
+                  "Content": "  - configmaps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 143,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 144,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0049",
+          "Title": "Manage configmaps",
+          "Description": "Some workloads leverage configmaps to store sensitive data or configuration parameters that affect runtime behavior that can be modified by an attacker or combined with another issue to potentially lead to compromise.",
+          "Message": "ClusterRole 'kubernetes-dashboard' should not have access to resource 'configmaps' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]",
+          "Namespace": "builtin.kubernetes.KSV049",
+          "Query": "data.builtin.kubernetes.KSV049.deny",
+          "Resolution": "Remove write permission verbs for resource 'configmaps'",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0049",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0049"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 145,
+            "EndLine": 152,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 145,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 147,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 148,
+                  "Content": "  - configmaps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 149,
+                  "Content": "  resourceNames:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mresourceNames\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 150,
+                  "Content": "  - kubernetes-dashboard-settings",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - kubernetes-dashboard-settings",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 151,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 152,
+                  "Content": "  - update",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - update",
+                  "FirstCause": false,
+                  "LastCause": true
                 }
               ]
             }
@@ -415,12 +1036,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 166,
-            "EndLine": 210,
+            "StartLine": 228,
+            "EndLine": 272,
             "Code": {
               "Lines": [
                 {
-                  "Number": 166,
+                  "Number": 228,
                   "Content": "      - name: kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -430,7 +1051,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 167,
+                  "Number": 229,
                   "Content": "        image: kubernetesui/dashboard:v2.7.0",
                   "IsCause": true,
                   "Annotation": "",
@@ -440,7 +1061,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 168,
+                  "Number": 230,
                   "Content": "        args:",
                   "IsCause": true,
                   "Annotation": "",
@@ -450,7 +1071,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 169,
+                  "Number": 231,
                   "Content": "        - --auto-generate-certificates",
                   "IsCause": true,
                   "Annotation": "",
@@ -460,17 +1081,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 170,
-                  "Content": "        - --enable-skip-login",
+                  "Number": 232,
+                  "Content": "        - --namespace=kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - --enable-skip-login",
+                  "Highlighted": "        - --namespace=kubernetes-dashboard",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 171,
+                  "Number": 233,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -480,7 +1101,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 172,
+                  "Number": 234,
                   "Content": "        - name: https",
                   "IsCause": true,
                   "Annotation": "",
@@ -490,7 +1111,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 173,
+                  "Number": 235,
                   "Content": "          containerPort: 8443",
                   "IsCause": true,
                   "Annotation": "",
@@ -500,7 +1121,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 174,
+                  "Number": 236,
                   "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
@@ -510,7 +1131,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 175,
+                  "Number": 237,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

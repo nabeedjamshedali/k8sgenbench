@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1fa31-69b4-7d54-96d1-26d7649c4de8",
-  "CreatedAt": "2026-11-20T23:21:44.7568735+05:00",
+  "ReportID": "01a208a5-ee74-7b09-89e7-199cd1b35d35",
+  "CreatedAt": "2026-11-23T18:43:41.9407233+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/claude__P10_k8s-dashboard__guided_r0__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -14,7 +14,7 @@
       "Type": "kubernetes",
       "MisconfSummary": {
         "Successes": 117,
-        "Failures": 8
+        "Failures": 10
       },
       "Misconfigurations": [
         {
@@ -36,12 +36,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 284,
-            "EndLine": 326,
+            "StartLine": 273,
+            "EndLine": 315,
             "Code": {
               "Lines": [
                 {
-                  "Number": 284,
+                  "Number": 273,
                   "Content": "      - name: dashboard-metrics-scraper",
                   "IsCause": true,
                   "Annotation": "",
@@ -51,17 +51,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 285,
-                  "Content": "        image: kubernetesui/dashboard-metrics-scraper:v1.0.8",
+                  "Number": 274,
+                  "Content": "        image: kubernetesui/metrics-scraper:v1.0.8",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: kubernetesui/dashboard-metrics-scraper:v1.0.8",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: kubernetesui/metrics-scraper:v1.0.8",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 286,
+                  "Number": 275,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 276,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -71,27 +81,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 287,
-                  "Content": "        - name: http",
+                  "Number": 277,
+                  "Content": "        - containerPort: 8000",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8000",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 288,
-                  "Content": "          containerPort: 8000",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8000",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 289,
+                  "Number": 278,
                   "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
@@ -101,37 +101,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 290,
-                  "Content": "        resources:",
+                  "Number": 279,
+                  "Content": "        readinessProbe:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33mreadinessProbe\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 291,
-                  "Content": "          requests:",
+                  "Number": 280,
+                  "Content": "          httpGet:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
+                  "Highlighted": "          \u001b[38;5;33mhttpGet\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 292,
-                  "Content": "            cpu: 50m",
+                  "Number": 281,
+                  "Content": "            scheme: HTTP",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 50m",
+                  "Highlighted": "            \u001b[38;5;33mscheme\u001b[0m: HTTP",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 293,
+                  "Number": 282,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -162,12 +162,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 188,
-            "EndLine": 236,
+            "StartLine": 180,
+            "EndLine": 228,
             "Code": {
               "Lines": [
                 {
-                  "Number": 188,
+                  "Number": 180,
                   "Content": "      - name: kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -177,7 +177,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 189,
+                  "Number": 181,
                   "Content": "        image: kubernetesui/dashboard:v2.7.0",
                   "IsCause": true,
                   "Annotation": "",
@@ -187,17 +187,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 190,
-                  "Content": "        imagePullPolicy: Always",
+                  "Number": 182,
+                  "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: Always",
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 191,
+                  "Number": 183,
                   "Content": "        args:",
                   "IsCause": true,
                   "Annotation": "",
@@ -207,7 +207,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 192,
+                  "Number": 184,
                   "Content": "        - --auto-generate-certificates",
                   "IsCause": true,
                   "Annotation": "",
@@ -217,7 +217,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 193,
+                  "Number": 185,
                   "Content": "        - --namespace=kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -227,7 +227,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 194,
+                  "Number": 186,
+                  "Content": "        - --sidecar-host=http://dashboard-metrics-scraper:8000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - --sidecar-host=http://dashboard-metrics-scraper:8000",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 187,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -237,27 +247,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 195,
-                  "Content": "        - name: https",
+                  "Number": 188,
+                  "Content": "        - containerPort: 8443",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: https",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 196,
-                  "Content": "          containerPort: 8443",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8443",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8443",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 197,
+                  "Number": 189,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -288,12 +288,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 284,
-            "EndLine": 326,
+            "StartLine": 273,
+            "EndLine": 315,
             "Code": {
               "Lines": [
                 {
-                  "Number": 284,
+                  "Number": 273,
                   "Content": "      - name: dashboard-metrics-scraper",
                   "IsCause": true,
                   "Annotation": "",
@@ -303,17 +303,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 285,
-                  "Content": "        image: kubernetesui/dashboard-metrics-scraper:v1.0.8",
+                  "Number": 274,
+                  "Content": "        image: kubernetesui/metrics-scraper:v1.0.8",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: kubernetesui/dashboard-metrics-scraper:v1.0.8",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: kubernetesui/metrics-scraper:v1.0.8",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 286,
+                  "Number": 275,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 276,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -323,27 +333,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 287,
-                  "Content": "        - name: http",
+                  "Number": 277,
+                  "Content": "        - containerPort: 8000",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8000",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 288,
-                  "Content": "          containerPort: 8000",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8000",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 289,
+                  "Number": 278,
                   "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
@@ -353,37 +353,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 290,
-                  "Content": "        resources:",
+                  "Number": 279,
+                  "Content": "        readinessProbe:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33mreadinessProbe\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 291,
-                  "Content": "          requests:",
+                  "Number": 280,
+                  "Content": "          httpGet:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
+                  "Highlighted": "          \u001b[38;5;33mhttpGet\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 292,
-                  "Content": "            cpu: 50m",
+                  "Number": 281,
+                  "Content": "            scheme: HTTP",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 50m",
+                  "Highlighted": "            \u001b[38;5;33mscheme\u001b[0m: HTTP",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 293,
+                  "Number": 282,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -414,12 +414,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 188,
-            "EndLine": 236,
+            "StartLine": 180,
+            "EndLine": 228,
             "Code": {
               "Lines": [
                 {
-                  "Number": 188,
+                  "Number": 180,
                   "Content": "      - name: kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -429,7 +429,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 189,
+                  "Number": 181,
                   "Content": "        image: kubernetesui/dashboard:v2.7.0",
                   "IsCause": true,
                   "Annotation": "",
@@ -439,17 +439,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 190,
-                  "Content": "        imagePullPolicy: Always",
+                  "Number": 182,
+                  "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: Always",
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 191,
+                  "Number": 183,
                   "Content": "        args:",
                   "IsCause": true,
                   "Annotation": "",
@@ -459,7 +459,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 192,
+                  "Number": 184,
                   "Content": "        - --auto-generate-certificates",
                   "IsCause": true,
                   "Annotation": "",
@@ -469,7 +469,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 193,
+                  "Number": 185,
                   "Content": "        - --namespace=kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -479,7 +479,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 194,
+                  "Number": 186,
+                  "Content": "        - --sidecar-host=http://dashboard-metrics-scraper:8000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - --sidecar-host=http://dashboard-metrics-scraper:8000",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 187,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -489,27 +499,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 195,
-                  "Content": "        - name: https",
+                  "Number": 188,
+                  "Content": "        - containerPort: 8443",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: https",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 196,
-                  "Content": "          containerPort: 8443",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8443",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8443",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 197,
+                  "Number": 189,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -540,12 +540,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 86,
-            "EndLine": 94,
+            "StartLine": 59,
+            "EndLine": 65,
             "Code": {
               "Lines": [
                 {
-                  "Number": 86,
+                  "Number": 59,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -555,7 +555,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 87,
+                  "Number": 60,
                   "Content": "  - ''",
                   "IsCause": true,
                   "Annotation": "",
@@ -565,7 +565,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 88,
+                  "Number": 61,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
@@ -575,7 +575,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 89,
+                  "Number": 62,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 63,
                   "Content": "  - configmaps",
                   "IsCause": true,
                   "Annotation": "",
@@ -585,27 +595,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 90,
-                  "Content": "  resourceNames:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  \u001b[38;5;33mresourceNames\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 91,
-                  "Content": "  - kubernetes-dashboard-settings",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "  - kubernetes-dashboard-settings",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 92,
+                  "Number": 64,
                   "Content": "  verbs:",
                   "IsCause": true,
                   "Annotation": "",
@@ -615,7 +605,114 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 93,
+                  "Number": 65,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0049",
+          "Title": "Manage configmaps",
+          "Description": "Some workloads leverage configmaps to store sensitive data or configuration parameters that affect runtime behavior that can be modified by an attacker or combined with another issue to potentially lead to compromise.",
+          "Message": "Role 'kubernetes-dashboard' should not have access to resource 'configmaps' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]",
+          "Namespace": "builtin.kubernetes.KSV049",
+          "Query": "data.builtin.kubernetes.KSV049.deny",
+          "Resolution": "Remove write permission verbs for resource 'configmaps'",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0049",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0049"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 78,
+            "EndLine": 86,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 78,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 79,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 80,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 81,
+                  "Content": "  - configmaps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 82,
+                  "Content": "  resourceNames:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mresourceNames\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 83,
+                  "Content": "  - kubernetes-dashboard-settings",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - kubernetes-dashboard-settings",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 84,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 85,
                   "Content": "  - get",
                   "IsCause": true,
                   "Annotation": "",
@@ -625,7 +722,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 94,
+                  "Number": 86,
                   "Content": "  - update",
                   "IsCause": true,
                   "Annotation": "",
@@ -657,12 +754,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 74,
-            "EndLine": 85,
+            "StartLine": 59,
+            "EndLine": 65,
             "Code": {
               "Lines": [
                 {
-                  "Number": 74,
+                  "Number": 59,
                   "Content": "- apiGroups:",
                   "IsCause": true,
                   "Annotation": "",
@@ -672,7 +769,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 75,
+                  "Number": 60,
                   "Content": "  - ''",
                   "IsCause": true,
                   "Annotation": "",
@@ -682,7 +779,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 61,
                   "Content": "  resources:",
                   "IsCause": true,
                   "Annotation": "",
@@ -692,7 +789,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 62,
                   "Content": "  - secrets",
                   "IsCause": true,
                   "Annotation": "",
@@ -702,7 +799,104 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 63,
+                  "Content": "  - configmaps",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - configmaps",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 64,
+                  "Content": "  verbs:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  \u001b[38;5;33mverbs\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 65,
+                  "Content": "  - create",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - create",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0113",
+          "Title": "Manage namespace secrets",
+          "Description": "Viewing secrets at the namespace scope can lead to escalation if another service account in that namespace has a higher privileged rolebinding or clusterrolebinding bound.",
+          "Message": "Role 'kubernetes-dashboard' shouldn't have access to manage secrets in namespace 'kubernetes-dashboard'",
+          "Namespace": "builtin.kubernetes.KSV113",
+          "Query": "data.builtin.kubernetes.KSV113.deny",
+          "Resolution": "Manage namespace secrets are not allowed. Remove resource 'secrets' from role",
+          "Severity": "MEDIUM",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0113",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+            "https://avd.aquasec.com/misconfig/ksv-0113"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 66,
+            "EndLine": 77,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 66,
+                  "Content": "- apiGroups:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "- \u001b[38;5;33mapiGroups\u001b[0m:",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 67,
+                  "Content": "  - ''",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - \u001b[38;5;37m''",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 68,
+                  "Content": "  resources:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m  \u001b[38;5;33mresources\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 69,
+                  "Content": "  - secrets",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "  - secrets",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 70,
                   "Content": "  resourceNames:",
                   "IsCause": true,
                   "Annotation": "",
@@ -712,7 +906,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 71,
                   "Content": "  - kubernetes-dashboard-key-holder",
                   "IsCause": true,
                   "Annotation": "",
@@ -722,7 +916,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 72,
                   "Content": "  - kubernetes-dashboard-certs",
                   "IsCause": true,
                   "Annotation": "",
@@ -732,7 +926,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 73,
                   "Content": "  - kubernetes-dashboard-csrf",
                   "IsCause": true,
                   "Annotation": "",
@@ -742,7 +936,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 74,
                   "Content": "  verbs:",
                   "IsCause": true,
                   "Annotation": "",
@@ -752,7 +946,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 83,
+                  "Number": 75,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -784,12 +978,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 284,
-            "EndLine": 326,
+            "StartLine": 273,
+            "EndLine": 315,
             "Code": {
               "Lines": [
                 {
-                  "Number": 284,
+                  "Number": 273,
                   "Content": "      - name: dashboard-metrics-scraper",
                   "IsCause": true,
                   "Annotation": "",
@@ -799,17 +993,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 285,
-                  "Content": "        image: kubernetesui/dashboard-metrics-scraper:v1.0.8",
+                  "Number": 274,
+                  "Content": "        image: kubernetesui/metrics-scraper:v1.0.8",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: kubernetesui/dashboard-metrics-scraper:v1.0.8",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: kubernetesui/metrics-scraper:v1.0.8",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 286,
+                  "Number": 275,
+                  "Content": "        imagePullPolicy: IfNotPresent",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 276,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -819,27 +1023,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 287,
-                  "Content": "        - name: http",
+                  "Number": 277,
+                  "Content": "        - containerPort: 8000",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8000",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 288,
-                  "Content": "          containerPort: 8000",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8000",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 289,
+                  "Number": 278,
                   "Content": "          protocol: TCP",
                   "IsCause": true,
                   "Annotation": "",
@@ -849,37 +1043,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 290,
-                  "Content": "        resources:",
+                  "Number": 279,
+                  "Content": "        readinessProbe:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33mreadinessProbe\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 291,
-                  "Content": "          requests:",
+                  "Number": 280,
+                  "Content": "          httpGet:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
+                  "Highlighted": "          \u001b[38;5;33mhttpGet\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 292,
-                  "Content": "            cpu: 50m",
+                  "Number": 281,
+                  "Content": "            scheme: HTTP",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 50m",
+                  "Highlighted": "            \u001b[38;5;33mscheme\u001b[0m: HTTP",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 293,
+                  "Number": 282,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -911,12 +1105,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 188,
-            "EndLine": 236,
+            "StartLine": 180,
+            "EndLine": 228,
             "Code": {
               "Lines": [
                 {
-                  "Number": 188,
+                  "Number": 180,
                   "Content": "      - name: kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -926,7 +1120,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 189,
+                  "Number": 181,
                   "Content": "        image: kubernetesui/dashboard:v2.7.0",
                   "IsCause": true,
                   "Annotation": "",
@@ -936,17 +1130,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 190,
-                  "Content": "        imagePullPolicy: Always",
+                  "Number": 182,
+                  "Content": "        imagePullPolicy: IfNotPresent",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: Always",
+                  "Highlighted": "        \u001b[38;5;33mimagePullPolicy\u001b[0m: IfNotPresent",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 191,
+                  "Number": 183,
                   "Content": "        args:",
                   "IsCause": true,
                   "Annotation": "",
@@ -956,7 +1150,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 192,
+                  "Number": 184,
                   "Content": "        - --auto-generate-certificates",
                   "IsCause": true,
                   "Annotation": "",
@@ -966,7 +1160,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 193,
+                  "Number": 185,
                   "Content": "        - --namespace=kubernetes-dashboard",
                   "IsCause": true,
                   "Annotation": "",
@@ -976,7 +1170,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 194,
+                  "Number": 186,
+                  "Content": "        - --sidecar-host=http://dashboard-metrics-scraper:8000",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - --sidecar-host=http://dashboard-metrics-scraper:8000",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 187,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -986,27 +1190,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 195,
-                  "Content": "        - name: https",
+                  "Number": 188,
+                  "Content": "        - containerPort: 8443",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: https",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 196,
-                  "Content": "          containerPort: 8443",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8443",
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8443",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 197,
+                  "Number": 189,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

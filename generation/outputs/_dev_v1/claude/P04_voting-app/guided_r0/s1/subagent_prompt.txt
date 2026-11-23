@@ -1,0 +1,356 @@
+=== SYSTEM ===
+You are an experienced DevOps engineer. Respond with Kubernetes YAML manifests only.
+
+The manifests will be applied as they are to a standard Kubernetes cluster and must start, become Ready and serve the application without manual fixes. Follow these rules.
+
+Use only facts from the provided documentation.
+1. Use exactly the image names, tags, ports, commands, arguments and environment variables that the documentation gives. Do not invent command-line flags, image repositories or configuration keys. If the documentation does not give a value, leave the setting at the image's default.
+
+Hardening must fit the image.
+2. Apply securityContext settings only where the image can run with them. Images that initialise their own data directory or switch user at start-up (for example official database, cache and message-broker images) need their default user and the capabilities their entrypoint uses (such as CHOWN, FOWNER, SETUID, SETGID, DAC_OVERRIDE). For these, set allowPrivilegeEscalation: false and seccompProfile RuntimeDefault, but do not drop ALL capabilities or force a different user.
+3. When you set runAsNonRoot: true, also set a numeric runAsUser (and runAsGroup/fsGroup) that the image actually uses.
+4. When you set readOnlyRootFilesystem: true, mount an emptyDir at /tmp and at every other path the application writes to.
+5. Never use privileged containers, hostPath volumes, hostNetwork, hostPID or the Docker socket. The pods must meet the Pod Security "baseline" level.
+
+Probes must fit how the process starts.
+6. Add probes only for a port and path the container actually serves. Background workers, queue consumers and other processes without a server get no HTTP or TCP probes.
+7. For slow-starting runtimes (JVM, large interpreters, services that migrate a database at start-up) add a startupProbe that allows at least 5 minutes (failureThreshold x periodSeconds >= 300) before liveness checks begin. Liveness probes must be lenient (failureThreshold >= 3, timeoutSeconds >= 5).
+
+Resources must fit the workload.
+8. Set requests and limits, but never set a memory limit below what the runtime needs: at least 512Mi for JVM services and at least 256Mi for databases. Do not set CPU limits so low that start-up takes minutes.
+
+Wiring must be consistent.
+9. Every Service selector must match the labels of the pods it routes to, and every targetPort must be the port the container listens on. When a Service exposes more than one port, give every port a name.
+10. Hostnames that the application expects (from the documentation or compose service names) must exist as Service names in the same namespace.
+11. Define every Secret, ConfigMap, PersistentVolumeClaim and ServiceAccount that you reference.
+12. Components that call the Kubernetes API need a ServiceAccount with RBAC rules that cover everything the documentation says they do, including creating or updating the Secrets and ConfigMaps they manage. Do not disable automountServiceAccountToken for them.
+13. Add a NetworkPolicy only if it admits every path the application uses, including traffic that arrives through the Kubernetes API server proxy. If unsure, omit NetworkPolicies.
+
+Translating Docker Compose.
+14. Translate the application's services, not the host setup. Drop host-specific settings (Docker socket mounts, privileged mode, host ports, build sections) and omit development-only helpers such as load generators or test clients unless the documentation says they are part of the application.
+
+Production settings that do not risk start-up.
+15. Stateful components (databases, brokers) run as a single-replica StatefulSet with a PersistentVolumeClaim; for PostgreSQL set PGDATA to a subdirectory of the mount. Stateless user-facing services run with 2 replicas.
+
+Output.
+16. Return all manifests in a single YAML code block, documents separated by ---, no comments. Quote string values that contain a colon. Keep the output complete; do not stop part-way through a list.
+
+=== USER ===
+--- docker-compose.images.yml ---
+# for running in docker compose with prebuilt images
+
+# version is now using "compose spec"
+# v2 and v3 are now combined!
+# docker-compose v1.27+ required
+
+services:
+  vote:
+    image: dockersamples/examplevotingapp_vote
+    depends_on:
+      redis:
+        condition: service_healthy 
+    ports:
+      - "8080:80"
+    networks:
+      - front-tier
+      - back-tier
+
+  result:
+    image: dockersamples/examplevotingapp_result
+    depends_on:
+      db:
+        condition: service_healthy 
+    ports:
+      - "8081:80"
+    networks:
+      - front-tier
+      - back-tier
+
+  worker:
+    image: dockersamples/examplevotingapp_worker
+    depends_on:
+      redis:
+        condition: service_healthy 
+      db:
+        condition: service_healthy 
+    networks:
+      - back-tier
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/redis.sh
+      interval: "5s"
+    networks:
+      - back-tier
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: "5s"
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
+
+
+--- docker-compose.yml ---
+# version is now using "compose spec"
+# v2 and v3 are now combined!
+# docker-compose v1.27+ required
+
+services:
+  vote:
+    build: 
+      context: ./vote
+      target: dev
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck: 
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    volumes:
+     - ./vote:/usr/local/app
+    ports:
+      - "8080:80"
+    networks:
+      - front-tier
+      - back-tier
+
+  result:
+    build: ./result
+    # use nodemon rather than node for local dev
+    entrypoint: nodemon --inspect=0.0.0.0 server.js
+    depends_on:
+      db:
+        condition: service_healthy 
+    volumes:
+      - ./result:/usr/local/app
+    ports:
+      - "8081:80"
+      - "127.0.0.1:9229:9229"
+    networks:
+      - front-tier
+      - back-tier
+
+  worker:
+    build:
+      context: ./worker
+    depends_on:
+      redis:
+        condition: service_healthy 
+      db:
+        condition: service_healthy 
+    networks:
+      - back-tier
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/redis.sh
+      interval: "5s"
+    networks:
+      - back-tier
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: "5s"
+    networks:
+      - back-tier
+
+  # this service runs once to seed the database with votes
+  # it won't run unless you specify the "seed" profile
+  # docker compose --profile seed up -d
+  seed:
+    build: ./seed-data
+    profiles: ["seed"]
+    depends_on:
+      vote:
+        condition: service_healthy 
+    networks:
+      - front-tier
+    restart: "no"
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
+
+
+--- README.md ---
+# Example Voting App
+
+A simple distributed application running across multiple Docker containers.
+
+## Getting started
+
+Download [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac or Windows. [Docker Compose](https://docs.docker.com/compose) will be automatically installed. On Linux, make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/).
+
+This solution uses Python, Node.js, .NET, with Redis for messaging and Postgres for storage.
+
+Run in this directory to build and run the app:
+
+```shell
+docker compose up
+```
+
+The `vote` app will be running at [http://localhost:8080](http://localhost:8080), and the `results` will be at [http://localhost:8081](http://localhost:8081).
+
+Alternately, if you want to run it on a [Docker Swarm](https://docs.docker.com/engine/swarm/), first make sure you have a swarm. If you don't, run:
+
+```shell
+docker swarm init
+```
+
+Once you have your swarm, in this directory run:
+
+```shell
+docker stack deploy --compose-file docker-stack.yml vote
+```
+
+## Run the app in Kubernetes
+[Kubernetes deployment instructions removed from this bundle]
+## Architecture
+
+![Architecture diagram](architecture.excalidraw.png)
+
+* A front-end web app in [Python](/vote) which lets you vote between two options
+* A [Redis](https://hub.docker.com/_/redis/) which collects new votes
+* A [.NET](/worker/) worker which consumes votes and stores them in…
+* A [Postgres](https://hub.docker.com/_/postgres/) database backed by a Docker volume
+* A [Node.js](/result) web app which shows the results of the voting in real time
+
+## Notes
+
+The voting application only accepts one vote per client browser. It does not register additional votes if a vote has already been submitted from a client.
+
+This isn't an example of a properly architected perfectly designed distributed app... it's just a simple
+example of the various types of pieces and languages you might see (queues, persistent data, etc), and how to
+deal with them in Docker at a basic level.
+
+
+--- result.Dockerfile ---
+FROM node:18-slim
+
+# add curl for healthcheck
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl tini && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/local/app
+
+# have nodemon available for local dev use (file watching)
+RUN npm install -g nodemon
+
+COPY package*.json ./
+
+RUN npm ci && \
+ npm cache clean --force && \
+ mv /usr/local/app/node_modules /node_modules
+
+COPY . .
+
+ENV PORT=80
+EXPOSE 80
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["node", "server.js"]
+
+
+--- vote.Dockerfile ---
+# base defines a base stage that uses the official python runtime base image
+FROM python:3.11-slim AS base
+
+# Add curl for healthcheck
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set the application directory
+WORKDIR /usr/local/app
+
+# Install our requirements.txt
+COPY requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# dev defines a stage for development, where it'll watch for filesystem changes
+FROM base AS dev
+RUN pip install watchdog
+ENV FLASK_ENV=development
+CMD ["python", "app.py"]
+
+# final defines the stage that will bundle the application for production
+FROM base AS final
+
+# Copy our code from the current folder to the working directory inside the container
+COPY . .
+
+# Make port 80 available for links and/or publish
+EXPOSE 80
+
+# Define our command to be run when launching the container
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
+
+
+--- worker.Dockerfile ---
+# because of dotnet, we always build on amd64, and target platforms in cli
+# dotnet doesn't support QEMU for building or running. 
+# (errors common in arm/v7 32bit) https://github.com/dotnet/dotnet-docker/issues/1537
+# https://hub.docker.com/_/microsoft-dotnet
+# hadolint ignore=DL3029
+# to build for a different platform than your host, use --platform=<platform>
+# for example, if you were on Intel (amd64) and wanted to build for ARM, you would use:
+# docker buildx build --platform "linux/arm64/v8" .
+
+# build compiles the program for the builder's local platform
+FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG TARGETPLATFORM
+ARG TARGETARCH
+ARG BUILDPLATFORM
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
+
+WORKDIR /source
+COPY *.csproj .
+RUN dotnet restore -a $TARGETARCH
+
+COPY . .
+RUN dotnet publish -c release -o /app -a $TARGETARCH --self-contained false --no-restore
+
+# app image
+FROM mcr.microsoft.com/dotnet/runtime:7.0
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT ["dotnet", "Worker.dll"]
+
+
+Write production-ready Kubernetes manifests to deploy this application. Output all manifests in a single YAML code block.

@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-e60e69dc-927e-46a3-a641-350eb39e9e41",
+    "object": "chat.completion",
+    "created": 1795440225,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: kubernetes-dashboard\n  labels:\n    kubernetes.io/metadata.name: kubernetes-dashboard\n---\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: kubernetes-dashboard\n  namespace: kubernetes-dashboard\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  name: kubernetes-dashboard\nrules:\n  - apiGroups: [\"\"]\n    resources:\n      - namespaces\n      - namespaces/status\n      - namespaces/finalize\n      - pods\n      - pods/log\n      - services\n      - services/proxy\n      - endpoints\n      - persistentvolumes\n      - persistentvolumeclaims\n      - replicationcontrollers\n      - replicationcontrollers/scale\n      - serviceaccounts\n      - serviceaccounts/token\n      - configmaps\n      - secrets\n      - events\n    verbs: [\"list\", \"get\", \"watch\"]\n  - apiGroups: [\"apps\"]\n    resources:\n      - deployments\n      - deployments/scale\n      - replicasets\n      - statefulsets\n      - daemonsets\n    verbs: [\"list\", \"get\", \"watch\"]\n  - apiGroups: [\"batch\"]\n    resources:\n      - jobs\n      - cronjobs\n    verbs: [\"list\", \"get\", \"watch\"]\n  - apiGroups: [\"extensions\"]\n    resources:\n      - ingresses\n      - networkpolicies\n    verbs: [\"list\", \"get\", \"watch\"]\n  - apiGroups: [\"networking.k8s.io\"]\n    resources:\n      - ingresses\n      - networkpolicies\n    verbs: [\"list\", \"get\", \"watch\"]\n  - apiGroups: [\"storage.k8s.io\"]\n    resources:\n      - storageclasses\n    verbs: [\"list\", \"get\", \"watch\"]\n  - apiGroups: [\"metrics.k8s.io\"]\n    resources:\n      - pods\n      - nodes\n    verbs: [\"get\", \"list\"]\n  - apiGroups: [\"authentication.k8s.io\"]\n    resources:\n      - tokenreviews\n    verbs: [\"create\"]\n  - apiGroups: [\"authorization.k8s.io\"]\n    resources:\n      - subjectaccessreviews\n    verbs: [\"create\"]\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  name: kubernetes-dashboard\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: kubernetes-dashboard\nsubjects:\n  - kind: ServiceAccount\n    name: kubernetes-dashboard\n    namespace: kubernetes-dashboard\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  name: kubernetes-dashboard-csrf\n  namespace: kube-system\nrules:\n  - apiGroups: [\"\"]\n    resources:\n      - secrets\n    verbs:\n      - get\n      - list\n      - watch\n      - create\n      - update\n      - patch\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  name: kubernetes-dashboard-csrf\n  namespace: kube-system\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: Role\n  name: kubernetes-dashboard-csrf\nsubjects:\n  - kind: ServiceAccount\n    name: kubernetes-dashboard\n    namespace: kubernetes-dashboard\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: kubernetes-dashboard\n  namespace: kubernetes-dashboard\n  labels:\n    k8s-app: kubernetes-dashboard\nspec:\n  type: ClusterIP\n  ports:\n    - name: https\n      port: 443\n      targetPort: 8443\n  selector:\n    k8s-app: kubernetes-dashboard\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: kubernetes-dashboard\n  namespace: kubernetes-dashboard\n  labels:\n    k8s-app: kubernetes-dashboard\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      k8s-app: kubernetes-dashboard\n  template:\n    metadata:\n      labels:\n        k8s-app: kubernetes-dashboard\n    spec:\n      serviceAccountName: kubernetes-dashboard\n      securityContext:\n        runAsNonRoot: true\n        runAsUser: 1001\n        runAsGroup: 2001\n        fsGroup: 2001\n        seccompProfile:\n          type: RuntimeDefault\n      containers:\n        - name: kubernetes-dashboard\n          image: kubernetesui/dashboard:v2.7.0\n          args:\n            - --auto-generate-certificates\n            - --enable-skip-login\n          ports:\n            - name: https\n              containerPort: 8443\n              protocol: TCP\n          securityContext:\n            allowPrivilegeEscalation: false\n            readOnlyRootFilesystem: true\n            capabilities:\n              drop:\n                - ALL\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 256Mi\n          volumeMounts:\n            - name: tmp\n              mountPath: /tmp\n            - name: certs\n              mountPath: /certs\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 8443\n              scheme: HTTPS\n            initialDelaySeconds: 30\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 8443\n              scheme: HTTPS\n            initialDelaySeconds: 5\n            periodSeconds: 5\n            timeoutSeconds: 5\n            failureThreshold: 3\n      volumes:\n        - name: tmp\n          emptyDir: {}\n        - name: certs\n          emptyDir: {}\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.157409729,
+      "prompt_tokens": 4578,
+      "prompt_time": 0.339440437,
+      "completion_tokens": 1368,
+      "completion_time": 4.351810299,
+      "total_tokens": 5946,
+      "total_time": 4.691250736
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_a1293f40b5",
+    "x_groq": {
+      "id": "req_01m84976h3ewgvv1p1jnsvq0pz",
+      "seed": 516143969
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 14.190491914749146,
+  "tokens_in": 4578,
+  "tokens_out": 1368
+}

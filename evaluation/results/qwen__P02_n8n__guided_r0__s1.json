@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-20T19:05:57Z",
+  "timestamp": "2026-11-23T15:05:32Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -22,10 +22,14 @@
   },
   "d1_server_dry_run": {
     "ran": true,
-    "server_ok": true,
+    "server_ok": false,
     "objects_total": 11,
-    "objects_accepted": 11,
-    "errors": [],
+    "objects_accepted": 8,
+    "errors": [
+      "Error from server (BadRequest): error when creating \"STDIN\": StatefulSet in version \"v1\" cannot be handled as a StatefulSet: strict decoding error: unknown field \"spec.volumes\"",
+      "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.volumes\"",
+      "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.volumes\""
+    ],
     "per_object": [
       {
         "kind": "Namespace",
@@ -35,13 +39,13 @@
       },
       {
         "kind": "Secret",
-        "name": "postgres-secret",
+        "name": "postgres-credentials",
         "accepted": true,
         "error": null
       },
       {
         "kind": "Secret",
-        "name": "n8n-secret",
+        "name": "n8n-credentials",
         "accepted": true,
         "error": null
       },
@@ -66,8 +70,8 @@
       {
         "kind": "StatefulSet",
         "name": "postgres",
-        "accepted": true,
-        "error": null
+        "accepted": false,
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": StatefulSet in version \"v1\" cannot be handled as a StatefulSet: strict decoding error: unknown field \"spec.volumes\""
       },
       {
         "kind": "Service",
@@ -78,8 +82,8 @@
       {
         "kind": "Deployment",
         "name": "n8n",
-        "accepted": true,
-        "error": null
+        "accepted": false,
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.volumes\""
       },
       {
         "kind": "Service",
@@ -90,13 +94,13 @@
       {
         "kind": "Deployment",
         "name": "n8n-runner",
-        "accepted": true,
-        "error": null
+        "accepted": false,
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.volumes\""
       }
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 364,
+  "loc": 355,
   "resource_counts": {
     "Namespace": 1,
     "Secret": 2,
@@ -109,9 +113,9 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 87.77779,
+      "compliance": 87.77778,
       "frameworks": {
-        "NSA": 81.66667,
+        "NSA": 81.666664,
         "MITRE": 94.117645
       },
       "failed_controls_by_severity": {
@@ -329,60 +333,44 @@
       "findings": [
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_PASSWORD"
         },
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_NON_ROOT_PASSWORD"
         },
         {
           "type": "secret-object-literal",
-          "object": "n8n-secret",
+          "object": "n8n-credentials",
           "key": "RUNNERS_AUTH_TOKEN"
         }
       ],
       "nonsensitive_secret_literals": [
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_USER"
         },
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_DB"
         },
         {
           "type": "secret-object-literal",
-          "object": "postgres-secret",
+          "object": "postgres-credentials",
           "key": "POSTGRES_NON_ROOT_USER"
         }
       ]
     },
     "pss": {
       "ran": true,
-      "level": "baseline",
+      "level": "restricted",
       "n_objects": 3,
       "violations": {
-        "restricted": [
-          {
-            "kind": "StatefulSet",
-            "name": "postgres",
-            "detail": "statefulset.apps/postgres created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"postgres\" must set securityContext.capabilities.drop=[\"ALL\"]; container \"postgres\" must not include \"CHOWN\", \"DAC_OVERRIDE\", \"FOWNER\", \"SETGID\", \"SETUID\" in securityContext.capabilities.add), runAsNonRoot != true (pod or container \"postgres\" must set securityContext.runAsNonRoot=true)"
-          },
-          {
-            "kind": "Deployment",
-            "name": "n8n",
-            "detail": "deployment.apps/n8n created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"n8n\" must set securityContext.capabilities.drop=[\"ALL\"])"
-          },
-          {
-            "kind": "Deployment",
-            "name": "n8n-runner",
-            "detail": "deployment.apps/n8n-runner created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"n8n-runner\" must set securityContext.capabilities.drop=[\"ALL\"])"
-          }
-        ],
+        "restricted": [],
         "baseline": []
       }
     }
@@ -390,72 +378,74 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 18,
+      "critical": 17,
       "warning": 2,
       "critical_by_check": {
-        "container-security-context-user-group-id": 3,
         "container-ephemeral-storage-request-and-limit": 3,
+        "container-security-context-user-group-id": 3,
         "container-image-pull-policy": 3,
         "pod-networkpolicy": 3,
-        "deployment-has-poddisruptionbudget": 2,
+        "deployment-has-poddisruptionbudget": 1,
         "pod-probes-identical": 2,
         "container-security-context-readonlyrootfilesystem": 1,
         "statefulset-has-servicename": 1
       },
       "warning_by_check": {
-        "deployment-has-host-podantiaffinity": 2
+        "deployment-has-host-podantiaffinity": 1,
+        "deployment-replicas": 1
       }
     },
     "polaris": {
       "ran": true,
-      "score": 82,
+      "score": 81,
       "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 1,
         "metadataAndInstanceMismatched[warning]": 3,
+        "missingPodDisruptionBudget[warning]": 2,
         "automountServiceAccountToken[warning]": 3,
         "missingNetworkPolicy[warning]": 3,
         "priorityClassNotSet[warning]": 3,
         "topologySpreadConstraint[warning]": 3,
         "insecureCapabilities[warning]": 3,
-        "notReadOnlyRootFilesystem[warning]": 1,
         "pullPolicyNotAlways[warning]": 3,
-        "runAsRootAllowed[danger]": 1,
-        "missingPodDisruptionBudget[warning]": 2,
         "livenessProbeMissing[warning]": 1,
-        "readinessProbeMissing[warning]": 1
+        "readinessProbeMissing[warning]": 1,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "runAsRootAllowed[danger]": 1
       }
     },
     "kube_linter": {
       "ran": true,
-      "total": 5,
+      "total": 4,
       "by_check": {
         "drop-net-raw-capability": 1,
         "no-read-only-root-fs": 1,
         "run-as-non-root": 1,
-        "no-anti-affinity": 2
+        "no-anti-affinity": 1
       },
       "zhang_smells": {
         "dangling-service": 0,
-        "no-anti-affinity": 2,
+        "no-anti-affinity": 1,
         "no-read-only-root-fs": 1,
         "run-as-non-root": 1,
         "unset-cpu-requirements": 0,
         "unset-memory-requirements": 0
       },
-      "zhang_total": 4,
-      "zhang_density_per_kloc": 11.0,
+      "zhang_total": 3,
+      "zhang_density_per_kloc": 8.5,
       "zhang_any": true
     },
     "checklist": {
       "ran": true,
       "n_workloads": 3,
-      "pct": 62.1,
+      "pct": 58.6,
       "by_item": {
         "10_pinned_tag": {
           "met": 3,
           "applicable": 3
         },
         "1_replicas_ge_2": {
-          "met": 2,
+          "met": 1,
           "applicable": 2
         },
         "2_readiness": {
@@ -512,7 +502,7 @@
           "kind": "Deployment",
           "name": "n8n",
           "items": {
-            "1_replicas_ge_2": 1,
+            "1_replicas_ge_2": 0,
             "2_readiness": 1,
             "3_liveness": 1,
             "4_cpu_request": 1,
@@ -614,8 +604,8 @@
       },
       {
         "id": "R12-n8n-persistent",
-        "passed": true,
-        "detail": "PVC n8n-data",
+        "passed": false,
+        "detail": "volume type missing",
         "oracle": false
       },
       {
@@ -625,9 +615,9 @@
         "oracle": false
       }
     ],
-    "requirements_met": 12,
+    "requirements_met": 11,
     "requirements_total": 13,
-    "pct": 92.3
+    "pct": 84.6
   },
   "d5": {
     "ran": true,
@@ -655,87 +645,41 @@
     ],
     "shims_applied": [],
     "prepull_failed": [],
-    "apply_ok": true,
-    "apply_errors": [],
-    "ready_ok": false,
-    "time_to_ready_s": null,
-    "ready_replicas": 3,
-    "expected_replicas": 5,
-    "workloads": [
+    "apply_ok": false,
+    "apply_errors": [
       {
-        "ns": "n8n",
-        "kind": "Deployment",
-        "name": "n8n",
-        "ready": 0,
-        "want": 2
-      },
-      {
-        "ns": "n8n",
-        "kind": "Deployment",
-        "name": "n8n-runner",
-        "ready": 2,
-        "want": 2
-      },
-      {
-        "ns": "n8n",
         "kind": "StatefulSet",
         "name": "postgres",
-        "ready": 1,
-        "want": 1
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": StatefulSet in version \"v1\" cannot be handled as a StatefulSet: strict decoding error: unknown field \"spec.volumes\""
+      },
+      {
+        "kind": "Deployment",
+        "name": "n8n",
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.volumes\""
+      },
+      {
+        "kind": "Deployment",
+        "name": "n8n-runner",
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.volumes\""
       }
     ],
-    "failure_reason": "CrashLoopBackOff",
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 0,
+    "expected_replicas": 0,
+    "workloads": [],
+    "failure_reason": "no_workloads",
     "diagnostics": {
-      "pods": [
-        {
-          "pod": "n8n-6b58446f5f-vttnb",
-          "container": "n8n",
-          "restarts": 4,
-          "last_exit": 1,
-          "last_reason": "Error",
-          "last_log": "Initializing n8n process\nn8n ready on ::, port 5678\nAcquiring database migration lock...\nn8n Task Broker ready on 0.0.0.0, port 5679\n\nThere are deprecations related to your n8n setup. Please take the recommended actions to update your configuration:\n - N8N_UNVERIFIED_PACKAGES_ENABLED -> The default for this variable will change to `false` in a future version. Set it to `true` explicitly to keep installing unverified community packages.\n - N8N_RUNNERS_TASK_TIMEOUT -> The default for this variable will be reduced from 300 (5 minutes) to 60 (1 minute) in a future version. Set it explicitly to keep your current task timeout.\n - N8N_COMPRESSION_NODE_MAX_DECOMPRESSED_SIZE_BYTES -> The default for this variable will be reduced from 2 GiB to 256 MiB in a future version. Set it explicitly to keep your current limit.\n - N8N_COMPRESSION_NODE_MAX_ZIP_ENTRIES -> The default for this variable will be reduced from 5000 to 1000 in a future version. Set it explicitly to keep your current limit.\n\n[license SDK] Skipping renewal on init: license cert is not initialized\n(node:11) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\nError: ENOENT: no such file or directory, mkdir '/home/node/.cache'\n    at mkdir (node:internal/fs/promises:1605:10)\n    at compileFile (/usr/local/lib/node_modules/n8n/src/commands/start.ts:178:5)\n    at async Promise.all (index 0)\n    at Start.generateStaticAssets (/usr/local/lib/node_modules/n8n/src/commands/start.ts:202:3)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:301:4)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\nExiting due to an error.\nExiting due to an error.\nError: Exiting due to an error.\n    at Start.exitWithCrash (/usr/local/lib/node_modules/n8n/src/commands/base-command.ts:361:28)\n    at Start.catch (/usr/local/lib/node_modules/n8n/src/commands/start.ts:509:14)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:102:25)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\n\nENOENT: no such file or directory, mkdir '/home/node/.cache'\nError: ENOENT: no such file or directory, mkdir '/home/node/.cache'\n    at mkdir (node:internal/fs/promises:1605:10)\n    at compileFile (/usr/local/lib/node_modules/n8n/src/commands/start.ts:178:5)\n    at async Promise.all (index 0)\n    at Start.generateStaticAssets (/usr/local/lib/node_modules/n8n/src/commands/start.ts:202:3)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:301:4)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2"
-        },
-        {
-          "pod": "n8n-6b58446f5f-wr5jw",
-          "container": "n8n",
-          "restarts": 4,
-          "last_exit": 1,
-          "last_reason": "Error",
-          "last_log": "Initializing n8n process\nn8n ready on ::, port 5678\nAcquiring database migration lock...\nn8n Task Broker ready on 0.0.0.0, port 5679\n\nThere are deprecations related to your n8n setup. Please take the recommended actions to update your configuration:\n - N8N_UNVERIFIED_PACKAGES_ENABLED -> The default for this variable will change to `false` in a future version. Set it to `true` explicitly to keep installing unverified community packages.\n - N8N_RUNNERS_TASK_TIMEOUT -> The default for this variable will be reduced from 300 (5 minutes) to 60 (1 minute) in a future version. Set it explicitly to keep your current task timeout.\n - N8N_COMPRESSION_NODE_MAX_DECOMPRESSED_SIZE_BYTES -> The default for this variable will be reduced from 2 GiB to 256 MiB in a future version. Set it explicitly to keep your current limit.\n - N8N_COMPRESSION_NODE_MAX_ZIP_ENTRIES -> The default for this variable will be reduced from 5000 to 1000 in a future version. Set it explicitly to keep your current limit.\n\n[license SDK] Skipping renewal on init: license cert is not initialized\n(node:11) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\nError: ENOENT: no such file or directory, mkdir '/home/node/.cache'\n    at mkdir (node:internal/fs/promises:1605:10)\n    at compileFile (/usr/local/lib/node_modules/n8n/src/commands/start.ts:178:5)\n    at async Promise.all (index 0)\n    at Start.generateStaticAssets (/usr/local/lib/node_modules/n8n/src/commands/start.ts:202:3)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:301:4)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\nExiting due to an error.\nExiting due to an error.\nError: Exiting due to an error.\n    at Start.exitWithCrash (/usr/local/lib/node_modules/n8n/src/commands/base-command.ts:361:28)\n    at Start.catch (/usr/local/lib/node_modules/n8n/src/commands/start.ts:509:14)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:102:25)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2\n\nENOENT: no such file or directory, mkdir '/home/node/.cache'\nError: ENOENT: no such file or directory, mkdir '/home/node/.cache'\n    at mkdir (node:internal/fs/promises:1605:10)\n    at compileFile (/usr/local/lib/node_modules/n8n/src/commands/start.ts:178:5)\n    at async Promise.all (index 0)\n    at Start.generateStaticAssets (/usr/local/lib/node_modules/n8n/src/commands/start.ts:202:3)\n    at Start.init (/usr/local/lib/node_modules/n8n/src/commands/start.ts:301:4)\n    at CommandRegistry.execute (/usr/local/lib/node_modules/n8n/src/command-registry.ts:98:4)\n    at /usr/local/lib/node_modules/n8n/bin/n8n:67:2"
-        }
-      ],
-      "warning_events": {
-        "n8n-6b58446f5f-vttnb|Unhealthy: Startup probe failed": 14,
-        "n8n-6b58446f5f-wr5jw|Unhealthy: Startup probe failed": 13,
-        "n8n-6b58446f5f-vttnb|BackOff: Back-off restarting failed container n8n in pod n8n-6b58446f": 10,
-        "n8n-6b58446f5f-wr5jw|BackOff: Back-off restarting failed container n8n in pod n8n-6b58446f": 10,
-        "n8n-6b58446f5f-wr5jw|FailedScheduling: running PreBind plugin \"VolumeBinding\"": 1
-      }
+      "pods": [],
+      "warning_events": {}
     },
     "client_placement": {
-      "namespace": "d5-172bae4a",
+      "namespace": "d5-928df1c5",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
       "via": "default"
     },
-    "smoke": [
-      {
-        "name": "n8n-healthz",
-        "passed": false,
-        "detail": "HTTP 000"
-      },
-      {
-        "name": "n8n-readiness-db",
-        "passed": false,
-        "detail": "HTTP 000"
-      },
-      {
-        "name": "n8n-schema-in-postgres",
-        "passed": true,
-        "detail": "output '1'"
-      }
-    ],
     "smoke_ok": false
   },
   "d6": {

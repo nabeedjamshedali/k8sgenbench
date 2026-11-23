@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1fa44-5a91-7e42-93c2-6a43f3f91ace",
-  "CreatedAt": "2026-11-20T23:42:26.0659346+05:00",
+  "ReportID": "01a208b5-73a9-7452-8a7f-a3cf3f9ea4d3",
+  "CreatedAt": "2026-11-23T19:00:39.0812833+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/qwen__P04_voting-app__guided_r1__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -37,7 +37,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -162,12 +162,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -177,7 +177,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -187,7 +187,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -197,7 +197,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -207,7 +207,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -217,47 +217,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 150,
+                  "Number": 148,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -288,12 +288,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
+            "StartLine": 287,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -303,7 +303,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -313,7 +313,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -323,7 +323,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -333,7 +333,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -343,7 +343,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -353,7 +353,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -363,7 +363,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -373,7 +373,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 362,
+                  "Number": 295,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -383,7 +383,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 363,
+                  "Number": 296,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -414,12 +414,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 216,
+            "EndLine": 253,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -429,7 +429,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -439,7 +439,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -449,7 +449,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -459,7 +459,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -469,7 +469,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -479,7 +479,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -489,7 +489,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -499,17 +499,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
-                  "Content": "        resources:",
+                  "Number": 224,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 225,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -540,12 +540,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
+            "StartLine": 368,
+            "EndLine": 402,
             "Code": {
               "Lines": [
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -555,7 +555,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -565,7 +565,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -575,7 +575,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -585,7 +585,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -595,7 +595,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -605,7 +605,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -615,7 +615,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -625,7 +625,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 307,
+                  "Number": 376,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -635,7 +635,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 308,
+                  "Number": 377,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -667,7 +667,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -792,12 +792,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -807,7 +807,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -817,7 +817,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -827,7 +827,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -837,7 +837,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -847,47 +847,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 150,
+                  "Number": 148,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -918,12 +918,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
+            "StartLine": 287,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -933,7 +933,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -943,7 +943,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -953,7 +953,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -963,7 +963,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -973,7 +973,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -983,7 +983,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -993,7 +993,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1003,7 +1003,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 362,
+                  "Number": 295,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1013,7 +1013,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 363,
+                  "Number": 296,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1044,12 +1044,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 216,
+            "EndLine": 253,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -1059,7 +1059,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -1069,7 +1069,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1079,7 +1079,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -1089,7 +1089,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1099,7 +1099,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1109,7 +1109,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1119,7 +1119,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -1129,17 +1129,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
-                  "Content": "        resources:",
+                  "Number": 224,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 225,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1170,12 +1170,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
+            "StartLine": 368,
+            "EndLine": 402,
             "Code": {
               "Lines": [
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -1185,7 +1185,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -1195,7 +1195,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1205,7 +1205,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1215,7 +1215,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -1225,7 +1225,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1235,7 +1235,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1245,7 +1245,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1255,7 +1255,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 307,
+                  "Number": 376,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1265,7 +1265,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 308,
+                  "Number": 377,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1297,7 +1297,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -1422,12 +1422,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -1437,7 +1437,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -1447,7 +1447,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1457,7 +1457,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -1467,7 +1467,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -1477,47 +1477,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 150,
+                  "Number": 148,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1548,12 +1548,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
+            "StartLine": 287,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -1563,7 +1563,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -1573,7 +1573,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1583,7 +1583,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -1593,7 +1593,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1603,7 +1603,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1613,7 +1613,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1623,7 +1623,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1633,7 +1633,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 362,
+                  "Number": 295,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1643,7 +1643,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 363,
+                  "Number": 296,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1674,12 +1674,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 216,
+            "EndLine": 253,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -1689,7 +1689,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -1699,7 +1699,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1709,7 +1709,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -1719,7 +1719,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1729,7 +1729,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1739,7 +1739,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1749,7 +1749,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -1759,17 +1759,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
-                  "Content": "        resources:",
+                  "Number": 224,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 225,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1800,12 +1800,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
+            "StartLine": 368,
+            "EndLine": 402,
             "Code": {
               "Lines": [
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -1815,7 +1815,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -1825,7 +1825,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1835,7 +1835,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1845,7 +1845,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -1855,7 +1855,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1865,7 +1865,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1875,7 +1875,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1885,7 +1885,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 307,
+                  "Number": 376,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1895,7 +1895,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 308,
+                  "Number": 377,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1927,7 +1927,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -2052,12 +2052,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2067,7 +2067,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -2077,7 +2077,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2087,7 +2087,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -2097,7 +2097,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2107,47 +2107,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 150,
+                  "Number": 148,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2179,7 +2179,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -2304,12 +2304,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2319,7 +2319,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -2329,7 +2329,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2339,7 +2339,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -2349,7 +2349,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2359,47 +2359,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 150,
+                  "Number": 148,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2430,12 +2430,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
+            "StartLine": 287,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -2445,7 +2445,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -2455,7 +2455,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2465,7 +2465,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -2475,7 +2475,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2485,7 +2485,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2495,7 +2495,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -2505,7 +2505,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -2515,7 +2515,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 362,
+                  "Number": 295,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -2525,7 +2525,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 363,
+                  "Number": 296,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2556,12 +2556,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 216,
+            "EndLine": 253,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -2571,7 +2571,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -2581,7 +2581,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2591,7 +2591,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -2601,7 +2601,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2611,7 +2611,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2621,7 +2621,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -2631,7 +2631,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2641,17 +2641,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
-                  "Content": "        resources:",
+                  "Number": 224,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 225,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2682,12 +2682,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
+            "StartLine": 368,
+            "EndLine": 402,
             "Code": {
               "Lines": [
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -2697,7 +2697,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -2707,7 +2707,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2717,7 +2717,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -2727,7 +2727,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2737,7 +2737,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -2747,7 +2747,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -2757,7 +2757,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -2767,7 +2767,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 307,
+                  "Number": 376,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2777,7 +2777,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 308,
+                  "Number": 377,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2809,7 +2809,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -2934,12 +2934,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2949,7 +2949,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -2959,7 +2959,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2969,7 +2969,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -2979,7 +2979,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -2989,47 +2989,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 150,
+                  "Number": 148,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -3060,12 +3060,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
+            "StartLine": 287,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -3075,7 +3075,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -3085,7 +3085,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3095,7 +3095,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -3105,7 +3105,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -3115,7 +3115,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3125,7 +3125,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -3135,7 +3135,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -3145,7 +3145,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 362,
+                  "Number": 295,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -3155,7 +3155,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 363,
+                  "Number": 296,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -3186,12 +3186,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 216,
+            "EndLine": 253,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -3201,7 +3201,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -3211,7 +3211,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3221,7 +3221,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -3231,7 +3231,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -3241,7 +3241,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3251,7 +3251,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -3261,7 +3261,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -3271,17 +3271,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
-                  "Content": "        resources:",
+                  "Number": 224,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 225,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -3312,12 +3312,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
+            "StartLine": 368,
+            "EndLine": 402,
             "Code": {
               "Lines": [
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -3327,7 +3327,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -3337,7 +3337,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3347,7 +3347,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -3357,7 +3357,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -3367,7 +3367,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -3377,7 +3377,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -3387,7 +3387,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -3397,7 +3397,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 307,
+                  "Number": 376,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3407,7 +3407,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 308,
+                  "Number": 377,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -3439,7 +3439,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -3564,12 +3564,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -3579,7 +3579,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -3589,7 +3589,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3599,7 +3599,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -3609,7 +3609,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -3619,47 +3619,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
-                  "LastCause": false
+                  "LastCause": true
                 },
                 {
                   "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 150,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -3690,138 +3690,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 139,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
-                  "Content": "      - name: vote",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 221,
-                  "Content": "        image: dockersamples/examplevotingapp_vote",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_vote",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 222,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 223,
-                  "Content": "        - containerPort: 80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 224,
-                  "Content": "          name: http",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mname\u001b[0m: http",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 225,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 226,
-                  "Content": "        - name: REDIS_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 227,
-                  "Content": "          value: redis",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: redis",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 228,
-                  "Content": "        resources:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 229,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 141,
-            "EndLine": 180,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -3831,7 +3705,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -3841,7 +3715,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -3851,7 +3725,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -3861,7 +3735,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -3871,299 +3745,47 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 146,
+                  "Content": "          seccompProfile:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mseccompProfile\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
                   "Number": 147,
-                  "Content": "          requests:",
+                  "Content": "            type: RuntimeDefault",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
+                  "Highlighted": "            \u001b[38;5;33mtype\u001b[0m: RuntimeDefault",
                   "FirstCause": false,
-                  "LastCause": false
+                  "LastCause": true
                 },
                 {
                   "Number": 148,
-                  "Content": "            cpu: 100m",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mcpu\u001b[0m: 100m",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "            memory: 128Mi",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "            \u001b[38;5;33mmemory\u001b[0m: 128Mi",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 150,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 354,
-                  "Content": "      - name: result",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: result",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 355,
-                  "Content": "        image: dockersamples/examplevotingapp_result",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_result",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 356,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 357,
-                  "Content": "        - containerPort: 80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 358,
-                  "Content": "          name: http",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m          \u001b[38;5;33mname\u001b[0m: http",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 359,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 360,
-                  "Content": "        - name: DB_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 361,
-                  "Content": "          value: db",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: db",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 362,
-                  "Content": "        - name: DB_USER",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_USER",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 363,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 299,
-                  "Content": "      - name: worker",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: worker",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 300,
-                  "Content": "        image: dockersamples/examplevotingapp_worker",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_worker",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 301,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 302,
-                  "Content": "        - name: REDIS_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 303,
-                  "Content": "          value: redis",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: redis",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 304,
-                  "Content": "        - name: DB_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 305,
-                  "Content": "          value: db",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: db",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 306,
-                  "Content": "        - name: DB_USER",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_USER",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 307,
-                  "Content": "          valueFrom:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 308,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -4195,7 +3817,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 45,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -4303,6 +3925,384 @@
         },
         {
           "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 216,
+            "EndLine": 253,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 216,
+                  "Content": "      - name: vote",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: vote",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 217,
+                  "Content": "        image: dockersamples/examplevotingapp_vote",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_vote",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 218,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 219,
+                  "Content": "        - containerPort: 80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 220,
+                  "Content": "          name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 221,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 222,
+                  "Content": "        - name: REDIS_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 223,
+                  "Content": "          value: redis",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: redis",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 224,
+                  "Content": "        securityContext:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 225,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 368,
+            "EndLine": 402,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 368,
+                  "Content": "      - name: worker",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: worker",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 369,
+                  "Content": "        image: dockersamples/examplevotingapp_worker",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_worker",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 370,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 371,
+                  "Content": "        - name: REDIS_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REDIS_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 372,
+                  "Content": "          value: redis",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: redis",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 373,
+                  "Content": "        - name: DB_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 374,
+                  "Content": "          value: db",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: db",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 375,
+                  "Content": "        - name: DB_USER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_USER",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 376,
+                  "Content": "          valueFrom:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalueFrom\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 377,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 287,
+            "EndLine": 334,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 287,
+                  "Content": "      - name: result",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: result",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 288,
+                  "Content": "        image: dockersamples/examplevotingapp_result",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/examplevotingapp_result",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 289,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 290,
+                  "Content": "        - containerPort: 80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 291,
+                  "Content": "          name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m          \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 292,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 293,
+                  "Content": "        - name: DB_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 294,
+                  "Content": "          value: db",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: db",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 295,
+                  "Content": "        - name: DB_USER",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DB_USER",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 296,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
           "ID": "KSV-0117",
           "Title": "Prevent binding to privileged ports",
           "Description": "The ports which are lower than 1024 receive and transmit various sensitive and privileged data. Allowing containers to use them can bring serious implications.",
@@ -4364,12 +4364,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 352,
-            "EndLine": 412,
+            "StartLine": 285,
+            "EndLine": 337,
             "Code": {
               "Lines": [
                 {
-                  "Number": 352,
+                  "Number": 285,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4379,7 +4379,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 353,
+                  "Number": 286,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4389,7 +4389,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -4399,7 +4399,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -4409,7 +4409,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4419,7 +4419,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -4429,7 +4429,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -4439,7 +4439,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4449,7 +4449,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -4459,7 +4459,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -4490,12 +4490,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 218,
-            "EndLine": 268,
+            "StartLine": 214,
+            "EndLine": 256,
             "Code": {
               "Lines": [
                 {
-                  "Number": 218,
+                  "Number": 214,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4505,7 +4505,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 219,
+                  "Number": 215,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4515,7 +4515,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -4525,7 +4525,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -4535,7 +4535,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4545,7 +4545,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -4555,7 +4555,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -4565,7 +4565,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4575,7 +4575,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -4585,7 +4585,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -4616,12 +4616,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 297,
-            "EndLine": 336,
+            "StartLine": 366,
+            "EndLine": 405,
             "Code": {
               "Lines": [
                 {
-                  "Number": 297,
+                  "Number": 366,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4631,7 +4631,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 298,
+                  "Number": 367,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4641,7 +4641,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -4651,7 +4651,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -4661,7 +4661,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4671,7 +4671,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -4681,7 +4681,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -4691,7 +4691,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -4701,7 +4701,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -4711,7 +4711,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -4743,7 +4743,7 @@
             "Provider": "Kubernetes",
             "Service": "general",
             "StartLine": 43,
-            "EndLine": 100,
+            "EndLine": 98,
             "Code": {
               "Lines": [
                 {
@@ -4868,12 +4868,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 139,
-            "EndLine": 180,
+            "StartLine": 137,
+            "EndLine": 176,
             "Code": {
               "Lines": [
                 {
-                  "Number": 139,
+                  "Number": 137,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4883,7 +4883,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 140,
+                  "Number": 138,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4893,7 +4893,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 141,
+                  "Number": 139,
                   "Content": "      - name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -4903,7 +4903,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 142,
+                  "Number": 140,
                   "Content": "        image: redis:alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -4913,7 +4913,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 143,
+                  "Number": 141,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -4923,7 +4923,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 144,
+                  "Number": 142,
                   "Content": "        - containerPort: 6379",
                   "IsCause": true,
                   "Annotation": "",
@@ -4933,7 +4933,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 145,
+                  "Number": 143,
                   "Content": "          name: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -4943,27 +4943,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 146,
-                  "Content": "        resources:",
+                  "Number": 144,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 147,
-                  "Content": "          requests:",
+                  "Number": 145,
+                  "Content": "          allowPrivilegeEscalation: false",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mrequests\u001b[0m:",
+                  "Highlighted": "          \u001b[38;5;33mallowPrivilegeEscalation\u001b[0m: \u001b[38;5;166mfalse",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 148,
+                  "Number": 146,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -4995,12 +4995,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 354,
-            "EndLine": 409,
+            "StartLine": 287,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 354,
+                  "Number": 287,
                   "Content": "      - name: result",
                   "IsCause": true,
                   "Annotation": "",
@@ -5010,7 +5010,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 355,
+                  "Number": 288,
                   "Content": "        image: dockersamples/examplevotingapp_result",
                   "IsCause": true,
                   "Annotation": "",
@@ -5020,7 +5020,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 356,
+                  "Number": 289,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -5030,7 +5030,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 357,
+                  "Number": 290,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -5040,7 +5040,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 358,
+                  "Number": 291,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -5050,7 +5050,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 359,
+                  "Number": 292,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -5060,7 +5060,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 360,
+                  "Number": 293,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -5070,7 +5070,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 361,
+                  "Number": 294,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -5080,7 +5080,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 362,
+                  "Number": 295,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -5090,7 +5090,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 363,
+                  "Number": 296,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -5122,12 +5122,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 220,
-            "EndLine": 265,
+            "StartLine": 216,
+            "EndLine": 253,
             "Code": {
               "Lines": [
                 {
-                  "Number": 220,
+                  "Number": 216,
                   "Content": "      - name: vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -5137,7 +5137,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 221,
+                  "Number": 217,
                   "Content": "        image: dockersamples/examplevotingapp_vote",
                   "IsCause": true,
                   "Annotation": "",
@@ -5147,7 +5147,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 222,
+                  "Number": 218,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -5157,7 +5157,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 223,
+                  "Number": 219,
                   "Content": "        - containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -5167,7 +5167,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 224,
+                  "Number": 220,
                   "Content": "          name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -5177,7 +5177,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 225,
+                  "Number": 221,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -5187,7 +5187,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 226,
+                  "Number": 222,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -5197,7 +5197,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 227,
+                  "Number": 223,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -5207,17 +5207,17 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 228,
-                  "Content": "        resources:",
+                  "Number": 224,
+                  "Content": "        securityContext:",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mresources\u001b[0m:",
+                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 229,
+                  "Number": 225,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -5249,12 +5249,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 299,
-            "EndLine": 333,
+            "StartLine": 368,
+            "EndLine": 402,
             "Code": {
               "Lines": [
                 {
-                  "Number": 299,
+                  "Number": 368,
                   "Content": "      - name: worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -5264,7 +5264,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 300,
+                  "Number": 369,
                   "Content": "        image: dockersamples/examplevotingapp_worker",
                   "IsCause": true,
                   "Annotation": "",
@@ -5274,7 +5274,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 301,
+                  "Number": 370,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -5284,7 +5284,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 302,
+                  "Number": 371,
                   "Content": "        - name: REDIS_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -5294,7 +5294,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 303,
+                  "Number": 372,
                   "Content": "          value: redis",
                   "IsCause": true,
                   "Annotation": "",
@@ -5304,7 +5304,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 304,
+                  "Number": 373,
                   "Content": "        - name: DB_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -5314,7 +5314,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 305,
+                  "Number": 374,
                   "Content": "          value: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -5324,7 +5324,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 306,
+                  "Number": 375,
                   "Content": "        - name: DB_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -5334,7 +5334,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 307,
+                  "Number": 376,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -5344,7 +5344,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 308,
+                  "Number": 377,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",

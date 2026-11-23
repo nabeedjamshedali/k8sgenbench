@@ -8,6 +8,8 @@ kind: Service
 metadata:
   name: front-end
   namespace: sock-shop
+  labels:
+    app: front-end
 spec:
   selector:
     app: front-end
@@ -21,6 +23,8 @@ kind: Deployment
 metadata:
   name: front-end
   namespace: sock-shop
+  labels:
+    app: front-end
 spec:
   replicas: 2
   selector:
@@ -36,17 +40,29 @@ spec:
           image: weaveworksdemos/front-end:0.3.12
           ports:
             - containerPort: 80
+              name: http
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
@@ -66,6 +82,8 @@ kind: Service
 metadata:
   name: edge-router
   namespace: sock-shop
+  labels:
+    app: edge-router
 spec:
   type: LoadBalancer
   selector:
@@ -74,7 +92,7 @@ spec:
     - name: http
       port: 80
       targetPort: 80
-    - name: http-alt
+    - name: metrics
       port: 8080
       targetPort: 8080
 ---
@@ -83,6 +101,8 @@ kind: Deployment
 metadata:
   name: edge-router
   namespace: sock-shop
+  labels:
+    app: edge-router
 spec:
   replicas: 2
   selector:
@@ -98,9 +118,12 @@ spec:
           image: weaveworksdemos/edge-router:0.1.1
           ports:
             - containerPort: 80
+              name: http
             - containerPort: 8080
+              name: metrics
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -112,10 +135,20 @@ spec:
                 - DAC_OVERRIDE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
@@ -124,9 +157,13 @@ spec:
               cpu: 200m
               memory: 256Mi
           volumeMounts:
+            - name: tmp
+              mountPath: /tmp
             - name: var-run
               mountPath: /var/run
       volumes:
+        - name: tmp
+          emptyDir: {}
         - name: var-run
           emptyDir: {}
 ---
@@ -135,6 +172,8 @@ kind: Service
 metadata:
   name: catalogue
   namespace: sock-shop
+  labels:
+    app: catalogue
 spec:
   selector:
     app: catalogue
@@ -148,6 +187,8 @@ kind: Deployment
 metadata:
   name: catalogue
   namespace: sock-shop
+  labels:
+    app: catalogue
 spec:
   replicas: 2
   selector:
@@ -163,8 +204,10 @@ spec:
           image: weaveworksdemos/catalogue:0.3.5
           ports:
             - containerPort: 80
+              name: http
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -172,10 +215,20 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
@@ -195,6 +248,8 @@ kind: Service
 metadata:
   name: catalogue-db
   namespace: sock-shop
+  labels:
+    app: catalogue-db
 spec:
   selector:
     app: catalogue-db
@@ -220,6 +275,8 @@ kind: StatefulSet
 metadata:
   name: catalogue-db
   namespace: sock-shop
+  labels:
+    app: catalogue-db
 spec:
   serviceName: catalogue-db
   replicas: 1
@@ -236,6 +293,7 @@ spec:
           image: weaveworksdemos/catalogue-db:0.3.0
           ports:
             - containerPort: 3306
+              name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "root"
@@ -255,12 +313,24 @@ spec:
                 - DAC_OVERRIDE
             seccompProfile:
               type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 500m
               memory: 512Mi
           volumeMounts:
             - name: data
@@ -275,6 +345,8 @@ kind: Service
 metadata:
   name: carts
   namespace: sock-shop
+  labels:
+    app: carts
 spec:
   selector:
     app: carts
@@ -288,6 +360,8 @@ kind: Deployment
 metadata:
   name: carts
   namespace: sock-shop
+  labels:
+    app: carts
 spec:
   replicas: 2
   selector:
@@ -303,11 +377,13 @@ spec:
           image: weaveworksdemos/carts:0.4.8
           ports:
             - containerPort: 80
+              name: http
           env:
             - name: JAVA_OPTS
               value: "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -315,17 +391,33 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          startupProbe:
+            httpGet:
+              path: /
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 512Mi
             limits:
-              cpu: 200m
-              memory: 512Mi
+              cpu: 500m
+              memory: 1Gi
           volumeMounts:
             - name: tmp
               mountPath: /tmp
@@ -338,6 +430,8 @@ kind: Service
 metadata:
   name: carts-db
   namespace: sock-shop
+  labels:
+    app: carts-db
 spec:
   selector:
     app: carts-db
@@ -363,6 +457,8 @@ kind: StatefulSet
 metadata:
   name: carts-db
   namespace: sock-shop
+  labels:
+    app: carts-db
 spec:
   serviceName: carts-db
   replicas: 1
@@ -379,6 +475,7 @@ spec:
           image: mongo:3.4
           ports:
             - containerPort: 27017
+              name: mongo
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -390,12 +487,24 @@ spec:
                 - SETUID
             seccompProfile:
               type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 500m
               memory: 512Mi
           volumeMounts:
             - name: data
@@ -414,6 +523,8 @@ kind: Service
 metadata:
   name: orders
   namespace: sock-shop
+  labels:
+    app: orders
 spec:
   selector:
     app: orders
@@ -427,6 +538,8 @@ kind: Deployment
 metadata:
   name: orders
   namespace: sock-shop
+  labels:
+    app: orders
 spec:
   replicas: 2
   selector:
@@ -442,11 +555,13 @@ spec:
           image: weaveworksdemos/orders:0.4.7
           ports:
             - containerPort: 80
+              name: http
           env:
             - name: JAVA_OPTS
               value: "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -454,17 +569,33 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          startupProbe:
+            httpGet:
+              path: /
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 512Mi
             limits:
-              cpu: 200m
-              memory: 512Mi
+              cpu: 500m
+              memory: 1Gi
           volumeMounts:
             - name: tmp
               mountPath: /tmp
@@ -477,6 +608,8 @@ kind: Service
 metadata:
   name: orders-db
   namespace: sock-shop
+  labels:
+    app: orders-db
 spec:
   selector:
     app: orders-db
@@ -502,6 +635,8 @@ kind: StatefulSet
 metadata:
   name: orders-db
   namespace: sock-shop
+  labels:
+    app: orders-db
 spec:
   serviceName: orders-db
   replicas: 1
@@ -518,6 +653,7 @@ spec:
           image: mongo:3.4
           ports:
             - containerPort: 27017
+              name: mongo
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -529,12 +665,24 @@ spec:
                 - SETUID
             seccompProfile:
               type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 500m
               memory: 512Mi
           volumeMounts:
             - name: data
@@ -553,6 +701,8 @@ kind: Service
 metadata:
   name: shipping
   namespace: sock-shop
+  labels:
+    app: shipping
 spec:
   selector:
     app: shipping
@@ -566,6 +716,8 @@ kind: Deployment
 metadata:
   name: shipping
   namespace: sock-shop
+  labels:
+    app: shipping
 spec:
   replicas: 2
   selector:
@@ -581,11 +733,13 @@ spec:
           image: weaveworksdemos/shipping:0.4.8
           ports:
             - containerPort: 80
+              name: http
           env:
             - name: JAVA_OPTS
               value: "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -593,17 +747,33 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          startupProbe:
+            httpGet:
+              path: /
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 512Mi
             limits:
-              cpu: 200m
-              memory: 512Mi
+              cpu: 500m
+              memory: 1Gi
           volumeMounts:
             - name: tmp
               mountPath: /tmp
@@ -616,6 +786,8 @@ kind: Service
 metadata:
   name: queue-master
   namespace: sock-shop
+  labels:
+    app: queue-master
 spec:
   selector:
     app: queue-master
@@ -629,8 +801,10 @@ kind: Deployment
 metadata:
   name: queue-master
   namespace: sock-shop
+  labels:
+    app: queue-master
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: queue-master
@@ -644,8 +818,10 @@ spec:
           image: weaveworksdemos/queue-master:0.3.1
           ports:
             - containerPort: 80
+              name: http
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -653,10 +829,20 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
@@ -676,6 +862,8 @@ kind: Service
 metadata:
   name: rabbitmq
   namespace: sock-shop
+  labels:
+    app: rabbitmq
 spec:
   selector:
     app: rabbitmq
@@ -704,6 +892,8 @@ kind: StatefulSet
 metadata:
   name: rabbitmq
   namespace: sock-shop
+  labels:
+    app: rabbitmq
 spec:
   serviceName: rabbitmq
   replicas: 1
@@ -720,7 +910,9 @@ spec:
           image: rabbitmq:3.6.8
           ports:
             - containerPort: 5672
+              name: amqp
             - containerPort: 15672
+              name: management
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -733,12 +925,24 @@ spec:
                 - DAC_OVERRIDE
             seccompProfile:
               type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 5672
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 5672
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 500m
               memory: 512Mi
           volumeMounts:
             - name: data
@@ -753,6 +957,8 @@ kind: Service
 metadata:
   name: payment
   namespace: sock-shop
+  labels:
+    app: payment
 spec:
   selector:
     app: payment
@@ -766,6 +972,8 @@ kind: Deployment
 metadata:
   name: payment
   namespace: sock-shop
+  labels:
+    app: payment
 spec:
   replicas: 2
   selector:
@@ -781,8 +989,10 @@ spec:
           image: weaveworksdemos/payment:0.4.3
           ports:
             - containerPort: 80
+              name: http
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -790,10 +1000,20 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
@@ -813,6 +1033,8 @@ kind: Service
 metadata:
   name: user
   namespace: sock-shop
+  labels:
+    app: user
 spec:
   selector:
     app: user
@@ -826,6 +1048,8 @@ kind: Deployment
 metadata:
   name: user
   namespace: sock-shop
+  labels:
+    app: user
 spec:
   replicas: 2
   selector:
@@ -841,11 +1065,13 @@ spec:
           image: weaveworksdemos/user:0.4.4
           ports:
             - containerPort: 80
+              name: http
           env:
             - name: MONGO_HOST
               value: "user-db:27017"
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -853,10 +1079,20 @@ spec:
                 - NET_BIND_SERVICE
             seccompProfile:
               type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            readOnlyRootFilesystem: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
@@ -876,6 +1112,8 @@ kind: Service
 metadata:
   name: user-db
   namespace: sock-shop
+  labels:
+    app: user-db
 spec:
   selector:
     app: user-db
@@ -901,6 +1139,8 @@ kind: StatefulSet
 metadata:
   name: user-db
   namespace: sock-shop
+  labels:
+    app: user-db
 spec:
   serviceName: user-db
   replicas: 1
@@ -917,6 +1157,7 @@ spec:
           image: weaveworksdemos/user-db:0.4.0
           ports:
             - containerPort: 27017
+              name: mongo
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -928,12 +1169,24 @@ spec:
                 - SETUID
             seccompProfile:
               type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 3
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 500m
               memory: 512Mi
           volumeMounts:
             - name: data

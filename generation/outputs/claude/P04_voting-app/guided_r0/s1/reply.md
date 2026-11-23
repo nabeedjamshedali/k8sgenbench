@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: db-credentials
+  labels:
+    app: db
 type: Opaque
 stringData:
   POSTGRES_USER: postgres
@@ -12,6 +14,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
+  labels:
+    app: redis
 spec:
   selector:
     app: redis
@@ -20,46 +24,12 @@ spec:
       port: 6379
       targetPort: 6379
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: db
-spec:
-  selector:
-    app: db
-  ports:
-    - name: postgres
-      port: 5432
-      targetPort: 5432
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: vote
-spec:
-  selector:
-    app: vote
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: result
-spec:
-  selector:
-    app: result
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: redis
+  labels:
+    app: redis
 spec:
   serviceName: redis
   replicas: 1
@@ -71,6 +41,10 @@ spec:
       labels:
         app: redis
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: redis
           image: redis:alpine
@@ -84,6 +58,7 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 6379
+            initialDelaySeconds: 5
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 3
@@ -93,7 +68,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 10
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 6
           resources:
             requests:
               cpu: 100m
@@ -114,10 +89,26 @@ spec:
           requests:
             storage: 1Gi
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  selector:
+    app: db
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: db
+  labels:
+    app: db
 spec:
   serviceName: db
   replicas: 1
@@ -129,6 +120,10 @@ spec:
       labels:
         app: db
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: postgres
           image: postgres:15-alpine
@@ -152,30 +147,22 @@ spec:
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 6
           startupProbe:
-            exec:
-              command:
-                - pg_isready
-                - -U
-                - postgres
+            tcpSocket:
+              port: 5432
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 30
-          readinessProbe:
-            exec:
-              command:
-                - pg_isready
-                - -U
-                - postgres
-            periodSeconds: 5
-            timeoutSeconds: 5
-            failureThreshold: 3
           livenessProbe:
-            exec:
-              command:
-                - pg_isready
-                - -U
-                - postgres
+            tcpSocket:
+              port: 5432
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 6
@@ -203,6 +190,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vote
+  labels:
+    app: vote
 spec:
   replicas: 2
   selector:
@@ -213,9 +202,13 @@ spec:
       labels:
         app: vote
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: vote
-          image: dockersamples/examplevotingapp_vote
+          image: dockersamples/examplevotingapp_vote:latest
           ports:
             - name: http
               containerPort: 80
@@ -223,16 +216,16 @@ spec:
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
-          startupProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 30
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
           readinessProbe:
             httpGet:
               path: /
               port: 80
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
@@ -240,21 +233,39 @@ spec:
             httpGet:
               path: /
               port: 80
+            initialDelaySeconds: 20
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 3
           resources:
             requests:
               cpu: 100m
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              cpu: 500m
+              cpu: "1"
               memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote
+  labels:
+    app: vote
+spec:
+  type: ClusterIP
+  selector:
+    app: vote
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: result
+  labels:
+    app: result
 spec:
   replicas: 2
   selector:
@@ -265,9 +276,13 @@ spec:
       labels:
         app: result
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: result
-          image: dockersamples/examplevotingapp_result
+          image: dockersamples/examplevotingapp_result:latest
           ports:
             - name: http
               containerPort: 80
@@ -275,38 +290,56 @@ spec:
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
-          startupProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 30
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
           readinessProbe:
             httpGet:
               path: /
               port: 80
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 6
           livenessProbe:
             httpGet:
               path: /
               port: 80
+            initialDelaySeconds: 30
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 3
           resources:
             requests:
               cpu: 100m
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              cpu: 500m
+              cpu: "1"
               memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  labels:
+    app: result
+spec:
+  type: ClusterIP
+  selector:
+    app: result
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker
+  labels:
+    app: worker
 spec:
   replicas: 1
   selector:
@@ -317,18 +350,25 @@ spec:
       labels:
         app: worker
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: worker
-          image: dockersamples/examplevotingapp_worker
+          image: dockersamples/examplevotingapp_worker:latest
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           resources:
             requests:
               cpu: 100m
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              cpu: 500m
+              cpu: "1"
               memory: 512Mi
 ```

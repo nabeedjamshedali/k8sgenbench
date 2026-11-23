@@ -1,25 +1,16 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: postgres-secret
-  labels:
-    app: postgres
-type: Opaque
-stringData:
-  POSTGRES_USER: changeUser
-  POSTGRES_PASSWORD: changePassword
-  POSTGRES_DB: n8n
-  POSTGRES_NON_ROOT_USER: changeNonRootUser
-  POSTGRES_NON_ROOT_PASSWORD: changeNonRootPassword
----
-apiVersion: v1
-kind: Secret
-metadata:
   name: n8n-secret
   labels:
     app: n8n
 type: Opaque
 stringData:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: changePassword
+  POSTGRES_DB: n8n
+  POSTGRES_NON_ROOT_USER: n8n
+  POSTGRES_NON_ROOT_PASSWORD: changeNonRootPassword
   RUNNERS_AUTH_TOKEN: changeRunnerAuthToken
 ---
 apiVersion: v1
@@ -32,14 +23,15 @@ data:
   init-data.sh: |
     #!/bin/bash
     set -e;
+
     if [ -n "${POSTGRES_NON_ROOT_USER:-}" ] && [ -n "${POSTGRES_NON_ROOT_PASSWORD:-}" ]; then
-      psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-        CREATE USER ${POSTGRES_NON_ROOT_USER} WITH PASSWORD '${POSTGRES_NON_ROOT_PASSWORD}';
-        GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO ${POSTGRES_NON_ROOT_USER};
-        GRANT CREATE ON SCHEMA public TO ${POSTGRES_NON_ROOT_USER};
-    EOSQL
+    	psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    		CREATE USER ${POSTGRES_NON_ROOT_USER} WITH PASSWORD '${POSTGRES_NON_ROOT_PASSWORD}';
+    		GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO ${POSTGRES_NON_ROOT_USER};
+    		GRANT CREATE ON SCHEMA public TO ${POSTGRES_NON_ROOT_USER};
+    	EOSQL
     else
-      echo "SETUP INFO: No Environment variables given!"
+    	echo "SETUP INFO: No Environment variables given!"
     fi
 ---
 apiVersion: v1
@@ -49,6 +41,7 @@ metadata:
   labels:
     app: postgres
 spec:
+  clusterIP: None
   selector:
     app: postgres
   ports:
@@ -83,27 +76,27 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_DB
             - name: POSTGRES_NON_ROOT_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_NON_ROOT_USER
             - name: POSTGRES_NON_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_NON_ROOT_PASSWORD
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
@@ -111,36 +104,22 @@ spec:
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
-          volumeMounts:
-            - name: db-storage
-              mountPath: /var/lib/postgresql/data
-            - name: init-data
-              mountPath: /docker-entrypoint-initdb.d/init-data.sh
-              subPath: init-data.sh
+          readinessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
           startupProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - pg_isready -h localhost -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            tcpSocket:
+              port: 5432
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 30
-          readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - pg_isready -h localhost -U "$POSTGRES_USER" -d "$POSTGRES_DB"
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
           livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - pg_isready -h localhost -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            tcpSocket:
+              port: 5432
             periodSeconds: 20
             timeoutSeconds: 5
             failureThreshold: 6
@@ -151,8 +130,13 @@ spec:
             limits:
               cpu: "1"
               memory: 1Gi
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
-        - name: init-data
+        - name: init-scripts
           configMap:
             name: postgres-init
             defaultMode: 493
@@ -192,7 +176,7 @@ spec:
     - name: http
       port: 5678
       targetPort: 5678
-    - name: broker
+    - name: task-broker
       port: 5679
       targetPort: 5679
 ---
@@ -227,7 +211,7 @@ spec:
           ports:
             - name: http
               containerPort: 5678
-            - name: broker
+            - name: task-broker
               containerPort: 5679
           env:
             - name: DB_TYPE
@@ -239,17 +223,17 @@ spec:
             - name: DB_POSTGRESDB_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_DB
             - name: DB_POSTGRESDB_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_NON_ROOT_USER
             - name: DB_POSTGRESDB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: n8n-secret
                   key: POSTGRES_NON_ROOT_PASSWORD
             - name: N8N_RUNNERS_MODE
               value: external
@@ -265,37 +249,36 @@ spec:
             capabilities:
               drop:
                 - ALL
-          volumeMounts:
-            - name: n8n-storage
-              mountPath: /home/node/.n8n
+            seccompProfile:
+              type: RuntimeDefault
+          readinessProbe:
+            tcpSocket:
+              port: 5678
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           startupProbe:
-            httpGet:
-              path: /healthz
+            tcpSocket:
               port: 5678
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 30
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 5678
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
           livenessProbe:
-            httpGet:
-              path: /healthz
+            tcpSocket:
               port: 5678
             periodSeconds: 20
             timeoutSeconds: 5
-            failureThreshold: 5
+            failureThreshold: 6
           resources:
             requests:
               cpu: 250m
               memory: 512Mi
             limits:
-              cpu: "2"
-              memory: 2Gi
+              cpu: "1"
+              memory: 1Gi
+          volumeMounts:
+            - name: n8n-storage
+              mountPath: /home/node/.n8n
       volumes:
         - name: n8n-storage
           persistentVolumeClaim:
@@ -327,9 +310,12 @@ spec:
                   name: n8n-secret
                   key: RUNNERS_AUTH_TOKEN
             - name: N8N_RUNNERS_TASK_BROKER_URI
-              value: "http://n8n:5679"
+              value: http://n8n:5679
           securityContext:
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
             seccompProfile:
               type: RuntimeDefault
           resources:

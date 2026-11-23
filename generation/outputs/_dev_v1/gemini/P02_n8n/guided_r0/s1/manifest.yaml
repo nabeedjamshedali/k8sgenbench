@@ -1,0 +1,43 @@
+pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      periodSeconds: 10
+      failureThreshold: 3
+    ```
+
+- n8n:
+  - Web UI port: 5678. Path: `/healthz`.
+  - startupProbe:
+    ```yaml
+    startupProbe:
+      httpGet:
+        path: /healthz
+        port: 5678
+      periodSeconds: 10
+      failureThreshold: 30
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 5678
+      periodSeconds: 10
+      failureThreshold: 3
+      timeoutSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: /healthz
+        port: 5678
+      periodSeconds: 10
+      failureThreshold: 3
+    ```
+
+- n8n-runner:
+  - No server port. Rule 6: "Background workers, queue consumers and other processes without a server get no HTTP or TCP probes."
+  - So no probes.
+
+Let's check Services:
+1. `postgres` Service:
+   - name: `postgres`
+   - selector: `app: postgres`
+   - ports:
+     - port: 5432
+       targetPort: 5432
+
+2. `n8n` Service:

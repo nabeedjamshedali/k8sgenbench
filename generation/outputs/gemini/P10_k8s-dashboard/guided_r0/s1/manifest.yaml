@@ -9,35 +9,6 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kubernetes-dashboard-certs
-  namespace: kubernetes-dashboard
-type: Opaque
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kubernetes-dashboard-csrf
-  namespace: kubernetes-dashboard
-type: Opaque
-data:
-  csrf: ""
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kubernetes-dashboard-key-holder
-  namespace: kubernetes-dashboard
-type: Opaque
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kubernetes-dashboard-settings
-  namespace: kubernetes-dashboard
----
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -48,49 +19,19 @@ rules:
       - ""
     resources:
       - secrets
-    verbs:
-      - create
-      - get
-      - update
-      - delete
-  - apiGroups:
-      - ""
-    resources:
       - configmaps
     verbs:
       - create
       - get
+      - list
+      - watch
       - update
+      - patch
       - delete
   - apiGroups:
       - ""
     resources:
       - services
-    verbs:
-      - get
-      - update
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: kubernetes-dashboard
-rules:
-  - apiGroups:
-      - metrics.k8s.io
-    resources:
-      - pods
-      - nodes
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - ""
-    resources:
-      - services
-      - namespaces
-      - pods
-      - nodes
     verbs:
       - get
       - list
@@ -110,18 +51,20 @@ subjects:
     name: kubernetes-dashboard
     namespace: kubernetes-dashboard
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+apiVersion: v1
+kind: Service
 metadata:
   name: kubernetes-dashboard
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: kubernetes-dashboard
-subjects:
-  - kind: ServiceAccount
-    name: kubernetes-dashboard
-    namespace: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  labels:
+    k8s-app: kubernetes-dashboard
+spec:
+  ports:
+    - port: 443
+      targetPort: 8443
+      name: https
+  selector:
+    k8s-app: kubernetes-dashboard
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -150,150 +93,51 @@ spec:
           type: RuntimeDefault
       containers:
         - name: kubernetes-dashboard
-          image: kubernetesui/dashboard:v2.0.0
-          imagePullPolicy: Always
+          image: kubernetesui/dashboard:v2.7.0
           args:
             - --auto-generate-certificates
             - --namespace=kubernetes-dashboard
           ports:
             - containerPort: 8443
+              name: https
               protocol: TCP
           volumeMounts:
             - mountPath: /certs
-              name: certs-volume
+              name: certs
             - mountPath: /tmp
-              name: tmp-volume
-          livenessProbe:
-            httpGet:
-              scheme: HTTPS
-              path: /
-              port: 8443
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
-            periodSeconds: 10
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              scheme: HTTPS
-              path: /
-              port: 8443
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            periodSeconds: 10
-            failureThreshold: 3
-          resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
+              name: tmp
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
-      volumes:
-        - name: certs-volume
-          emptyDir: {}
-        - name: tmp-volume
-          emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kubernetes-dashboard
-  namespace: kubernetes-dashboard
-  labels:
-    k8s-app: kubernetes-dashboard
-spec:
-  type: ClusterIP
-  ports:
-    - name: https
-      port: 443
-      targetPort: 8443
-  selector:
-    k8s-app: kubernetes-dashboard
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: dashboard-metrics-scraper
-  namespace: kubernetes-dashboard
-  labels:
-    k8s-app: dashboard-metrics-scraper
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      k8s-app: dashboard-metrics-scraper
-  template:
-    metadata:
-      labels:
-        k8s-app: dashboard-metrics-scraper
-    spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
-        runAsGroup: 1001
-        fsGroup: 1001
-        seccompProfile:
-          type: RuntimeDefault
-      containers:
-        - name: dashboard-metrics-scraper
-          image: kubernetesui/metrics-scraper:v1.0.8
-          ports:
-            - containerPort: 8000
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /tmp
-              name: tmp-volume
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
-            periodSeconds: 10
-            failureThreshold: 3
           readinessProbe:
             httpGet:
+              scheme: HTTPS
               path: /
-              port: 8000
+              port: 8443
             initialDelaySeconds: 10
-            timeoutSeconds: 5
             periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /
+              port: 8443
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
             failureThreshold: 3
           resources:
             requests:
               cpu: 100m
-              memory: 256Mi
+              memory: 128Mi
             limits:
               cpu: 250m
-              memory: 512Mi
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
+              memory: 256Mi
       volumes:
-        - name: tmp-volume
+        - name: certs
           emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: dashboard-metrics-scraper
-  namespace: kubernetes-dashboard
-  labels:
-    k8s-app: dashboard-metrics-scraper
-spec:
-  type: ClusterIP
-  ports:
-    - name: http
-      port: 8000
-      targetPort: 8000
-  selector:
-    k8s-app: dashboard-metrics-scraper
+        - name: tmp
+          emptyDir: {}

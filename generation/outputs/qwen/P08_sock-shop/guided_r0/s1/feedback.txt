@@ -1,0 +1,40 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (NotReady(probe)): Deployment catalogue 0/2 Ready, Deployment edge-router 0/2 Ready, Deployment front-end 0/2 Ready, Deployment payment 0/2 Ready, Deployment queue-master 0/1 Ready, Deployment user 0/2 Ready.
+- Pod catalogue-5fbb59fc76-4crs7 container catalogue: 5 restarts, last exit code 0 (Completed). Last log lines:
+    ts=2026-11-23T14:22:24Z caller=main.go:136 transport=HTTP port=80
+    ts=2026-11-23T14:23:18Z caller=main.go:147 exit=terminated
+- Pod edge-router-5b7457cc67-gdt58 container edge-router: 4 restarts, last exit code 0 (Completed). Last log lines:
+    time="2026-11-23T14:22:19Z" level=warning msg="Error checking new version: Get https://update.traefik.io/repos/containous/traefik/releases: x509: certificate signed by unknown authority"
+    time="2026-11-23T14:22:49Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:22:56Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:23:00Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:23:06Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:23:16Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:23:20Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:23:24Z" level=warning msg="Error forwarding to http://front-end:8079, err: dial tcp 10.96.39.21:8079: getsockopt: connection refused"
+    time="2026-11-23T14:23:29Z" level=info msg="Shutting down"
+- Pod front-end-6cc7ffd5c4-645mg container front-end: 3 restarts, last exit code 137 (Error). Last log lines:
+    memory, and will not scale past a single process.
+    App now running in production mode on port 8079
+- Pod payment-7568775866-9d9c6 container payment: 5 restarts, last exit code 0 (Completed). Last log lines:
+    ts=2026-11-23T14:22:34Z caller=main.go:70 transport=HTTP port=80
+    ts=2026-11-23T14:23:27Z caller=main.go:81 exit=terminated
+- Pod queue-master-557c4dcd9c-5h4tm container queue-master: 4 restarts, last exit code 137 (OOMKilled). Last log lines:
+    2026-11-23 14:22:47.922  INFO 11 --- [           main] w.w.s.q.QueueMasterApplication           : No active profile set, falling back to default profiles: default
+    2026-11-23 14:22:50.317  INFO 11 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5a2e4553: startup date [Mon Nov 23 14:22:50 GMT 2026]; root of context hierarchy
+- Pod user-58cf595794-jvkl9 container user: 5 restarts, last exit code 0 (Completed). Last log lines:
+    ts=2026-11-23T14:22:35Z caller=main.go:145 transport=HTTP port=80
+    ts=2026-11-23T14:23:29Z caller=main.go:156 exit=terminated
+- Warning event on front-end-6cc7ffd5c4-c4sdv (32x): Unhealthy: Readiness probe failed
+- Warning event on queue-master-557c4dcd9c-5h4tm (29x): Unhealthy: Readiness probe failed
+- Warning event on carts-6bd6c8844c-6bfmx (24x): Unhealthy: Startup probe failed
+- Warning event on orders-679d7b8d5b-b4qwr (24x): Unhealthy: Startup probe failed
+- Warning event on orders-679d7b8d5b-nksh9 (24x): Unhealthy: Startup probe failed
+- Warning event on shipping-5c7f4844bb-8qqr8 (23x): Unhealthy: Startup probe failed
+- Warning event on shipping-5c7f4844bb-tlftd (22x): Unhealthy: Startup probe failed
+- Warning event on carts-6bd6c8844c-kskl4 (21x): Unhealthy: Startup probe failed
+- Warning event on edge-router-5b7457cc67-k4jhw (21x): Unhealthy: Readiness probe failed
+- Warning event on edge-router-5b7457cc67-gdt58 (20x): Unhealthy: Readiness probe failed
+- Service rabbitmq port 15672 sends traffic to port 15672 of pod rabbitmq-0, but that pod listens only on TCP port(s) 4369, 5672, 25672.
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

@@ -3,7 +3,7 @@
   "source": "gemini",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-20T18:33:02Z",
+  "timestamp": "2026-11-23T15:01:49Z",
   "gen_finish_reason": "STOP",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -35,25 +35,25 @@
       },
       {
         "kind": "Service",
-        "name": "db",
+        "name": "redis",
         "accepted": true,
         "error": null
       },
       {
         "kind": "StatefulSet",
-        "name": "db",
+        "name": "redis",
         "accepted": true,
         "error": null
       },
       {
         "kind": "Service",
-        "name": "redis",
+        "name": "db",
         "accepted": true,
         "error": null
       },
       {
         "kind": "StatefulSet",
-        "name": "redis",
+        "name": "db",
         "accepted": true,
         "error": null
       },
@@ -90,7 +90,7 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 329,
+  "loc": 312,
   "resource_counts": {
     "Secret": 1,
     "Service": 4,
@@ -100,42 +100,37 @@
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 83.333336,
+      "compliance": 86.666664,
       "frameworks": {
-        "NSA": 75,
+        "NSA": 80,
         "MITRE": 100
       },
       "failed_controls_by_severity": {
         "critical": 0,
-        "high": 1,
+        "high": 0,
         "medium": 3,
         "low": 1
       },
       "failed": [
         {
-          "resource": "path=1196112787/api=apps/v1//StatefulSet/redis",
+          "resource": "path=1196112787/api=apps/v1//StatefulSet/db",
           "control": "C-0013",
           "name": "Non-root containers"
         },
         {
-          "resource": "path=1196112787/api=apps/v1//StatefulSet/redis",
+          "resource": "path=1196112787/api=apps/v1//StatefulSet/db",
           "control": "C-0017",
           "name": "Immutable container filesystem"
         },
         {
-          "resource": "path=1196112787/api=apps/v1//StatefulSet/redis",
+          "resource": "path=1196112787/api=apps/v1//StatefulSet/db",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=1196112787/api=apps/v1//StatefulSet/redis",
+          "resource": "path=1196112787/api=apps/v1//StatefulSet/db",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=1196112787/api=apps/v1//StatefulSet/redis",
-          "control": "C-0270",
-          "name": "Ensure CPU limits are set"
         },
         {
           "resource": "path=1229668025/api=apps/v1//Deployment/vote",
@@ -158,34 +153,24 @@
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=1229668025/api=apps/v1//Deployment/vote",
-          "control": "C-0270",
-          "name": "Ensure CPU limits are set"
-        },
-        {
-          "resource": "path=1296778501/api=apps/v1//StatefulSet/db",
+          "resource": "path=1296778501/api=apps/v1//StatefulSet/redis",
           "control": "C-0013",
           "name": "Non-root containers"
         },
         {
-          "resource": "path=1296778501/api=apps/v1//StatefulSet/db",
+          "resource": "path=1296778501/api=apps/v1//StatefulSet/redis",
           "control": "C-0017",
           "name": "Immutable container filesystem"
         },
         {
-          "resource": "path=1296778501/api=apps/v1//StatefulSet/db",
+          "resource": "path=1296778501/api=apps/v1//StatefulSet/redis",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=1296778501/api=apps/v1//StatefulSet/db",
+          "resource": "path=1296778501/api=apps/v1//StatefulSet/redis",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=1296778501/api=apps/v1//StatefulSet/db",
-          "control": "C-0270",
-          "name": "Ensure CPU limits are set"
         },
         {
           "resource": "path=1380666596/api=apps/v1//Deployment/worker",
@@ -208,11 +193,6 @@
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=1380666596/api=apps/v1//Deployment/worker",
-          "control": "C-0270",
-          "name": "Ensure CPU limits are set"
-        },
-        {
           "resource": "path=1397444215/api=apps/v1//Deployment/result",
           "control": "C-0013",
           "name": "Non-root containers"
@@ -231,11 +211,6 @@
           "resource": "path=1397444215/api=apps/v1//Deployment/result",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
-        },
-        {
-          "resource": "path=1397444215/api=apps/v1//Deployment/result",
-          "control": "C-0270",
-          "name": "Ensure CPU limits are set"
         }
       ]
     },
@@ -243,9 +218,9 @@
       "ran": true,
       "by_severity": {
         "critical": 0,
-        "high": 10,
+        "high": 5,
         "medium": 13,
-        "low": 26
+        "low": 21
       },
       "failed": [
         {
@@ -271,36 +246,6 @@
           "title": "Default capabilities: some containers do not drop any",
           "severity": "LOW",
           "message": "Container 'redis' of 'statefulset' 'redis' in 'default' namespace should set securityContext.capabilities.drop"
-        },
-        {
-          "id": "KSV-0011",
-          "title": "CPU not limited",
-          "severity": "LOW",
-          "message": "Container 'db' of StatefulSet 'db' should set 'resources.limits.cpu'"
-        },
-        {
-          "id": "KSV-0011",
-          "title": "CPU not limited",
-          "severity": "LOW",
-          "message": "Container 'redis' of StatefulSet 'redis' should set 'resources.limits.cpu'"
-        },
-        {
-          "id": "KSV-0011",
-          "title": "CPU not limited",
-          "severity": "LOW",
-          "message": "Container 'result' of Deployment 'result' should set 'resources.limits.cpu'"
-        },
-        {
-          "id": "KSV-0011",
-          "title": "CPU not limited",
-          "severity": "LOW",
-          "message": "Container 'vote' of Deployment 'vote' should set 'resources.limits.cpu'"
-        },
-        {
-          "id": "KSV-0011",
-          "title": "CPU not limited",
-          "severity": "LOW",
-          "message": "Container 'worker' of Deployment 'worker' should set 'resources.limits.cpu'"
         },
         {
           "id": "KSV-0012",
@@ -495,36 +440,6 @@
           "message": "deployment vote in default namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
         },
         {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment result in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment vote in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "deployment worker in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "statefulset db in default namespace is using the default security context, which allows root privileges"
-        },
-        {
-          "id": "KSV-0118",
-          "title": "Default security context configured",
-          "severity": "HIGH",
-          "message": "statefulset redis in default namespace is using the default security context, which allows root privileges"
-        },
-        {
           "id": "KSV-0125",
           "title": "Restrict container images to trusted registries",
           "severity": "MEDIUM",
@@ -570,13 +485,13 @@
         "restricted": [
           {
             "kind": "StatefulSet",
-            "name": "db",
-            "detail": "statefulset.apps/db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"db\" must set securityContext.runAsNonRoot=true)"
+            "name": "redis",
+            "detail": "statefulset.apps/redis created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"redis\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"redis\" must set securityContext.runAsNonRoot=true)"
           },
           {
             "kind": "StatefulSet",
-            "name": "redis",
-            "detail": "statefulset.apps/redis created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"redis\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"redis\" must set securityContext.runAsNonRoot=true)"
+            "name": "db",
+            "detail": "statefulset.apps/db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"db\" must set securityContext.runAsNonRoot=true)"
           },
           {
             "kind": "Deployment",
@@ -601,76 +516,74 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 36,
-      "warning": 2,
+      "critical": 34,
+      "warning": 3,
       "critical_by_check": {
-        "container-resources": 5,
-        "pod-probes-identical": 4,
-        "container-image-pull-policy": 2,
-        "container-ephemeral-storage-request-and-limit": 5,
         "pod-networkpolicy": 5,
         "container-security-context-user-group-id": 5,
+        "container-ephemeral-storage-request-and-limit": 5,
         "container-security-context-readonlyrootfilesystem": 5,
+        "container-image-pull-policy": 2,
+        "pod-probes-identical": 4,
+        "statefulset-has-servicename": 2,
         "container-image-tag": 3,
-        "deployment-has-poddisruptionbudget": 2
+        "deployment-has-poddisruptionbudget": 3
       },
       "warning_by_check": {
-        "deployment-has-host-podantiaffinity": 2
+        "deployment-has-host-podantiaffinity": 3
       }
     },
     "polaris": {
       "ran": true,
-      "score": 74,
+      "score": 77,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 5,
-        "missingPodDisruptionBudget[warning]": 3,
         "automountServiceAccountToken[warning]": 5,
         "missingNetworkPolicy[warning]": 5,
         "priorityClassNotSet[warning]": 5,
         "topologySpreadConstraint[warning]": 5,
-        "cpuLimitsMissing[warning]": 5,
+        "insecureCapabilities[warning]": 2,
         "notReadOnlyRootFilesystem[warning]": 5,
         "pullPolicyNotAlways[warning]": 5,
         "runAsRootAllowed[danger]": 5,
+        "missingPodDisruptionBudget[warning]": 3,
         "tagNotSpecified[danger]": 3,
-        "deploymentMissingReplicas[warning]": 1,
         "livenessProbeMissing[warning]": 1,
-        "readinessProbeMissing[warning]": 1,
-        "insecureCapabilities[warning]": 2
+        "readinessProbeMissing[warning]": 1
       }
     },
     "kube_linter": {
       "ran": true,
-      "total": 15,
+      "total": 16,
       "by_check": {
         "no-read-only-root-fs": 5,
         "run-as-non-root": 5,
         "latest-tag": 3,
-        "no-anti-affinity": 2
+        "no-anti-affinity": 3
       },
       "zhang_smells": {
         "dangling-service": 0,
-        "no-anti-affinity": 2,
+        "no-anti-affinity": 3,
         "no-read-only-root-fs": 5,
         "run-as-non-root": 5,
         "unset-cpu-requirements": 0,
         "unset-memory-requirements": 0
       },
-      "zhang_total": 12,
-      "zhang_density_per_kloc": 36.5,
+      "zhang_total": 13,
+      "zhang_density_per_kloc": 41.7,
       "zhang_any": true
     },
     "checklist": {
       "ran": true,
       "n_workloads": 5,
-      "pct": 56.2,
+      "pct": 58.3,
       "by_item": {
         "10_pinned_tag": {
           "met": 2,
           "applicable": 5
         },
         "1_replicas_ge_2": {
-          "met": 2,
+          "met": 3,
           "applicable": 3
         },
         "2_readiness": {
@@ -709,7 +622,7 @@
       "per_workload": [
         {
           "kind": "StatefulSet",
-          "name": "db",
+          "name": "redis",
           "items": {
             "1_replicas_ge_2": null,
             "2_readiness": 1,
@@ -725,7 +638,7 @@
         },
         {
           "kind": "StatefulSet",
-          "name": "redis",
+          "name": "db",
           "items": {
             "1_replicas_ge_2": null,
             "2_readiness": 1,
@@ -775,7 +688,7 @@
           "kind": "Deployment",
           "name": "worker",
           "items": {
-            "1_replicas_ge_2": 0,
+            "1_replicas_ge_2": 1,
             "2_readiness": 0,
             "3_liveness": 0,
             "4_cpu_request": 1,
@@ -909,40 +822,40 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 17.0,
-    "ready_replicas": 7,
-    "expected_replicas": 7,
+    "time_to_ready_s": 15.6,
+    "ready_replicas": 8,
+    "expected_replicas": 8,
     "workloads": [
       {
-        "ns": "d5-347f234e",
+        "ns": "d5-3a02d845",
         "kind": "Deployment",
         "name": "result",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-347f234e",
+        "ns": "d5-3a02d845",
         "kind": "Deployment",
         "name": "vote",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-347f234e",
+        "ns": "d5-3a02d845",
         "kind": "Deployment",
         "name": "worker",
-        "ready": 1,
-        "want": 1
+        "ready": 2,
+        "want": 2
       },
       {
-        "ns": "d5-347f234e",
+        "ns": "d5-3a02d845",
         "kind": "StatefulSet",
         "name": "db",
         "ready": 1,
         "want": 1
       },
       {
-        "ns": "d5-347f234e",
+        "ns": "d5-3a02d845",
         "kind": "StatefulSet",
         "name": "redis",
         "ready": 1,
@@ -951,7 +864,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-347f234e",
+      "namespace": "d5-3a02d845",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -979,7 +892,53 @@
         "detail": "output '1'"
       }
     ],
-    "smoke_ok": true
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "redis",
+        "namespace": "d5-3a02d845",
+        "port": 6379,
+        "target_port": 6379,
+        "pod": "redis-0",
+        "listening": [
+          6379
+        ],
+        "ok": true
+      },
+      {
+        "service": "db",
+        "namespace": "d5-3a02d845",
+        "port": 5432,
+        "target_port": 5432,
+        "pod": "db-0",
+        "listening": [
+          5432
+        ],
+        "ok": true
+      },
+      {
+        "service": "vote",
+        "namespace": "d5-3a02d845",
+        "port": 5000,
+        "target_port": 80,
+        "pod": "vote-7fbd8c5dfc-96bhf",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "result",
+        "namespace": "d5-3a02d845",
+        "port": 5001,
+        "target_port": 80,
+        "pod": "result-747bbc4456-9czgk",
+        "listening": [
+          80
+        ],
+        "ok": true
+      }
+    ]
   },
   "d6": {
     "ran": true,
@@ -988,59 +947,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "vote-dcdd448df-qjqst",
+        "victim": "vote-7fbd8c5dfc-gqwgb",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.1,
-        "availability_pct": 98.5,
-        "n_probes": 67
+        "recovery_time_s": 5.9,
+        "availability_pct": 98.0,
+        "n_probes": 49
       },
       {
         "ran": true,
-        "victim": "vote-dcdd448df-22fwg",
+        "victim": "vote-7fbd8c5dfc-9rpg5",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.6,
+        "recovery_time_s": 9.1,
         "availability_pct": 100.0,
-        "n_probes": 69
+        "n_probes": 80
       },
       {
         "ran": true,
-        "victim": "vote-dcdd448df-vdlmf",
+        "victim": "vote-7fbd8c5dfc-r99c8",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 9.9,
+        "recovery_time_s": 7.2,
         "availability_pct": 100.0,
-        "n_probes": 72
+        "n_probes": 56
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "vote-dcdd448df-vmmhv",
+        "victim": "vote-7fbd8c5dfc-96bhf",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 2.9,
-        "availability_pct": 94.3,
-        "n_probes": 35
+        "recovery_time_s": 8.4,
+        "availability_pct": 100.0,
+        "n_probes": 69
       },
       {
         "ran": true,
-        "victim": "vote-dcdd448df-zzrrv",
+        "victim": "vote-7fbd8c5dfc-wk6kh",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 2.0,
-        "availability_pct": 96.8,
-        "n_probes": 31
+        "recovery_time_s": 6.4,
+        "availability_pct": 95.0,
+        "n_probes": 60
       },
       {
         "ran": true,
-        "victim": "vote-dcdd448df-vmmhv",
+        "victim": "vote-7fbd8c5dfc-96bhf",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 11.8,
-        "availability_pct": 96.2,
-        "n_probes": 80
+        "recovery_time_s": 16.7,
+        "availability_pct": 97.1,
+        "n_probes": 103
       }
     ],
     "gate": "ready"

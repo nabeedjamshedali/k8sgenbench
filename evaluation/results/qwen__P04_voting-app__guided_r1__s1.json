@@ -3,7 +3,7 @@
   "source": "qwen",
   "prompt_variant": "guided_r1",
   "sample_k": "1",
-  "timestamp": "2026-11-20T18:42:07Z",
+  "timestamp": "2026-11-23T14:00:20Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -83,12 +83,6 @@
       },
       {
         "kind": "Deployment",
-        "name": "worker",
-        "accepted": true,
-        "error": null
-      },
-      {
-        "kind": "Deployment",
         "name": "result",
         "accepted": true,
         "error": null
@@ -98,11 +92,17 @@
         "name": "result",
         "accepted": true,
         "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "worker",
+        "accepted": true,
+        "error": null
       }
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 414,
+  "loc": 394,
   "resource_counts": {
     "Namespace": 1,
     "Secret": 1,
@@ -127,22 +127,22 @@
       },
       "failed": [
         {
-          "resource": "path=3322313173/api=apps/v1/voting-app/Deployment/result",
+          "resource": "path=3305535554/api=apps/v1/voting-app/Deployment/worker",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=3322313173/api=apps/v1/voting-app/Deployment/result",
+          "resource": "path=3305535554/api=apps/v1/voting-app/Deployment/worker",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=3977530159/api=apps/v1/voting-app/Deployment/worker",
+          "resource": "path=3977530159/api=apps/v1/voting-app/Deployment/result",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=3977530159/api=apps/v1/voting-app/Deployment/worker",
+          "resource": "path=3977530159/api=apps/v1/voting-app/Deployment/result",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
@@ -519,13 +519,13 @@
           },
           {
             "kind": "Deployment",
-            "name": "worker",
-            "detail": "deployment.apps/worker created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"worker\" must set securityContext.capabilities.drop=[\"ALL\"])"
+            "name": "result",
+            "detail": "deployment.apps/result created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"result\" must set securityContext.capabilities.drop=[\"ALL\"])"
           },
           {
             "kind": "Deployment",
-            "name": "result",
-            "detail": "deployment.apps/result created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"result\" must set securityContext.capabilities.drop=[\"ALL\"])"
+            "name": "worker",
+            "detail": "deployment.apps/worker created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"worker\" must set securityContext.capabilities.drop=[\"ALL\"])"
           }
         ],
         "baseline": []
@@ -538,15 +538,15 @@
       "critical": 31,
       "warning": 3,
       "critical_by_check": {
-        "container-image-pull-policy": 2,
-        "container-ephemeral-storage-request-and-limit": 5,
         "pod-networkpolicy": 5,
         "pod-probes-identical": 4,
-        "container-security-context-readonlyrootfilesystem": 2,
+        "container-ephemeral-storage-request-and-limit": 5,
         "container-security-context-user-group-id": 5,
-        "statefulset-has-servicename": 2,
         "container-image-tag": 3,
-        "deployment-has-poddisruptionbudget": 3
+        "deployment-has-poddisruptionbudget": 3,
+        "container-image-pull-policy": 2,
+        "container-security-context-readonlyrootfilesystem": 2,
+        "statefulset-has-servicename": 2
       },
       "warning_by_check": {
         "deployment-has-host-podantiaffinity": 3
@@ -590,7 +590,7 @@
         "unset-memory-requirements": 0
       },
       "zhang_total": 7,
-      "zhang_density_per_kloc": 16.9,
+      "zhang_density_per_kloc": 17.8,
       "zhang_any": true
     },
     "checklist": {
@@ -690,11 +690,11 @@
         },
         {
           "kind": "Deployment",
-          "name": "worker",
+          "name": "result",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 0,
-            "3_liveness": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -706,11 +706,11 @@
         },
         {
           "kind": "Deployment",
-          "name": "result",
+          "name": "worker",
           "items": {
             "1_replicas_ge_2": 1,
-            "2_readiness": 1,
-            "3_liveness": 1,
+            "2_readiness": 0,
+            "3_liveness": 0,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -842,7 +842,7 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 18.0,
+    "time_to_ready_s": 28.4,
     "ready_replicas": 8,
     "expected_replicas": 8,
     "workloads": [
@@ -884,7 +884,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-7b2a590f",
+      "namespace": "d5-f59bf768",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -912,7 +912,53 @@
         "detail": "output '1'"
       }
     ],
-    "smoke_ok": true
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "db",
+        "namespace": "voting-app",
+        "port": 5432,
+        "target_port": 5432,
+        "pod": "db-0",
+        "listening": [
+          5432
+        ],
+        "ok": true
+      },
+      {
+        "service": "redis",
+        "namespace": "voting-app",
+        "port": 6379,
+        "target_port": 6379,
+        "pod": "redis-0",
+        "listening": [
+          6379
+        ],
+        "ok": true
+      },
+      {
+        "service": "vote",
+        "namespace": "voting-app",
+        "port": 80,
+        "target_port": 80,
+        "pod": "vote-67cccccf4-q5q58",
+        "listening": [
+          80
+        ],
+        "ok": true
+      },
+      {
+        "service": "result",
+        "namespace": "voting-app",
+        "port": 80,
+        "target_port": 80,
+        "pod": "result-59c76856f7-5g8x5",
+        "listening": [
+          80
+        ],
+        "ok": true
+      }
+    ]
   },
   "d6": {
     "ran": true,
@@ -921,59 +967,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "vote-64d955cb6f-79ws4",
+        "victim": "vote-67cccccf4-5j5hs",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.6,
-        "availability_pct": 98.7,
-        "n_probes": 77
-      },
-      {
-        "ran": true,
-        "victim": "vote-64d955cb6f-bhzcx",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 10.5,
-        "availability_pct": 98.5,
-        "n_probes": 68
-      },
-      {
-        "ran": true,
-        "victim": "vote-64d955cb6f-s7dsv",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 9.0,
+        "recovery_time_s": 4.7,
         "availability_pct": 100.0,
-        "n_probes": 70
+        "n_probes": 51
+      },
+      {
+        "ran": true,
+        "victim": "vote-67cccccf4-s55cj",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 7.0,
+        "availability_pct": 100.0,
+        "n_probes": 57
+      },
+      {
+        "ran": true,
+        "victim": "vote-67cccccf4-s9d42",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 4.2,
+        "availability_pct": 100.0,
+        "n_probes": 53
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "vote-64d955cb6f-6wxn7",
+        "victim": "vote-67cccccf4-q5q58",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 12.0,
-        "availability_pct": 98.8,
-        "n_probes": 81
+        "recovery_time_s": 6.6,
+        "availability_pct": 91.8,
+        "n_probes": 49
       },
       {
         "ran": true,
-        "victim": "vote-64d955cb6f-vk5pp",
+        "victim": "vote-67cccccf4-zlgf9",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 4.5,
-        "availability_pct": 93.2,
-        "n_probes": 44
+        "recovery_time_s": 5.2,
+        "availability_pct": 98.1,
+        "n_probes": 53
       },
       {
         "ran": true,
-        "victim": "vote-64d955cb6f-6wxn7",
+        "victim": "vote-67cccccf4-q5q58",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 17.2,
-        "availability_pct": 97.3,
-        "n_probes": 111
+        "recovery_time_s": 18.6,
+        "availability_pct": 97.4,
+        "n_probes": 117
       }
     ],
     "gate": "ready"

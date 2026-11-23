@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: postgres-secret
+  name: postgres-credentials
   namespace: n8n
 type: Opaque
 stringData:
@@ -19,7 +19,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: n8n-secret
+  name: n8n-credentials
   namespace: n8n
 type: Opaque
 stringData:
@@ -61,7 +61,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -89,27 +89,27 @@ spec:
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_PASSWORD
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_DB
         - name: POSTGRES_NON_ROOT_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_NON_ROOT_USER
         - name: POSTGRES_NON_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_NON_ROOT_PASSWORD
         - name: PGDATA
           value: /var/lib/postgresql/data
@@ -118,12 +118,40 @@ spec:
           mountPath: /var/lib/postgresql/data
         - name: init-scripts
           mountPath: /docker-entrypoint-initdb.d
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -h
+            - localhost
+            - -U
+            - changeUser
+            - -d
+            - n8n
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 10
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -h
+            - localhost
+            - -U
+            - changeUser
+            - -d
+            - n8n
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         resources:
           requests:
-            cpu: 250m
+            cpu: 100m
             memory: 256Mi
           limits:
-            cpu: '1'
+            cpu: 500m
             memory: 512Mi
         securityContext:
           allowPrivilegeEscalation: false
@@ -136,50 +164,6 @@ spec:
             - SETUID
             - SETGID
             - DAC_OVERRIDE
-        startupProbe:
-          exec:
-            command:
-            - pg_isready
-            - -h
-            - localhost
-            - -U
-            - changeUser
-            - -d
-            - n8n
-          periodSeconds: 10
-          failureThreshold: 30
-          timeoutSeconds: 5
-        livenessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -h
-            - localhost
-            - -U
-            - changeUser
-            - -d
-            - n8n
-          periodSeconds: 10
-          failureThreshold: 3
-          timeoutSeconds: 5
-        readinessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -h
-            - localhost
-            - -U
-            - changeUser
-            - -d
-            - n8n
-          periodSeconds: 5
-          failureThreshold: 3
-          timeoutSeconds: 5
-      volumes:
-      - name: init-scripts
-        configMap:
-          name: postgres-init
-          defaultMode: 493
   volumeClaimTemplates:
   - metadata:
       name: data
@@ -189,6 +173,11 @@ spec:
       resources:
         requests:
           storage: 10Gi
+  volumes:
+  - name: init-scripts
+    configMap:
+      name: postgres-init
+      defaultMode: 493
 ---
 apiVersion: v1
 kind: Service
@@ -209,7 +198,7 @@ metadata:
   name: n8n
   namespace: n8n
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: n8n
@@ -225,7 +214,7 @@ spec:
         - containerPort: 5678
           name: http
         - containerPort: 5679
-          name: runner
+          name: broker
         env:
         - name: DB_TYPE
           value: postgresdb
@@ -236,24 +225,24 @@ spec:
         - name: DB_POSTGRESDB_DATABASE
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_DB
         - name: DB_POSTGRESDB_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_NON_ROOT_USER
         - name: DB_POSTGRESDB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-credentials
               key: POSTGRES_NON_ROOT_PASSWORD
         - name: N8N_RUNNERS_MODE
           value: external
         - name: N8N_RUNNERS_AUTH_TOKEN
           valueFrom:
             secretKeyRef:
-              name: n8n-secret
+              name: n8n-credentials
               key: RUNNERS_AUTH_TOKEN
         - name: N8N_RUNNERS_BROKER_LISTEN_ADDRESS
           value: 0.0.0.0
@@ -262,12 +251,35 @@ spec:
           mountPath: /home/node/.n8n
         - name: tmp
           mountPath: /tmp
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5678
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5678
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 5678
+          periodSeconds: 10
+          failureThreshold: 30
+          timeoutSeconds: 5
         resources:
           requests:
-            cpu: 250m
+            cpu: 200m
             memory: 512Mi
           limits:
-            cpu: '1'
+            cpu: 1000m
             memory: 1Gi
         securityContext:
           runAsNonRoot: true
@@ -277,33 +289,12 @@ spec:
           seccompProfile:
             type: RuntimeDefault
           readOnlyRootFilesystem: true
-        startupProbe:
-          httpGet:
-            path: /healthz
-            port: 5678
-          periodSeconds: 10
-          failureThreshold: 30
-          timeoutSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 5678
-          periodSeconds: 10
-          failureThreshold: 3
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 5678
-          periodSeconds: 5
-          failureThreshold: 3
-          timeoutSeconds: 5
-      volumes:
-      - name: n8n-data
-        persistentVolumeClaim:
-          claimName: n8n-data
-      - name: tmp
-        emptyDir: {}
+  volumes:
+  - name: n8n-data
+    persistentVolumeClaim:
+      claimName: n8n-data
+  - name: tmp
+    emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -317,7 +308,7 @@ spec:
   - name: http
     port: 5678
     targetPort: 5678
-  - name: runner
+  - name: broker
     port: 5679
     targetPort: 5679
 ---
@@ -343,7 +334,7 @@ spec:
         - name: N8N_RUNNERS_AUTH_TOKEN
           valueFrom:
             secretKeyRef:
-              name: n8n-secret
+              name: n8n-credentials
               key: RUNNERS_AUTH_TOKEN
         - name: N8N_RUNNERS_TASK_BROKER_URI
           value: http://n8n:5679
@@ -365,6 +356,6 @@ spec:
         volumeMounts:
         - name: tmp
           mountPath: /tmp
-      volumes:
-      - name: tmp
-        emptyDir: {}
+  volumes:
+  - name: tmp
+    emptyDir: {}

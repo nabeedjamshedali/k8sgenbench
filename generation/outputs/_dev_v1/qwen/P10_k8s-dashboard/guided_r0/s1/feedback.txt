@@ -1,0 +1,10 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (CrashLoopBackOff): Deployment kubernetes-dashboard 0/2 Ready.
+- Pod kubernetes-dashboard-747fdb994c-gjtnm container kubernetes-dashboard: 5 restarts, last exit code 2 (Error). Last log lines:
+    panic: secrets "kubernetes-dashboard-csrf" is forbidden: User "system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard" cannot update resource "secrets" in API group "" in the namespace "kube-system"
+    main.main()
+    	/home/runner/work/dashboard/dashboard/src/app/backend/dashboard.go:96 +0x1cf
+- Warning event on kubernetes-dashboard-747fdb994c-gjtnm (20x): BackOff: Back-off restarting failed container kubernetes-dashboard in
+- Warning event on kubernetes-dashboard-747fdb994c-vqvrs (17x): BackOff: Back-off restarting failed container kubernetes-dashboard in
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

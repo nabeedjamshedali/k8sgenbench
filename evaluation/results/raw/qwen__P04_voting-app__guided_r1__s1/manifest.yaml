@@ -63,13 +63,6 @@ spec:
         volumeMounts:
         - name: db-data
           mountPath: /var/lib/postgresql/data
-        resources:
-          requests:
-            cpu: 100m
-            memory: 256Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
         securityContext:
           allowPrivilegeEscalation: false
           seccompProfile:
@@ -81,23 +74,28 @@ spec:
             - SETUID
             - SETGID
             - DAC_OVERRIDE
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
         startupProbe:
           tcpSocket:
             port: 5432
           periodSeconds: 10
           failureThreshold: 30
-        livenessProbe:
-          tcpSocket:
-            port: 5432
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
         readinessProbe:
           tcpSocket:
             port: 5432
           periodSeconds: 5
-          timeoutSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 5432
+          periodSeconds: 10
           failureThreshold: 3
+          timeoutSeconds: 5
   volumeClaimTemplates:
   - metadata:
       name: db-data
@@ -143,13 +141,6 @@ spec:
         ports:
         - containerPort: 6379
           name: redis
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
         securityContext:
           allowPrivilegeEscalation: false
           seccompProfile:
@@ -161,23 +152,28 @@ spec:
             - SETUID
             - SETGID
             - DAC_OVERRIDE
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
         startupProbe:
           tcpSocket:
             port: 6379
           periodSeconds: 10
           failureThreshold: 30
-        livenessProbe:
-          tcpSocket:
-            port: 6379
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
         readinessProbe:
           tcpSocket:
             port: 6379
           periodSeconds: 5
-          timeoutSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 6379
+          periodSeconds: 10
           failureThreshold: 3
+          timeoutSeconds: 5
   volumeClaimTemplates:
   - metadata:
       name: redis-data
@@ -225,13 +221,6 @@ spec:
         env:
         - name: REDIS_HOST
           value: redis
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -243,26 +232,25 @@ spec:
         volumeMounts:
         - name: tmp
           mountPath: /tmp
-        startupProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 10
-          failureThreshold: 30
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
         readinessProbe:
           httpGet:
             path: /
             port: 80
           periodSeconds: 5
-          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 10
           failureThreshold: 3
+          timeoutSeconds: 5
       volumes:
       - name: tmp
         emptyDir: {}
@@ -275,6 +263,87 @@ metadata:
 spec:
   selector:
     app: vote
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  namespace: voting-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+      - name: result
+        image: dockersamples/examplevotingapp_result
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: DB_HOST
+          value: db
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_PASSWORD
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 10
+          failureThreshold: 3
+          timeoutSeconds: 5
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  namespace: voting-app
+spec:
+  selector:
+    app: result
   ports:
   - name: http
     port: 80
@@ -313,6 +382,17 @@ spec:
             secretKeyRef:
               name: db-credentials
               key: POSTGRES_PASSWORD
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
         resources:
           requests:
             cpu: 100m
@@ -320,106 +400,6 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          runAsGroup: 1000
-          allowPrivilegeEscalation: false
-          seccompProfile:
-            type: RuntimeDefault
-          readOnlyRootFilesystem: true
-        volumeMounts:
-        - name: tmp
-          mountPath: /tmp
       volumes:
       - name: tmp
         emptyDir: {}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: result
-  namespace: voting-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: result
-  template:
-    metadata:
-      labels:
-        app: result
-    spec:
-      containers:
-      - name: result
-        image: dockersamples/examplevotingapp_result
-        ports:
-        - containerPort: 80
-          name: http
-        env:
-        - name: DB_HOST
-          value: db
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: POSTGRES_USER
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: POSTGRES_PASSWORD
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          runAsGroup: 1000
-          allowPrivilegeEscalation: false
-          seccompProfile:
-            type: RuntimeDefault
-          readOnlyRootFilesystem: true
-        volumeMounts:
-        - name: tmp
-          mountPath: /tmp
-        startupProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 10
-          failureThreshold: 30
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 5
-          timeoutSeconds: 5
-          failureThreshold: 3
-      volumes:
-      - name: tmp
-        emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: result
-  namespace: voting-app
-spec:
-  selector:
-    app: result
-  ports:
-  - name: http
-    port: 80
-    targetPort: 80

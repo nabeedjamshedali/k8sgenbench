@@ -180,3 +180,462 @@ OSError: [WinError 123] The filename, directory name, or volume label syntax is 
 FAILED: qwen P10_k8s-dashboard s1 (exit 1)
 === 2026-11-23 01:06:18 queue done: evaluation/phase2_dev_v1_qwenp10.txt
 === 2026-11-23 01:07:37 qwen P10_k8s-dashboard s1
+=== 2026-11-23 18:13:52 qwen P10_k8s-dashboard s1
+qwen__P10_k8s-dashboard__guided_r0__s1: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=3/7
+    D2 kubescape=85 trivy={'critical': 1, 'high': 0, 'medium': 1, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/1 polaris=87 zhang=1 checklist=70.0%
+    D5 apply_ok=True ready=False (10/12) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P10_k8s-dashboard s1 r0: 4 problem(s)
+qwen__P10_k8s-dashboard__guided_r1__s1: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=3/7
+    D2 kubescape=85 trivy={'critical': 1, 'high': 0, 'medium': 2, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/1 polaris=89 zhang=1 checklist=70.0%
+    D5 apply_ok=True ready=True (12/12) t=13.6s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=5.9 avail=100.0; ok=True t=6.2 avail=98.4; ok=True t=6.5 avail=100.0
+    D6 container_crash: ok=True t=5.6 avail=98.4; ok=True t=6.5 avail=94.0; ok=True t=15.9 avail=100.0
+qwen P10_k8s-dashboard s1 r1: GATE PASSED
+=== 2026-11-23 18:29:39 queue done: evaluation/phase2_dev_v1_qwenp10.txt
+=== 2026-11-23 18:30:52 gemini P04_voting-app s1
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 136, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 328, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 95, in call_gemini
+    r = g.post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=300)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: The read operation timed out
+FAILED: gemini P04_voting-app s1 (exit 1)
+=== 2026-11-23 18:36:03 qwen P04_voting-app s1
+qwen__P04_voting-app__guided_r0__s1: parse=OK docs=12 kubeconform_valid=True server_ok=False (9/12) d4=10/12
+    D2 kubescape=87.333336 trivy={'critical': 0, 'high': 7, 'medium': 12, 'low': 25} pss=baseline secrets=1
+    D3 kube-score crit/warn=31/3 polaris=79 zhang=7 checklist=58.3%
+    D5 apply_ok=False ready=True (2/2) t=15.5s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=None t=None avail=None; ok=None t=None avail=None; ok=None t=None avail=None
+    D6 container_crash: ok=None t=None avail=None; ok=None t=None avail=None; ok=None t=None avail=None
+qwen P04_voting-app s1 r0: 3 problem(s)
+qwen__P04_voting-app__guided_r1__s1: parse=OK docs=12 kubeconform_valid=True server_ok=True (12/12) d4=10/12
+    D2 kubescape=87.333336 trivy={'critical': 0, 'high': 7, 'medium': 12, 'low': 25} pss=baseline secrets=1
+    D3 kube-score crit/warn=31/3 polaris=79 zhang=7 checklist=58.3%
+    D5 apply_ok=True ready=True (8/8) t=28.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=4.7 avail=100.0; ok=True t=7.0 avail=100.0; ok=True t=4.2 avail=100.0
+    D6 container_crash: ok=True t=6.6 avail=91.8; ok=True t=5.2 avail=98.1; ok=True t=18.6 avail=97.4
+qwen P04_voting-app s1 r1: GATE PASSED
+=== 2026-11-23 19:04:10 gemini P02_n8n s1
+gemini__P02_n8n__guided_r0__s1: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=12/13
+    D2 kubescape=83.333336 trivy={'critical': 0, 'high': 7, 'medium': 5, 'low': 21} pss=baseline secrets=3
+    D3 kube-score crit/warn=22/2 polaris=74 zhang=7 checklist=58.6%
+    D5 apply_ok=True ready=True (4/4) t=27.9s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=17.7 avail=46.0; ok=True t=17.5 avail=41.9; ok=True t=17.8 avail=49.0
+    D6 container_crash: ok=True t=20.4 avail=37.3; ok=True t=29.7 avail=32.3; ok=True t=38.4 avail=17.2
+gemini P02_n8n s1 r0: GATE PASSED
+=== 2026-11-23 19:11:14 qwen P02_n8n s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 330, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 116, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P02_n8n s1 (exit 1)
+=== 2026-11-23 19:12:16 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 136, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 328, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 95, in call_gemini
+    r = g.post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=300)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: The read operation timed out
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-23 19:17:18 qwen P08_sock-shop s1
+qwen__P08_sock-shop__guided_r0__s1: parse=OK docs=34 kubeconform_valid=True server_ok=True (34/34) d4=26/27
+    D2 kubescape=85.23809 trivy={'critical': 0, 'high': 19, 'medium': 47, 'low': 34} pss=baseline secrets=2
+    D3 kube-score crit/warn=88/9 polaris=82 zhang=27 checklist=68.1%
+    D5 apply_ok=True ready=False (11/22) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P08_sock-shop s1 r0: 18 problem(s)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 330, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 116, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED: qwen P08_sock-shop s1 (exit 1)
+=== 2026-11-23 19:44:39 gemini P10_k8s-dashboard s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 328, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 97, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+FAILED: gemini P10_k8s-dashboard s1 (exit 1)
+=== 2026-11-23 19:45:46 qwen P10_k8s-dashboard s1
+qwen__P10_k8s-dashboard__guided_r0__s1: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/7
+    D2 kubescape=85 trivy={'critical': 4, 'high': 1, 'medium': 3, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/1 polaris=81 zhang=1 checklist=70.0%
+    D5 apply_ok=True ready=False (0/2) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P10_k8s-dashboard s1 r0: 4 problem(s)
+qwen__P10_k8s-dashboard__guided_r1__s1: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/7
+    D2 kubescape=85 trivy={'critical': 4, 'high': 1, 'medium': 3, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/1 polaris=81 zhang=1 checklist=70.0%
+    D5 apply_ok=True ready=True (2/2) t=15.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=10.9 avail=98.5; ok=True t=9.1 avail=100.0; ok=True t=11.1 avail=98.6
+    D6 container_crash: ok=True t=8.3 avail=96.9; ok=True t=10.8 avail=98.6; ok=True t=21.1 avail=99.2
+qwen P10_k8s-dashboard s1 r1: GATE PASSED
+=== 2026-11-23 20:01:01 queue done: evaluation/phase2_dev_v2.txt
+=== 2026-11-23 20:01:17 gemini P04_voting-app s1
+gemini__P04_voting-app__guided_r0__s1: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=10/12
+    D2 kubescape=86.666664 trivy={'critical': 0, 'high': 5, 'medium': 13, 'low': 21} pss=baseline secrets=1
+    D3 kube-score crit/warn=34/3 polaris=77 zhang=13 checklist=58.3%
+    D5 apply_ok=True ready=True (8/8) t=15.6s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=5.9 avail=98.0; ok=True t=9.1 avail=100.0; ok=True t=7.2 avail=100.0
+    D6 container_crash: ok=True t=8.4 avail=100.0; ok=True t=6.4 avail=95.0; ok=True t=16.7 avail=97.1
+gemini P04_voting-app s1 r0: GATE PASSED
+=== 2026-11-23 20:05:24 qwen P02_n8n s1
+qwen__P02_n8n__guided_r0__s1: parse=OK docs=11 kubeconform_valid=True server_ok=False (8/11) d4=11/13
+    D2 kubescape=87.77778 trivy={'critical': 0, 'high': 5, 'medium': 4, 'low': 15} pss=restricted secrets=3
+    D3 kube-score crit/warn=17/2 polaris=81 zhang=3 checklist=58.6%
+    D5 apply_ok=False ready=False (0/0) t=Nones smoke=False reason=no_workloads aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P02_n8n s1 r0: 4 problem(s)
+qwen__P02_n8n__guided_r1__s1: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=12/13
+    D2 kubescape=87.77779 trivy={'critical': 0, 'high': 5, 'medium': 4, 'low': 15} pss=baseline secrets=3
+    D3 kube-score crit/warn=17/2 polaris=81 zhang=3 checklist=58.6%
+    D5 apply_ok=True ready=False (3/4) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P02_n8n s1 r1: 4 problem(s)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 330, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 116, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED: qwen P02_n8n s1 (exit 1)
+=== 2026-11-23 20:24:01 gemini P08_sock-shop s1
+=== 2026-11-23 23:01:53 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 136, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 328, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 95, in call_gemini
+    r = g.post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=600)  # client-side only; long thinking replies took over 300 s on 2026-11-23
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError: [WinError 10054] An existing connection was forcibly closed by the remote host
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-23 23:03:59 gemini P10_k8s-dashboard s1
+gemini__P10_k8s-dashboard__guided_r0__s1: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=4/7
+    D2 kubescape=78.333336 trivy={'critical': 0, 'high': 0, 'medium': 3, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/1 polaris=88 zhang=1 checklist=70.0%
+    D5 apply_ok=True ready=True (2/2) t=24.6s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=18.6 avail=100.0; ok=True t=18.8 avail=100.0; ok=True t=19.9 avail=100.0
+    D6 container_crash: ok=True t=19.8 avail=98.1; ok=True t=28.6 avail=97.9; ok=True t=23.5 avail=99.2
+gemini P10_k8s-dashboard s1 r0: GATE PASSED
+=== 2026-11-23 23:15:20 queue done: evaluation/phase2_dev_v2_retry2.txt
+=== 2026-11-23 23:15:49 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 328, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 97, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-23 23:18:44 queue done: evaluation/phase2_dev_v2_retry3.txt
+=== 2026-11-24 00:03:59 gemini P08_sock-shop s1 (retry-later attempt 1/4)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 366, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 328, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 97, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: gemini P08_sock-shop s1 (exit 1)

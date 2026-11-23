@@ -5,7 +5,7 @@ metadata:
   name: catalogue-db-secret
 type: Opaque
 stringData:
-  MYSQL_ROOT_PASSWORD: "fake_password"
+  MYSQL_ROOT_PASSWORD: fake_password
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,35 +23,23 @@ spec:
       labels:
         app: front-end
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: front-end
           image: weaveworksdemos/front-end:0.3.12
           ports:
             - name: http
               containerPort: 8079
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: "1"
-              memory: 512Mi
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
-            capabilities:
-              drop:
-                - ALL
-          volumeMounts:
-            - name: tmp
-              mountPath: /tmp
           readinessProbe:
             tcpSocket:
               port: 8079
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
@@ -61,14 +49,44 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: home
+              mountPath: /home/myuser
+            - name: cache
+              mountPath: /.cache
+            - name: npm
+              mountPath: /.npm
       volumes:
         - name: tmp
+          emptyDir: {}
+        - name: home
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
+        - name: npm
           emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: front-end
+  labels:
+    app: front-end
 spec:
   selector:
     app: front-end
@@ -101,6 +119,19 @@ spec:
               containerPort: 80
             - name: admin
               containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 100m
@@ -112,23 +143,19 @@ spec:
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
-          readinessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
+          volumeMounts:
+            - name: run
+              mountPath: /var/run
+      volumes:
+        - name: run
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: edge-router
+  labels:
+    app: edge-router
 spec:
   selector:
     app: edge-router
@@ -156,37 +183,23 @@ spec:
       labels:
         app: catalogue
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: catalogue
           image: weaveworksdemos/catalogue:0.3.5
           ports:
             - name: http
               containerPort: 80
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: "1"
-              memory: 512Mi
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
-            capabilities:
-              drop:
-                - ALL
-              add:
-                - NET_BIND_SERVICE
-          volumeMounts:
-            - name: tmp
-              mountPath: /tmp
           readinessProbe:
             tcpSocket:
               port: 80
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
@@ -196,6 +209,24 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
       volumes:
         - name: tmp
           emptyDir: {}
@@ -204,6 +235,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: catalogue
+  labels:
+    app: catalogue
 spec:
   selector:
     app: catalogue
@@ -245,6 +278,23 @@ spec:
               value: "true"
             - name: MYSQL_DATABASE
               value: socksdb
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 3306
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 100m
@@ -259,22 +309,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
-          startupProbe:
-            tcpSocket:
-              port: 3306
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 3306
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 3306
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -289,6 +323,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: catalogue-db
+  labels:
+    app: catalogue-db
 spec:
   selector:
     app: catalogue-db
@@ -313,6 +349,13 @@ spec:
       labels:
         app: carts
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: carts
           image: weaveworksdemos/carts:0.4.8
@@ -322,20 +365,33 @@ spec:
           env:
             - name: JAVA_OPTS
               value: "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 200m
               memory: 384Mi
             limits:
-              cpu: "2"
+              cpu: "1"
               memory: 768Mi
           securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
             capabilities:
               drop:
                 - ALL
@@ -344,22 +400,6 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-          startupProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
       volumes:
         - name: tmp
           emptyDir: {}
@@ -368,6 +408,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: carts
+  labels:
+    app: carts
 spec:
   selector:
     app: carts
@@ -399,6 +441,23 @@ spec:
           ports:
             - name: mongo
               containerPort: 27017
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 27017
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 100m
@@ -415,22 +474,6 @@ spec:
               mountPath: /data/db
             - name: tmp
               mountPath: /tmp
-          startupProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
       volumes:
         - name: tmp
           emptyDir: {}
@@ -448,6 +491,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: carts-db
+  labels:
+    app: carts-db
 spec:
   selector:
     app: carts-db
@@ -472,6 +517,13 @@ spec:
       labels:
         app: orders
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: orders
           image: weaveworksdemos/orders:0.4.7
@@ -481,20 +533,33 @@ spec:
           env:
             - name: JAVA_OPTS
               value: "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 200m
               memory: 384Mi
             limits:
-              cpu: "2"
+              cpu: "1"
               memory: 768Mi
           securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
             capabilities:
               drop:
                 - ALL
@@ -503,22 +568,6 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-          startupProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
       volumes:
         - name: tmp
           emptyDir: {}
@@ -527,6 +576,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: orders
+  labels:
+    app: orders
 spec:
   selector:
     app: orders
@@ -558,6 +609,23 @@ spec:
           ports:
             - name: mongo
               containerPort: 27017
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 27017
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 100m
@@ -574,22 +642,6 @@ spec:
               mountPath: /data/db
             - name: tmp
               mountPath: /tmp
-          startupProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
       volumes:
         - name: tmp
           emptyDir: {}
@@ -607,6 +659,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: orders-db
+  labels:
+    app: orders-db
 spec:
   selector:
     app: orders-db
@@ -631,6 +685,13 @@ spec:
       labels:
         app: shipping
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: shipping
           image: weaveworksdemos/shipping:0.4.8
@@ -640,20 +701,33 @@ spec:
           env:
             - name: JAVA_OPTS
               value: "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 200m
               memory: 384Mi
             limits:
-              cpu: "2"
+              cpu: "1"
               memory: 768Mi
           securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
             capabilities:
               drop:
                 - ALL
@@ -662,22 +736,6 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-          startupProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
       volumes:
         - name: tmp
           emptyDir: {}
@@ -686,6 +744,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: shipping
+  labels:
+    app: shipping
 spec:
   selector:
     app: shipping
@@ -701,7 +761,7 @@ metadata:
   labels:
     app: queue-master
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: queue-master
@@ -710,26 +770,46 @@ spec:
       labels:
         app: queue-master
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: queue-master
           image: weaveworksdemos/queue-master:0.3.1
           ports:
             - name: http
               containerPort: 80
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 200m
               memory: 384Mi
             limits:
-              cpu: "2"
+              cpu: "1"
               memory: 768Mi
           securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
             capabilities:
               drop:
                 - ALL
@@ -746,6 +826,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: queue-master
+  labels:
+    app: queue-master
 spec:
   selector:
     app: queue-master
@@ -777,6 +859,23 @@ spec:
           ports:
             - name: amqp
               containerPort: 5672
+          readinessProbe:
+            tcpSocket:
+              port: 5672
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 5672
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 5672
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 100m
@@ -791,22 +890,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/rabbitmq
-          startupProbe:
-            tcpSocket:
-              port: 5672
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 5672
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 5672
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -821,6 +904,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rabbitmq
+  labels:
+    app: rabbitmq
 spec:
   selector:
     app: rabbitmq
@@ -845,37 +930,23 @@ spec:
       labels:
         app: payment
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: payment
           image: weaveworksdemos/payment:0.4.3
           ports:
             - name: http
               containerPort: 80
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: "1"
-              memory: 512Mi
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
-            capabilities:
-              drop:
-                - ALL
-              add:
-                - NET_BIND_SERVICE
-          volumeMounts:
-            - name: tmp
-              mountPath: /tmp
           readinessProbe:
             tcpSocket:
               port: 80
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
@@ -885,6 +956,24 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
       volumes:
         - name: tmp
           emptyDir: {}
@@ -893,6 +982,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: payment
+  labels:
+    app: payment
 spec:
   selector:
     app: payment
@@ -917,6 +1008,13 @@ spec:
       labels:
         app: user
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: user
           image: weaveworksdemos/user:0.4.4
@@ -926,31 +1024,10 @@ spec:
           env:
             - name: MONGO_HOST
               value: "user-db:27017"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: "1"
-              memory: 512Mi
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 10001
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            seccompProfile:
-              type: RuntimeDefault
-            capabilities:
-              drop:
-                - ALL
-              add:
-                - NET_BIND_SERVICE
-          volumeMounts:
-            - name: tmp
-              mountPath: /tmp
           readinessProbe:
             tcpSocket:
               port: 80
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
@@ -960,6 +1037,24 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
       volumes:
         - name: tmp
           emptyDir: {}
@@ -968,6 +1063,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user
+  labels:
+    app: user
 spec:
   selector:
     app: user
@@ -999,6 +1096,23 @@ spec:
           ports:
             - name: mongo
               containerPort: 27017
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 27017
+            periodSeconds: 10
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               cpu: 100m
@@ -1015,22 +1129,6 @@ spec:
               mountPath: /data/db
             - name: tmp
               mountPath: /tmp
-          startupProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            timeoutSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 27017
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
       volumes:
         - name: tmp
           emptyDir: {}
@@ -1048,6 +1146,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-db
+  labels:
+    app: user-db
 spec:
   selector:
     app: user-db
