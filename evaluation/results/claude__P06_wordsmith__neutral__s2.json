@@ -1,0 +1,938 @@
+{
+  "project": "P06_wordsmith",
+  "source": "claude",
+  "prompt_variant": "neutral",
+  "sample_k": "2",
+  "timestamp": "2026-11-23T19:08:37Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 10,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 10,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 10,
+    "objects_accepted": 10,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "wordsmith",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "db-init",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Secret",
+        "name": "db-credentials",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "api",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "api",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "words",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 210,
+  "resource_counts": {
+    "Namespace": 1,
+    "ConfigMap": 1,
+    "Secret": 1,
+    "Deployment": 3,
+    "Service": 4
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 76.666664,
+      "frameworks": {
+        "NSA": 65,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 6,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1690662873/api=apps/v1/wordsmith/Deployment/web",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1690662873/api=apps/v1/wordsmith/Deployment/web",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1690662873/api=apps/v1/wordsmith/Deployment/web",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1690662873/api=apps/v1/wordsmith/Deployment/web",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1690662873/api=apps/v1/wordsmith/Deployment/web",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1690662873/api=apps/v1/wordsmith/Deployment/web",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1774550968/api=apps/v1/wordsmith/Deployment/db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1774550968/api=apps/v1/wordsmith/Deployment/db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1774550968/api=apps/v1/wordsmith/Deployment/db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1774550968/api=apps/v1/wordsmith/Deployment/db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1774550968/api=apps/v1/wordsmith/Deployment/db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1774550968/api=apps/v1/wordsmith/Deployment/db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1824883825/api=/v1//Namespace/wordsmith",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=1875216682/api=apps/v1/wordsmith/Deployment/api",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1875216682/api=apps/v1/wordsmith/Deployment/api",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1875216682/api=apps/v1/wordsmith/Deployment/api",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1875216682/api=apps/v1/wordsmith/Deployment/api",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1875216682/api=apps/v1/wordsmith/Deployment/api",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1875216682/api=apps/v1/wordsmith/Deployment/api",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 9,
+        "medium": 14,
+        "low": 18
+      },
+      "failed": [
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'api' of 'deployment' 'api' in 'wordsmith' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'db' of 'deployment' 'db' in 'wordsmith' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'web' of 'deployment' 'web' in 'wordsmith' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'api' of Deployment 'api' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'web' of Deployment 'web' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"api\" of deployment \"api\" in \"wordsmith\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"db\" of deployment \"db\" in \"wordsmith\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"web\" of deployment \"web\" in \"wordsmith\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0117",
+          "title": "Prevent binding to privileged ports",
+          "severity": "MEDIUM",
+          "message": "deployment web in wordsmith namespace should not set spec.template.spec.containers.ports.containerPort to less than 1024"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container api in wordsmith namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container db in wordsmith namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container web in wordsmith namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment api in wordsmith namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment db in wordsmith namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment web in wordsmith namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container api in deployment api (namespace: wordsmith) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container web in deployment web (namespace: wordsmith) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 1,
+      "findings": [
+        {
+          "type": "secret-object-literal",
+          "object": "db-credentials",
+          "key": "POSTGRES_PASSWORD"
+        }
+      ],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 3,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "db",
+            "detail": ".apps/db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "api",
+            "detail": "/api created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"api\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"api\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"api\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"api\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "web",
+            "detail": "/web created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"web\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"web\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"web\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"web\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 20,
+      "warning": 4,
+      "critical_by_check": {
+        "pod-probes-identical": 3,
+        "container-security-context-readonlyrootfilesystem": 3,
+        "pod-networkpolicy": 3,
+        "container-security-context-user-group-id": 3,
+        "container-image-pull-policy": 1,
+        "container-ephemeral-storage-request-and-limit": 3,
+        "container-image-tag": 2,
+        "deployment-has-poddisruptionbudget": 2
+      },
+      "warning_by_check": {
+        "deployment-strategy": 1,
+        "deployment-replicas": 1,
+        "deployment-has-host-podantiaffinity": 2
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 70,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 1,
+        "metadataAndInstanceMismatched[warning]": 3,
+        "missingPodDisruptionBudget[warning]": 3,
+        "automountServiceAccountToken[warning]": 3,
+        "missingNetworkPolicy[warning]": 3,
+        "priorityClassNotSet[warning]": 3,
+        "topologySpreadConstraint[warning]": 3,
+        "insecureCapabilities[warning]": 3,
+        "linuxHardening[warning]": 3,
+        "notReadOnlyRootFilesystem[warning]": 3,
+        "privilegeEscalationAllowed[danger]": 3,
+        "pullPolicyNotAlways[warning]": 3,
+        "runAsRootAllowed[danger]": 3,
+        "tagNotSpecified[danger]": 2
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 10,
+      "by_check": {
+        "no-read-only-root-fs": 3,
+        "run-as-non-root": 3,
+        "latest-tag": 2,
+        "no-anti-affinity": 2
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 2,
+        "no-read-only-root-fs": 3,
+        "run-as-non-root": 3,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 8,
+      "zhang_density_per_kloc": 38.1,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 3,
+      "pct": 60.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 3
+        },
+        "1_replicas_ge_2": {
+          "met": 2,
+          "applicable": 3
+        },
+        "2_readiness": {
+          "met": 3,
+          "applicable": 3
+        },
+        "3_liveness": {
+          "met": 3,
+          "applicable": 3
+        },
+        "4_cpu_request": {
+          "met": 3,
+          "applicable": 3
+        },
+        "5_mem_request": {
+          "met": 3,
+          "applicable": 3
+        },
+        "6_mem_limit": {
+          "met": 3,
+          "applicable": 3
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 3
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 3
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 3
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "api",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "web",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-web-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-api-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-api-hostname",
+        "passed": true,
+        "detail": "Service api port [8080]",
+        "oracle": false
+      },
+      {
+        "id": "R05-db-hostname",
+        "passed": true,
+        "detail": "Service db port [5432]",
+        "oracle": false
+      },
+      {
+        "id": "R06-db-passwordless",
+        "passed": false,
+        "detail": "[False]",
+        "oracle": true
+      },
+      {
+        "id": "R07-db-seeded",
+        "passed": true,
+        "detail": "seed in ['ConfigMap/db-init'], /docker-entrypoint-initdb.d mounted=True",
+        "oracle": true
+      },
+      {
+        "id": "R08-web-external",
+        "passed": true,
+        "detail": "Service web type LoadBalancer",
+        "oracle": false
+      },
+      {
+        "id": "R09-api-internal",
+        "passed": true,
+        "detail": "internal",
+        "oracle": false
+      },
+      {
+        "id": "R10-db-internal",
+        "passed": true,
+        "detail": "internal",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 8,
+    "requirements_total": 8,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "dockersamples/wordsmith-api",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "dockersamples/wordsmith-web",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "postgres:10.0-alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 12.2,
+    "ready_replicas": 8,
+    "expected_replicas": 8,
+    "workloads": [
+      {
+        "ns": "wordsmith",
+        "kind": "Deployment",
+        "name": "api",
+        "ready": 5,
+        "want": 5
+      },
+      {
+        "ns": "wordsmith",
+        "kind": "Deployment",
+        "name": "db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "wordsmith",
+        "kind": "Deployment",
+        "name": "web",
+        "ready": 2,
+        "want": 2
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-d757b175",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "web-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "seed-loaded",
+        "passed": false,
+        "detail": "output '5'"
+      },
+      {
+        "name": "api-noun",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '{\"word\":\"'"
+      },
+      {
+        "name": "web-proxies-verb",
+        "passed": false,
+        "detail": "HTTP 500, body lacks '{\"word\":\"'"
+      },
+      {
+        "name": "web-proxies-adjective",
+        "passed": false,
+        "detail": "HTTP 500, body lacks '{\"word\":\"'"
+      }
+    ],
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "db",
+        "namespace": "wordsmith",
+        "port": 5432,
+        "target_port": 5432,
+        "pod": "db-6bc7b7586c-m2jdr",
+        "listening": [
+          5432
+        ],
+        "ok": true
+      },
+      {
+        "service": "api",
+        "namespace": "wordsmith",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "api-b8fbd9bd5-4hxdl",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "words",
+        "namespace": "wordsmith",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "api-b8fbd9bd5-4hxdl",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "web",
+        "namespace": "wordsmith",
+        "port": 8080,
+        "target_port": 80,
+        "pod": "web-6cdbd6d795-lgt5t",
+        "listening": [
+          80
+        ],
+        "ok": true
+      }
+    ]
+  },
+  "d6": {
+    "ran": true,
+    "service": "web",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "web-6cdbd6d795-g29sr",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 7.2,
+        "availability_pct": 0.0,
+        "n_probes": 39
+      },
+      {
+        "ran": true,
+        "victim": "web-6cdbd6d795-hx2kw",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 8.5,
+        "availability_pct": 0.0,
+        "n_probes": 45
+      },
+      {
+        "ran": true,
+        "victim": "web-6cdbd6d795-hzhlt",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.1,
+        "availability_pct": 0.0,
+        "n_probes": 65
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "web-6cdbd6d795-lgt5t",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.3,
+        "availability_pct": 0.0,
+        "n_probes": 51
+      },
+      {
+        "ran": true,
+        "victim": "web-6cdbd6d795-lxt7l",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 7.7,
+        "availability_pct": 0.0,
+        "n_probes": 50
+      },
+      {
+        "ran": true,
+        "victim": "web-6cdbd6d795-lgt5t",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 19.3,
+        "availability_pct": 0.0,
+        "n_probes": 96
+      }
+    ],
+    "gate": "ready"
+  }
+}

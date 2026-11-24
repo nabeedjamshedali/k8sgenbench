@@ -1,3 +1,103 @@
 === 2026-11-23 23:57:39 claude P06_wordsmith neutral s1
-claude__P06_wordsmith__neutral__s1: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=5/8
-    D2
+claude__P06_wordsmith__neutral__s1: parse=OK docs=7 kubclaude__P12_headlamp__neutral__s1: parse=OK docs=5 kubeconform_valid=True server_ok=True (5/5) d4=3/4
+    D2 kubescape=85 trivy={'critical': 0, 'high': 1, 'medium': 1, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/1 polaris=80 zhang=1 checklist=60.0%
+    D5 apply_ok=True ready=True (1/1) t=17.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.1 avail=50.0; ok=True t=11.7 avail=42.9; ok=True t=15.1 avail=42.1
+    D6 container_crash: ok=True t=12.4 avail=42.9; ok=True t=24.7 avail=38.3; ok=True t=35.5 avail=23.4
+': 0, 'high': 9, 'medium': 14, 'low': 18} pss=baseline secrets=1
+    D3 kube-score crit/warn=20/4 polaris=70 zhang=8 checklist=60.0%
+    D5 apply_ok=True ready=True (8/8) t=12.2s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=7.2 avail=0.0; ok=True t=8.5 avail=0.0; ok=True t=11.1 avail=0.0
+    D6 container_crash: ok=True t=10.3 avail=0.0; ok=True t=7.7 avail=0.0; ok=True t=19.3 avail=0.0
+=== 2026-11-24 00:17:22 claude P06_wordsmith neutral s3
+claude__P06_wordsmith__neutral__s3: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=8/8
+    D2 kubescape=80 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 21} pss=baseline secrets=1
+    D3 kube-score crit/warn=19/3 polaris=68 zhang=7 checklist=56.7%
+    D5 apply_ok=True ready=True (4/4) t=37.9s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=12.2 avail=0.0; ok=True t=10.1 avail=0.0; ok=True t=12.5 avail=0.0
+    D6 container_crash: ok=True t=11.5 avail=0.0; ok=True t=25.6 avail=0.0; ok=True t=31.2 avail=0.0
+=== 2026-11-24 00:27:22 claude P06_wordsmith production s1
+claude__P06_wordsmith__production__s1: parse=OK docs=18 kubeconform_valid=True server_ok=True (18/18) d4=8/8
+    D2 kubescape=97.77779 trivy={'critical': 0, 'high': 1, 'medium': 7, 'low': 6} pss=baseline secrets=0
+    D3 kube-score crit/warn=17/5 polaris=88 zhang=4 checklist=82.8%
+    D5 apply_ok=True ready=True (5/5) t=43.9s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.1 avail=98.5; ok=True t=8.1 avail=100.0; ok=True t=12.1 avail=100.0
+    D6 container_crash: ok=True t=12.7 avail=97.3; ok=True t=13.0 avail=98.6; ok=True t=19.7 avail=100.0
+=== 2026-11-24 00:34:15 claude P06_wordsmith production s2
+=== 2026-11-24 00:39:56 claude P12_headlamp neutral s2
+FAILED eval: claude P12_headlamp neutral s2
+      0 [main] bash 2388 dofork: child -1 - forked process 10124 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable
+1448422 [main] bash 2388 dofork: child -1 - forked process 24228 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+tedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable
+1606858 [main] bash 2303 dofork: child -1 - forked process 12900 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable
+=== 2026-11-24 17:00:35 claude P06_wordsmith neutral s1
+=== 2026-11-24 17:00:35 claude P06_wordsmith neutral s2
+=== 2026-11-24 17:00:36 claude P06_wordsmith neutral s3
+=== 2026-11-24 17:00:37 claude P06_wordsmith production s1
+=== 2026-11-24 17:00:37 claude P06_wordsmith production s2
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P06_wordsmith production s2
+=== 2026-11-24 17:02:57 claude P06_wordsmith production s3
+ABORT: only 14.5 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P06_wordsmith production s3
+=== 2026-11-24 17:03:26 baselines done: evaluation/phase2_claude_baselines_a.txt
+=== 2026-11-24 17:03:26 claude P12_headlamp neutral s1
+=== 2026-11-24 17:03:26 claude P12_headlamp neutral s2
+ABORT: only 14.1 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P12_headlamp neutral s2
+=== 2026-11-24 17:03:49 claude P12_headlamp neutral s3
+ABORT: only 14.7 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P12_headlamp neutral s3
+=== 2026-11-24 17:04:09 claude P12_headlamp production s1
+ABORT: only 14.7 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P12_headlamp production s1
+=== 2026-11-24 17:04:31 claude P12_headlamp production s2
+ABORT: only 14.7 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P12_headlamp production s2
+=== 2026-11-24 17:04:51 claude P12_headlamp production s3
+ABORT: only 14.7 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P12_headlamp production s3
+=== 2026-11-24 17:05:14 baselines done: evaluation/phase2_claude_baselines_b.txt
+=== 2026-11-24 17:05:14 claude P09_teastore neutral s1
+ABORT: only 14.7 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P09_teastore neutral s1
+=== 2026-11-24 17:05:38 claude P09_teastore neutral s2
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P09_teastore neutral s2
+=== 2026-11-24 17:06:06 claude P09_teastore neutral s3
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P09_teastore neutral s3
+=== 2026-11-24 17:06:30 claude P09_teastore production s1
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P09_teastore production s1
+=== 2026-11-24 17:06:58 claude P09_teastore production s2
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P09_teastore production s2
+=== 2026-11-24 17:07:26 claude P09_teastore production s3
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+FAILED eval: claude P09_teastore production s3
+=== 2026-11-24 17:07:54 baselines done: evaluation/phase2_claude_baselines_c.txt
+=== 2026-11-24 17:16:05 claude P06_wordsmith neutral s1
+=== 2026-11-24 17:16:07 claude P06_wordsmith neutral s2
+=== 2026-11-24 17:16:08 claude P06_wordsmith neutral s3
+=== 2026-11-24 17:16:09 claude P06_wordsmith production s1
+=== 2026-11-24 17:16:11 claude P06_wordsmith production s2
+claude__P06_wordsmith__production__s2: parse=OK docs=18 kubeconform_valid=True server_ok=True (18/18) d4=8/8
+    D2 kubescape=96.666664 trivy={'critical': 0, 'high': 1, 'medium': 8, 'low': 4} pss=baseline secrets=0
+    D3 kube-score crit/warn=16/5 polaris=87 zhang=5 checklist=82.8%
+    D5 apply_ok=True ready=False (5/6) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 17:47:39 claude P06_wordsmith production s3
+claude__P06_wordsmith__production__s3: parse=OK docs=18 kubeconform_valid=True server_ok=True (18/18) d4=8/8
+    D2 kubescape=98.88889 trivy={'critical': 0, 'high': 1, 'medium': 6, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=13/5 polaris=90 zhang=3 checklist=82.8%
+    D5 apply_ok=True ready=True (7/7) t=17.6s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=1.0 avail=95.7; ok=True t=1.6 avail=97.4; ok=True t=0.9 avail=95.8
+    D6 container_crash: ok=True t=1.6 avail=96.4; ok=True t=2.0 avail=82.9; ok=True t=1.0 avail=96.0
+=== 2026-11-24 18:01:00 baselines done: evaluation/phase2_claude_baselines_a.txt
+=== 2026-11-24 18:01:03 claude P12_headlamp neutral s1
+=== 2026-11-24 18:01:05 claude P12_headlamp neutral s2

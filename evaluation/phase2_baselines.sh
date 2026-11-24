@@ -3,9 +3,11 @@
 # under the cluster lock (skipped when the result exists). One "model project variant k" per line.
 # Usage: bash evaluation/phase2_baselines.sh <list.txt> >> evaluation/phase2_baselines.log 2>&1
 Q="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+source "$(dirname "$0")/wait_disk.sh"
 cd "$(dirname "$0")/.." || exit 1
 tr -d '\r' < "$Q" | while read -r m p v k; do
   [ -z "$m" ] && continue
+  wait_disk
   echo "=== $(date '+%F %T') $m $p $v s$k"
   if [ ! -f "generation/outputs/$m/$p/$v/s$k/extraction.json" ]; then
     python generation/generate.py "$m" "$p" "$v" "$k" || { echo "FAILED generate: $m $p $v s$k"; continue; }

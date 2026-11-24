@@ -16,3 +16,37 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 FAILED generate: gemini P06_wordsmith neutral s1
 === 2026-11-23 23:58:15 qwen P06_wordsmith neutral s1
 OK: qwen/P06_wordsmith/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\neutral\s1
+=== 2026-11-24 17:00:35 gemini P06_wordsmith neutral s1
+OK: gemini/P06_wordsmith/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P06_wordsmith\neutral\s1
+=== 2026-11-24 17:16:05 gemini P06_wordsmith neutral s1
+gemini__P06_wordsmith__neutral__s1: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=8/8
+    D2 kubescape=77.77779 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 25} pss=baseline secrets=0
+    D3 kube-score crit/warn=19/3 polaris=58 zhang=8 checklist=23.3%
+    D5 apply_ok=True ready=True (3/3) t=3.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=3.1 avail=0.0; ok=True t=1.4 avail=0.0; ok=True t=5.4 avail=0.0
+    D6 container_crash: ok=True t=5.4 avail=0.0; ok=True t=12.7 avail=0.0; ok=True t=29.0 avail=0.0
+=== 2026-11-24 17:25:44 qwen P06_wordsmith neutral s1
+qwen__P06_wordsmith__neutral__s1: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=6/8
+    D2 kubescape=74.44445 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 22} pss=baseline secrets=1
+    D3 kube-score crit/warn=21/3 polaris=66 zhang=10 checklist=50.0%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 17:36:16 gemini P06_wordsmith production s1
+OK: gemini/P06_wordsmith/production/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P06_wordsmith\production\s1
+gemini__P06_wordsmith__production__s1: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=8/8
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 8, 'medium': 14, 'low': 18} pss=baseline secrets=1
+    D3 kube-score crit/warn=23/2 polaris=70 zhang=8 checklist=62.1%
+    D5 apply_ok=True ready=True (5/5) t=22.9s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.1 avail=0.0; ok=True t=6.1 avail=0.0; ok=True t=9.1 avail=0.0
+    D6 container_crash: ok=True t=6.2 avail=0.0; ok=True t=6.8 avail=0.0; ok=True t=19.9 avail=0.0
+=== 2026-11-24 17:56:01 qwen P06_wordsmith production s1
+OK: qwen/P06_wordsmith/production/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\production\s1
+qwen__P06_wordsmith__production__s1: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=6/8
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 18} pss=baseline secrets=1
+    D3 kube-score crit/warn=20/3 polaris=68 zhang=8 checklist=53.3%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 18:11:40 gemini P09_teastore neutral s1
+OK: gemini/P09_teastore/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\neutral\s1
+      0 [main] bash 2308 dofork: child -1 - forked process 20400 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable

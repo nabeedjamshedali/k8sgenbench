@@ -53,48 +53,52 @@ def b(x):
     return str(x) == "True"
 
 
+def derive(r):
+    """One result record as an analysis row: flatten.row plus the derived outcome columns (also used by rq6.py)."""
+    x = flatten.row(r)
+    parsed = b(x["d1_parse_ok"])
+    tot, acc = x["d1_objects_total"], x["d1_objects_accepted"]
+    x["d1_accept_pct"] = 100.0 * acc / tot if parsed and tot else (0.0 if parsed is False else None)
+    x["d1_parse_ok"], x["d1_schema_ok"], x["d1_server_ok"] = (bool(parsed), bool(b(x["d1_schema_ok"])),
+                                                              bool(b(x["d1_server_ok"])))
+    lvl = x["d2_pss_level"]
+    x["d2_pss_restricted"] = lvl == "restricted" if parsed else None
+    x["d2_pss_baseline"] = lvl in ("baseline", "restricted") if parsed else None
+    x["d2_has_secret"] = (x["d2_secrets_found"] or 0) > 0 if parsed else None
+    x["d2_trivy_high_crit"] = ((x.get("d2_trivy_high") or 0) + (x.get("d2_trivy_critical") or 0)) if parsed else None
+    x["d3_zhang_any"] = b(x["d3_zhang_any"]) if parsed else None
+    # a config that does not parse or is not deployed is a D5 failure, not missing data
+    x["d5_ready"] = bool(b(x["d5_ready_ok"]))
+    x["d5_smoke"] = bool(b(x["d5_smoke_ok"]))
+    av, rt, ok = [], [], []
+    for fault in ("pod_delete", "container_crash"):
+        for i in (1, 2, 3):
+            if x.get(f"d6_{fault}_recovery_ok_{i}") is not None:
+                ok.append(bool(b(x[f"d6_{fault}_recovery_ok_{i}"])))
+                av.append(x[f"d6_{fault}_availability_pct_{i}"])
+                rt.append(x[f"d6_{fault}_recovery_time_s_{i}"])
+    x["d6_all_recovered"] = all(ok) if ok else None
+    x["d6_availability_mean"] = float(np.mean([a for a in av if a is not None])) if av else None
+    x["d6_recovery_time_mean"] = float(np.mean([t for t in rt if t is not None])) if any(t is not None for t in rt) else None
+    # downtime per fault = failed probes / 5 Hz (the availability window varies, so availability alone is not comparable)
+    down = [(1 - e["availability_pct"] / 100) * (e.get("n_probes") or 0) / 5.0
+            for fault in ("pod_delete", "container_crash") for e in ((r.get("d6") or {}).get(fault) or [])
+            if e.get("ran") and e.get("availability_pct") is not None]
+    x["d6_downtime_mean"] = float(np.mean(down)) if down else None
+    x["d6_replicas"] = (r.get("d6") or {}).get("n_ready_before")
+    # sensitivity: D6 only where the config was fully Ready (the original gate), not admitted by smoke alone
+    strict = x.get("d6_gate") == "ready"
+    x["d6_availability_strict"] = x["d6_availability_mean"] if strict else None
+    x["d6_all_recovered_strict"] = x["d6_all_recovered"] if strict else None
+    return x
+
+
 def load():
     rows = []
     for f in sorted(glob.glob(os.path.join(HERE, "results", "*.json"))):
         r = json.load(open(f, encoding="utf-8"))
-        if not flatten.in_study(r):
-            continue
-        x = flatten.row(r)
-        parsed = b(x["d1_parse_ok"])
-        tot, acc = x["d1_objects_total"], x["d1_objects_accepted"]
-        x["d1_accept_pct"] = 100.0 * acc / tot if parsed and tot else (0.0 if parsed is False else None)
-        x["d1_parse_ok"], x["d1_schema_ok"], x["d1_server_ok"] = (bool(parsed), bool(b(x["d1_schema_ok"])),
-                                                                  bool(b(x["d1_server_ok"])))
-        lvl = x["d2_pss_level"]
-        x["d2_pss_restricted"] = lvl == "restricted" if parsed else None
-        x["d2_pss_baseline"] = lvl in ("baseline", "restricted") if parsed else None
-        x["d2_has_secret"] = (x["d2_secrets_found"] or 0) > 0 if parsed else None
-        x["d2_trivy_high_crit"] = ((x.get("d2_trivy_high") or 0) + (x.get("d2_trivy_critical") or 0)) if parsed else None
-        x["d3_zhang_any"] = b(x["d3_zhang_any"]) if parsed else None
-        # a config that does not parse or is not deployed is a D5 failure, not missing data
-        x["d5_ready"] = bool(b(x["d5_ready_ok"]))
-        x["d5_smoke"] = bool(b(x["d5_smoke_ok"]))
-        av, rt, ok = [], [], []
-        for fault in ("pod_delete", "container_crash"):
-            for i in (1, 2, 3):
-                if x.get(f"d6_{fault}_recovery_ok_{i}") is not None:
-                    ok.append(bool(b(x[f"d6_{fault}_recovery_ok_{i}"])))
-                    av.append(x[f"d6_{fault}_availability_pct_{i}"])
-                    rt.append(x[f"d6_{fault}_recovery_time_s_{i}"])
-        x["d6_all_recovered"] = all(ok) if ok else None
-        x["d6_availability_mean"] = float(np.mean([a for a in av if a is not None])) if av else None
-        x["d6_recovery_time_mean"] = float(np.mean([t for t in rt if t is not None])) if any(t is not None for t in rt) else None
-        # downtime per fault = failed probes / 5 Hz (the availability window varies, so availability alone is not comparable)
-        down = [(1 - e["availability_pct"] / 100) * (e.get("n_probes") or 0) / 5.0
-                for fault in ("pod_delete", "container_crash") for e in ((r.get("d6") or {}).get(fault) or [])
-                if e.get("ran") and e.get("availability_pct") is not None]
-        x["d6_downtime_mean"] = float(np.mean(down)) if down else None
-        x["d6_replicas"] = (r.get("d6") or {}).get("n_ready_before")
-        # sensitivity: D6 only where the config was fully Ready (the original gate), not admitted by smoke alone
-        strict = x.get("d6_gate") == "ready"
-        x["d6_availability_strict"] = x["d6_availability_mean"] if strict else None
-        x["d6_all_recovered_strict"] = x["d6_all_recovered"] if strict else None
-        rows.append(x)
+        if flatten.in_study(r):
+            rows.append(derive(r))
     df = pd.DataFrame(rows)
     for c, _ in CONTINUOUS:
         df[c] = pd.to_numeric(df[c], errors="coerce")

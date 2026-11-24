@@ -1,0 +1,26 @@
+=== 2026-11-24 00:27:36 claude P05_emojivoto s1 r0 (ingest)
+=== 2026-11-24 00:29:01 claude P09_teastore s1 r0 (ingest)
+=== 2026-11-24 00:30:52 claude P03_grafana s1 r0 (ingest)
+=== 2026-11-24 17:07:54 claude P05_emojivoto s1 r0 (ingest)
+ABORT: only 14.8 GB free on C: (< 15 GB); free space and re-run.
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 369, in <module>
+    ingest(a[0], a[1], a[2], int(a[3]), a[4])
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 357, in ingest
+    evaluate(model, project, k, rnd)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 151, in evaluate
+    return _evaluate(model, project, k, rnd)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 161, in _evaluate
+    return json.loads(result_path(model, project, k, rnd).read_text(encoding="utf-8"))
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 792, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 776, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\claude__P05_emojivoto__guided_r0__s1.json'
+FAILED: claude P05_emojivoto s1 r0 (exit 1)
+=== 2026-11-24 17:08:11 claude P05_emojivoto s2 r0 (ingest)

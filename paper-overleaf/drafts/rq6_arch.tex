@@ -1,0 +1,22 @@
+% DRAFT figure for RQ6 (needs \usepackage{tikz} and \usetikzlibrary{positioning,arrows.meta,fit,backgrounds} in main.tex)
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw=black!65, rounded corners=2pt, align=center, font=\footnotesize, inner sep=4pt, minimum height=11mm},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  lbl/.style={font=\scriptsize, align=center}]
+\node[box] (docs) {Project\\documentation\\(\texttt{docs\_bundle})};
+\node[box, right=7mm of docs] (llm) {LLM\\guided system prompt\\+ production user prompt};
+\node[box, right=7mm of llm] (cfg) {Configuration\\attempt $r_k$};
+\node[box, right=7mm of cfg] (gate) {Gate\\(i) parse \quad (ii) server dry run\\(iii) Pod Security baseline\\(iv) Service wiring \quad (v) apply\\(vi) all workloads Ready, stable 20\,s\\(vii) every Service reaches a listening port};
+\node[box, below=9mm of gate] (eval) {Independent evaluation\\D1--D6 (smoke test,\\fault injection)};
+\node[box, below=9mm of llm] (fb) {Generic feedback\\API rejections, workloads not Ready,\\exit codes, error log lines,\\warning events, port mismatches};
+\draw[arr] (docs) -- (llm);
+\draw[arr] (llm) -- (cfg);
+\draw[arr] (cfg) -- (gate);
+\draw[arr] (gate) -- node[lbl, right] {pass, or $k=3$} (eval);
+\draw[arr] (gate.south west) ++(0.4,0) |- node[lbl, above, pos=0.75] {fail and $k<3$} (fb.east);
+\draw[arr] (fb) -- node[lbl, left] {repair turn $r_{k+1}$} (llm);
+\end{tikzpicture}
+\caption{Guided generation with a verify-and-repair loop. The gate uses only generic cluster signals; the smoke test and fault injection are never shown to the model and decide independently whether the final configuration works.}\label{fig:repair-arch}
+\end{figure*}

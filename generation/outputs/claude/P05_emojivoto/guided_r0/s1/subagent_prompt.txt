@@ -1,0 +1,326 @@
+=== SYSTEM ===
+You are an experienced DevOps engineer. Respond with Kubernetes YAML manifests only.
+
+The manifests will be applied as they are to a standard Kubernetes cluster and must start, become Ready and serve the application without manual fixes. Follow these rules.
+
+Use only facts from the provided documentation.
+1. Use exactly the image names, tags, ports, commands, arguments and environment variables that the documentation gives. Do not invent command-line flags, image repositories or configuration keys. If the documentation does not give a value, leave the setting at the image's default. A version number mentioned only in passing (for example in a history or changelog note) is not the tag to deploy; if no tag is given for an image, use its current stable release.
+
+Hardening must fit the image.
+2. Apply securityContext settings only where the image can run with them. Images that initialise their own data directory or switch user at start-up (for example official database, cache and message-broker images) need their default user and the capabilities their entrypoint uses (such as CHOWN, FOWNER, SETUID, SETGID, DAC_OVERRIDE). For these, set allowPrivilegeEscalation: false and seccompProfile RuntimeDefault, but do not drop ALL capabilities or force a different user.
+3. When you set runAsNonRoot: true, also set a numeric runAsUser (and runAsGroup/fsGroup) that the image actually uses.
+4. When you set readOnlyRootFilesystem: true, mount an emptyDir at /tmp, at the user's home and cache directories, and at every other path the application writes to.
+5. Never use privileged containers, hostPath volumes, hostNetwork, hostPID or the Docker socket. The pods must meet the Pod Security "baseline" level.
+
+Probes must fit how the process starts.
+6. Every container that serves a port gets a readinessProbe on that port, so that a wrong port shows as not Ready. Add probes only for a port and path the container actually serves. Background workers, queue consumers and other processes without a server get no HTTP or TCP probes.
+7. For slow-starting runtimes (JVM, large interpreters, services that migrate a database at start-up) add a startupProbe that allows at least 5 minutes (failureThreshold x periodSeconds >= 300) before liveness checks begin. Liveness probes must be lenient (failureThreshold >= 3, timeoutSeconds >= 5).
+
+Resources must fit the workload.
+8. Set requests and limits, but never set a memory limit below what the runtime needs: at least 512Mi for JVM services and at least 256Mi for databases. Do not set CPU limits so low that start-up takes minutes.
+
+Wiring must be consistent.
+9. Every Service selector must match the labels of the pods it routes to, and every containerPort and targetPort must be the port the process actually listens on (if the documentation does not state it, the image's own default listen port, not a conventional port such as 80). When a Service exposes more than one port, give every port a name.
+10. Hostnames that the application expects (from the documentation or compose service names) must exist as Service names in the same namespace.
+11. Define every Secret, ConfigMap, PersistentVolumeClaim and ServiceAccount that you reference.
+12. Components that call the Kubernetes API need a ServiceAccount with RBAC rules that cover everything the documentation says they do, including creating or updating the Secrets and ConfigMaps they manage. Do not disable automountServiceAccountToken for them.
+13. Add a NetworkPolicy only if it admits every path the application uses, including traffic that arrives through the Kubernetes API server proxy. If unsure, omit NetworkPolicies.
+14. When the documentation offers an option to set the address of a component the application calls, set it explicitly to the Service you define instead of relying on an implicit default discovery mechanism.
+
+Translating Docker Compose.
+15. Translate the application's services, not the host setup. Drop host-specific settings (Docker socket mounts, privileged mode, host ports, build sections) and omit development-only helpers such as load generators or test clients unless the documentation says they are part of the application.
+
+Production settings that do not risk start-up.
+16. Stateful components (databases, brokers) run as a single-replica StatefulSet with a PersistentVolumeClaim; for PostgreSQL set PGDATA to a subdirectory of the mount. Stateless user-facing services run with 2 replicas, except a service that mounts a ReadWriteOnce PersistentVolumeClaim, which runs with 1 replica.
+
+Output.
+17. Return all manifests in a single YAML code block, documents separated by ---, no comments. Quote string values that contain a colon. Keep the output complete; do not stop part-way through a list.
+
+=== USER ===
+--- docker-compose.yml ---
+version: '3'
+
+services:
+  web:
+    image: buoyantio/emojivoto-web:v11
+    environment:
+      - WEB_PORT=8080
+      - EMOJISVC_HOST=emoji-svc:8080
+      - VOTINGSVC_HOST=voting-svc:8080
+      - INDEX_BUNDLE=dist/index_bundle.js
+    ports:
+      - "8080:8080"
+    depends_on:
+      - voting-svc
+      - emoji-svc
+
+  vote-bot:
+    image: buoyantio/emojivoto-web:v11
+    entrypoint: emojivoto-vote-bot
+    environment:
+      - WEB_HOST=web:8080
+    depends_on:
+      - web
+
+  emoji-svc:
+    image: buoyantio/emojivoto-emoji-svc:v11
+    environment:
+      - GRPC_PORT=8080
+    ports:
+      - "8081:8080"
+
+  voting-svc:
+    image: buoyantio/emojivoto-voting-svc:v11
+    environment:
+      - GRPC_PORT=8080
+    ports:
+      - "8082:8080"
+
+
+--- Dockerfile-multi-arch ---
+ARG svc_name
+
+# go build stage
+FROM --platform=$BUILDPLATFORM golang:1.15.0 as golang
+WORKDIR /emojivoto-build
+
+# install protobuf
+RUN apt-get update && apt-get install -y protobuf-compiler
+RUN go get github.com/golang/protobuf/protoc-gen-go
+
+# cache go dependencies
+COPY go.mod go.sum .
+RUN go mod download
+
+# compile
+COPY . .
+ARG TARGETARCH
+ARG svc_name
+RUN GOARCH=$TARGETARCH make -C $svc_name clean protoc compile
+
+# webpack stage
+FROM --platform=$BUILDPLATFORM node:14-buster as webpack-bundle
+WORKDIR /emojivoto-build
+COPY . .
+RUN make -C emojivoto-web clean webpack package-web
+
+FROM golang as build-emojivoto-emoji-svc
+FROM golang as build-emojivoto-voting-svc
+FROM golang as build-emojivoto-web
+COPY --from=webpack-bundle /emojivoto-build/emojivoto-web/target/ /emojivoto-build/emojivoto-web/target/
+
+FROM build-$svc_name as build
+
+# runtime image
+FROM debian:buster-20200514-slim
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl \
+        dnsutils \
+        iptables \
+        jq \
+        nghttp2 \
+    && rm -rf /var/lib/apt/lists/*
+
+ARG svc_name
+COPY --from=build /emojivoto-build/$svc_name/target/ /usr/local/bin/
+
+# ARG variables are not available for ENTRYPOINT
+ENV SVC_NAME $svc_name
+WORKDIR /usr/local/bin
+ENTRYPOINT $SVC_NAME
+
+
+--- README.md ---
+# Emoji.voto
+
+A microservice application that allows users to vote for their favorite emoji,
+and tracks votes received on a leaderboard. May the best emoji win.
+
+The application is composed of the following 3 services:
+
+* [emojivoto-web](emojivoto-web/): Web frontend and REST API
+* [emojivoto-emoji-svc](emojivoto-emoji-svc/): gRPC API for finding and listing emoji
+* [emojivoto-voting-svc](emojivoto-voting-svc/): gRPC API for voting and leaderboard
+
+![Emojivoto Topology](assets/emojivoto-topology.png "Emojivoto Topology")
+
+## Running
+
+### In Minikube
+[Kubernetes deployment instructions removed from this bundle]
+### In docker-compose
+
+It's also possible to run the app with docker-compose (without Linkerd2).
+
+Build and run:
+
+```bash
+make deploy-to-docker-compose
+```
+
+The web app will be running on port 8080 of your docker host.
+
+### Via URL
+[Kubernetes deployment instructions removed from this bundle]
+### Generating some traffic
+
+The `VoteBot` service can generate some traffic for you. It votes on emoji
+"randomly" as follows:
+
+- It votes for :doughnut: 15% of the time.
+- When not voting for :doughnut:, it picks an emoji at random
+
+If you're running the app using the instructions above, the VoteBot will have
+been deployed and will start sending traffic to the vote endpoint.
+
+If you'd like to run the bot manually:
+
+```bash
+export WEB_HOST=localhost:8080 # replace with your web location
+go run emojivoto-web/cmd/vote-bot/main.go
+```
+
+## Building
+
+Building requires that you have protoc-gen-go v1.27.1 and
+protoc-gen-go-grpc v1.1.0 on your path. These can be installed by running:
+
+```bash
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1.0
+```
+
+Then you can set up proto files and build apps by running:
+
+```bash
+make build
+```
+
+## Releasing a new version
+
+To build and push multi-arch docker images:
+
+1. Update the tag name in `common.mk`
+1. Create the Buildx builder instance
+
+    ```bash
+    docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    docker buildx create --name=multiarch-builder --driver=docker-container --use
+    docker buildx inspect multiarch-builder --bootstrap
+    ```
+
+1. Build & push the multi-arch docker images to hub.docker.com
+
+    ```bash
+    docker login
+    make multi-arch
+    ```
+
+1. Update:
+    - `docker-compose.yml`
+    - `kustomize/deployment/emoji.yml`
+    - `kustomize/deployment/vote-bot.yml`
+    - `kustomize/deployment/voting.yml`
+    - `kustomize/deployment/web.yml`
+
+1. Distribute to the Linkerd website repo
+
+    ```bash
+    kubectl kustomize kustomize/deployment  > ../website/run.linkerd.io/public/emojivoto.yml
+    kubectl kustomize kustomize/daemonset   > ../website/run.linkerd.io/public/emojivoto-daemonset.yml
+    kubectl kustomize kustomize/statefulset > ../website/run.linkerd.io/public/emojivoto-statefulset.yml
+    ```
+
+## Prometheus Metrics
+
+By default the voting service exposes Prometheus metrics about current vote count on port `8801`.
+
+This can be disabled by unsetting the `PROM_PORT` environment variable.
+
+## Local Development
+
+### Emojivoto webapp
+
+This app is written with React and bundled with webpack.
+Use the following to run the emojivoto go services and develop on the frontend.
+
+Start the voting service
+
+```bash
+GRPC_PORT=8081 go run emojivoto-voting-svc/cmd/server.go
+```
+
+[In a separate terminal window] Start the emoji service
+
+```bash
+GRPC_PORT=8082 go run emojivoto-emoji-svc/cmd/server.go
+```
+
+[In a separate terminal window] Bundle the frontend assets
+
+```bash
+cd emojivoto-web/webapp
+yarn install
+yarn webpack # one time asset-bundling OR
+yarn webpack-dev-server --port 8083 # bundle/serve reloading assets
+```
+
+[In a separate terminal window] Start the web service
+
+```bash
+export WEB_PORT=8080
+export VOTINGSVC_HOST=localhost:8081
+export EMOJISVC_HOST=localhost:8082
+
+# if you ran yarn webpack
+export INDEX_BUNDLE=emojivoto-web/webapp/dist/index_bundle.js
+
+# if you ran yarn webpack-dev-server
+export WEBPACK_DEV_SERVER=http://localhost:8083
+
+# start the webserver
+go run emojivoto-web/cmd/server.go
+```
+
+[Optional] Start the vote bot for automatic traffic generation.
+
+```bash
+export WEB_HOST=localhost:8080
+go run emojivoto-web/cmd/vote-bot/main.go
+```
+
+View emojivoto
+
+```bash
+open http://localhost:8080
+```
+
+### Testing Linkerd Service Profiles
+
+[Service Profiles](https://linkerd.io/2/features/service-profiles/) are a
+feature of Linkerd that provide per-route functionality such as telemetry,
+timeouts, and retries. The Emojivoto application is designed to showcase
+Service Profiles by following the instructions below.
+
+#### Generate the ServiceProfile definitions from the `.proto` files
+[Kubernetes deployment instructions removed from this bundle]
+#### Generate the ServiceProfile definition for the Web deployment
+[Kubernetes deployment instructions removed from this bundle]
+## License
+
+Copyright 2020 Buoyant, Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+these files except in compliance with the License. You may obtain a copy of the
+License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+
+Write production-ready Kubernetes manifests to deploy this application. Output all manifests in a single YAML code block.

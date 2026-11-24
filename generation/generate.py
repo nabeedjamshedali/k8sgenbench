@@ -71,6 +71,17 @@ def post_with_retry(url, **kwargs):
     return last
 
 
+def gemini_post(env, url, payload, timeout):
+    """POST to Gemini with the key GEMINI_KEY_VAR names; if that key is still rate-limited (429) after the backoff,
+    send the same request once with the other key. Only the quota used changes, never the request."""
+    first = env.get("GEMINI_KEY_VAR", "GEMINI_API_KEY")
+    r = post_with_retry(url, headers={"x-goog-api-key": env[first]}, json=payload, timeout=timeout)
+    other = "GEMINI_API_KEY_2" if first == "GEMINI_API_KEY" else "GEMINI_API_KEY"
+    if r.status_code == 429 and env.get(other):
+        r = post_with_retry(url, headers={"x-goog-api-key": env[other]}, json=payload, timeout=timeout)
+    return r
+
+
 def call_gemini(env, prompt):
     model_id = CONFIG["models"]["gemini"]["model_id"]
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_id}:generateContent"
@@ -86,8 +97,7 @@ def call_gemini(env, prompt):
     # Key in a header, not the query string: httpx error messages print the URL, which leaked it into logs.
     # GEMINI_KEY_VAR picks which .env key to use (a second project's key when the first's daily quota is spent);
     # the model and parameters are unchanged.
-    key = env[env.get("GEMINI_KEY_VAR", "GEMINI_API_KEY")]
-    r = post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=180)
+    r = gemini_post(env, url, payload, timeout=180)
     latency = time.time() - t0
     r.raise_for_status()
     data = r.json()

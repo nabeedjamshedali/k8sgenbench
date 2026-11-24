@@ -1,0 +1,281 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wordsmith
+  labels:
+    app.kubernetes.io/part-of: wordsmith
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-credentials
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: wordsmith
+type: Opaque
+stringData:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgrespassword
+  POSTGRES_DB: postgres
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-script
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: wordsmith
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS nouns (id INT PRIMARY KEY, word TEXT);
+    CREATE TABLE IF NOT EXISTS verbs (id INT PRIMARY KEY, word TEXT);
+    CREATE TABLE IF NOT EXISTS adjectives (id INT PRIMARY KEY, word TEXT);
+
+    INSERT INTO nouns (id, word) VALUES 
+      (1, 'developer'), (2, 'engineer'), (3, 'architect'), (4, 'container'), (5, 'cluster')
+      ON CONFLICT (id) DO NOTHING;
+    INSERT INTO verbs (id, word) VALUES 
+      (1, 'builds'), (2, 'deploys'), (3, 'scales'), (4, 'orchestrates'), (5, 'monitors')
+      ON CONFLICT (id) DO NOTHING;
+    INSERT INTO adjectives (id, word) VALUES 
+      (1, 'cloud-native'), (2, 'resilient'), (3, 'stateless'), (4, 'automated'), (5, 'scalable')
+      ON CONFLICT (id) DO NOTHING;
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+      name: postgres
+  selector:
+    app.kubernetes.io/name: db
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: db
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  serviceName: db
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: db
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: db
+        app.kubernetes.io/component: database
+        app.kubernetes.io/part-of: wordsmith
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
+        - name: postgres
+          image: postgres:10.0-alpine
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: db-credentials
+          ports:
+            - containerPort: 5432
+              name: postgres
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+            - name: db-init
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: db-init
+          configMap:
+            name: db-init-script
+  volumeClaimTemplates:
+    - metadata:
+        name: db-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: api
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app.kubernetes.io/name: api
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: api
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: api
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/part-of: wordsmith
+    spec:
+      containers:
+        - name: api
+          image: dockersamples/wordsmith-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+            requests:
+              cpu: 150m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: web
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      name: http
+  selector:
+    app.kubernetes.io/name: web
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: web
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: web
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: wordsmith
+    spec:
+      containers:
+        - name: web
+          image: dockersamples/wordsmith-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 10

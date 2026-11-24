@@ -90,9 +90,8 @@ def call_gemini(env, turns):
         "contents": [{"role": "model" if r == "assistant" else "user", "parts": [{"text": t}]} for r, t in turns],
         "generationConfig": {"temperature": g.CONFIG["temperature"], "maxOutputTokens": g.CONFIG["max_tokens"]},
     }
-    key = env[env.get("GEMINI_KEY_VAR", "GEMINI_API_KEY")]
     t0 = time.time()
-    r = g.post_with_retry(url, headers={"x-goog-api-key": key}, json=payload, timeout=600)  # client-side only; long thinking replies took over 300 s on 2026-11-23
+    r = g.gemini_post(env, url, payload, timeout=600)  # client-side timeout only; long thinking replies took over 300 s
     latency = time.time() - t0
     r.raise_for_status()
     data = r.json()

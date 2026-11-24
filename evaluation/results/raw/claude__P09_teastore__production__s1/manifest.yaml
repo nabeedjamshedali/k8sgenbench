@@ -1,0 +1,998 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: teastore
+  labels:
+    app.kubernetes.io/part-of: teastore
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teastore-config
+  namespace: teastore
+  labels:
+    app.kubernetes.io/part-of: teastore
+data:
+  REGISTRY_HOST: teastore-registry
+  REGISTRY_PORT: '8080'
+  SERVICE_PORT: '8080'
+  USE_POD_IP: 'true'
+  DB_HOST: teastore-db
+  DB_PORT: '3306'
+  RECOMMENDER_ALGORITHM: SlopeOne
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: teastore
+  namespace: teastore
+  labels:
+    app.kubernetes.io/part-of: teastore
+automountServiceAccountToken: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-registry
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-registry
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: registry
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-registry
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-registry
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: registry
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: registry
+        image: descartesresearch/teastore-registry:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: HOST_NAME
+          value: teastore-registry
+        - name: SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: SERVICE_PORT
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 5
+          failureThreshold: 36
+        readinessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-registry
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-registry
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-registry
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: teastore-db
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-db
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: database
+spec:
+  serviceName: teastore-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-db
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-db
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: database
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: db
+        image: descartesresearch/teastore-db:latest
+        imagePullPolicy: Always
+        ports:
+        - name: mysql
+          containerPort: 3306
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+        startupProbe:
+          tcpSocket:
+            port: mysql
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          tcpSocket:
+            port: mysql
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: mysql
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 5
+      terminationGracePeriodSeconds: 60
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        app.kubernetes.io/name: teastore-db
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-db
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-db
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-db
+  ports:
+  - name: mysql
+    port: 3306
+    targetPort: mysql
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-persistence
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: persistence
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-persistence
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-persistence
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: persistence
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: teastore-persistence
+      containers:
+      - name: persistence
+        image: descartesresearch/teastore-persistence:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: teastore-config
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-persistence
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-persistence
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-auth
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-auth
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: auth
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-auth
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-auth
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: auth
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: teastore-auth
+      containers:
+      - name: auth
+        image: descartesresearch/teastore-auth:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: REGISTRY_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_HOST
+        - name: REGISTRY_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_PORT
+        - name: SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: SERVICE_PORT
+        - name: USE_POD_IP
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: USE_POD_IP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-auth
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-auth
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-auth
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-image
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-image
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: image
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-image
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-image
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: image
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: teastore-image
+      containers:
+      - name: image
+        image: descartesresearch/teastore-image:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: REGISTRY_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_HOST
+        - name: REGISTRY_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_PORT
+        - name: SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: SERVICE_PORT
+        - name: USE_POD_IP
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: USE_POD_IP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-image
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-image
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-image
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-recommender
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-recommender
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: recommender
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-recommender
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-recommender
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: recommender
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: teastore-recommender
+      containers:
+      - name: recommender
+        image: descartesresearch/teastore-recommender:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: REGISTRY_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_HOST
+        - name: REGISTRY_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_PORT
+        - name: SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: SERVICE_PORT
+        - name: USE_POD_IP
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: USE_POD_IP
+        - name: RECOMMENDER_ALGORITHM
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: RECOMMENDER_ALGORITHM
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-recommender
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-recommender
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-recommender
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-webui
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-webui
+    app.kubernetes.io/part-of: teastore
+    app.kubernetes.io/component: webui
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-webui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: teastore-webui
+        app.kubernetes.io/part-of: teastore
+        app.kubernetes.io/component: webui
+    spec:
+      serviceAccountName: teastore
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: teastore-webui
+      containers:
+      - name: webui
+        image: descartesresearch/teastore-webui:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: REGISTRY_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_HOST
+        - name: REGISTRY_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: REGISTRY_PORT
+        - name: SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: SERVICE_PORT
+        - name: USE_POD_IP
+          valueFrom:
+            configMapKeyRef:
+              name: teastore-config
+              key: USE_POD_IP
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        startupProbe:
+          httpGet:
+            path: /tools.descartes.teastore.webui/
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          httpGet:
+            path: /tools.descartes.teastore.webui/
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /tools.descartes.teastore.webui/
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 3
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-webui
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-webui
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: teastore-webui
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: teastore
+  namespace: teastore
+  labels:
+    app.kubernetes.io/part-of: teastore
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: teastore-webui
+            port:
+              name: http
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: teastore-webui
+  namespace: teastore
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: teastore-webui
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: teastore-persistence
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: teastore-webui
+  namespace: teastore
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-webui
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: teastore-auth
+  namespace: teastore
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-auth
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: teastore-image
+  namespace: teastore
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-image
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: teastore-recommender
+  namespace: teastore
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-recommender
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-persistence
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: teastore
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-db-from-persistence
+  namespace: teastore
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: teastore-persistence
+    ports:
+    - protocol: TCP
+      port: 3306
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-intra-namespace-services
+  namespace: teastore
+spec:
+  podSelector:
+    matchExpressions:
+    - key: app.kubernetes.io/name
+      operator: NotIn
+      values:
+      - teastore-db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/part-of: teastore
+    ports:
+    - protocol: TCP
+      port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webui-from-ingress
+  namespace: teastore
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: teastore-webui
+  policyTypes:
+  - Ingress
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 8080
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: teastore-quota
+  namespace: teastore
+spec:
+  hard:
+    requests.cpu: '8'
+    requests.memory: 16Gi
+    limits.cpu: '16'
+    limits.memory: 24Gi
+    persistentvolumeclaims: '4'
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: teastore-limits
+  namespace: teastore
+spec:
+  limits:
+  - type: Container
+    default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 128Mi
