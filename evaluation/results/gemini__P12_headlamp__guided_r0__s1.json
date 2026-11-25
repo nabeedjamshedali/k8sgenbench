@@ -1,0 +1,476 @@
+{
+  "project": "P12_headlamp",
+  "source": "gemini",
+  "prompt_variant": "guided_r0",
+  "sample_k": "1",
+  "timestamp": "2026-11-25T12:44:36Z",
+  "gen_finish_reason": "STOP",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 5,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 5,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 5,
+    "objects_accepted": 5,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "ServiceAccount",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRole",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 109,
+  "resource_counts": {
+    "ServiceAccount": 1,
+    "ClusterRole": 1,
+    "ClusterRoleBinding": 1,
+    "Service": 1,
+    "Deployment": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 85,
+      "frameworks": {
+        "NSA": 87.5,
+        "MITRE": 88.23529
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 4,
+        "low": 0
+      },
+      "failed": [
+        {
+          "resource": "/default/ServiceAccount/headlamp/path=2004182128/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp/path=2054514985/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp",
+          "control": "C-0015",
+          "name": "List Kubernetes secrets"
+        },
+        {
+          "resource": "/default/ServiceAccount/headlamp/path=2004182128/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp/path=2054514985/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp",
+          "control": "C-0053",
+          "name": "Access container service account"
+        },
+        {
+          "resource": "path=2088070223/api=apps/v1//Deployment/headlamp",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2088070223/api=apps/v1//Deployment/headlamp",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2088070223/api=apps/v1//Deployment/headlamp",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 1,
+        "high": 0,
+        "medium": 3,
+        "low": 3
+      },
+      "failed": [
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should specify an image tag"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0046",
+          "title": "Manage all resources",
+          "severity": "CRITICAL",
+          "message": "ClusterRole 'headlamp' shouldn't manage all resources"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment headlamp in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container headlamp in deployment headlamp (namespace: default) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "headlamp",
+            "detail": "deployment.apps/headlamp created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"headlamp\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 6,
+      "warning": 1,
+      "critical_by_check": {
+        "container-ephemeral-storage-request-and-limit": 1,
+        "container-security-context-user-group-id": 1,
+        "pod-networkpolicy": 1,
+        "pod-probes-identical": 1,
+        "container-image-tag": 1,
+        "deployment-has-poddisruptionbudget": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 75,
+      "failed_by_check": {
+        "clusterrolebindingPodExecAttach[danger]": 1,
+        "metadataAndInstanceMismatched[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "automountServiceAccountToken[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1,
+        "runAsRootAllowed[danger]": 1,
+        "tagNotSpecified[danger]": 1,
+        "clusterrolePodExecAttach[danger]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 3,
+      "by_check": {
+        "latest-tag": 1,
+        "no-anti-affinity": 1,
+        "run-as-non-root": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 1,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 2,
+      "zhang_density_per_kloc": 18.3,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 60.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 0,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "headlamp",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-headlamp-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-in-cluster-mode",
+        "passed": true,
+        "detail": "-in-cluster flag or HEADLAMP_CONFIG_IN_CLUSTER=true",
+        "oracle": false
+      },
+      {
+        "id": "R03-sa-token-mounted",
+        "passed": true,
+        "detail": "service-account token mounted",
+        "oracle": true
+      },
+      {
+        "id": "R04-ui-port",
+        "passed": true,
+        "detail": "via Service headlamp",
+        "oracle": false
+      },
+      {
+        "id": "R05-ui-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 3,
+    "requirements_total": 4,
+    "pct": 75.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "ghcr.io/headlamp-k8s/headlamp:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 16.3,
+    "ready_replicas": 2,
+    "expected_replicas": 2,
+    "workloads": [
+      {
+        "ns": "d5-e57dab25",
+        "kind": "Deployment",
+        "name": "headlamp",
+        "ready": 2,
+        "want": 2
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-e57dab25",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "ui-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "backend-config-incluster",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "headlamp",
+        "namespace": "d5-e57dab25",
+        "port": 80,
+        "target_port": 4466,
+        "pod": "headlamp-7c74b88688-c7pvw",
+        "listening": [
+          4466
+        ],
+        "ok": true
+      }
+    ]
+  },
+  "d6": {
+    "ran": true,
+    "service": "headlamp",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "headlamp-7c74b88688-mtwkg",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 9.4,
+        "availability_pct": 100.0,
+        "n_probes": 80
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-7c74b88688-bs4ld",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.5,
+        "availability_pct": 100.0,
+        "n_probes": 76
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-7c74b88688-j5qhw",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.7,
+        "availability_pct": 100.0,
+        "n_probes": 75
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "headlamp-7c74b88688-c7pvw",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 8.6,
+        "availability_pct": 97.4,
+        "n_probes": 77
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-7c74b88688-n89cr",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.4,
+        "availability_pct": 98.7,
+        "n_probes": 77
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-7c74b88688-c7pvw",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 22.2,
+        "availability_pct": 99.3,
+        "n_probes": 136
+      }
+    ],
+    "gate": "ready"
+  }
+}

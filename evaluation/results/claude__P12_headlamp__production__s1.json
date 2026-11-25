@@ -1,0 +1,402 @@
+{
+  "project": "P12_headlamp",
+  "source": "claude",
+  "prompt_variant": "production",
+  "sample_k": "1",
+  "timestamp": "2026-11-24T18:12:16Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 8,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 8,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 8,
+    "objects_accepted": 8,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "NetworkPolicy",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "headlamp-view",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 211,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "Deployment": 1,
+    "Service": 1,
+    "PodDisruptionBudget": 1,
+    "NetworkPolicy": 1,
+    "Ingress": 1,
+    "ClusterRoleBinding": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 98.333336,
+      "frameworks": {
+        "NSA": 97.5,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "failed": [
+        {
+          "resource": "path=440750680/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      },
+      "failed": [
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container headlamp in deployment headlamp (namespace: headlamp) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 4,
+      "warning": 1,
+      "critical_by_check": {
+        "pod-probes-identical": 1,
+        "container-image-pull-policy": 1,
+        "container-ephemeral-storage-request-and-limit": 1,
+        "container-security-context-user-group-id": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 90,
+      "failed_by_check": {
+        "clusterrolebindingPodExecAttach[danger]": 1,
+        "metadataAndInstanceMismatched[warning]": 1,
+        "automountServiceAccountToken[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 2,
+      "by_check": {
+        "no-anti-affinity": 1,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 1,
+      "zhang_density_per_kloc": 4.7,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 100.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 1,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 1,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 1,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 1,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "headlamp",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 1,
+            "9_spread": 1,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-headlamp-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-in-cluster-mode",
+        "passed": true,
+        "detail": "-in-cluster flag or HEADLAMP_CONFIG_IN_CLUSTER=true",
+        "oracle": false
+      },
+      {
+        "id": "R03-sa-token-mounted",
+        "passed": true,
+        "detail": "service-account token mounted",
+        "oracle": true
+      },
+      {
+        "id": "R04-ui-port",
+        "passed": true,
+        "detail": "via Service headlamp",
+        "oracle": false
+      },
+      {
+        "id": "R05-ui-external",
+        "passed": true,
+        "detail": "Ingress headlamp -> headlamp",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 4,
+    "requirements_total": 4,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "ghcr.io/headlamp-k8s/headlamp:v0.30.0",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 0,
+    "expected_replicas": 2,
+    "workloads": [
+      {
+        "ns": "headlamp",
+        "kind": "Deployment",
+        "name": "headlamp",
+        "ready": 0,
+        "want": 2
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "headlamp-54546dc44d-l9xml",
+          "container": "headlamp",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "flag provided but not defined: -in-cluster-context-name\nUsage of config:\n  -base-url string\n    \tBase URL path. eg. /headlamp\n  -dev\n    \tAllow connections from other origins\n  -enable-dynamic-clusters\n    \tEnable dynamic clusters, which stores stateless clusters in the frontend.\n  -html-static-dir string\n    \tStatic HTML directory to serve\n  -in-cluster\n    \tSet when running from a k8s cluster\n  -insecure-ssl\n    \tAccept/Ignore all server SSL certificates\n  -kubeconfig string\n    \tAbsolute path to the kubeconfig file\n  -listen-addr string\n    \tAddress to listen on; default is empty, which means listening to any address\n  -oidc-client-id string\n    \tClientID for OIDC\n  -oidc-client-secret string\n    \tClientSecret for OIDC\n  -oidc-idp-issuer-url string\n    \tIdentity provider issuer URL for OIDC\n  -oidc-scopes string\n    \tA comma separated list of scopes needed from the OIDC provider (default \"profile,email\")\n  -plugins-dir string\n    \tSpecify the plugins directory to build the backend with (default \"/home/headlamp/.config/Headlamp/plugins\")\n  -port uint\n    \tPort to listen from (default 4466)\n  -proxy-urls string\n    \tAllow proxy requests to specified URLs\n{\"level\":\"error\",\"source\":\"/headlamp/backend/pkg/config/config.go\",\"line\":85,\"error\":\"flag provided but not defined: -in-cluster-context-name\",\"time\":\"2026-11-24T18:15:47Z\",\"message\":\"parsing flags\"}\n{\"level\":\"error\",\"source\":\"/headlamp/backend/cmd/server.go\",\"line\":31,\"error\":\"error parsing flags: flag provided but not defined: -in-cluster-context-name\",\"time\":\"2026-11-24T18:15:47Z\",\"message\":\"fetching config:%v\"}"
+        },
+        {
+          "pod": "headlamp-54546dc44d-mbvpm",
+          "container": "headlamp",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "flag provided but not defined: -in-cluster-context-name\nUsage of config:\n  -base-url string\n    \tBase URL path. eg. /headlamp\n  -dev\n    \tAllow connections from other origins\n  -enable-dynamic-clusters\n    \tEnable dynamic clusters, which stores stateless clusters in the frontend.\n  -html-static-dir string\n    \tStatic HTML directory to serve\n  -in-cluster\n    \tSet when running from a k8s cluster\n  -insecure-ssl\n    \tAccept/Ignore all server SSL certificates\n  -kubeconfig string\n    \tAbsolute path to the kubeconfig file\n  -listen-addr string\n    \tAddress to listen on; default is empty, which means listening to any address\n  -oidc-client-id string\n    \tClientID for OIDC\n  -oidc-client-secret string\n    \tClientSecret for OIDC\n  -oidc-idp-issuer-url string\n    \tIdentity provider issuer URL for OIDC\n  -oidc-scopes string\n    \tA comma separated list of scopes needed from the OIDC provider (default \"profile,email\")\n  -plugins-dir string\n    \tSpecify the plugins directory to build the backend with (default \"/home/headlamp/.config/Headlamp/plugins\")\n  -port uint\n    \tPort to listen from (default 4466)\n  -proxy-urls string\n    \tAllow proxy requests to specified URLs\n{\"level\":\"error\",\"source\":\"/headlamp/backend/pkg/config/config.go\",\"line\":85,\"error\":\"flag provided but not defined: -in-cluster-context-name\",\"time\":\"2026-11-24T18:15:38Z\",\"message\":\"parsing flags\"}\n{\"level\":\"error\",\"source\":\"/headlamp/backend/cmd/server.go\",\"line\":31,\"error\":\"error parsing flags: flag provided but not defined: -in-cluster-context-name\",\"time\":\"2026-11-24T18:15:38Z\",\"message\":\"fetching config:%v\"}"
+        }
+      ],
+      "warning_events": {
+        "headlamp-54546dc44d-mbvpm|BackOff: Back-off restarting failed container headlamp in pod headlam": 22,
+        "headlamp-54546dc44d-l9xml|BackOff: Back-off restarting failed container headlamp in pod headlam": 20,
+        "headlamp-54546dc44d-l9xml|Unhealthy: Startup probe failed": 3,
+        "headlamp-54546dc44d-mbvpm|Unhealthy: Startup probe failed": 2
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-db07e172",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "headlamp: any source"
+    },
+    "smoke": [
+      {
+        "name": "ui-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '<div id=\"root\">'"
+      },
+      {
+        "name": "backend-config-incluster",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"source\":\"incluster\"'"
+      }
+    ],
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "headlamp",
+        "namespace": "headlamp",
+        "port": 80,
+        "target_port": "http",
+        "pod": "headlamp-54546dc44d-l9xml",
+        "listening": null,
+        "ok": null
+      }
+    ]
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

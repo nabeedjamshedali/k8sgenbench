@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a20d72-71ef-74ac-829e-ec57996a5546",
-  "CreatedAt": "2026-11-24T17:05:33.8073064+05:00",
+  "ReportID": "01a20ef2-8545-74f3-953e-529b537f0952",
+  "CreatedAt": "2026-11-25T00:05:04.5813245+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/claude__P09_teastore__neutral__s1/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -9804,6 +9804,249 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
+            "StartLine": 147,
+            "EndLine": 159,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 147,
+                  "Content": "      - name: auth",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: auth",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 148,
+                  "Content": "        image: descartesresearch/teastore-auth",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-auth",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 149,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 150,
+                  "Content": "        - containerPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 151,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 152,
+                  "Content": "        - name: HOST_NAME",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: HOST_NAME",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 153,
+                  "Content": "          value: auth",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: auth",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 154,
+                  "Content": "        - name: REGISTRY_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REGISTRY_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 155,
+                  "Content": "          value: registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 156,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 24,
+            "EndLine": 32,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 24,
+                  "Content": "      - name: registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: registry",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 25,
+                  "Content": "        image: descartesresearch/teastore-registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-registry",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 26,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 27,
+                  "Content": "        - containerPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 28,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 29,
+                  "Content": "        - name: HOST_NAME",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: HOST_NAME",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 30,
+                  "Content": "          value: registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 31,
+                  "Content": "        - name: SERVICE_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: SERVICE_PORT",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 32,
+                  "Content": "          value: '8080'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0030",
+          "Title": "Runtime/Default Seccomp profile not set",
+          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
+          "Namespace": "builtin.kubernetes.KSV030",
+          "Query": "data.builtin.kubernetes.KSV030.deny",
+          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0030"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
             "StartLine": 99,
             "EndLine": 115,
             "Code": {
@@ -9973,258 +10216,6 @@
                   "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m3306\u001b[0m",
                   "FirstCause": false,
                   "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 279,
-            "EndLine": 291,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 279,
-                  "Content": "      - name: webui",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: webui",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 280,
-                  "Content": "        image: descartesresearch/teastore-webui",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-webui",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 281,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 282,
-                  "Content": "        - containerPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 283,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 284,
-                  "Content": "        - name: HOST_NAME",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: HOST_NAME",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 285,
-                  "Content": "          value: webui",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: webui",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 286,
-                  "Content": "        - name: REGISTRY_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REGISTRY_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 287,
-                  "Content": "          value: registry",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 288,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0030",
-          "Title": "Runtime/Default Seccomp profile not set",
-          "Description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-          "Message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'",
-          "Namespace": "builtin.kubernetes.KSV030",
-          "Query": "data.builtin.kubernetes.KSV030.deny",
-          "Resolution": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0030",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0030"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 147,
-            "EndLine": 159,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 147,
-                  "Content": "      - name: auth",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: auth",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 148,
-                  "Content": "        image: descartesresearch/teastore-auth",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-auth",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 149,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 150,
-                  "Content": "        - containerPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 151,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 152,
-                  "Content": "        - name: HOST_NAME",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: HOST_NAME",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 153,
-                  "Content": "          value: auth",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: auth",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 154,
-                  "Content": "        - name: REGISTRY_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REGISTRY_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 155,
-                  "Content": "          value: registry",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 156,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
                 }
               ]
             }
@@ -10501,32 +10492,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 24,
-            "EndLine": 32,
+            "StartLine": 279,
+            "EndLine": 291,
             "Code": {
               "Lines": [
                 {
-                  "Number": 24,
-                  "Content": "      - name: registry",
+                  "Number": 279,
+                  "Content": "      - name: webui",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: registry",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: webui",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 25,
-                  "Content": "        image: descartesresearch/teastore-registry",
+                  "Number": 280,
+                  "Content": "        image: descartesresearch/teastore-webui",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-registry",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-webui",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 26,
+                  "Number": 281,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -10536,7 +10527,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 27,
+                  "Number": 282,
                   "Content": "        - containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -10546,7 +10537,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 28,
+                  "Number": 283,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -10556,7 +10547,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 29,
+                  "Number": 284,
                   "Content": "        - name: HOST_NAME",
                   "IsCause": true,
                   "Annotation": "",
@@ -10566,34 +10557,43 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 30,
+                  "Number": 285,
+                  "Content": "          value: webui",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: webui",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 286,
+                  "Content": "        - name: REGISTRY_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REGISTRY_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 287,
                   "Content": "          value: registry",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
                   "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 31,
-                  "Content": "        - name: SERVICE_PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: SERVICE_PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 32,
-                  "Content": "          value: '8080'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'\u001b[0m",
-                  "FirstCause": false,
                   "LastCause": true
+                },
+                {
+                  "Number": 288,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
                 }
               ]
             }
@@ -11432,6 +11432,132 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
+            "StartLine": 147,
+            "EndLine": 159,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 147,
+                  "Content": "      - name: auth",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: auth",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 148,
+                  "Content": "        image: descartesresearch/teastore-auth",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-auth",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 149,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 150,
+                  "Content": "        - containerPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 151,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 152,
+                  "Content": "        - name: HOST_NAME",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: HOST_NAME",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 153,
+                  "Content": "          value: auth",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: auth",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 154,
+                  "Content": "        - name: REGISTRY_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REGISTRY_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 155,
+                  "Content": "          value: registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 156,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
             "StartLine": 279,
             "EndLine": 291,
             "Code": {
@@ -11810,190 +11936,6 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 24,
-            "EndLine": 32,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 24,
-                  "Content": "      - name: registry",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: registry",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 25,
-                  "Content": "        image: descartesresearch/teastore-registry",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-registry",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 26,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 27,
-                  "Content": "        - containerPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 28,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 29,
-                  "Content": "        - name: HOST_NAME",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: HOST_NAME",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 30,
-                  "Content": "          value: registry",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 31,
-                  "Content": "        - name: SERVICE_PORT",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: SERVICE_PORT",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 32,
-                  "Content": "          value: '8080'",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'\u001b[0m",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 64,
-            "EndLine": 67,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 64,
-                  "Content": "      - name: db",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: db",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 65,
-                  "Content": "        image: descartesresearch/teastore-db",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-db",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 66,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 67,
-                  "Content": "        - containerPort: 3306",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m3306\u001b[0m",
-                  "FirstCause": false,
-                  "LastCause": true
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0106",
-          "Title": "Container capabilities must only include NET_BIND_SERVICE",
-          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
-          "Message": "container should drop all",
-          "Namespace": "builtin.kubernetes.KSV106",
-          "Query": "data.builtin.kubernetes.KSV106.deny",
-          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
-          "Severity": "LOW",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
-          "References": [
-            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
-            "https://avd.aquasec.com/misconfig/ksv-0106"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
             "StartLine": 99,
             "EndLine": 115,
             "Code": {
@@ -12120,32 +12062,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 147,
-            "EndLine": 159,
+            "StartLine": 64,
+            "EndLine": 67,
             "Code": {
               "Lines": [
                 {
-                  "Number": 147,
-                  "Content": "      - name: auth",
+                  "Number": 64,
+                  "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: auth",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: db",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 148,
-                  "Content": "        image: descartesresearch/teastore-auth",
+                  "Number": 65,
+                  "Content": "        image: descartesresearch/teastore-db",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-auth",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-db",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 149,
+                  "Number": 66,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -12155,7 +12097,74 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 150,
+                  "Number": 67,
+                  "Content": "        - containerPort: 3306",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m3306\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 24,
+            "EndLine": 32,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 24,
+                  "Content": "      - name: registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: registry",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 25,
+                  "Content": "        image: descartesresearch/teastore-registry",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: descartesresearch/teastore-registry",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 26,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 27,
                   "Content": "        - containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -12165,7 +12174,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 151,
+                  "Number": 28,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -12175,7 +12184,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 152,
+                  "Number": 29,
                   "Content": "        - name: HOST_NAME",
                   "IsCause": true,
                   "Annotation": "",
@@ -12185,43 +12194,34 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 153,
-                  "Content": "          value: auth",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: auth",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 154,
-                  "Content": "        - name: REGISTRY_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: REGISTRY_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 155,
+                  "Number": 30,
                   "Content": "          value: registry",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
                   "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: registry",
                   "FirstCause": false,
-                  "LastCause": true
+                  "LastCause": false
                 },
                 {
-                  "Number": 156,
-                  "Content": "",
-                  "IsCause": false,
+                  "Number": 31,
+                  "Content": "        - name: SERVICE_PORT",
+                  "IsCause": true,
                   "Annotation": "",
-                  "Truncated": true,
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: SERVICE_PORT",
                   "FirstCause": false,
                   "LastCause": false
+                },
+                {
+                  "Number": 32,
+                  "Content": "          value: '8080'",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: \u001b[38;5;37m'8080'\u001b[0m",
+                  "FirstCause": false,
+                  "LastCause": true
                 }
               ]
             }

@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-b33f9b6b-1b12-4e29-b4d9-9f50ad4baa4a",
+    "object": "chat.completion",
+    "created": 1795546231,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: headlamp\n---\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: headlamp\n  namespace: headlamp\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  name: headlamp\nrules:\n  - apiGroups: [\"\"]\n    resources: [\"pods\", \"pods/log\", \"services\", \"endpoints\", \"namespaces\", \"configmaps\", \"secrets\", \"serviceaccounts\", \"persistentvolumes\", \"persistentvolumeclaims\", \"events\", \"nodes\", \"replicationcontrollers\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"apps\"]\n    resources: [\"deployments\", \"replicasets\", \"statefulsets\", \"daemonsets\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"batch\"]\n    resources: [\"jobs\", \"cronjobs\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"networking.k8s.io\"]\n    resources: [\"ingresses\", \"networkpolicies\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"autoscaling\"]\n    resources: [\"horizontalpodautoscalers\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"policy\"]\n    resources: [\"poddisruptionbudgets\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"rbac.authorization.k8s.io\"]\n    resources: [\"roles\", \"rolebindings\", \"clusterroles\", \"clusterrolebindings\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"storage.k8s.io\"]\n    resources: [\"storageclasses\", \"csinodes\", \"csidrivers\", \"csistoragecapacities\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"coordination.k8s.io\"]\n    resources: [\"leases\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"apiextensions.k8s.io\"]\n    resources: [\"customresourcedefinitions\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n  - apiGroups: [\"*\"]\n    resources: [\"*\"]\n    verbs: [\"get\", \"list\", \"watch\"]\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  name: headlamp\nroleRef:\n  apiGroup: rbac.authorization.k8s.io\n  kind: ClusterRole\n  name: headlamp\nsubjects:\n  - kind: ServiceAccount\n    name: headlamp\n    namespace: headlamp\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app: headlamp\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: headlamp\n  template:\n    metadata:\n      labels:\n        app: headlamp\n    spec:\n      serviceAccountName: headlamp\n      containers:\n        - name: headlamp\n          image: ghcr.io/headlamp-k8s/headlamp:latest\n          imagePullPolicy: IfNotPresent\n          ports:\n            - containerPort: 4466\n              name: http\n          args:\n            - \"-in-cluster\"\n            - \"-plugins-dir=/headlamp/plugins\"\n            - \"-html-static-dir=/headlamp/frontend\"\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 512Mi\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 4466\n            initialDelaySeconds: 10\n            periodSeconds: 10\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 4466\n            initialDelaySeconds: 5\n            periodSeconds: 5\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app: headlamp\nspec:\n  type: ClusterIP\n  ports:\n    - port: 80\n      targetPort: 4466\n      protocol: TCP\n      name: http\n  selector:\n    app: headlamp\n---\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  annotations:\n    nginx.ingress.kubernetes.io/rewrite-target: /\nspec:\n  rules:\n    - host: headlamp.local\n      http:\n        paths:\n          - path: /\n            pathType: Prefix\n            backend:\n              service:\n                name: headlamp\n                port:\n                  number: 80\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.00452521,
+      "prompt_tokens": 4588,
+      "prompt_time": 0.322056236,
+      "completion_tokens": 1138,
+      "completion_time": 2.371827894,
+      "total_tokens": 5726,
+      "total_time": 2.69388413
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_21e59ac2de",
+    "x_groq": {
+      "id": "req_01m87eaaevea594xfztrb61y1n",
+      "seed": 1160961416
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 3.9099864959716797,
+  "tokens_in": 4588,
+  "tokens_out": 1138
+}

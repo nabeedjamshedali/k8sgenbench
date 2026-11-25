@@ -315,20 +315,42 @@ def update_summary(model, project, k, rnd, record, p):
 
 # ---------------------------------------------------------------- commands
 
+def mark_provider_limit(model, project, k, rnd):
+    """The provider rejected the request as too large (HTTP 413). The request is the same on every retry, so the
+    loop is closed as stopped by the provider instead of being retried on every pass."""
+    path = HERE / "outputs" / model / project / f"guided_loop_s{k}.json"
+    s = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"system_prompt_version": PROMPT_VERSION,
+                                                                            "rounds": []}
+    s["stopped"], s["stopped_at_round"] = "provider_request_limit", rnd
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(s, indent=2))
+
+
 def run(model, project, k):
     env = g.load_env()
     cfg = g.CONFIG["models"][model]
+    loop = HERE / "outputs" / model / project / f"guided_loop_s{k}.json"
+    if loop.exists() and json.loads(loop.read_text(encoding="utf-8")).get("stopped") == "provider_request_limit":
+        print(f"{model} {project} s{k}: stopped earlier by the provider (request too large), skipped")
+        return
     for rnd in range(MAX_REPAIRS + 1):
         if not result_path(model, project, k, rnd).exists():
             # a reply saved before a crash in its evaluation is evaluated, not generated again
             if not (round_dir(model, project, k, rnd) / "extraction.json").exists():
                 turns = conversation(model, project, k, rnd)
-                if cfg["provider"] == "gemini":
-                    out = call_gemini(env, turns)
-                elif cfg["provider"] == "groq":
-                    out = call_groq(env, turns, cfg["model_id"])
-                else:
-                    sys.exit(f"{model}: use the prompt/ingest commands")
+                try:
+                    if cfg["provider"] == "gemini":
+                        out = call_gemini(env, turns)
+                    elif cfg["provider"] == "groq":
+                        out = call_groq(env, turns, cfg["model_id"])
+                    else:
+                        sys.exit(f"{model}: use the prompt/ingest commands")
+                except Exception as e:
+                    if getattr(getattr(e, "response", None), "status_code", None) == 413:
+                        mark_provider_limit(model, project, k, rnd)
+                        print(f"{model} {project} s{k} r{rnd}: request too large for the provider (413), loop stopped")
+                        return
+                    raise
                 save_round(model, project, k, rnd, *out, cfg["provider"], cfg["model_id"])
             evaluate(model, project, k, rnd)
         p = write_feedback(model, project, k, rnd)

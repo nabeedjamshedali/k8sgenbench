@@ -1,0 +1,11 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- The reply could not be parsed as Kubernetes YAML: while parsing a block mapping
+  in "<unicode string>", line 1, column 1:
+    startupProbe:
+    ^
+expected <block end>, but found '<block mapping start>'
+  in "<unicode string>", line 7, column 9:
+            livenessProbe:
+            ^. The reply was cut off before the end.
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

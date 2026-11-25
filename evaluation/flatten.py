@@ -6,6 +6,7 @@ import csv
 import glob
 import json
 import os
+import re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -32,6 +33,25 @@ def g(d, *path, default=None):
             return default
         d = d[p]
     return d
+
+
+def smoke_ok(r):
+    """D5 smoke result, with one correction: P06 'seed-loaded' first required exactly 18 nouns (^18$, the upstream
+    db/words.sql), a script the docs bundle does not contain. It now requires a nouns table with at least one row
+    (datasets/P06_wordsmith/smoke.json); records evaluated before the change are re-scored from the stored psql output.
+    The raw result files are not modified."""
+    d5 = r.get("d5", {})
+    checks = d5.get("smoke")
+    if r["project"] != "P06_wordsmith" or not checks:
+        return d5.get("smoke_ok")
+    passed = []
+    for c in checks:
+        if c["name"] == "seed-loaded":
+            m = re.fullmatch(r"output '(\d+)'", c.get("detail", ""))
+            passed.append(bool(m) and int(m.group(1)) >= 1)
+        else:
+            passed.append(c["passed"])
+    return all(passed)
 
 
 def row(r):
@@ -61,7 +81,8 @@ def row(r):
         "d4_pct": d4.get("pct"),
         "d5_ran": d5.get("ran", False), "d5_apply_ok": d5.get("apply_ok"), "d5_ready_ok": d5.get("ready_ok"),
         "d5_time_to_ready_s": d5.get("time_to_ready_s"), "d5_ready_replicas": d5.get("ready_replicas"),
-        "d5_expected_replicas": d5.get("expected_replicas"), "d5_smoke_ok": d5.get("smoke_ok"),
+        "d5_expected_replicas": d5.get("expected_replicas"), "d5_smoke_ok": smoke_ok(r),
+        "d5_smoke_ok_raw": d5.get("smoke_ok"),
         "d5_failure_reason": d5.get("failure_reason"),
         "d5_images_aliased": sum(1 for i in d5.get("images", []) if str(i.get("served")).startswith("alias:")) if d5.get("ran") else None,
         "d6_gate": d6.get("gate") or ("ready" if d6.get("ran") else None),

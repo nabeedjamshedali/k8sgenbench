@@ -1,0 +1,343 @@
+{
+  "project": "P12_headlamp",
+  "source": "gemini",
+  "prompt_variant": "production",
+  "sample_k": "2",
+  "timestamp": "2026-11-25T10:17:15Z",
+  "gen_finish_reason": "STOP",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 6,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": false,
+    "summary": {
+      "valid": 5,
+      "invalid": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [
+      "statusInvalid"
+    ],
+    "details": [
+      {
+        "filename": "stdin",
+        "kind": "Deployment",
+        "name": "headlamp",
+        "version": "apps/v1",
+        "status": "statusInvalid",
+        "msg": "problem validating schema. Check JSON formatting: jsonschema validation failed with 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.37.0-standalone/deployment-apps-v1.json#' - at '/spec/template/spec/securityContext/fsGroup': got string, want null or integer - at '/spec/template/spec/securityContext/runAsGroup': got string, want null or integer - at '/spec/template/spec/securityContext/runAsUser': got string, want null or integer",
+        "validationErrors": [
+          {
+            "path": "/spec/template/spec/securityContext/fsGroup",
+            "msg": "got string, want null or integer"
+          },
+          {
+            "path": "/spec/template/spec/securityContext/runAsGroup",
+            "msg": "got string, want null or integer"
+          },
+          {
+            "path": "/spec/template/spec/securityContext/runAsUser",
+            "msg": "got string, want null or integer"
+          }
+        ]
+      }
+    ]
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": false,
+    "objects_total": 6,
+    "objects_accepted": 5,
+    "errors": [
+      "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: json: cannot unmarshal string into Go struct field PodSecurityContext.spec.template.spec.securityContext.fsGroup of type int64"
+    ],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "headlamp",
+        "accepted": false,
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: json: cannot unmarshal string into Go struct field PodSecurityContext.spec.template.spec.securityContext.fsGroup of type int64"
+      },
+      {
+        "kind": "Ingress",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "headlamp-admin-binding",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 147,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "ClusterRoleBinding": 1,
+    "Service": 1,
+    "Deployment": 1,
+    "Ingress": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": false,
+      "stderr": "{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Kubescape scanner initializing...\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Initialized scanner\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Loading policies...\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Loaded policies\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Loading exceptions...\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Loaded exceptions\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Loading account configurations...\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Loaded account configurations\"}\n{\"level\":\"info\",\"ts\":\"2026-11-25T15:17:28+05:00\",\"msg\":\"Accessing local objects...\"}\nError: failed to load one or more manifests from \"C:\\\\workspace\\\\research papers\\\\kubernetes\\\\evaluation\\\\results\\\\raw\\\\gemini__P12_headlamp__production__s2\\\\manifest.yaml\": failed to parse \"C:\\\\workspace\\\\research papers\\\\kubernetes\\\\evaluation\\\\results\\\\raw\\\\gemini__P12_headlamp__production__s2\\\\manifest.yaml\": document 5: apps/v1 \"Deployment\" is structurally invalid: json: cannot unmarshal string into Go struct field PodSecurityContext.spec.template.spec.securityContext.fsGroup of type int64\n"
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 3,
+        "low": 0
+      },
+      "failed": [
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0111",
+          "title": "User with admin access",
+          "severity": "MEDIUM",
+          "message": "ClusterRoleBinding 'headlamp-admin-binding' should not bind to roles [\"cluster-admin\", \"admin\", \"edit\"]"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container headlamp in deployment headlamp (namespace: headlamp) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": false,
+      "stderr": "Failed to score files: failed to parse files: Failed to parse apps/v1, Kind=Deployment: err=json: cannot unmarshal string into Go struct field PodSecurityContext.spec.template.spec.securityContext.fsGroup of type int64\n"
+    },
+    "polaris": {
+      "ran": true,
+      "score": 0,
+      "failed_by_check": {
+        "clusterrolebindingClusterAdmin[danger]": 1,
+        "clusterrolebindingPodExecAttach[danger]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 1,
+      "by_check": {
+        "dangling-service": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 1,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 1,
+      "zhang_density_per_kloc": 6.8,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 70.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 0,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 1,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "headlamp",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 1,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-headlamp-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-in-cluster-mode",
+        "passed": true,
+        "detail": "-in-cluster flag or HEADLAMP_CONFIG_IN_CLUSTER=true",
+        "oracle": false
+      },
+      {
+        "id": "R03-sa-token-mounted",
+        "passed": true,
+        "detail": "service-account token mounted",
+        "oracle": true
+      },
+      {
+        "id": "R04-ui-port",
+        "passed": true,
+        "detail": "via Service headlamp",
+        "oracle": false
+      },
+      {
+        "id": "R05-ui-external",
+        "passed": true,
+        "detail": "Ingress headlamp -> headlamp",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 4,
+    "requirements_total": 4,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "ghcr.io/headlamp-k8s/headlamp:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": false,
+    "apply_errors": [
+      {
+        "kind": "Deployment",
+        "name": "headlamp",
+        "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: json: cannot unmarshal string into Go struct field PodSecurityContext.spec.template.spec.securityContext.fsGroup of type int64"
+      }
+    ],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 0,
+    "expected_replicas": 0,
+    "workloads": [],
+    "failure_reason": "no_workloads",
+    "diagnostics": {
+      "pods": [],
+      "warning_events": {}
+    },
+    "client_placement": {
+      "namespace": "d5-3d23c201",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke_ok": false
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

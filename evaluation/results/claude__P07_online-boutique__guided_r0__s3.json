@@ -1,0 +1,1542 @@
+{
+  "project": "P07_online-boutique",
+  "source": "claude",
+  "prompt_variant": "guided_r0",
+  "sample_k": "3",
+  "timestamp": "2026-11-25T10:27:09Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 24,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 24,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 24,
+    "objects_accepted": 24,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "online-boutique",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "redis-cart",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "redis-cart",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "adservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "adservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "cartservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "cartservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "checkoutservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "checkoutservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "currencyservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "currencyservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "emailservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "emailservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "paymentservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "paymentservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "productcatalogservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "productcatalogservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "recommendationservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "recommendationservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "shippingservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "shippingservice",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "frontend",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "frontend",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "frontend-external",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 924,
+  "resource_counts": {
+    "Namespace": 1,
+    "StatefulSet": 1,
+    "Service": 12,
+    "Deployment": 10
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 92.72728,
+      "frameworks": {
+        "NSA": 89.090904,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1031754312/api=apps/v1/online-boutique/Deployment/shippingservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=298968329/api=apps/v1/online-boutique/Deployment/currencyservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=3312966043/api=apps/v1/online-boutique/Deployment/frontend",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=399634043/api=apps/v1/online-boutique/Deployment/adservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=416411662/api=/v1//Namespace/online-boutique",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=433189281/api=apps/v1/online-boutique/StatefulSet/redis-cart",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=433189281/api=apps/v1/online-boutique/StatefulSet/redis-cart",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=433189281/api=apps/v1/online-boutique/StatefulSet/redis-cart",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=466744519/api=apps/v1/online-boutique/Deployment/checkoutservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=500299757/api=apps/v1/online-boutique/Deployment/cartservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=897533360/api=apps/v1/online-boutique/Deployment/emailservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=931088598/api=apps/v1/online-boutique/Deployment/paymentservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=964643836/api=apps/v1/online-boutique/Deployment/productcatalogservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=998199074/api=apps/v1/online-boutique/Deployment/recommendationservice",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 2,
+        "medium": 11,
+        "low": 25
+      },
+      "failed": [
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'redis' of StatefulSet 'redis-cart' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'redis' of 'statefulset' 'redis-cart' in 'online-boutique' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'redis' of StatefulSet 'redis-cart' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'redis' of StatefulSet 'redis-cart' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of StatefulSet 'redis-cart' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'adservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'cartservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'checkoutservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'currencyservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'emailservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'frontend' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'paymentservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'productcatalogservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'recommendationservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'shippingservice' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'redis' of StatefulSet 'redis-cart' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'adservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'cartservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'checkoutservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'currencyservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'emailservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'frontend' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'paymentservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'productcatalogservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'recommendationservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'server' of Deployment 'shippingservice' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "statefulset redis-cart in online-boutique namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment adservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment cartservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment checkoutservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment currencyservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment emailservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment frontend (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment paymentservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment productcatalogservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment recommendationservice (namespace: online-boutique) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container server in deployment shippingservice (namespace: online-boutique) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 11,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "StatefulSet",
+            "name": "redis-cart",
+            "detail": "statefulset.apps/redis-cart created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"redis\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"redis\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 58,
+      "warning": 11,
+      "critical_by_check": {
+        "container-security-context-user-group-id": 11,
+        "container-ephemeral-storage-request-and-limit": 11,
+        "container-image-pull-policy": 11,
+        "pod-networkpolicy": 11,
+        "deployment-has-poddisruptionbudget": 10,
+        "pod-probes-identical": 2,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "statefulset-has-servicename": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 10,
+        "service-type": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 88,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 11,
+        "missingNetworkPolicy[warning]": 11,
+        "priorityClassNotSet[warning]": 11,
+        "topologySpreadConstraint[warning]": 11,
+        "insecureCapabilities[warning]": 1,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "pullPolicyNotAlways[warning]": 11,
+        "runAsRootAllowed[danger]": 1,
+        "missingPodDisruptionBudget[warning]": 10
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 12,
+      "by_check": {
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 1,
+        "no-anti-affinity": 10
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 10,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 1,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 12,
+      "zhang_density_per_kloc": 13.0,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 11,
+      "pct": 69.7,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 11,
+          "applicable": 11
+        },
+        "1_replicas_ge_2": {
+          "met": 10,
+          "applicable": 10
+        },
+        "2_readiness": {
+          "met": 11,
+          "applicable": 11
+        },
+        "3_liveness": {
+          "met": 11,
+          "applicable": 11
+        },
+        "4_cpu_request": {
+          "met": 11,
+          "applicable": 11
+        },
+        "5_mem_request": {
+          "met": 11,
+          "applicable": 11
+        },
+        "6_mem_limit": {
+          "met": 11,
+          "applicable": 11
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 11
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 11
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 11
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "StatefulSet",
+          "name": "redis-cart",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "adservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "cartservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "checkoutservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "currencyservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "emailservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "paymentservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "productcatalogservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "recommendationservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "shippingservice",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "frontend",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-frontend-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R02-cartservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice",
+        "oracle": true
+      },
+      {
+        "id": "R03-productcatalogservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/productcatalogservice",
+        "oracle": true
+      },
+      {
+        "id": "R04-currencyservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/currencyservice",
+        "oracle": true
+      },
+      {
+        "id": "R05-paymentservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/paymentservice",
+        "oracle": true
+      },
+      {
+        "id": "R06-shippingservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/shippingservice",
+        "oracle": true
+      },
+      {
+        "id": "R07-emailservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice",
+        "oracle": true
+      },
+      {
+        "id": "R08-checkoutservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R09-recommendationservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice",
+        "oracle": true
+      },
+      {
+        "id": "R10-adservice-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/adservice",
+        "oracle": true
+      },
+      {
+        "id": "R11-loadgenerator-deployed",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/loadgenerator",
+        "oracle": true
+      },
+      {
+        "id": "R12-redis-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": true
+      },
+      {
+        "id": "Rfrontend-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rcartservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rproductcatalogservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rcurrencyservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rpaymentservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rshippingservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Remailservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rcheckoutservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rrecommendationservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Radservice-component-present",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "Rloadgenerator-component-present",
+        "passed": false,
+        "detail": "no workload identifiable as 'loadgenerator'",
+        "oracle": false
+      },
+      {
+        "id": "R13-frontend-port-8080",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend:8080",
+        "oracle": true
+      },
+      {
+        "id": "R14-cartservice-port-7070",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice:7070",
+        "oracle": true
+      },
+      {
+        "id": "R15-productcatalogservice-port-3550",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/productcatalogservice:3550",
+        "oracle": true
+      },
+      {
+        "id": "R16-currencyservice-port-7000",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/currencyservice:7000",
+        "oracle": true
+      },
+      {
+        "id": "R17-paymentservice-port-50051",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/paymentservice:50051",
+        "oracle": true
+      },
+      {
+        "id": "R18-shippingservice-port-50051",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/shippingservice:50051",
+        "oracle": true
+      },
+      {
+        "id": "R19-emailservice-port-8080",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/emailservice:8080",
+        "oracle": true
+      },
+      {
+        "id": "R20-checkoutservice-port-5050",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice:5050",
+        "oracle": true
+      },
+      {
+        "id": "R21-recommendationservice-port-8080",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice:8080",
+        "oracle": true
+      },
+      {
+        "id": "R22-adservice-port-9555",
+        "passed": false,
+        "detail": "no Service routes to us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/adservice:9555",
+        "oracle": true
+      },
+      {
+        "id": "R23-redis-port-6379",
+        "passed": true,
+        "detail": "via Service redis-cart",
+        "oracle": true
+      },
+      {
+        "id": "R24-currency-port",
+        "passed": false,
+        "detail": "PORT=[]",
+        "oracle": true
+      },
+      {
+        "id": "R25-payment-port",
+        "passed": false,
+        "detail": "PORT=[]",
+        "oracle": true
+      },
+      {
+        "id": "R26-frontend-PRODUCT_CATALOG_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R27-frontend-CURRENCY_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R28-frontend-CART_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R29-frontend-RECOMMENDATION_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R30-frontend-CHECKOUT_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R31-frontend-SHIPPING_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R32-frontend-AD_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/frontend",
+        "oracle": true
+      },
+      {
+        "id": "R33-frontend-SHOPPING_ASSISTANT_SERVICE_ADDR",
+        "passed": false,
+        "detail": "SHOPPING_ASSISTANT_SERVICE_ADDR missing in 0 container(s)",
+        "oracle": true
+      },
+      {
+        "id": "R34-checkout-PRODUCT_CATALOG_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R35-checkout-SHIPPING_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R36-checkout-PAYMENT_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R37-checkout-EMAIL_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R38-checkout-CURRENCY_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R39-checkout-CART_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/checkoutservice",
+        "oracle": true
+      },
+      {
+        "id": "R40-recommendation-PRODUCT_CATALOG_SERVICE_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/recommendationservice",
+        "oracle": true
+      },
+      {
+        "id": "R41-cart-REDIS_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/cartservice",
+        "oracle": true
+      },
+      {
+        "id": "R42-loadgenerator-FRONTEND_ADDR",
+        "passed": false,
+        "detail": "no workload runs us-central1-docker.pkg.dev/online-boutique-ci/microservices-demo/loadgenerator",
+        "oracle": true
+      },
+      {
+        "id": "R43-frontend-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": true
+      }
+    ],
+    "requirements_met": 10,
+    "requirements_total": 11,
+    "pct": 90.9
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "redis:alpine",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/adservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/cartservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/checkoutservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/currencyservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/emailservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/frontend:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/paymentservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/productcatalogservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/recommendationservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "us-central1-docker.pkg.dev/google-samples/microservices-demo/shippingservice:v0.10.3",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [
+      {
+        "object": "Deployment/frontend",
+        "container": "server",
+        "env": "SHOPPING_ASSISTANT_SERVICE_ADDR"
+      }
+    ],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 27.5,
+    "ready_replicas": 21,
+    "expected_replicas": 21,
+    "workloads": [
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "adservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "cartservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "checkoutservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "currencyservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "emailservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "frontend",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "paymentservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "productcatalogservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "recommendationservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "Deployment",
+        "name": "shippingservice",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "online-boutique",
+        "kind": "StatefulSet",
+        "name": "redis-cart",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-2aaa8fda",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "home-lists-products",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "product-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "add-to-cart",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "view-cart",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cart-in-redis",
+        "passed": true,
+        "detail": "output '1'"
+      },
+      {
+        "name": "checkout",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "redis-cart",
+        "namespace": "online-boutique",
+        "port": 6379,
+        "target_port": 6379,
+        "pod": "redis-cart-0",
+        "listening": [
+          6379
+        ],
+        "ok": true
+      },
+      {
+        "service": "adservice",
+        "namespace": "online-boutique",
+        "port": 9555,
+        "target_port": 9555,
+        "pod": "adservice-66b987d48d-gb2gq",
+        "listening": [
+          9555
+        ],
+        "ok": true
+      },
+      {
+        "service": "cartservice",
+        "namespace": "online-boutique",
+        "port": 7070,
+        "target_port": 7070,
+        "pod": "cartservice-7f77cc7557-bw6ws",
+        "listening": [
+          7070
+        ],
+        "ok": true
+      },
+      {
+        "service": "checkoutservice",
+        "namespace": "online-boutique",
+        "port": 5050,
+        "target_port": 5050,
+        "pod": "checkoutservice-d8f476c5b-qkdqp",
+        "listening": [
+          5050
+        ],
+        "ok": true
+      },
+      {
+        "service": "currencyservice",
+        "namespace": "online-boutique",
+        "port": 7000,
+        "target_port": 7000,
+        "pod": "currencyservice-869848c7fd-dhqjr",
+        "listening": [
+          7000
+        ],
+        "ok": true
+      },
+      {
+        "service": "emailservice",
+        "namespace": "online-boutique",
+        "port": 5000,
+        "target_port": 8080,
+        "pod": "emailservice-7b8fcf9444-dc7bw",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "paymentservice",
+        "namespace": "online-boutique",
+        "port": 50051,
+        "target_port": 50051,
+        "pod": "paymentservice-6647874fb6-jknhz",
+        "listening": [
+          50051
+        ],
+        "ok": true
+      },
+      {
+        "service": "productcatalogservice",
+        "namespace": "online-boutique",
+        "port": 3550,
+        "target_port": 3550,
+        "pod": "productcatalogservice-7c7d775966-8m6pb",
+        "listening": [
+          3550
+        ],
+        "ok": true
+      },
+      {
+        "service": "recommendationservice",
+        "namespace": "online-boutique",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "recommendationservice-6fbf65b476-8d8sm",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "shippingservice",
+        "namespace": "online-boutique",
+        "port": 50051,
+        "target_port": 50051,
+        "pod": "shippingservice-5fd5566496-7dxcv",
+        "listening": [
+          50051
+        ],
+        "ok": true
+      },
+      {
+        "service": "frontend",
+        "namespace": "online-boutique",
+        "port": 80,
+        "target_port": 8080,
+        "pod": "frontend-6df9c7db96-kqwdf",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "frontend-external",
+        "namespace": "online-boutique",
+        "port": 80,
+        "target_port": 8080,
+        "pod": "frontend-6df9c7db96-kqwdf",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      }
+    ]
+  },
+  "d6": {
+    "ran": true,
+    "service": "frontend",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "frontend-6df9c7db96-8nh47",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 9.1,
+        "availability_pct": 100.0,
+        "n_probes": 64
+      },
+      {
+        "ran": true,
+        "victim": "frontend-6df9c7db96-b64xk",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.5,
+        "availability_pct": 100.0,
+        "n_probes": 79
+      },
+      {
+        "ran": true,
+        "victim": "frontend-6df9c7db96-k8znt",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.4,
+        "availability_pct": 98.6,
+        "n_probes": 69
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "frontend-6df9c7db96-kqwdf",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 8.6,
+        "availability_pct": 97.1,
+        "n_probes": 68
+      },
+      {
+        "ran": true,
+        "victim": "frontend-6df9c7db96-pbl7m",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 12.6,
+        "availability_pct": 95.5,
+        "n_probes": 66
+      },
+      {
+        "ran": true,
+        "victim": "frontend-6df9c7db96-kqwdf",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 19.5,
+        "availability_pct": 98.1,
+        "n_probes": 104
+      }
+    ],
+    "gate": "ready"
+  }
+}

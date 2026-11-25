@@ -50,3 +50,382 @@ qwen__P06_wordsmith__production__s1: parse=OK docs=9 kubeconform_valid=True serv
 OK: gemini/P09_teastore/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\neutral\s1
       0 [main] bash 2308 dofork: child -1 - forked process 20400 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
 evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable
+=== 2026-11-24 22:39:53 gemini P06_wordsmith neutral s1
+=== 2026-11-24 22:39:59 qwen P06_wordsmith neutral s1
+=== 2026-11-24 22:40:02 gemini P06_wordsmith production s1
+=== 2026-11-24 22:40:06 qwen P06_wordsmith production s1
+=== 2026-11-24 22:40:12 gemini P09_teastore neutral s1
+gemini__P09_teastore__neutral__s1: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=19/19
+    D2 kubescape=73.333336 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 77} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/7 polaris=48 zhang=28 checklist=0.0%
+    D5 apply_ok=True ready=True (7/7) t=128.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=2.2 avail=29.2; ok=True t=3.9 avail=0.0; ok=True t=1.0 avail=0.0
+    D6 container_crash: ok=True t=2.9 avail=0.0; ok=True t=11.9 avail=0.0; ok=True t=27.0 avail=0.0
+=== 2026-11-24 22:53:11 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-24 22:54:16 gemini P09_teastore production s1
+OK: gemini/P09_teastore/production/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\production\s1
+gemini__P09_teastore__production__s1: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=19/19
+    D2 kubescape=80 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 49} pss=baseline secrets=0
+    D3 kube-score crit/warn=42/7 polaris=66 zhang=14 checklist=50.0%
+    D5 apply_ok=True ready=True (7/7) t=73.0s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=36.5 avail=0.0; ok=True t=38.1 avail=0.0; ok=True t=38.5 avail=0.0
+    D6 container_crash: ok=True t=36.2 avail=0.0; ok=True t=47.5 avail=0.0; ok=True t=59.3 avail=0.0
+=== 2026-11-24 23:31:41 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-24 23:31:47 gemini P12_headlamp neutral s1
+OK: gemini/P12_headlamp/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P12_headlamp\neutral\s1
+gemini__P12_headlamp__neutral__s1: parse=OK docs=5 kubeconform_valid=True server_ok=True (5/5) d4=3/4
+    D2 kubescape=85 trivy={'critical': 0, 'high': 1, 'medium': 3, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=7/1 polaris=73 zhang=1 checklist=50.0%
+    D5 apply_ok=True ready=False (0/1) t=Nones smoke=False reason=CreateContainerConfigError aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 23:50:29 qwen P12_headlamp neutral s1
+OK: qwen/P12_headlamp/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P12_headlamp\neutral\s1
+qwen__P12_headlamp__neutral__s1: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/4
+    D2 kubescape=71.666664 trivy={'critical': 2, 'high': 3, 'medium': 5, 'low': 6} pss=baseline secrets=0
+    D3 kube-score crit/warn=7/1 polaris=62 zhang=2 checklist=50.0%
+    D5 apply_ok=True ready=True (1/1) t=8.9s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.6 avail=43.8; ok=True t=10.7 avail=41.4; ok=True t=7.4 avail=65.9
+    D6 container_crash: ok=True t=6.2 avail=58.1; ok=True t=17.7 avail=38.0; ok=True t=27.9 avail=36.8
+=== 2026-11-24 23:55:28 gemini P12_headlamp production s1
+OK: gemini/P12_headlamp/production/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P12_headlamp\production\s1
+gemini__P12_headlamp__production__s1: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=4/4
+    D2 kubescape=81.666664 trivy={'critical': 1, 'high': 1, 'medium': 2, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=7/1 polaris=80 zhang=2 checklist=70.0%
+    D5 apply_ok=True ready=True (2/2) t=12.2s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.6 avail=100.0; ok=True t=7.4 avail=100.0; ok=True t=5.6 avail=97.9
+    D6 container_crash: ok=True t=7.8 avail=97.3; ok=True t=7.2 avail=96.4; ok=True t=20.2 avail=97.6
+=== 2026-11-25 00:13:42 qwen P12_headlamp production s1
+OK: qwen/P12_headlamp/production/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P12_headlamp\production\s1
+qwen__P12_headlamp__production__s1: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/4
+    D2 kubescape=68.333336 trivy={'critical': 1, 'high': 3, 'medium': 8, 'low': 1} pss=baseline secrets=0
+    D3 kube-score crit/warn=5/1 polaris=79 zhang=0 checklist=50.0%
+    D5 apply_ok=True ready=False (0/1) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 00:22:52 gemini P06_wordsmith neutral s2
+OK: gemini/P06_wordsmith/neutral/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P06_wordsmith\neutral\s2
+FAILED eval: gemini P06_wordsmith neutral s2
+      0 [main] bash 718 dofork: child -1 - forked process 20772 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/wait_disk.sh: fork: retry: Resource temporarily unavailable
+=== 2026-11-25 11:21:32 gemini P06_wordsmith neutral s1
+=== 2026-11-25 11:21:34 qwen P06_wordsmith neutral s1
+=== 2026-11-25 11:21:36 gemini P06_wordsmith production s1
+=== 2026-11-25 11:21:37 qwen P06_wordsmith production s1
+=== 2026-11-25 11:21:39 gemini P09_teastore neutral s1
+=== 2026-11-25 11:21:40 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-25 11:21:47 gemini P09_teastore production s1
+=== 2026-11-25 11:21:49 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-25 11:21:54 gemini P12_headlamp neutral s1
+=== 2026-11-25 11:21:56 qwen P12_headlamp neutral s1
+=== 2026-11-25 11:21:57 gemini P12_headlamp production s1
+=== 2026-11-25 11:21:59 qwen P12_headlamp production s1
+=== 2026-11-25 11:22:01 gemini P06_wordsmith neutral s2
+gemini__P06_wordsmith__neutral__s2: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=8/8
+    D2 kubescape=77.77779 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 25} pss=baseline secrets=0
+    D3 kube-score crit/warn=19/3 polaris=58 zhang=8 checklist=23.3%
+    D5 apply_ok=True ready=True (3/3) t=20.7s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.0 avail=0.0; ok=True t=10.5 avail=0.0; ok=True t=11.9 avail=0.0
+    D6 container_crash: ok=True t=5.8 avail=0.0; ok=True t=19.7 avail=0.0; ok=True t=27.8 avail=0.0
+=== 2026-11-25 12:12:21 qwen P06_wordsmith neutral s2
+OK: qwen/P06_wordsmith/neutral/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\neutral\s2
+qwen__P06_wordsmith__neutral__s2: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=6/8
+    D2 kubescape=74.44444 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 22} pss=baseline secrets=1
+    D3 kube-score crit/warn=21/3 polaris=66 zhang=10 checklist=50.0%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 12:46:43 gemini P06_wordsmith production s2
+OK: gemini/P06_wordsmith/production/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P06_wordsmith\production\s2
+gemini__P06_wordsmith__production__s2: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=8/8
+    D2 kubescape=80 trivy={'critical': 0, 'high': 5, 'medium': 10, 'low': 9} pss=baseline secrets=1
+    D3 kube-score crit/warn=23/2 polaris=80 zhang=7 checklist=62.1%
+    D5 apply_ok=True ready=False (4/5) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 13:14:36 qwen P06_wordsmith production s2
+OK: qwen/P06_wordsmith/production/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\production\s2
+qwen__P06_wordsmith__production__s2: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=6/8
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 18} pss=baseline secrets=1
+    D3 kube-score crit/warn=20/3 polaris=68 zhang=8 checklist=53.3%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 13:25:25 gemini P09_teastore neutral s2
+OK: gemini/P09_teastore/neutral/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\neutral\s2
+gemini__P09_teastore__neutral__s2: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=19/19
+    D2 kubescape=73.333336 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 77} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/7 polaris=48 zhang=28 checklist=0.0%
+    D5 apply_ok=True ready=True (7/7) t=12.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=1.1 avail=29.4; ok=True t=2.5 avail=0.0; ok=True t=0 avail=0.0
+    D6 container_crash: ok=True t=1.0 avail=0.0; ok=True t=12.1 avail=0.0; ok=True t=20.3 avail=0.0
+=== 2026-11-25 13:38:15 qwen P09_teastore neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore neutral s2
+=== 2026-11-25 13:39:21 gemini P09_teastore production s2
+OK: gemini/P09_teastore/production/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\production\s2
+gemini__P09_teastore__production__s2: parse=OK docs=16 kubeconform_valid=True server_ok=True (16/16) d4=19/19
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 21, 'medium': 36, 'low': 42} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/7 polaris=66 zhang=14 checklist=50.0%
+    D5 apply_ok=True ready=True (7/7) t=77.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=19.1 avail=3.7; ok=True t=18.7 avail=0.0; ok=True t=19.7 avail=0.0
+    D6 container_crash: ok=True t=19.7 avail=0.0; ok=True t=30.6 avail=0.0; ok=True t=39.0 avail=0.0
+=== 2026-11-25 13:52:45 qwen P09_teastore production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore production s2
+=== 2026-11-25 13:53:50 gemini P12_headlamp neutral s2
+OK: gemini/P12_headlamp/neutral/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P12_headlamp\neutral\s2
+gemini__P12_headlamp__neutral__s2: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=4/4
+    D2 kubescape=85 trivy={'critical': 0, 'high': 1, 'medium': 4, 'low': 3} pss=baseline secrets=0
+    D3 kube-score crit/warn=8/1 polaris=74 zhang=2 checklist=60.0%
+    D5 apply_ok=True ready=True (2/2) t=11.0s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.8 avail=100.0; ok=True t=10.2 avail=100.0; ok=True t=8.6 avail=98.7
+    D6 container_crash: ok=True t=11.3 avail=95.0; ok=True t=8.0 avail=98.6; ok=True t=21.1 avail=99.3
+=== 2026-11-25 14:33:44 qwen P12_headlamp neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P12_headlamp neutral s2
+=== 2026-11-25 14:34:51 gemini P12_headlamp production s2
+OK: gemini/P12_headlamp/production/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P12_headlamp\production\s2
+gemini__P12_headlamp__production__s2: parse=OK docs=6 kubeconform_valid=False server_ok=False (5/6) d4=4/4
+    D2 kubescape=None trivy={'critical': 0, 'high': 1, 'medium': 3, 'low': 0} pss=restricted secrets=0
+    D3 kube-score crit/warn=None/None polaris=0 zhang=1 checklist=70.0%
+    D5 apply_ok=False ready=False (0/0) t=Nones smoke=False reason=no_workloads aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 15:22:51 qwen P12_headlamp production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P12_headlamp production s2
+=== 2026-11-25 15:23:57 gemini P06_wordsmith neutral s3
+OK: gemini/P06_wordsmith/neutral/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P06_wordsmith\neutral\s3
+gemini__P06_wordsmith__neutral__s3: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=8/8
+    D2 kubescape=73.333336 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 33} pss=baseline secrets=0
+    D3 kube-score crit/warn=21/3 polaris=50 zhang=12 checklist=3.3%
+    D5 apply_ok=True ready=True (3/3) t=6.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.9 avail=0.0; ok=True t=0.5 avail=0.0; ok=True t=1.1 avail=0.0
+    D6 container_crash: ok=True t=0.9 avail=0.0; ok=True t=12.4 avail=0.0; ok=True t=21.8 avail=0.0
+=== 2026-11-25 15:39:32 qwen P06_wordsmith neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P06_wordsmith neutral s3
+=== 2026-11-25 15:40:37 gemini P06_wordsmith production s3
+OK: gemini/P06_wordsmith/production/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P06_wordsmith\production\s3
+gemini__P06_wordsmith__production__s3: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=8/8
+    D2 kubescape=80 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 21} pss=baseline secrets=0
+    D3 kube-score crit/warn=21/2 polaris=70 zhang=8 checklist=62.1%
+    D5 apply_ok=True ready=True (5/5) t=17.8s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=6.4 avail=0.0; ok=True t=8.4 avail=0.0; ok=True t=6.3 avail=0.0
+    D6 container_crash: ok=True t=8.5 avail=0.0; ok=True t=6.2 avail=0.0; ok=True t=19.3 avail=0.0
+=== 2026-11-25 15:48:28 qwen P06_wordsmith production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P06_wordsmith production s3
+=== 2026-11-25 15:49:33 gemini P09_teastore neutral s3
+OK: gemini/P09_teastore/neutral/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\neutral\s3
+gemini__P09_teastore__neutral__s3: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=19/19
+    D2 kubescape=73.333336 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 77} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/7 polaris=48 zhang=28 checklist=0.0%
+    D5 apply_ok=True ready=True (7/7) t=11.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=4.1 avail=10.5; ok=True t=1.3 avail=0.0; ok=True t=1.5 avail=0.0
+    D6 container_crash: ok=True t=1.0 avail=0.0; ok=True t=12.8 avail=0.0; ok=True t=25.9 avail=0.0
+=== 2026-11-25 15:55:10 qwen P09_teastore neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore neutral s3
+=== 2026-11-25 15:56:15 gemini P09_teastore production s3
+OK: gemini/P09_teastore/production/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P09_teastore\production\s3
+gemini__P09_teastore__production__s3: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=19/19
+    D2 kubescape=80 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 49} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/7 polaris=66 zhang=14 checklist=50.0%
+    D5 apply_ok=True ready=True (7/7) t=132.0s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=21.8 avail=14.3; ok=True t=21.3 avail=0.0; ok=True t=24.0 avail=0.0
+    D6 container_crash: ok=True t=23.4 avail=0.0; ok=True t=31.6 avail=0.0; ok=True t=45.6 avail=0.0
+=== 2026-11-25 16:17:56 qwen P09_teastore production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s3
+=== 2026-11-25 16:19:03 gemini P12_headlamp neutral s3
+OK: gemini/P12_headlamp/neutral/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P12_headlamp\neutral\s3
+gemini__P12_headlamp__neutral__s3: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=4/4
+    D2 kubescape=85 trivy={'critical': 0, 'high': 1, 'medium': 3, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=7/1 polaris=72 zhang=1 checklist=50.0%
+    D5 apply_ok=True ready=False (0/1) t=Nones smoke=False reason=CreateContainerConfigError aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 16:28:02 qwen P12_headlamp neutral s3
+OK: qwen/P12_headlamp/neutral/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P12_headlamp\neutral\s3
+qwen__P12_headlamp__neutral__s3: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/4
+    D2 kubescape=68.333336 trivy={'critical': 1, 'high': 5, 'medium': 5, 'low': 6} pss=baseline secrets=0
+    D3 kube-score crit/warn=7/1 polaris=62 zhang=2 checklist=50.0%
+    D5 apply_ok=True ready=True (1/1) t=14.8s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=6.8 avail=63.9; ok=True t=6.1 avail=73.9; ok=True t=6.3 avail=66.7
+    D6 container_crash: ok=True t=6.8 avail=63.3; ok=True t=15.4 avail=48.0; ok=True t=30.0 avail=33.3
+=== 2026-11-25 16:32:00 gemini P12_headlamp production s3
+OK: gemini/P12_headlamp/production/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\gemini\P12_headlamp\production\s3
+gemini__P12_headlamp__production__s3: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=4/4
+    D2 kubescape=88.333336 trivy={'critical': 0, 'high': 1, 'medium': 3, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=8/1 polaris=74 zhang=2 checklist=70.0%
+    D5 apply_ok=True ready=True (2/2) t=14.0s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.4 avail=98.7; ok=True t=10.0 avail=100.0; ok=True t=12.9 avail=100.0
+    D6 container_crash: ok=True t=11.2 avail=98.6; ok=True t=8.4 avail=100.0; ok=True t=20.2 avail=98.3
+=== 2026-11-25 16:36:04 qwen P12_headlamp production s3
+OK: qwen/P12_headlamp/production/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P12_headlamp\production\s3
+qwen__P12_headlamp__production__s3: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/4
+    D2 kubescape=81.666664 trivy={'critical': 2, 'high': 1, 'medium': 3, 'low': 1} pss=baseline secrets=0
+    D3 kube-score crit/warn=5/1 polaris=75 zhang=0 checklist=50.0%
+    D5 apply_ok=True ready=True (1/1) t=10.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=5.7 avail=61.3; ok=True t=8.4 avail=63.2; ok=True t=6.2 avail=71.8
+    D6 container_crash: ok=True t=6.8 avail=54.1; ok=True t=18.5 avail=38.8; ok=True t=26.7 avail=33.9
+=== 2026-11-25 16:39:52 baselines done: evaluation/phase2_test_baselines.txt

@@ -1,0 +1,475 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: teastore
+  labels:
+    app.kubernetes.io/name: teastore
+    app.kubernetes.io/part-of: teastore
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teastore-config
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-config
+    app.kubernetes.io/part-of: teastore
+data:
+  REGISTRY_HOST: "teastore-registry"
+  REGISTRY_PORT: "8080"
+  SERVICE_PORT: "8080"
+  USE_POD_IP: "true"
+  DB_HOST: "teastore-db"
+  DB_PORT: "3306"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-db
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-db
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+      targetPort: 3306
+      name: mysql
+  selector:
+    app: teastore-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-db
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-db
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-db
+  template:
+    metadata:
+      labels:
+        app: teastore-db
+        app.kubernetes.io/name: teastore-db
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: db
+          image: descartesresearch/teastore-db
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+              name: mysql
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-registry
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-registry
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app: teastore-registry
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-registry
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-registry
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-registry
+  template:
+    metadata:
+      labels:
+        app: teastore-registry
+        app.kubernetes.io/name: teastore-registry
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: registry
+          image: descartesresearch/teastore-registry
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: teastore-config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-persistence
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app: teastore-persistence
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-persistence
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-persistence
+  template:
+    metadata:
+      labels:
+        app: teastore-persistence
+        app.kubernetes.io/name: teastore-persistence
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: persistence
+          image: descartesresearch/teastore-persistence
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: teastore-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-auth
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-auth
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app: teastore-auth
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-auth
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-auth
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-auth
+  template:
+    metadata:
+      labels:
+        app: teastore-auth
+        app.kubernetes.io/name: teastore-auth
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: auth
+          image: descartesresearch/teastore-auth
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: teastore-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-image
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-image
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app: teastore-image
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-image
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-image
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-image
+  template:
+    metadata:
+      labels:
+        app: teastore-image
+        app.kubernetes.io/name: teastore-image
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: image
+          image: descartesresearch/teastore-image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: teastore-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-recommender
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-recommender
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app: teastore-recommender
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-recommender
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-recommender
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-recommender
+  template:
+    metadata:
+      labels:
+        app: teastore-recommender
+        app.kubernetes.io/name: teastore-recommender
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: recommender
+          image: descartesresearch/teastore-recommender
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: teastore-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-webui
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-webui
+    app.kubernetes.io/part-of: teastore
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+  selector:
+    app: teastore-webui
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-webui
+  namespace: teastore
+  labels:
+    app.kubernetes.io/name: teastore-webui
+    app.kubernetes.io/part-of: teastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore-webui
+  template:
+    metadata:
+      labels:
+        app: teastore-webui
+        app.kubernetes.io/name: teastore-webui
+        app.kubernetes.io/part-of: teastore
+    spec:
+      containers:
+        - name: webui
+          image: descartesresearch/teastore-webui
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: teastore-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20

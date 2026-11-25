@@ -1,0 +1,1403 @@
+{
+  "project": "P09_teastore",
+  "source": "claude",
+  "prompt_variant": "guided_r0",
+  "sample_k": "3",
+  "timestamp": "2026-11-25T09:18:24Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 15,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 15,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 15,
+    "objects_accepted": 15,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "teastore",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "registry",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "persistence",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "auth",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "image",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "recommender",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "webui",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "StatefulSet",
+        "name": "db",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "registry",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "persistence",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "auth",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "image",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "recommender",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "webui",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 506,
+  "resource_counts": {
+    "Namespace": 1,
+    "Service": 7,
+    "StatefulSet": 1,
+    "Deployment": 6
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 83.333336,
+      "frameworks": {
+        "NSA": 75,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 4,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1056280352/api=apps/v1/teastore/Deployment/persistence",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1056280352/api=apps/v1/teastore/Deployment/persistence",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1056280352/api=apps/v1/teastore/Deployment/persistence",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1056280352/api=apps/v1/teastore/Deployment/persistence",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1073057971/api=apps/v1/teastore/Deployment/auth",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1073057971/api=apps/v1/teastore/Deployment/auth",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1073057971/api=apps/v1/teastore/Deployment/auth",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1073057971/api=apps/v1/teastore/Deployment/auth",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1089835590/api=apps/v1/teastore/Deployment/image",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1089835590/api=apps/v1/teastore/Deployment/image",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1089835590/api=apps/v1/teastore/Deployment/image",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1089835590/api=apps/v1/teastore/Deployment/image",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1106613209/api=apps/v1/teastore/Deployment/recommender",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1106613209/api=apps/v1/teastore/Deployment/recommender",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1106613209/api=apps/v1/teastore/Deployment/recommender",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1106613209/api=apps/v1/teastore/Deployment/recommender",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1123390828/api=apps/v1/teastore/Deployment/webui",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1123390828/api=apps/v1/teastore/Deployment/webui",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1123390828/api=apps/v1/teastore/Deployment/webui",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1123390828/api=apps/v1/teastore/Deployment/webui",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=825371107/api=/v1//Namespace/teastore",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=942814440/api=apps/v1/teastore/Deployment/registry",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=942814440/api=apps/v1/teastore/Deployment/registry",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=942814440/api=apps/v1/teastore/Deployment/registry",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=942814440/api=apps/v1/teastore/Deployment/registry",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=959592059/api=apps/v1/teastore/StatefulSet/db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=959592059/api=apps/v1/teastore/StatefulSet/db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=959592059/api=apps/v1/teastore/StatefulSet/db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=959592059/api=apps/v1/teastore/StatefulSet/db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 14,
+        "medium": 21,
+        "low": 35
+      },
+      "failed": [
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'auth' of Deployment 'auth' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'db' of StatefulSet 'db' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'image' of Deployment 'image' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'persistence' of Deployment 'persistence' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'recommender' of Deployment 'recommender' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'registry' of Deployment 'registry' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'webui' of Deployment 'webui' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'auth' of 'deployment' 'auth' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'db' of 'statefulset' 'db' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'image' of 'deployment' 'image' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'persistence' of 'deployment' 'persistence' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'recommender' of 'deployment' 'recommender' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'registry' of 'deployment' 'registry' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'webui' of 'deployment' 'webui' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'auth' of Deployment 'auth' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'db' of StatefulSet 'db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'image' of Deployment 'image' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'persistence' of Deployment 'persistence' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'recommender' of Deployment 'recommender' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'registry' of Deployment 'registry' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'webui' of Deployment 'webui' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'auth' of Deployment 'auth' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'db' of StatefulSet 'db' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'image' of Deployment 'image' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'persistence' of Deployment 'persistence' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'recommender' of Deployment 'recommender' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'registry' of Deployment 'registry' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'webui' of Deployment 'webui' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'auth' of Deployment 'auth' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'db' of StatefulSet 'db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'image' of Deployment 'image' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'persistence' of Deployment 'persistence' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'recommender' of Deployment 'recommender' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'registry' of Deployment 'registry' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'webui' of Deployment 'webui' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'auth' of Deployment 'auth' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'db' of StatefulSet 'db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'image' of Deployment 'image' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'persistence' of Deployment 'persistence' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'recommender' of Deployment 'recommender' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'registry' of Deployment 'registry' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'webui' of Deployment 'webui' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'auth' of Deployment 'auth' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'db' of StatefulSet 'db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'image' of Deployment 'image' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'persistence' of Deployment 'persistence' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'recommender' of Deployment 'recommender' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'registry' of Deployment 'registry' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'webui' of Deployment 'webui' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment auth in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment image in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment persistence in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment recommender in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment registry in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment webui in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "statefulset db in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container auth in deployment auth (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container db in statefulset db (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container image in deployment image (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container persistence in deployment persistence (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container recommender in deployment recommender (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container registry in deployment registry (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container webui in deployment webui (namespace: teastore) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 7,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "StatefulSet",
+            "name": "db",
+            "detail": "statefulset.apps/db created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"db\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "registry",
+            "detail": "deployment.apps/registry created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"registry\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"registry\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "persistence",
+            "detail": "deployment.apps/persistence created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"persistence\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"persistence\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "auth",
+            "detail": "deployment.apps/auth created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"auth\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"auth\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "image",
+            "detail": "deployment.apps/image created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"image\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"image\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "recommender",
+            "detail": "deployment.apps/recommender created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"recommender\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"recommender\" must set securityContext.runAsNonRoot=true)"
+          },
+          {
+            "kind": "Deployment",
+            "name": "webui",
+            "detail": "deployment.apps/webui created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"webui\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"webui\" must set securityContext.runAsNonRoot=true)"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 48,
+      "warning": 6,
+      "critical_by_check": {
+        "container-ephemeral-storage-request-and-limit": 7,
+        "container-image-tag": 7,
+        "container-security-context-readonlyrootfilesystem": 7,
+        "pod-networkpolicy": 7,
+        "pod-probes-identical": 7,
+        "container-security-context-user-group-id": 7,
+        "deployment-has-poddisruptionbudget": 5,
+        "statefulset-has-servicename": 1
+      },
+      "warning_by_check": {
+        "deployment-replicas": 1,
+        "deployment-has-host-podantiaffinity": 5
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 75,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 7,
+        "automountServiceAccountToken[warning]": 7,
+        "missingNetworkPolicy[warning]": 7,
+        "priorityClassNotSet[warning]": 7,
+        "topologySpreadConstraint[warning]": 7,
+        "insecureCapabilities[warning]": 7,
+        "notReadOnlyRootFilesystem[warning]": 7,
+        "pullPolicyNotAlways[warning]": 7,
+        "runAsRootAllowed[danger]": 7,
+        "tagNotSpecified[danger]": 7,
+        "deploymentMissingReplicas[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 6
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 26,
+      "by_check": {
+        "latest-tag": 7,
+        "no-read-only-root-fs": 7,
+        "run-as-non-root": 7,
+        "no-anti-affinity": 5
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 5,
+        "no-read-only-root-fs": 7,
+        "run-as-non-root": 7,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 19,
+      "zhang_density_per_kloc": 37.5,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 7,
+      "pct": 58.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 0,
+          "applicable": 7
+        },
+        "1_replicas_ge_2": {
+          "met": 5,
+          "applicable": 6
+        },
+        "2_readiness": {
+          "met": 7,
+          "applicable": 7
+        },
+        "3_liveness": {
+          "met": 7,
+          "applicable": 7
+        },
+        "4_cpu_request": {
+          "met": 7,
+          "applicable": 7
+        },
+        "5_mem_request": {
+          "met": 7,
+          "applicable": 7
+        },
+        "6_mem_limit": {
+          "met": 7,
+          "applicable": 7
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 7
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 7
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 7
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "StatefulSet",
+          "name": "db",
+          "items": {
+            "1_replicas_ge_2": null,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "registry",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "persistence",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "auth",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "image",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "recommender",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "webui",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-registry-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-persistence-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-auth-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R05-image-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R06-recommender-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R07-webui-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R08-persistence-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R09-auth-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R10-image-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R11-recommender-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R12-webui-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R13-persistence-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R14-auth-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R15-image-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R16-recommender-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R17-webui-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R18-persistence-db-host",
+        "passed": true,
+        "detail": "DB_HOST reaches descartesresearch/teastore-db:3306",
+        "oracle": false
+      },
+      {
+        "id": "R19-webui-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 18,
+    "requirements_total": 19,
+    "pct": 94.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "descartesresearch/teastore-auth:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-db:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-image:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-persistence:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-recommender:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-registry:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-webui:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 108.1,
+    "ready_replicas": 12,
+    "expected_replicas": 12,
+    "workloads": [
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "auth",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "image",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "persistence",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "recommender",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "registry",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "webui",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "teastore",
+        "kind": "StatefulSet",
+        "name": "db",
+        "ready": 1,
+        "want": 1
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-f7134d08",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "store-home-lists-categories",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "status-db-populated",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "category-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "registry",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "registry-84fd8cfd5c-zhm57",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "db",
+        "namespace": "teastore",
+        "port": 3306,
+        "target_port": 3306,
+        "pod": "db-0",
+        "listening": [
+          3306
+        ],
+        "ok": true
+      },
+      {
+        "service": "persistence",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "persistence-7678d7fb54-7l785",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "auth",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "auth-5bb79888fd-6pvzv",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "image",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "image-74c7544b67-5tgmr",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "recommender",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "recommender-74bbd6f47f-gqn9l",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "webui",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "webui-79894f6db6-ghwwf",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      }
+    ]
+  },
+  "d6": {
+    "ran": true,
+    "service": "webui",
+    "n_ready_before": 1,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "webui-79894f6db6-5j74c",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 8.4,
+        "availability_pct": 0.0,
+        "n_probes": 12
+      },
+      {
+        "ran": true,
+        "victim": "webui-79894f6db6-58cqw",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.3,
+        "availability_pct": 79.3,
+        "n_probes": 29
+      },
+      {
+        "ran": true,
+        "victim": "webui-79894f6db6-hsntl",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 8.1,
+        "availability_pct": 89.2,
+        "n_probes": 37
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "webui-79894f6db6-wxh66",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 12.5,
+        "availability_pct": 89.1,
+        "n_probes": 55
+      },
+      {
+        "ran": true,
+        "victim": "webui-79894f6db6-ghwwf",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 20.6,
+        "availability_pct": 94.8,
+        "n_probes": 77
+      },
+      {
+        "ran": true,
+        "victim": "webui-79894f6db6-wxh66",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 19.0,
+        "availability_pct": 77.1,
+        "n_probes": 48
+      }
+    ],
+    "gate": "ready"
+  }
+}

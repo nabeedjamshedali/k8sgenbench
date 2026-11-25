@@ -14,3 +14,374 @@ httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://gen
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
 FAILED: gemini P05_emojivoto s1 (exit 1)
 === 2026-11-24 00:27:24 qwen P05_emojivoto s1
+=== 2026-11-25 16:39:54 gemini P05_emojivoto s1
+gemini__P05_emojivoto__guided_r0__s1: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=11/12
+    D2 kubescape=93.333336 trivy={'critical': 0, 'high': 0, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=18/3 polaris=85 zhang=3 checklist=62.5%
+    D5 apply_ok=True ready=True (7/7) t=15.1s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.2 avail=100.0; ok=True t=11.3 avail=100.0; ok=True t=9.3 avail=100.0
+    D6 container_crash: ok=True t=11.0 avail=96.6; ok=True t=11.2 avail=98.7; ok=True t=21.4 avail=99.3
+gemini P05_emojivoto s1 r0: GATE PASSED
+=== 2026-11-25 16:44:05 qwen P05_emojivoto s1
+qwen__P05_emojivoto__guided_r0__s1: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=11/12
+    D2 kubescape=90 trivy={'critical': 0, 'high': 4, 'medium': 4, 'low': 20} pss=baseline secrets=0
+    D3 kube-score crit/warn=23/4 polaris=84 zhang=4 checklist=65.0%
+    D5 apply_ok=True ready=True (8/8) t=16.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=8.7 avail=100.0; ok=True t=11.2 avail=100.0; ok=True t=11.1 avail=100.0
+    D6 container_crash: ok=True t=8.8 avail=98.7; ok=True t=10.8 avail=98.9; ok=True t=22.4 avail=98.6
+qwen P05_emojivoto s1 r0: 1 problem(s)
+qwen__P05_emojivoto__guided_r1__s1: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=11/12
+    D2 kubescape=90 trivy={'critical': 0, 'high': 4, 'medium': 4, 'low': 20} pss=baseline secrets=0
+    D3 kube-score crit/warn=23/4 polaris=84 zhang=4 checklist=65.0%
+    D5 apply_ok=True ready=True (8/8) t=16.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=11.1 avail=100.0; ok=True t=9.3 avail=100.0; ok=True t=11.3 avail=100.0
+    D6 container_crash: ok=True t=11.1 avail=95.9; ok=True t=8.7 avail=98.5; ok=True t=21.1 avail=98.4
+qwen P05_emojivoto s1 r1: GATE PASSED
+=== 2026-11-25 16:52:34 gemini P06_wordsmith s1
+gemini__P06_wordsmith__guided_r0__s1: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=7/8
+    D2 kubescape=86.666664 trivy={'critical': 0, 'high': 6, 'medium': 8, 'low': 12} pss=baseline secrets=0
+    D3 kube-score crit/warn=21/2 polaris=78 zhang=8 checklist=62.1%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+gemini P06_wordsmith s1 r0: 6 problem(s)
+gemini__P06_wordsmith__guided_r1__s1: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=7/8
+    D2 kubescape=86.666664 trivy={'critical': 0, 'high': 6, 'medium': 8, 'low': 12} pss=baseline secrets=0
+    D3 kube-score crit/warn=21/2 polaris=78 zhang=8 checklist=62.1%
+    D5 apply_ok=True ready=True (5/5) t=17.2s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.6 avail=0.0; ok=True t=0.5 avail=0.0; ok=True t=0.5 avail=0.0
+    D6 container_crash: ok=True t=0.4 avail=0.0; ok=True t=1.2 avail=0.0; ok=True t=11.9 avail=0.0
+gemini P06_wordsmith s1 r1: GATE PASSED
+=== 2026-11-25 17:10:13 qwen P06_wordsmith s1
+qwen__P06_wordsmith__guided_r0__s1: parse=OK docs=13 kubeconform_valid=True server_ok=True (13/13) d4=5/8
+    D2 kubescape=90.55556 trivy={'critical': 0, 'high': 1, 'medium': 6, 'low': 15} pss=baseline secrets=2
+    D3 kube-score crit/warn=19/2 polaris=82 zhang=3 checklist=62.1%
+    D5 apply_ok=True ready=False (2/5) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P06_wordsmith s1 r0: 7 problem(s)
+qwen__P06_wordsmith__guided_r1__s1: parse=OK docs=13 kubeconform_valid=True server_ok=True (13/13) d4=5/8
+    D2 kubescape=89.44445 trivy={'critical': 0, 'high': 1, 'medium': 7, 'low': 15} pss=baseline secrets=2
+    D3 kube-score crit/warn=19/2 polaris=81 zhang=4 checklist=62.1%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+qwen P06_wordsmith s1 r1: 4 problem(s)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P06_wordsmith s1 (exit 1)
+=== 2026-11-25 17:32:50 gemini P09_teastore s1
+gemini__P09_teastore__guided_r0__s1: parse=FAIL docs=0 kubeconform_valid=None server_ok=None (None/None) d4=None/None
+gemini P09_teastore s1 r0: 1 problem(s)
+gemini__P09_teastore__guided_r1__s1: parse=OK docs=14 kubeconform_valid=True server_ok=True (14/14) d4=18/19
+    D2 kubescape=86.666664 trivy={'critical': 0, 'high': 14, 'medium': 21, 'low': 42} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/6 polaris=75 zhang=20 checklist=59.4%
+    D5 apply_ok=True ready=True (13/13) t=135.8s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=18.2 avail=5.0; ok=True t=17.7 avail=27.5; ok=True t=17.4 avail=0.0
+    D6 container_crash: ok=True t=12.3 avail=0.0; ok=True t=20.4 avail=0.0; ok=True t=35.3 avail=0.0
+gemini P09_teastore s1 r1: GATE PASSED
+=== 2026-11-25 17:43:09 qwen P09_teastore s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED: qwen P09_teastore s1 (exit 1)
+=== 2026-11-25 17:43:18 gemini P12_headlamp s1
+gemini__P12_headlamp__guided_r0__s1: parse=OK docs=5 kubeconform_valid=True server_ok=True (5/5) d4=3/4
+    D2 kubescape=85 trivy={'critical': 1, 'high': 0, 'medium': 3, 'low': 3} pss=baseline secrets=0
+    D3 kube-score crit/warn=6/1 polaris=75 zhang=2 checklist=60.0%
+    D5 apply_ok=True ready=True (2/2) t=16.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.4 avail=100.0; ok=True t=11.5 avail=100.0; ok=True t=10.7 avail=100.0
+    D6 container_crash: ok=True t=8.6 avail=97.4; ok=True t=11.4 avail=98.7; ok=True t=22.2 avail=99.3
+gemini P12_headlamp s1 r0: GATE PASSED
+=== 2026-11-25 17:48:19 qwen P12_headlamp s1
+qwen__P12_headlamp__guided_r0__s1: parse=FAIL docs=0 kubeconform_valid=None server_ok=None (None/None) d4=None/None
+qwen P12_headlamp s1 r0: 1 problem(s)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P12_headlamp s1 (exit 1)
+=== 2026-11-25 17:50:43 gemini P03_grafana s1
+gemini__P03_grafana__guided_r0__s1: parse=OK docs=4 kubeconform_valid=True server_ok=True (4/4) d4=2/3
+    D2 kubescape=95 trivy={'critical': 0, 'high': 1, 'medium': 2, 'low': 3} pss=restricted secrets=0
+    D3 kube-score crit/warn=6/0 polaris=84 zhang=0 checklist=55.6%
+    D5 apply_ok=True ready=True (1/1) t=44.7s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=18.5 avail=31.9; ok=True t=18.3 avail=37.5; ok=True t=18.8 avail=40.7
+    D6 container_crash: ok=True t=10.9 avail=62.0; ok=True t=29.3 avail=36.1; ok=True t=30.9 avail=32.2
+gemini P03_grafana s1 r0: GATE PASSED
+=== 2026-11-25 17:56:33 qwen P03_grafana s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P03_grafana s1 (exit 1)
+=== 2026-11-25 17:57:37 gemini P07_online-boutique s1
+gemini__P07_online-boutique__guided_r0__s1: parse=FAIL docs=0 kubeconform_valid=None server_ok=None (None/None) d4=None/None
+gemini P07_online-boutique s1 r0: 1 problem(s)
+gemini__P07_online-boutique__guided_r1__s1: parse=FAIL docs=0 kubeconform_valid=None server_ok=None (None/None) d4=None/None
+gemini P07_online-boutique s1 r1: 1 problem(s)
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 333, in run
+    evaluate(model, project, k, rnd)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 151, in evaluate
+    return _evaluate(model, project, k, rnd)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 157, in _evaluate
+    r = subprocess.run([sys.executable, str(ROOT / "evaluation" / "eval_runner.py"), model, project,
+                        f"guided_r{rnd}", str(k), "--runtime"], capture_output=True, text=True,
+                       encoding="utf-8", errors="ignore", timeout=3600)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1239, in communicate
+    sts = self.wait(timeout=self._remaining_time(endtime))
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1278, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1607, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python314\\python.exe', 'C:\\workspace\\research papers\\kubernetes\\evaluation\\eval_runner.py', 'gemini', 'P07_online-boutique', 'guided_r2', '1', '--runtime']' timed out after 3600 seconds
+FAILED: gemini P07_online-boutique s1 (exit 1)
+=== 2026-11-25 19:42:16 qwen P07_online-boutique s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED: qwen P07_online-boutique s1 (exit 1)
+=== 2026-11-25 19:42:31 gemini P05_emojivoto s2
+gemini__P05_emojivoto__guided_r0__s2: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=11/12
+    D2 kubescape=90 trivy={'critical': 0, 'high': 4, 'medium': 8, 'low': 12} pss=baseline secrets=0
+    D3 kube-score crit/warn=22/3 polaris=82 zhang=7 checklist=62.5%
+    D5 apply_ok=True ready=True (7/7) t=22.2s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.1 avail=100.0; ok=True t=11.5 avail=100.0; ok=True t=12.1 avail=100.0
+    D6 container_crash: ok=True t=9.5 avail=100.0; ok=True t=11.7 avail=93.9; ok=True t=20.7 avail=98.3
+gemini P05_emojivoto s2 r0: GATE PASSED
+=== 2026-11-25 19:49:06 qwen P05_emojivoto s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P05_emojivoto s2 (exit 1)
+=== 2026-11-25 19:50:13 gemini P06_wordsmith s2
+gemini__P06_wordsmith__guided_r0__s2: parse=OK docs=6 kubeconform_valid=True server_ok=True (6/6) d4=7/8
+    D2 kubescape=86.666664 trivy={'critical': 0, 'high': 6, 'medium': 8, 'low': 12} pss=baseline secrets=0
+    D3 kube-score crit/warn=21/2 polaris=78 zhang=8 checklist=62.1%
+    D5 apply_ok=True ready=True (5/5) t=16.2s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.9 avail=0.0; ok=True t=0 avail=0.0; ok=True t=1.5 avail=0.0
+    D6 container_crash: ok=True t=0.8 avail=0.0; ok=True t=0.8 avail=0.0; ok=True t=10.9 avail=0.0
+gemini P06_wordsmith s2 r0: GATE PASSED
+=== 2026-11-25 19:59:11 qwen P06_wordsmith s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P06_wordsmith s2 (exit 1)
+=== 2026-11-25 20:00:19 gemini P09_teastore s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 327, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+FAILED: gemini P09_teastore s2 (exit 1)
+=== 2026-11-25 20:02:34 qwen P09_teastore s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P09_teastore s2 (exit 1)
+=== 2026-11-25 20:03:39 gemini P12_headlamp s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 327, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+FAILED: gemini P12_headlamp s2 (exit 1)
+=== 2026-11-25 20:05:55 qwen P12_headlamp s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 329, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P12_headlamp s2 (exit 1)
+=== 2026-11-25 20:07:00 gemini P03_grafana s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 365, in <module>
+    d.mkdir(parents=True, exist_ok=True)
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 327, in run
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+FAILED: gemini P03_grafana s2 (exit 1)
+=== 2026-11-25 20:09:19 qwen P03_grafana s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 345, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P03_grafana s2 (exit 1)
+=== 2026-11-25 20:10:29 gemini P07_online-boutique s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 343, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+FAILED: gemini P07_online-boutique s2 (exit 1)
+=== 2026-11-25 20:12:51 qwen P07_online-boutique s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 345, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P07_online-boutique s2 (exit 1)
+=== 2026-11-25 20:13:56 gemini P05_emojivoto s3
+gemini__P05_emojivoto__guided_r0__s3: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=11/12
+    D2 kubescape=90 trivy={'critical': 0, 'high': 4, 'medium': 4, 'low': 4} pss=restricted secrets=0
+    D3 kube-score crit/warn=22/3 polaris=83 zhang=7 checklist=62.5%
+    D5 apply_ok=True ready=True (7/7) t=16.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=9.5 avail=100.0; ok=True t=11.8 avail=100.0; ok=True t=11.2 avail=100.0
+    D6 container_crash: ok=True t=8.1 avail=100.0; ok=True t=11.3 avail=95.7; ok=True t=20.5 avail=98.3
+gemini P05_emojivoto s3 r0: GATE PASSED
+=== 2026-11-25 20:18:30 qwen P05_emojivoto s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 345, in run
+    out = call_groq(env, turns, cfg["model_id"])
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 115, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: qwen P05_emojivoto s3 (exit 1)
+=== 2026-11-25 20:19:40 gemini P06_wordsmith s3

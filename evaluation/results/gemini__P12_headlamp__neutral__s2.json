@@ -1,0 +1,492 @@
+{
+  "project": "P12_headlamp",
+  "source": "gemini",
+  "prompt_variant": "neutral",
+  "sample_k": "2",
+  "timestamp": "2026-11-25T09:29:56Z",
+  "gen_finish_reason": "STOP",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 6,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 6,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 6,
+    "objects_accepted": 6,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 139,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "ClusterRoleBinding": 1,
+    "Service": 1,
+    "Deployment": 1,
+    "Ingress": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 85,
+      "frameworks": {
+        "NSA": 77.5,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 4,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1870680814/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1870680814/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1870680814/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1870680814/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1937791290/api=/v1//Namespace/headlamp",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 4,
+        "low": 3
+      },
+      "failed": [
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"headlamp\" of deployment \"headlamp\" in \"headlamp\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0111",
+          "title": "User with admin access",
+          "severity": "MEDIUM",
+          "message": "ClusterRoleBinding 'headlamp' should not bind to roles [\"cluster-admin\", \"admin\", \"edit\"]"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container headlamp in deployment headlamp (namespace: headlamp) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "headlamp",
+            "detail": "deployment.apps/headlamp created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": seccompProfile (pod or container \"headlamp\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 8,
+      "warning": 1,
+      "critical_by_check": {
+        "container-image-tag": 1,
+        "container-image-pull-policy": 1,
+        "pod-networkpolicy": 1,
+        "pod-probes-identical": 1,
+        "container-security-context-user-group-id": 1,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "container-ephemeral-storage-request-and-limit": 1,
+        "deployment-has-poddisruptionbudget": 1
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 74,
+      "failed_by_check": {
+        "clusterrolebindingClusterAdmin[danger]": 1,
+        "clusterrolebindingPodExecAttach[danger]": 1,
+        "metadataAndInstanceMismatched[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "automountServiceAccountToken[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "notReadOnlyRootFilesystem[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1,
+        "tagNotSpecified[danger]": 1,
+        "tlsSettingsMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 3,
+      "by_check": {
+        "latest-tag": 1,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 1,
+        "no-read-only-root-fs": 1,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 2,
+      "zhang_density_per_kloc": 14.4,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 60.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 0,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 1,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "headlamp",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-headlamp-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-in-cluster-mode",
+        "passed": true,
+        "detail": "-in-cluster flag or HEADLAMP_CONFIG_IN_CLUSTER=true",
+        "oracle": false
+      },
+      {
+        "id": "R03-sa-token-mounted",
+        "passed": true,
+        "detail": "service-account token mounted",
+        "oracle": true
+      },
+      {
+        "id": "R04-ui-port",
+        "passed": true,
+        "detail": "via Service headlamp",
+        "oracle": false
+      },
+      {
+        "id": "R05-ui-external",
+        "passed": true,
+        "detail": "Ingress headlamp -> headlamp",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 4,
+    "requirements_total": 4,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "ghcr.io/headlamp-k8s/headlamp:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 11.0,
+    "ready_replicas": 2,
+    "expected_replicas": 2,
+    "workloads": [
+      {
+        "ns": "headlamp",
+        "kind": "Deployment",
+        "name": "headlamp",
+        "ready": 2,
+        "want": 2
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-f6fd6060",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "ui-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "backend-config-incluster",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "headlamp",
+        "namespace": "headlamp",
+        "port": 80,
+        "target_port": "http",
+        "pod": "headlamp-84858858fd-8plgd",
+        "listening": [
+          4466
+        ],
+        "ok": true
+      }
+    ]
+  },
+  "d6": {
+    "ran": true,
+    "service": "headlamp",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "headlamp-84858858fd-g6lkn",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.8,
+        "availability_pct": 100.0,
+        "n_probes": 77
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-84858858fd-64szf",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 10.2,
+        "availability_pct": 100.0,
+        "n_probes": 75
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-84858858fd-f9rhp",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 8.6,
+        "availability_pct": 98.7,
+        "n_probes": 79
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "headlamp-84858858fd-8plgd",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.3,
+        "availability_pct": 95.0,
+        "n_probes": 80
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-84858858fd-qglrj",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 8.0,
+        "availability_pct": 98.6,
+        "n_probes": 72
+      },
+      {
+        "ran": true,
+        "victim": "headlamp-84858858fd-8plgd",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 21.1,
+        "availability_pct": 99.3,
+        "n_probes": 135
+      }
+    ],
+    "gate": "ready"
+  }
+}

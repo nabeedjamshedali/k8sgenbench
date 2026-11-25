@@ -1,0 +1,9 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (NotReady(probe)): Deployment api 0/2 Ready.
+- Pod api-84fd59cb49-9rqsm container api: 1 restarts, last exit code 143 (Error).
+- Warning event on api-84fd59cb49-9rqsm (32x): Unhealthy: Startup probe failed
+- Warning event on api-84fd59cb49-jk2mq (32x): Unhealthy: Startup probe failed
+- Warning event on web-c7787464f-2qdrq (1x): Unhealthy: Readiness probe failed
+- Warning event on web-c7787464f-n9nhq (1x): Unhealthy: Readiness probe failed
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

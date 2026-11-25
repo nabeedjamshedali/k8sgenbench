@@ -1,0 +1,1644 @@
+{
+  "project": "P09_teastore",
+  "source": "claude",
+  "prompt_variant": "neutral",
+  "sample_k": "3",
+  "timestamp": "2026-11-25T06:21:58Z",
+  "gen_finish_reason": null,
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 15,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 15,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": false,
+    "objects_total": 15,
+    "objects_accepted": 1,
+    "errors": [
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found",
+      "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+    ],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "teastore",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-registry",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-registry",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-db",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-db",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-persistence",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-persistence",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-auth",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-auth",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-image",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-image",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-recommender",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-recommender",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Deployment",
+        "name": "teastore-webui",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      },
+      {
+        "kind": "Service",
+        "name": "teastore-webui",
+        "accepted": false,
+        "error": "Error from server (NotFound): error when creating \"STDIN\": namespaces \"teastore\" not found"
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 430,
+  "resource_counts": {
+    "Namespace": 1,
+    "Deployment": 7,
+    "Service": 7
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 76.666664,
+      "frameworks": {
+        "NSA": 65,
+        "MITRE": 94.117645
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 6,
+        "low": 1
+      },
+      "failed": [
+        {
+          "resource": "path=1005689383/api=apps/v1/teastore/Deployment/teastore-recommender",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1005689383/api=apps/v1/teastore/Deployment/teastore-recommender",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1005689383/api=apps/v1/teastore/Deployment/teastore-recommender",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1005689383/api=apps/v1/teastore/Deployment/teastore-recommender",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1005689383/api=apps/v1/teastore/Deployment/teastore-recommender",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1005689383/api=apps/v1/teastore/Deployment/teastore-recommender",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1039244621/api=apps/v1/teastore/Deployment/teastore-webui",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1039244621/api=apps/v1/teastore/Deployment/teastore-webui",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1039244621/api=apps/v1/teastore/Deployment/teastore-webui",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1039244621/api=apps/v1/teastore/Deployment/teastore-webui",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1039244621/api=apps/v1/teastore/Deployment/teastore-webui",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1039244621/api=apps/v1/teastore/Deployment/teastore-webui",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1996401504/api=apps/v1/teastore/Deployment/teastore-persistence",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=1996401504/api=apps/v1/teastore/Deployment/teastore-persistence",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=1996401504/api=apps/v1/teastore/Deployment/teastore-persistence",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=1996401504/api=apps/v1/teastore/Deployment/teastore-persistence",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1996401504/api=apps/v1/teastore/Deployment/teastore-persistence",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1996401504/api=apps/v1/teastore/Deployment/teastore-persistence",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2029956742/api=apps/v1/teastore/Deployment/teastore-auth",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2029956742/api=apps/v1/teastore/Deployment/teastore-auth",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2029956742/api=apps/v1/teastore/Deployment/teastore-auth",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2029956742/api=apps/v1/teastore/Deployment/teastore-auth",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2029956742/api=apps/v1/teastore/Deployment/teastore-auth",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2029956742/api=apps/v1/teastore/Deployment/teastore-auth",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2063511980/api=apps/v1/teastore/Deployment/teastore-registry",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2063511980/api=apps/v1/teastore/Deployment/teastore-registry",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2063511980/api=apps/v1/teastore/Deployment/teastore-registry",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2063511980/api=apps/v1/teastore/Deployment/teastore-registry",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2063511980/api=apps/v1/teastore/Deployment/teastore-registry",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2063511980/api=apps/v1/teastore/Deployment/teastore-registry",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2080289599/api=/v1//Namespace/teastore",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        },
+        {
+          "resource": "path=2097067218/api=apps/v1/teastore/Deployment/teastore-db",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2097067218/api=apps/v1/teastore/Deployment/teastore-db",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2097067218/api=apps/v1/teastore/Deployment/teastore-db",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2097067218/api=apps/v1/teastore/Deployment/teastore-db",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2097067218/api=apps/v1/teastore/Deployment/teastore-db",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2097067218/api=apps/v1/teastore/Deployment/teastore-db",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=2197732932/api=apps/v1/teastore/Deployment/teastore-image",
+          "control": "C-0013",
+          "name": "Non-root containers"
+        },
+        {
+          "resource": "path=2197732932/api=apps/v1/teastore/Deployment/teastore-image",
+          "control": "C-0016",
+          "name": "Allow privilege escalation"
+        },
+        {
+          "resource": "path=2197732932/api=apps/v1/teastore/Deployment/teastore-image",
+          "control": "C-0017",
+          "name": "Immutable container filesystem"
+        },
+        {
+          "resource": "path=2197732932/api=apps/v1/teastore/Deployment/teastore-image",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2197732932/api=apps/v1/teastore/Deployment/teastore-image",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2197732932/api=apps/v1/teastore/Deployment/teastore-image",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 21,
+        "medium": 35,
+        "low": 42
+      },
+      "failed": [
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0001",
+          "title": "Can elevate its own privileges",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should set 'securityContext.allowPrivilegeEscalation' to false"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-auth' of 'deployment' 'teastore-auth' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-db' of 'deployment' 'teastore-db' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-image' of 'deployment' 'teastore-image' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-persistence' of 'deployment' 'teastore-persistence' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-recommender' of 'deployment' 'teastore-recommender' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-registry' of 'deployment' 'teastore-registry' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'teastore-webui' of 'deployment' 'teastore-webui' in 'teastore' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0012",
+          "title": "Runs as root user",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should set 'securityContext.runAsNonRoot' to true"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should specify an image tag"
+        },
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should specify an image tag"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0014",
+          "title": "Root file system is not read-only",
+          "severity": "HIGH",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should set 'securityContext.readOnlyRootFilesystem' to true"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0020",
+          "title": "Runs with UID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should set 'securityContext.runAsUser' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-auth' of Deployment 'teastore-auth' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-db' of Deployment 'teastore-db' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-image' of Deployment 'teastore-image' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-persistence' of Deployment 'teastore-persistence' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-recommender' of Deployment 'teastore-recommender' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-registry' of Deployment 'teastore-registry' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0021",
+          "title": "Runs with GID <= 10000",
+          "severity": "LOW",
+          "message": "Container 'teastore-webui' of Deployment 'teastore-webui' should set 'securityContext.runAsGroup' > 10000"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-auth\" of deployment \"teastore-auth\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-db\" of deployment \"teastore-db\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-image\" of deployment \"teastore-image\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-persistence\" of deployment \"teastore-persistence\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-recommender\" of deployment \"teastore-recommender\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-registry\" of deployment \"teastore-registry\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"teastore-webui\" of deployment \"teastore-webui\" in \"teastore\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-auth in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-db in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-image in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-persistence in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-recommender in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-registry in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "container teastore-webui in teastore namespace is using the default security context"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-auth in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-db in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-image in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-persistence in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-recommender in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-registry in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0118",
+          "title": "Default security context configured",
+          "severity": "HIGH",
+          "message": "deployment teastore-webui in teastore namespace is using the default security context, which allows root privileges"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-auth in deployment teastore-auth (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-db in deployment teastore-db (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-image in deployment teastore-image (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-persistence in deployment teastore-persistence (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-recommender in deployment teastore-recommender (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-registry in deployment teastore-registry (namespace: teastore) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container teastore-webui in deployment teastore-webui (namespace: teastore) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 7,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "teastore-registry",
+            "detail": "Security \"restricted:latest\": allowPrivilegeEscalation != false (container \"teastore-registry\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-registry\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-registry\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-registry\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "teastore-db",
+            "detail": "rning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"teastore-db\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-db\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-db\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-db\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "teastore-persistence",
+            "detail": "stricted:latest\": allowPrivilegeEscalation != false (container \"teastore-persistence\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-persistence\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-persistence\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-persistence\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "teastore-auth",
+            "detail": "ould violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"teastore-auth\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-auth\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-auth\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-auth\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "teastore-image",
+            "detail": " violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"teastore-image\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-image\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-image\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-image\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "teastore-recommender",
+            "detail": "stricted:latest\": allowPrivilegeEscalation != false (container \"teastore-recommender\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-recommender\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-recommender\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-recommender\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          },
+          {
+            "kind": "Deployment",
+            "name": "teastore-webui",
+            "detail": " violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"teastore-webui\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"teastore-webui\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"teastore-webui\" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container \"teastore-webui\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 37,
+      "warning": 7,
+      "critical_by_check": {
+        "container-image-tag": 7,
+        "container-security-context-readonlyrootfilesystem": 7,
+        "container-security-context-user-group-id": 7,
+        "container-ephemeral-storage-request-and-limit": 7,
+        "pod-networkpolicy": 7,
+        "pod-probes-identical": 2
+      },
+      "warning_by_check": {
+        "deployment-replicas": 7
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 66,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 7,
+        "metadataAndInstanceMismatched[warning]": 7,
+        "missingPodDisruptionBudget[warning]": 7,
+        "automountServiceAccountToken[warning]": 7,
+        "missingNetworkPolicy[warning]": 7,
+        "priorityClassNotSet[warning]": 7,
+        "topologySpreadConstraint[warning]": 7,
+        "insecureCapabilities[warning]": 7,
+        "linuxHardening[warning]": 7,
+        "notReadOnlyRootFilesystem[warning]": 7,
+        "privilegeEscalationAllowed[danger]": 7,
+        "pullPolicyNotAlways[warning]": 7,
+        "runAsRootAllowed[danger]": 7,
+        "tagNotSpecified[danger]": 7
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 21,
+      "by_check": {
+        "latest-tag": 7,
+        "no-read-only-root-fs": 7,
+        "run-as-non-root": 7
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 7,
+        "run-as-non-root": 7,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 14,
+      "zhang_density_per_kloc": 32.6,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 7,
+      "pct": 50.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 0,
+          "applicable": 7
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 7
+        },
+        "2_readiness": {
+          "met": 7,
+          "applicable": 7
+        },
+        "3_liveness": {
+          "met": 7,
+          "applicable": 7
+        },
+        "4_cpu_request": {
+          "met": 7,
+          "applicable": 7
+        },
+        "5_mem_request": {
+          "met": 7,
+          "applicable": 7
+        },
+        "6_mem_limit": {
+          "met": 7,
+          "applicable": 7
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 7
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 7
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 7
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "teastore-registry",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "teastore-db",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "teastore-persistence",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "teastore-auth",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "teastore-image",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "teastore-recommender",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "teastore-webui",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-registry-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-db-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-persistence-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-auth-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R05-image-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R06-recommender-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R07-webui-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R08-persistence-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R09-auth-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R10-image-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R11-recommender-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R12-webui-registry-host",
+        "passed": true,
+        "detail": "REGISTRY_HOST reaches descartesresearch/teastore-registry:8080",
+        "oracle": false
+      },
+      {
+        "id": "R13-persistence-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R14-auth-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R15-image-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R16-recommender-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R17-webui-registered-address",
+        "passed": true,
+        "detail": "registered address reachable",
+        "oracle": false
+      },
+      {
+        "id": "R18-persistence-db-host",
+        "passed": true,
+        "detail": "DB_HOST reaches descartesresearch/teastore-db:3306",
+        "oracle": false
+      },
+      {
+        "id": "R19-webui-external",
+        "passed": true,
+        "detail": "Service teastore-webui type LoadBalancer",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 19,
+    "requirements_total": 19,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "descartesresearch/teastore-auth",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-db",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-image",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-persistence",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-recommender",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-registry",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "descartesresearch/teastore-webui",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 2,
+    "expected_replicas": 7,
+    "workloads": [
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-auth",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-db",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-image",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-persistence",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-recommender",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-registry",
+        "ready": 0,
+        "want": 1
+      },
+      {
+        "ns": "teastore",
+        "kind": "Deployment",
+        "name": "teastore-webui",
+        "ready": 0,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "teastore-auth-7b6849f8d5-zpbv7",
+          "container": "teastore-auth",
+          "restarts": 1,
+          "last_exit": 137,
+          "last_reason": "OOMKilled",
+          "last_log": "uestScope.java:390)\n\tat org.glassfish.jersey.client.JerseyInvocation.runInScope(JerseyInvocation.java:691)\n\tat org.glassfish.jersey.client.JerseyInvocation.invoke(JerseyInvocation.java:661)\n\tat org.glassfish.jersey.client.JerseyInvocation$Builder.method(JerseyInvocation.java:439)\n\tat org.glassfish.jersey.client.JerseyInvocation$Builder.put(JerseyInvocation.java:328)\n\tat tools.descartes.teastore.registryclient.RegistryClient.registerOnce(RegistryClient.java:245)\n\tat tools.descartes.teastore.registryclient.RegistryClientHeartbeatDaemon.run(RegistryClientHeartbeatDaemon.java:40)\n\tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)\n\tat java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)\n\tat java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.net.ConnectException: Connection refused (Connection refused)\n\tat java.base/java.net.PlainSocketImpl.socketConnect(Native Method)\n\tat java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)\n\tat java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)\n\tat java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)\n\tat java.base/java.net.Socket.connect(Socket.java:609)\n\tat java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:177)\n\tat java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:474)\n\tat java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:569)\n\tat java.base/sun.net.www.http.HttpClient.<init>(HttpClient.java:242)\n\tat java.base/sun.net.www.http.HttpClient.New(HttpClient.java:341)\n\tat java.base/sun.net.www.http.HttpClient.New(HttpClient.java:362)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1253)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1187)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1081)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:1015)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1592)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1520)\n\tat java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:527)\n\tat org.glassfish.jersey.client.internal.HttpUrlConnector.handleException(HttpUrlConnector.java:544)\n\tat org.glassfish.jersey.client.internal.HttpUrlConnector._apply(HttpUrlConnector.java:374)\n\tat org.glassfish.jersey.client.internal.HttpUrlConnector.apply(HttpUrlConnector.java:266)\n\t... 20 more"
+        },
+        {
+          "pod": "teastore-image-5994d44f7f-c4x9k",
+          "container": "teastore-image",
+          "restarts": 0,
+          "last_exit": null,
+          "last_reason": null
+        },
+        {
+          "pod": "teastore-persistence-55b99cf59b-pw55w",
+          "container": "teastore-persistence",
+          "restarts": 0,
+          "last_exit": null,
+          "last_reason": null
+        },
+        {
+          "pod": "teastore-recommender-7795dbd587-gl5dd",
+          "container": "teastore-recommender",
+          "restarts": 0,
+          "last_exit": null,
+          "last_reason": null
+        },
+        {
+          "pod": "teastore-registry-b9f5cdcc7-f4fpk",
+          "container": "teastore-registry",
+          "restarts": 1,
+          "last_exit": 137,
+          "last_reason": "Error",
+          "last_log": " random [true], UDS [true].\n25-Nov-2026 06:23:13.280 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 1.1.1d  10 Sep 2019]\n25-Nov-2026 06:23:17.138 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler [\"http-nio-8080\"]\n25-Nov-2026 06:23:17.331 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler [\"ajp-nio-127.0.0.1-8009\"]\n25-Nov-2026 06:23:17.337 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [6263] milliseconds\n25-Nov-2026 06:23:18.580 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]\n25-Nov-2026 06:23:18.581 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/10.0.7]\n25-Nov-2026 06:23:18.850 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/usr/local/tomcat/webapps/tools.descartes.teastore.registry.war]\n[ParallelWebappClassLoader@5c44c582] error Cannot find parent aspect for: <concrete-aspect name='kieker.monitoring.probe.aspectj.operationExecution.TargetedAspect' extends='tools.descartes.teastore.kieker.probes.AbstractOperationExecutionWithParameterAspect' perclause='null'/> in aop.xml\n[ParallelWebappClassLoader@5c44c582] error Concrete-aspect 'kieker.monitoring.probe.aspectj.operationExecution.TargetedAspect' could not be registered\n[ParallelWebappClassLoader@5c44c582] warning failure(s) registering aspects. Disabling weaver for class loader org.apache.catalina.loader.ParallelWebappClassLoader@5c44c582\n25-Nov-2026 06:23:21.769 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.\n[main] INFO tools.descartes.teastore.registry.rest.RegistryStartup - Registry online\n25-Nov-2026 06:23:22.041 WARNING [main] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [118] milliseconds.\n25-Nov-2026 06:23:26.363 WARNING [main] org.glassfish.jersey.server.wadl.WadlFeature.configure JAX-B API not found . WADL feature is disabled.\n25-Nov-2026 06:23:29.631 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/usr/local/tomcat/webapps/tools.descartes.teastore.registry.war] has finished in [10,785] ms\n25-Nov-2026 06:23:29.664 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler [\"http-nio-8080\"]\n25-Nov-2026 06:23:29.730 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler [\"ajp-nio-127.0.0.1-8009\"]\n25-Nov-2026 06:23:29.782 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [14593] milliseconds"
+        },
+        {
+          "pod": "teastore-webui-86bc957687-b2pbd",
+          "container": "teastore-webui",
+          "restarts": 1,
+          "last_exit": 137,
+          "last_reason": "OOMKilled",
+          "last_log": "oolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.net.ConnectException: Connection refused (Connection refused)\n\tat java.base/java.net.PlainSocketImpl.socketConnect(Native Method)\n\tat java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)\n\tat java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)\n\tat java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)\n\tat java.base/java.net.Socket.connect(Socket.java:609)\n\tat java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:177)\n\tat java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:474)\n\tat java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:569)\n\tat java.base/sun.net.www.http.HttpClient.<init>(HttpClient.java:242)\n\tat java.base/sun.net.www.http.HttpClient.New(HttpClient.java:341)\n\tat java.base/sun.net.www.http.HttpClient.New(HttpClient.java:362)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1253)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1187)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1081)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:1015)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1592)\n\tat java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1520)\n\tat java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:527)\n\tat org.glassfish.jersey.client.internal.HttpUrlConnector.handleException(HttpUrlConnector.java:544)\n\tat org.glassfish.jersey.client.internal.HttpUrlConnector._apply(HttpUrlConnector.java:374)\n\tat org.glassfish.jersey.client.internal.HttpUrlConnector.apply(HttpUrlConnector.java:266)\n\t... 20 more\n[http-nio-8080-exec-3] WARN tools.descartes.teastore.registryclient.loadbalancers.ServiceLoadBalancer - Load Balancer was not initialized for service: tools.descartes.teastore.persistence. Is Registry up?\n[http-nio-8080-exec-2] WARN tools.descartes.teastore.registryclient.loadbalancers.ServiceLoadBalancer - Load Balancer was not initialized for service: tools.descartes.teastore.auth. Is Registry up?\n[http-nio-8080-exec-3] WARN tools.descartes.teastore.registryclient.loadbalancers.ServiceLoadBalancer - No Server registered for Service: tools.descartes.teastore.persistence\n[http-nio-8080-exec-3] WARN tools.descartes.teastore.registryclient.loadbalancers.ServiceLoadBalancer - Load Balancer was not initialized for service: tools.descartes.teastore.auth. Is Registry up?\n[http-nio-8080-exec-3] WARN tools.descartes.teastore.registryclient.loadbalancers.ServiceLoadBalancer - No Server registered for Service: tools.descartes.teastore.auth"
+        }
+      ],
+      "warning_events": {
+        "teastore-image-5994d44f7f-c4x9k|Unhealthy: Readiness probe failed": 25,
+        "teastore-persistence-55b99cf59b-pw55w|Unhealthy: Readiness probe failed": 25,
+        "teastore-recommender-7795dbd587-gl5dd|Unhealthy: Readiness probe failed": 25,
+        "teastore-registry-b9f5cdcc7-f4fpk|Unhealthy: Readiness probe failed": 22,
+        "teastore-webui-86bc957687-b2pbd|Unhealthy: Readiness probe failed": 21,
+        "teastore-db-54dc75fd46-bq6lp|Unhealthy: Readiness probe failed": 4,
+        "teastore-registry-b9f5cdcc7-f4fpk|Unhealthy: Liveness probe failed": 3,
+        "teastore-auth-7b6849f8d5-zpbv7|BackOff: Back-off restarting failed container teastore-auth in pod te": 2
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-e7fb7e70",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "store-home-lists-categories",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'Black Tea'"
+      },
+      {
+        "name": "status-db-populated",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'OK and populated'"
+      },
+      {
+        "name": "category-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks 'TeaStore Categorie'"
+      }
+    ],
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "teastore-registry",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "teastore-registry-b9f5cdcc7-f4fpk",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "teastore-db",
+        "namespace": "teastore",
+        "port": 3306,
+        "target_port": 3306,
+        "pod": "teastore-db-54dc75fd46-bq6lp",
+        "listening": [
+          3306
+        ],
+        "ok": true
+      },
+      {
+        "service": "teastore-persistence",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "teastore-persistence-55b99cf59b-pw55w",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "teastore-auth",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "teastore-auth-7b6849f8d5-zpbv7",
+        "listening": null,
+        "ok": null
+      },
+      {
+        "service": "teastore-image",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "teastore-image-5994d44f7f-c4x9k",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "teastore-recommender",
+        "namespace": "teastore",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "teastore-recommender-7795dbd587-gl5dd",
+        "listening": [
+          8005,
+          8009,
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "teastore-webui",
+        "namespace": "teastore",
+        "port": 80,
+        "target_port": 8080,
+        "pod": "teastore-webui-86bc957687-b2pbd",
+        "listening": null,
+        "ok": null
+      }
+    ]
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

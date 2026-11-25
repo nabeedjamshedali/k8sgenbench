@@ -1,0 +1,500 @@
+{
+  "project": "P12_headlamp",
+  "source": "qwen",
+  "prompt_variant": "production",
+  "sample_k": "1",
+  "timestamp": "2026-11-24T19:13:50Z",
+  "gen_finish_reason": "stop",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 7,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 7,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 7,
+    "objects_accepted": 7,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Namespace",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Ingress",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRole",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "name": "headlamp",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 281,
+  "resource_counts": {
+    "Namespace": 1,
+    "ServiceAccount": 1,
+    "ClusterRole": 1,
+    "ClusterRoleBinding": 1,
+    "Deployment": 1,
+    "Service": 1,
+    "Ingress": 1
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 68.333336,
+      "frameworks": {
+        "NSA": 77.5,
+        "MITRE": 58.82353
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 9,
+        "low": 0
+      },
+      "failed": [
+        {
+          "resource": "/headlamp/ServiceAccount/headlamp/path=1509570762/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp/path=1526348381/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp",
+          "control": "C-0002",
+          "name": "Prevent containers from allowing command execution"
+        },
+        {
+          "resource": "/headlamp/ServiceAccount/headlamp/path=1509570762/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp/path=1526348381/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp",
+          "control": "C-0007",
+          "name": "Roles with delete capabilities"
+        },
+        {
+          "resource": "/headlamp/ServiceAccount/headlamp/path=1509570762/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp/path=1526348381/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp",
+          "control": "C-0015",
+          "name": "List Kubernetes secrets"
+        },
+        {
+          "resource": "/headlamp/ServiceAccount/headlamp/path=1509570762/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp/path=1526348381/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp",
+          "control": "C-0031",
+          "name": "Delete Kubernetes events"
+        },
+        {
+          "resource": "/headlamp/ServiceAccount/headlamp/path=1509570762/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp/path=1526348381/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp",
+          "control": "C-0037",
+          "name": "CoreDNS poisoning"
+        },
+        {
+          "resource": "/headlamp/ServiceAccount/headlamp/path=1509570762/api=rbac.authorization.k8s.io/v1//ClusterRoleBinding/headlamp/path=1526348381/api=rbac.authorization.k8s.io/v1//ClusterRole/headlamp",
+          "control": "C-0053",
+          "name": "Access container service account"
+        },
+        {
+          "resource": "path=1425682667/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=1425682667/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=1425682667/api=apps/v1/headlamp/Deployment/headlamp",
+          "control": "C-0055",
+          "name": "Linux hardening"
+        },
+        {
+          "resource": "path=1492793143/api=/v1//Namespace/headlamp",
+          "control": "C-0054",
+          "name": "Cluster internal networking"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 1,
+        "high": 3,
+        "medium": 8,
+        "low": 1
+      },
+      "failed": [
+        {
+          "id": "KSV-0013",
+          "title": "Image tag \":latest\" used",
+          "severity": "MEDIUM",
+          "message": "Container 'headlamp' of Deployment 'headlamp' should specify an image tag"
+        },
+        {
+          "id": "KSV-0030",
+          "title": "Runtime/Default Seccomp profile not set",
+          "severity": "LOW",
+          "message": "Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'"
+        },
+        {
+          "id": "KSV-0041",
+          "title": "Manage secrets",
+          "severity": "CRITICAL",
+          "message": "ClusterRole 'headlamp' shouldn't have access to manage resource 'secrets'"
+        },
+        {
+          "id": "KSV-0042",
+          "title": "Delete pod logs",
+          "severity": "MEDIUM",
+          "message": "ClusterRole 'headlamp' should not have access to resource 'pods/log' for verbs [\"delete\", \"deletecollection\", \"*\"]"
+        },
+        {
+          "id": "KSV-0048",
+          "title": "Manage Kubernetes workloads and pods",
+          "severity": "MEDIUM",
+          "message": "ClusterRole 'headlamp' should not have access to resources [\"pods\", \"deployments\", \"jobs\", \"cronjobs\", \"statefulsets\", \"daemonsets\", \"replicasets\", \"replicationcontrollers\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0048",
+          "title": "Manage Kubernetes workloads and pods",
+          "severity": "MEDIUM",
+          "message": "ClusterRole 'headlamp' should not have access to resources [\"pods\", \"deployments\", \"jobs\", \"cronjobs\", \"statefulsets\", \"daemonsets\", \"replicasets\", \"replicationcontrollers\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0048",
+          "title": "Manage Kubernetes workloads and pods",
+          "severity": "MEDIUM",
+          "message": "ClusterRole 'headlamp' should not have access to resources [\"pods\", \"deployments\", \"jobs\", \"cronjobs\", \"statefulsets\", \"daemonsets\", \"replicasets\", \"replicationcontrollers\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0049",
+          "title": "Manage configmaps",
+          "severity": "MEDIUM",
+          "message": "ClusterRole 'headlamp' should not have access to resource 'configmaps' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0053",
+          "title": "Exec into Pods",
+          "severity": "HIGH",
+          "message": "ClusterRole 'headlamp' should not have access to resource '[\"pods/exec\"]' for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0056",
+          "title": "Manage Kubernetes networking",
+          "severity": "HIGH",
+          "message": "ClusterRole 'headlamp' should not have access to resources [\"services\", \"endpoints\", \"endpointslices\", \"networkpolicies\", \"ingresses\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0056",
+          "title": "Manage Kubernetes networking",
+          "severity": "HIGH",
+          "message": "ClusterRole 'headlamp' should not have access to resources [\"services\", \"endpoints\", \"endpointslices\", \"networkpolicies\", \"ingresses\"] for verbs [\"create\", \"update\", \"patch\", \"delete\", \"deletecollection\", \"impersonate\", \"*\"]"
+        },
+        {
+          "id": "KSV-0104",
+          "title": "Seccomp policies disabled",
+          "severity": "MEDIUM",
+          "message": "container \"headlamp\" of deployment \"headlamp\" in \"headlamp\" namespace should specify a seccomp profile"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container headlamp in deployment headlamp (namespace: headlamp) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "baseline",
+      "n_objects": 1,
+      "violations": {
+        "restricted": [
+          {
+            "kind": "Deployment",
+            "name": "headlamp",
+            "detail": "deployment.apps/headlamp created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": seccompProfile (pod or container \"headlamp\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+          }
+        ],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 5,
+      "warning": 1,
+      "critical_by_check": {
+        "container-image-pull-policy": 1,
+        "pod-networkpolicy": 1,
+        "container-image-tag": 1,
+        "container-ephemeral-storage-request-and-limit": 1,
+        "pod-probes-identical": 1
+      },
+      "warning_by_check": {
+        "deployment-replicas": 1
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 79,
+      "failed_by_check": {
+        "deploymentMissingReplicas[warning]": 1,
+        "missingPodDisruptionBudget[warning]": 1,
+        "automountServiceAccountToken[warning]": 1,
+        "missingNetworkPolicy[warning]": 1,
+        "priorityClassNotSet[warning]": 1,
+        "topologySpreadConstraint[warning]": 1,
+        "pullPolicyNotAlways[warning]": 1,
+        "tagNotSpecified[danger]": 1,
+        "clusterrolePodExecAttach[danger]": 1,
+        "clusterrolebindingPodExecAttach[danger]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 1,
+      "by_check": {
+        "latest-tag": 1
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 0,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 0,
+      "zhang_density_per_kloc": 0.0,
+      "zhang_any": false
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 1,
+      "pct": 50.0,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 0,
+          "applicable": 1
+        },
+        "1_replicas_ge_2": {
+          "met": 0,
+          "applicable": 1
+        },
+        "2_readiness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "3_liveness": {
+          "met": 1,
+          "applicable": 1
+        },
+        "4_cpu_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "5_mem_request": {
+          "met": 1,
+          "applicable": 1
+        },
+        "6_mem_limit": {
+          "met": 1,
+          "applicable": 1
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 1
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 1
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 1
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "headlamp",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 0
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-headlamp-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-in-cluster-mode",
+        "passed": true,
+        "detail": "-in-cluster flag or HEADLAMP_CONFIG_IN_CLUSTER=true",
+        "oracle": false
+      },
+      {
+        "id": "R03-sa-token-mounted",
+        "passed": true,
+        "detail": "service-account token mounted",
+        "oracle": true
+      },
+      {
+        "id": "R04-ui-port",
+        "passed": true,
+        "detail": "via Service headlamp",
+        "oracle": false
+      },
+      {
+        "id": "R05-ui-external",
+        "passed": true,
+        "detail": "Ingress headlamp -> headlamp",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 4,
+    "requirements_total": 4,
+    "pct": 100.0
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "ghcr.io/headlamp-k8s/headlamp:latest",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": false,
+    "time_to_ready_s": null,
+    "ready_replicas": 0,
+    "expected_replicas": 1,
+    "workloads": [
+      {
+        "ns": "headlamp",
+        "kind": "Deployment",
+        "name": "headlamp",
+        "ready": 0,
+        "want": 1
+      }
+    ],
+    "failure_reason": "CrashLoopBackOff",
+    "diagnostics": {
+      "pods": [
+        {
+          "pod": "headlamp-69885b4655-ppnp9",
+          "container": "headlamp",
+          "restarts": 5,
+          "last_exit": 1,
+          "last_reason": "Error",
+          "last_log": "-proxy-auth-group-header string\n    \tHeader name to read the authenticated groups from (default \"X-Forwarded-Group\")\n  -proxy-auth-token-header string\n    \tHeader name to read the proxy Id token from (default \"X-Forwarded-Id-Token\")\n  -proxy-auth-username-header string\n    \tHeader name to read the authenticated username from (default \"X-Forwarded-User\")\n  -proxy-urls string\n    \tAllow proxy requests to specified URLs\n  -sampling-rate float\n    \tSampling rate for traces (default 1)\n  -service-account-token-path string\n    \tPath to the service account token. Only used when --unsafe-use-service-account-token is set and in-cluster\n  -service-name string\n    \tService name for telemetry (default \"headlamp\")\n  -service-version string\n    \tService version for telemetry (default \"0.30.0\")\n  -session-ttl int\n    \tThe time in seconds for the session to be valid(Default: 86400/24h, Min: 1 , Max: 31536000/1yr ) (default 86400)\n  -skipped-kube-contexts string\n    \tContext name which should be ignored in kubeconfig file\n  -stdout-trace-enabled\n    \tEnable tracing output to stdout\n  -tls-cert-path string\n    \tCertificate for serving TLS\n  -tls-key-path string\n    \tKey for serving TLS\n  -tracing-enabled\n    \tEnable distributed tracing\n  -unsafe-use-service-account-token\n    \tUNSAFE: use the pod's service account token to authenticate all users in-cluster. Disables per-user auth; only safe behind an auth proxy\n  -use-otlp-http\n    \tUse HTTP instead of gRPC for OTLP export\n  -user-plugins-dir string\n    \tSpecify the user-installed plugins directory\n  -version\n    \tPrint version information and exit\n  -watch-plugins-changes\n    \tReloads plugins when there are changes to them or their directory (default true)\n{\"level\":\"error\",\"source\":\"/headlamp/backend/pkg/config/config.go\",\"line\":300,\"error\":\"flag provided but not defined: -static-plugins-dir\",\"time\":\"2026-11-24T19:17:06Z\",\"message\":\"parsing flags\"}\n{\"level\":\"error\",\"source\":\"/headlamp/backend/cmd/server.go\",\"line\":55,\"error\":\"error parsing flags: flag provided but not defined: -static-plugins-dir\",\"time\":\"2026-11-24T19:17:06Z\",\"message\":\"fetching config:%v\"}"
+        }
+      ],
+      "warning_events": {
+        "headlamp-69885b4655-ppnp9|BackOff: Back-off restarting failed container headlamp in pod headlam": 18
+      }
+    },
+    "client_placement": {
+      "namespace": "d5-20e7224d",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "ui-page",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '<div id=\"root\">'"
+      },
+      {
+        "name": "backend-config-incluster",
+        "passed": false,
+        "detail": "HTTP 000, body lacks '\"source\":\"incluster\"'"
+      }
+    ],
+    "smoke_ok": false,
+    "service_listen": [
+      {
+        "service": "headlamp",
+        "namespace": "headlamp",
+        "port": 80,
+        "target_port": 4466,
+        "pod": "headlamp-69885b4655-ppnp9",
+        "listening": null,
+        "ok": null
+      }
+    ]
+  },
+  "d6": {
+    "ran": false,
+    "reason": "SKIPPED(not_deployed)"
+  }
+}

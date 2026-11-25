@@ -101,3 +101,102 @@ claude__P06_wordsmith__production__s3: parse=OK docs=18 kubeconform_valid=True s
 === 2026-11-24 18:01:00 baselines done: evaluation/phase2_claude_baselines_a.txt
 === 2026-11-24 18:01:03 claude P12_headlamp neutral s1
 === 2026-11-24 18:01:05 claude P12_headlamp neutral s2
+=== 2026-11-24 22:39:53 claude P06_wordsmith neutral s1
+=== 2026-11-24 22:39:59 claude P06_wordsmith neutral s2
+=== 2026-11-24 22:40:02 claude P06_wordsmith neutral s3
+=== 2026-11-24 22:40:06 claude P06_wordsmith production s1
+=== 2026-11-24 22:40:12 claude P06_wordsmith production s2
+=== 2026-11-24 22:40:19 claude P06_wordsmith production s3
+=== 2026-11-24 22:40:19 baselines done: evaluation/phase2_claude_baselines_a.txt
+=== 2026-11-24 22:40:26 claude P12_headlamp neutral s1
+=== 2026-11-24 22:40:30 claude P12_headlamp neutral s2
+claude__P12_headlamp__neutral__s2: parse=OK docs=5 kubeconform_valid=True server_ok=True (5/5) d4=3/4
+    D2 kubescape=88.333336 trivy={'critical': 0, 'high': 0, 'medium': 2, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=5/1 polaris=79 zhang=0 checklist=50.0%
+    D5 apply_ok=True ready=False (0/1) t=Nones smoke=False reason=CreateContainerConfigError aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 23:01:54 claude P12_headlamp neutral s3
+claude__P12_headlamp__neutral__s3: parse=OK docs=5 kubeconform_valid=True server_ok=True (5/5) d4=3/4
+    D2 kubescape=88.333336 trivy={'critical': 0, 'high': 0, 'medium': 1, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=5/1 polaris=82 zhang=0 checklist=60.0%
+    D5 apply_ok=True ready=False (0/1) t=Nones smoke=False reason=CreateContainerConfigError aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 23:12:15 claude P12_headlamp production s1
+claude__P12_headlamp__production__s1: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=4/4
+    D2 kubescape=98.333336 trivy={'critical': 0, 'high': 0, 'medium': 1, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=4/1 polaris=90 zhang=1 checklist=100.0%
+    D5 apply_ok=True ready=False (0/2) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 23:21:20 claude P12_headlamp production s2
+claude__P12_headlamp__production__s2: parse=OK docs=8 kubeconform_valid=True server_ok=True (8/8) d4=4/4
+    D2 kubescape=98.333336 trivy={'critical': 0, 'high': 0, 'medium': 1, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=4/1 polaris=90 zhang=1 checklist=100.0%
+    D5 apply_ok=True ready=False (0/2) t=Nones smoke=False reason=ImagePullBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-24 23:41:13 claude P12_headlamp production s3
+claude__P12_headlamp__production__s3: parse=OK docs=9 kubeconform_valid=True server_ok=True (9/9) d4=4/4
+    D2 kubescape=95 trivy={'critical': 0, 'high': 0, 'medium': 1, 'low': 2} pss=restricted secrets=0
+    D3 kube-score crit/warn=5/0 polaris=91 zhang=0 checklist=100.0%
+    D5 apply_ok=True ready=False (0/2) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 00:04:36 baselines done: evaluation/phase2_claude_baselines_b.txt
+=== 2026-11-25 00:04:38 claude P09_teastore neutral s1
+claude__P09_teastore__neutral__s1: parse=OK docs=15 kubeconform_valid=True server_ok=True (15/15) d4=19/19
+    D2 kubescape=70 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 70} pss=baseline secrets=0
+    D3 kube-score crit/warn=49/7 polaris=48 zhang=28 checklist=0.0%
+    D5 apply_ok=True ready=True (7/7) t=11.3s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=1.6 avail=26.3; ok=True t=0 avail=0.0; ok=True t=1.7 avail=0.0
+    D6 container_crash: ok=True t=1.0 avail=0.0; ok=True t=11.0 avail=0.0; ok=True t=21.7 avail=0.0
+=== 2026-11-25 00:10:10 claude P09_teastore neutral s2
+claude__P09_teastore__neutral__s2: parse=OK docs=15 kubeconform_valid=True server_ok=True (15/15) d4=19/19
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 42} pss=baseline secrets=0
+    D3 kube-score crit/warn=41/8 polaris=62 zhang=14 checklist=34.3%
+    D5 apply_ok=True ready=False (6/7) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 00:42:10 claude P09_teastore neutral s3
+      0 [main] bash 1416 dofork: child -1 - forked process 20840 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable
+1323946 [main] bash 1416 dofork: child -1 - forked process 9712 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+evaluation/phase2_baselines.sh: fork: retry: Resource temporarily unavailable
+=== 2026-11-25 11:21:32 claude P06_wordsmith neutral s1
+=== 2026-11-25 11:21:34 claude P06_wordsmith neutral s2
+=== 2026-11-25 11:21:36 claude P06_wordsmith neutral s3
+=== 2026-11-25 11:21:37 claude P06_wordsmith production s1
+=== 2026-11-25 11:21:39 claude P06_wordsmith production s2
+=== 2026-11-25 11:21:40 claude P06_wordsmith production s3
+=== 2026-11-25 11:21:40 baselines done: evaluation/phase2_claude_baselines_a.txt
+=== 2026-11-25 11:21:42 claude P12_headlamp neutral s1
+=== 2026-11-25 11:21:44 claude P12_headlamp neutral s2
+=== 2026-11-25 11:21:46 claude P12_headlamp neutral s3
+=== 2026-11-25 11:21:48 claude P12_headlamp production s1
+=== 2026-11-25 11:21:50 claude P12_headlamp production s2
+=== 2026-11-25 11:21:52 claude P12_headlamp production s3
+=== 2026-11-25 11:21:52 baselines done: evaluation/phase2_claude_baselines_b.txt
+=== 2026-11-25 11:21:54 claude P09_teastore neutral s1
+=== 2026-11-25 11:21:55 claude P09_teastore neutral s2
+=== 2026-11-25 11:21:57 claude P09_teastore neutral s3
+claude__P09_teastore__neutral__s3: parse=OK docs=15 kubeconform_valid=True server_ok=False (1/15) d4=19/19
+    D2 kubescape=76.666664 trivy={'critical': 0, 'high': 21, 'medium': 35, 'low': 42} pss=baseline secrets=0
+    D3 kube-score crit/warn=37/7 polaris=66 zhang=14 checklist=50.0%
+    D5 apply_ok=True ready=False (2/7) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 11:42:29 claude P09_teastore production s1
+claude__P09_teastore__production__s1: parse=OK docs=31 kubeconform_valid=True server_ok=True (31/31) d4=19/19
+    D2 kubescape=93.333336 trivy={'critical': 0, 'high': 7, 'medium': 22, 'low': 72} pss=baseline secrets=0
+    D3 kube-score crit/warn=38/8 polaris=83 zhang=14 checklist=81.2%
+    D5 apply_ok=True ready=False (9/12) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 12:02:40 claude P09_teastore production s2
+claude__P09_teastore__production__s2: parse=OK docs=28 kubeconform_valid=True server_ok=True (28/28) d4=19/19
+    D2 kubescape=93.333336 trivy={'critical': 0, 'high': 7, 'medium': 23, 'low': 15} pss=baseline secrets=0
+    D3 kube-score crit/warn=37/13 polaris=85 zhang=19 checklist=81.2%
+    D5 apply_ok=True ready=False (10/12) t=Nones smoke=False reason=NotReady(probe) aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 12:36:14 claude P09_teastore production s3
+claude__P09_teastore__production__s3: parse=OK docs=28 kubeconform_valid=True server_ok=True (28/28) d4=19/19
+    D2 kubescape=93.333336 trivy={'critical': 0, 'high': 7, 'medium': 22, 'low': 17} pss=baseline secrets=0
+    D3 kube-score crit/warn=36/8 polaris=83 zhang=14 checklist=81.2%
+    D5 apply_ok=True ready=True (12/12) t=115.8s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=86.9 avail=45.9; ok=True t=67.4 avail=72.7; ok=True t=43.1 avail=42.5
+    D6 container_crash: ok=True t=43.6 avail=98.9; ok=True t=51.2 avail=98.6; ok=True t=70.7 avail=99.7
+=== 2026-11-25 12:58:53 baselines done: evaluation/phase2_claude_baselines_c.txt

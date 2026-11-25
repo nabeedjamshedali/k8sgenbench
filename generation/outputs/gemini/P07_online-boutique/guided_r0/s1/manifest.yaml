@@ -1,0 +1,21 @@
+REDIS_ADDR`: `"redis-cart:6379"`
+
+`loadgenerator`:
+- `FRONTEND_ADDR`: `"frontend:8080"`
+- `USERS`: `"10"`
+- `RATE`: `"1"`
+
+Let's check `redis-cart` StatefulSet details:
+- Name: `redis-cart`
+- Image: `redis:alpine`
+- Service: `redis-cart`, port 6379.
+- PVC: volumeClaimTemplates `redis-data`, 1Gi.
+- SecurityContext for container:
+  `allowPrivilegeEscalation: false`
+  `seccompProfile: { type: RuntimeDefault }`
+- Resources: memory request 256Mi, cpu request 100m. limit 512Mi memory.
+
+Let's double-check all rules:
+1. Image names and tags:
+   - `adservice`: `eclipse-temurin:25.0.4_7-jre-alpine@sha256:3137541deb3cac6626b5d9a4a2187bc0d6a34312f858bd2c67dd01e732e6b682`
+   - `cartservice`: `mcr.microsoft.com/dotnet/runtime-deps:10.0.0-noble-chiseled@sha256:b85

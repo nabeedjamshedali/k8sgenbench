@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-4d01143a-cefe-42bd-9f0a-98915de02abe",
+    "object": "chat.completion",
+    "created": 1795547626,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\n---\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  name: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\nrules:\n  - apiGroups:\n      - \"\"\n    resources:\n      - pods\n      - pods/log\n      - pods/exec\n      - pods/attach\n      - services\n      - services/proxy\n      - configmaps\n      - secrets\n      - namespaces\n      - nodes\n      - persistentvolumes\n      - persistentvolumeclaims\n      - serviceaccounts\n      - events\n      - endpoints\n    verbs:\n      - get\n      - list\n      - watch\n      - create\n      - update\n      - patch\n      - delete\n  - apiGroups:\n      - apps\n    resources:\n      - deployments\n      - replicasets\n      - statefulsets\n      - daemonsets\n      - controllerrevisions\n    verbs:\n      - get\n      - list\n      - watch\n      - create\n      - update\n      - patch\n      - delete\n  - apiGroups:\n      - batch\n    resources:\n      - jobs\n      - cronjobs\n    verbs:\n      - get\n      - list\n      - watch\n      - create\n      - update\n      - patch\n      - delete\n  - apiGroups:\n      - networking.k8s.io\n    resources:\n      - ingresses\n      - networkpolicies\n    verbs:\n      - get\n      - list\n      - watch\n      - create\n      - update\n      - patch\n      - delete\n  - apiGroups:\n      - storage.k8s.io\n    resources:\n      - storageclasses\n      - volumeattachments\n    verbs:\n      - get\n      - list\n      - watch\n  - apiGroups:\n      - rbac.authorization.k8s.io\n    resources:\n      - roles\n      - rolebindings\n      - clusterroles\n      - clusterrolebindings\n    verbs:\n      - get\n      - list\n      - watch\n  - apiGroups:\n      - autoscaling\n    resources:\n      - horizontalpodautoscalers\n    verbs:\n      - get\n      - list\n      - watch\n  - apiGroups:\n      - policy\n    resources:\n      - poddisruptionbudgets\n    verbs:\n      - get\n      - list\n      - watch\n  - apiGroups:\n      - apiextensions.k8s.io\n    resources:\n      - customresourcedefinitions\n    verbs:\n      - get\n      - list\n      - watch\n  - apiGroups:\n      - cluster.x-k8s.io\n    resources:\n      - clusterprofiles\n    verbs:\n      - get\n      - list\n      - watch\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  name: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\nsubjects:\n  - kind: ServiceAccount\n    name: headlamp\n    namespace: headlamp\nroleRef:\n  kind: ClusterRole\n  name: headlamp\n  apiGroup: rbac.authorization.k8s.io\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/name: headlamp\n      app.kubernetes.io/instance: headlamp\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/name: headlamp\n        app.kubernetes.io/instance: headlamp\n    spec:\n      serviceAccountName: headlamp\n      securityContext:\n        runAsNonRoot: true\n        runAsUser: 65532\n        runAsGroup: 65532\n        fsGroup: 65532\n      containers:\n        - name: headlamp\n          image: ghcr.io/headlamp-k8s/headlamp:latest\n          imagePullPolicy: IfNotPresent\n          ports:\n            - name: http\n              containerPort: 4466\n              protocol: TCP\n          args:\n            - \"-in-cluster\"\n            - \"-plugins-dir=/headlamp/plugins\"\n            - \"-html-static-dir=/headlamp/frontend\"\n            - \"-static-plugins-dir=/headlamp/static-plugins\"\n          env:\n            - name: HEADLAMP_STATIC_PLUGINS_DIR\n              value: /headlamp/static-plugins\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 512Mi\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 4466\n            initialDelaySeconds: 10\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 4466\n            initialDelaySeconds: 5\n            periodSeconds: 5\n            timeoutSeconds: 3\n            failureThreshold: 3\n          securityContext:\n            allowPrivilegeEscalation: false\n            readOnlyRootFilesystem: true\n            capabilities:\n              drop:\n                - ALL\n          volumeMounts:\n            - name: tmp\n              mountPath: /tmp\n      volumes:\n        - name: tmp\n          emptyDir: {}\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\nspec:\n  type: ClusterIP\n  selector:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\n  ports:\n    - name: http\n      port: 80\n      targetPort: 4466\n      protocol: TCP\n---\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app.kubernetes.io/name: headlamp\n    app.kubernetes.io/instance: headlamp\n  annotations:\n    nginx.ingress.kubernetes.io/rewrite-target: /\n    nginx.ingress.kubernetes.io/proxy-body-size: \"0\"\nspec:\n  ingressClassName: nginx\n  rules:\n    - host: headlamp.example.com\n      http:\n        paths:\n          - path: /\n            pathType: Prefix\n            backend:\n              service:\n                name: headlamp\n                port:\n                  number: 80\n  tls:\n    - hosts:\n        - headlamp.example.com\n      secretName: headlamp-tls\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.0045884,
+      "prompt_tokens": 4590,
+      "prompt_time": 0.326304481,
+      "completion_tokens": 1679,
+      "completion_time": 3.438906443,
+      "total_tokens": 6269,
+      "total_time": 3.765210924
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_21e59ac2de",
+    "x_groq": {
+      "id": "req_01m87fmvjteqsbjxxdqatt3jpr",
+      "seed": 679208017
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 5.482458114624023,
+  "tokens_in": 4590,
+  "tokens_out": 1679
+}

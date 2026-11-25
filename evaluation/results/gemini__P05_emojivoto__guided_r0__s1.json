@@ -1,0 +1,649 @@
+{
+  "project": "P05_emojivoto",
+  "source": "gemini",
+  "prompt_variant": "guided_r0",
+  "sample_k": "1",
+  "timestamp": "2026-11-25T11:40:21Z",
+  "gen_finish_reason": "STOP",
+  "d1_parse_ok": true,
+  "d1_parse_error": null,
+  "d1_n_documents": 7,
+  "d1_kubeconform": {
+    "ran": true,
+    "valid": true,
+    "summary": {
+      "valid": 7,
+      "invalid": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "statuses": [],
+    "details": []
+  },
+  "d1_server_dry_run": {
+    "ran": true,
+    "server_ok": true,
+    "objects_total": 7,
+    "objects_accepted": 7,
+    "errors": [],
+    "per_object": [
+      {
+        "kind": "Service",
+        "name": "emoji-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "emoji-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "voting-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "voting-svc",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Service",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "web",
+        "accepted": true,
+        "error": null
+      },
+      {
+        "kind": "Deployment",
+        "name": "vote-bot",
+        "accepted": true,
+        "error": null
+      }
+    ],
+    "implicit_namespace_refs_undeclared": []
+  },
+  "loc": 286,
+  "resource_counts": {
+    "Service": 3,
+    "Deployment": 4
+  },
+  "d2": {
+    "kubescape": {
+      "ran": true,
+      "compliance": 93.333336,
+      "frameworks": {
+        "NSA": 90,
+        "MITRE": 100
+      },
+      "failed_controls_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 0
+      },
+      "failed": [
+        {
+          "resource": "path=2207963384/api=apps/v1//Deployment/web",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2207963384/api=apps/v1//Deployment/web",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2258296241/api=apps/v1//Deployment/vote-bot",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2258296241/api=apps/v1//Deployment/vote-bot",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2275073860/api=apps/v1//Deployment/emoji-svc",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2275073860/api=apps/v1//Deployment/emoji-svc",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        },
+        {
+          "resource": "path=2308629098/api=apps/v1//Deployment/voting-svc",
+          "control": "C-0030",
+          "name": "Ingress and Egress blocked"
+        },
+        {
+          "resource": "path=2308629098/api=apps/v1//Deployment/voting-svc",
+          "control": "C-0034",
+          "name": "Automatic mapping of service account"
+        }
+      ]
+    },
+    "trivy": {
+      "ran": true,
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 4,
+        "low": 4
+      },
+      "failed": [
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment emoji-svc in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment vote-bot in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment voting-svc in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0110",
+          "title": "Workloads in the default namespace",
+          "severity": "LOW",
+          "message": "deployment web in default namespace should set metadata.namespace to a non-default namespace"
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container emoji-svc in deployment emoji-svc (namespace: default) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container vote-bot in deployment vote-bot (namespace: default) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container voting-svc in deployment voting-svc (namespace: default) uses an image from an untrusted registry."
+        },
+        {
+          "id": "KSV-0125",
+          "title": "Restrict container images to trusted registries",
+          "severity": "MEDIUM",
+          "message": "Container web in deployment web (namespace: default) uses an image from an untrusted registry."
+        }
+      ]
+    },
+    "secrets": {
+      "ran": true,
+      "count": 0,
+      "findings": [],
+      "nonsensitive_secret_literals": []
+    },
+    "pss": {
+      "ran": true,
+      "level": "restricted",
+      "n_objects": 4,
+      "violations": {
+        "restricted": [],
+        "baseline": []
+      }
+    }
+  },
+  "d3": {
+    "kube_score": {
+      "ran": true,
+      "critical": 18,
+      "warning": 3,
+      "critical_by_check": {
+        "pod-probes-identical": 3,
+        "container-image-pull-policy": 4,
+        "container-ephemeral-storage-request-and-limit": 4,
+        "pod-networkpolicy": 4,
+        "deployment-has-poddisruptionbudget": 3
+      },
+      "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 3
+      }
+    },
+    "polaris": {
+      "ran": true,
+      "score": 85,
+      "failed_by_check": {
+        "metadataAndInstanceMismatched[warning]": 4,
+        "missingPodDisruptionBudget[warning]": 4,
+        "automountServiceAccountToken[warning]": 4,
+        "missingNetworkPolicy[warning]": 4,
+        "priorityClassNotSet[warning]": 4,
+        "topologySpreadConstraint[warning]": 4,
+        "pullPolicyNotAlways[warning]": 4,
+        "deploymentMissingReplicas[warning]": 1,
+        "livenessProbeMissing[warning]": 1,
+        "readinessProbeMissing[warning]": 1
+      }
+    },
+    "kube_linter": {
+      "ran": true,
+      "total": 3,
+      "by_check": {
+        "no-anti-affinity": 3
+      },
+      "zhang_smells": {
+        "dangling-service": 0,
+        "no-anti-affinity": 3,
+        "no-read-only-root-fs": 0,
+        "run-as-non-root": 0,
+        "unset-cpu-requirements": 0,
+        "unset-memory-requirements": 0
+      },
+      "zhang_total": 3,
+      "zhang_density_per_kloc": 10.5,
+      "zhang_any": true
+    },
+    "checklist": {
+      "ran": true,
+      "n_workloads": 4,
+      "pct": 62.5,
+      "by_item": {
+        "10_pinned_tag": {
+          "met": 4,
+          "applicable": 4
+        },
+        "1_replicas_ge_2": {
+          "met": 3,
+          "applicable": 4
+        },
+        "2_readiness": {
+          "met": 3,
+          "applicable": 4
+        },
+        "3_liveness": {
+          "met": 3,
+          "applicable": 4
+        },
+        "4_cpu_request": {
+          "met": 4,
+          "applicable": 4
+        },
+        "5_mem_request": {
+          "met": 4,
+          "applicable": 4
+        },
+        "6_mem_limit": {
+          "met": 4,
+          "applicable": 4
+        },
+        "7_rolling_update": {
+          "met": 0,
+          "applicable": 4
+        },
+        "8_pdb": {
+          "met": 0,
+          "applicable": 4
+        },
+        "9_spread": {
+          "met": 0,
+          "applicable": 4
+        }
+      },
+      "per_workload": [
+        {
+          "kind": "Deployment",
+          "name": "emoji-svc",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "voting-svc",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "web",
+          "items": {
+            "1_replicas_ge_2": 1,
+            "2_readiness": 1,
+            "3_liveness": 1,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        },
+        {
+          "kind": "Deployment",
+          "name": "vote-bot",
+          "items": {
+            "1_replicas_ge_2": 0,
+            "2_readiness": 0,
+            "3_liveness": 0,
+            "4_cpu_request": 1,
+            "5_mem_request": 1,
+            "6_mem_limit": 1,
+            "7_rolling_update": 0,
+            "8_pdb": 0,
+            "9_spread": 0,
+            "10_pinned_tag": 1
+          }
+        }
+      ]
+    }
+  },
+  "d4": {
+    "ran": true,
+    "results": [
+      {
+        "id": "R01-web-deployed",
+        "passed": true,
+        "detail": "1 web server container(s)",
+        "oracle": false
+      },
+      {
+        "id": "R02-emoji-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R03-voting-deployed",
+        "passed": true,
+        "detail": "1 workload(s)",
+        "oracle": false
+      },
+      {
+        "id": "R04-vote-bot-deployed",
+        "passed": true,
+        "detail": "1 container(s) of buoyantio/emojivoto-web running emojivoto-vote-bot",
+        "oracle": false
+      },
+      {
+        "id": "R05-web-port",
+        "passed": true,
+        "detail": "WEB_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R06-emoji-grpc-port",
+        "passed": true,
+        "detail": "GRPC_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R07-voting-grpc-port",
+        "passed": true,
+        "detail": "GRPC_PORT=['8080']",
+        "oracle": false
+      },
+      {
+        "id": "R08-emojisvc-host",
+        "passed": true,
+        "detail": "EMOJISVC_HOST=['emoji-svc:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R09-votingsvc-host",
+        "passed": true,
+        "detail": "VOTINGSVC_HOST=['voting-svc:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R10-index-bundle",
+        "passed": true,
+        "detail": "INDEX_BUNDLE=['dist/index_bundle.js']",
+        "oracle": false
+      },
+      {
+        "id": "R11-bot-web-host",
+        "passed": true,
+        "detail": "WEB_HOST=['web:8080']",
+        "oracle": false
+      },
+      {
+        "id": "R12-web-external",
+        "passed": false,
+        "detail": "no NodePort/LoadBalancer Service, Ingress or HTTPRoute routes to it",
+        "oracle": false
+      }
+    ],
+    "requirements_met": 11,
+    "requirements_total": 12,
+    "pct": 91.7
+  },
+  "d5": {
+    "ran": true,
+    "images": [
+      {
+        "ref": "buoyantio/emojivoto-emoji-svc:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "buoyantio/emojivoto-voting-svc:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "buoyantio/emojivoto-web:v11",
+        "as_written_pullable": true,
+        "served": "mirror"
+      },
+      {
+        "ref": "curlimages/curl:8.11.1",
+        "as_written_pullable": true,
+        "served": "mirror"
+      }
+    ],
+    "shims_applied": [],
+    "prepull_failed": [],
+    "apply_ok": true,
+    "apply_errors": [],
+    "ready_ok": true,
+    "time_to_ready_s": 15.1,
+    "ready_replicas": 7,
+    "expected_replicas": 7,
+    "workloads": [
+      {
+        "ns": "d5-2ef08c6f",
+        "kind": "Deployment",
+        "name": "emoji-svc",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "d5-2ef08c6f",
+        "kind": "Deployment",
+        "name": "vote-bot",
+        "ready": 1,
+        "want": 1
+      },
+      {
+        "ns": "d5-2ef08c6f",
+        "kind": "Deployment",
+        "name": "voting-svc",
+        "ready": 2,
+        "want": 2
+      },
+      {
+        "ns": "d5-2ef08c6f",
+        "kind": "Deployment",
+        "name": "web",
+        "ready": 2,
+        "want": 2
+      }
+    ],
+    "failure_reason": null,
+    "client_placement": {
+      "namespace": "d5-2ef08c6f",
+      "create_namespace": false,
+      "namespace_labels": {},
+      "pod_labels": {},
+      "via": "default"
+    },
+    "smoke": [
+      {
+        "name": "web-page",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "list-emoji",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "cast-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "name": "leaderboard-has-vote",
+        "passed": true,
+        "detail": "HTTP 200"
+      }
+    ],
+    "smoke_ok": true,
+    "service_listen": [
+      {
+        "service": "emoji-svc",
+        "namespace": "d5-2ef08c6f",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "emoji-svc-56c88c5dd9-4kjh2",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "voting-svc",
+        "namespace": "d5-2ef08c6f",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "voting-svc-cc4f5568b-9tgdc",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      },
+      {
+        "service": "web",
+        "namespace": "d5-2ef08c6f",
+        "port": 8080,
+        "target_port": 8080,
+        "pod": "web-774cc5547-62cdd",
+        "listening": [
+          8080
+        ],
+        "ok": true
+      }
+    ]
+  },
+  "d6": {
+    "ran": true,
+    "service": "web",
+    "n_ready_before": 2,
+    "pod_delete": [
+      {
+        "ran": true,
+        "victim": "web-774cc5547-nqskc",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.2,
+        "availability_pct": 100.0,
+        "n_probes": 29
+      },
+      {
+        "ran": true,
+        "victim": "web-774cc5547-rjsq4",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.3,
+        "availability_pct": 100.0,
+        "n_probes": 76
+      },
+      {
+        "ran": true,
+        "victim": "web-774cc5547-q5d7j",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 9.3,
+        "availability_pct": 100.0,
+        "n_probes": 76
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "web-774cc5547-62cdd",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.0,
+        "availability_pct": 96.6,
+        "n_probes": 87
+      },
+      {
+        "ran": true,
+        "victim": "web-774cc5547-vs64h",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 11.2,
+        "availability_pct": 98.7,
+        "n_probes": 76
+      },
+      {
+        "ran": true,
+        "victim": "web-774cc5547-62cdd",
+        "victim_prior_restarts": 1,
+        "recovery_ok": true,
+        "recovery_time_s": 21.4,
+        "availability_pct": 99.3,
+        "n_probes": 134
+      }
+    ],
+    "gate": "ready"
+  }
+}
