@@ -1,31 +1,42 @@
 apiVersion: v1
-kind: Secret
+kind: ConfigMap
 metadata:
-  name: db-credentials
+  name: wordsmith-db-init
   labels:
-    app: wordsmith
-type: Opaque
-stringData:
-  POSTGRES_PASSWORD: wordsmith-password
+    app: db
+data:
+  words.sql: "CREATE TABLE nouns (word TEXT NOT NULL);\nCREATE TABLE verbs (word TEXT\
+    \ NOT NULL);\nCREATE TABLE adjectives (word TEXT NOT NULL);\n\nINSERT INTO nouns(word)\
+    \ VALUES\n  ('cloud'),\n  ('elephant'),\n  ('g\xF8 language'),\n  ('lapt\xF8p'),\n\
+    \  ('c\xF8ntainer'),\n  ('micr\xF8-service'),\n  ('turtle'),\n  ('whale'),\n \
+    \ ('g\xF8pher'),\n  ('m\xF8by d\xF8ck'),\n  ('server'),\n  ('bicycle'),\n  ('viking'),\n\
+    \  ('mermaid'),\n  ('fj\xF8rd'),\n  ('leg\xF8'),\n  ('fl\xF8debolle'),\n  ('sm\xF8\
+    rrebr\xF8d');\n\nINSERT INTO verbs(word) VALUES\n  ('will drink'),\n  ('smashes'),\n\
+    \  ('sm\xF8kes'),\n  ('eats'),\n  ('walks t\xF8wards'),\n  ('l\xF8ves'),\n  ('helps'),\n\
+    \  ('pushes'),\n  ('debugs'),\n  ('invites'),\n  ('hides'),\n  ('will ship');\n\
+    \nINSERT INTO adjectives(word) VALUES\n  ('the exquisite'),\n  ('a pink'),\n \
+    \ ('the r\xF8tten'),\n  ('a red'),\n  ('the serverless'),\n  ('a br\xF8ken'),\n\
+    \  ('a shiny'),\n  ('the pretty'),\n  ('the impressive'),\n  ('an awes\xF8me'),\n\
+    \  ('the fam\xF8us'),\n  ('a gigantic'),\n  ('the gl\xF8ri\xF8us'),\n  ('the n\xF8\
+    rdic'),\n  ('the welc\xF8ming'),\n  ('the delici\xF8us');\n"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
   labels:
-    app: wordsmith
-    component: db
+    app: db
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app: wordsmith
-      component: db
+      app: db
   template:
     metadata:
       labels:
-        app: wordsmith
-        component: db
+        app: db
     spec:
       containers:
       - name: db
@@ -33,40 +44,39 @@ spec:
         ports:
         - containerPort: 5432
         env:
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: POSTGRES_PASSWORD
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: trust
+        volumeMounts:
+        - name: init
+          mountPath: /docker-entrypoint-initdb.d
         readinessProbe:
-          tcpSocket:
-            port: 5432
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
           initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 5432
-          initialDelaySeconds: 15
-          periodSeconds: 20
+          periodSeconds: 5
         resources:
           requests:
             cpu: 100m
             memory: 128Mi
           limits:
-            cpu: 500m
             memory: 256Mi
+      volumes:
+      - name: init
+        configMap:
+          name: wordsmith-db-init
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: db
   labels:
-    app: wordsmith
-    component: db
+    app: db
 spec:
   selector:
-    app: wordsmith
-    component: db
+    app: db
   ports:
   - port: 5432
     targetPort: 5432
@@ -76,19 +86,16 @@ kind: Deployment
 metadata:
   name: api
   labels:
-    app: wordsmith
-    component: api
+    app: api
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
-      app: wordsmith
-      component: api
+      app: api
   template:
     metadata:
       labels:
-        app: wordsmith
-        component: api
+        app: api
     spec:
       containers:
       - name: api
@@ -99,31 +106,23 @@ spec:
           tcpSocket:
             port: 8080
           initialDelaySeconds: 10
-          periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 20
-          periodSeconds: 20
+          periodSeconds: 5
         resources:
           requests:
             cpu: 100m
             memory: 64Mi
           limits:
-            cpu: 500m
-            memory: 256Mi
+            memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: api
   labels:
-    app: wordsmith
-    component: api
+    app: api
 spec:
   selector:
-    app: wordsmith
-    component: api
+    app: api
   ports:
   - port: 8080
     targetPort: 8080
@@ -133,19 +132,16 @@ kind: Deployment
 metadata:
   name: web
   labels:
-    app: wordsmith
-    component: web
+    app: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wordsmith
-      component: web
+      app: web
   template:
     metadata:
       labels:
-        app: wordsmith
-        component: web
+        app: web
     spec:
       containers:
       - name: web
@@ -153,37 +149,27 @@ spec:
         ports:
         - containerPort: 80
         readinessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 20
+          initialDelaySeconds: 3
+          periodSeconds: 5
         resources:
           requests:
             cpu: 50m
             memory: 32Mi
           limits:
-            cpu: 250m
-            memory: 128Mi
+            memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: web
   labels:
-    app: wordsmith
-    component: web
+    app: web
 spec:
   type: LoadBalancer
   selector:
-    app: wordsmith
-    component: web
+    app: web
   ports:
   - port: 8080
     targetPort: 80

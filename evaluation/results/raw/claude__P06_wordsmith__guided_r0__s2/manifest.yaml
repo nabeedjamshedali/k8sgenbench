@@ -6,11 +6,19 @@ metadata:
     app: db
 data:
   words.sql: "CREATE TABLE nouns (word TEXT NOT NULL);\nCREATE TABLE verbs (word TEXT\
-    \ NOT NULL);\nCREATE TABLE adjectives (word TEXT NOT NULL);\nINSERT INTO nouns(word)\
-    \ VALUES ('cloud'), ('elephant'), ('g\xF8'), ('team'), ('kubernetes'), ('wolf'),\
-    \ ('fish'), ('boat');\nINSERT INTO verbs(word) VALUES ('shaved'), ('built'), ('ran'),\
-    \ ('jumped'), ('deployed'), ('chased');\nINSERT INTO adjectives(word) VALUES ('sleepy'),\
-    \ ('fast'), ('happy'), ('tiny'), ('clever'), ('brave');\n"
+    \ NOT NULL);\nCREATE TABLE adjectives (word TEXT NOT NULL);\n\nINSERT INTO nouns(word)\
+    \ VALUES\n  ('cloud'),\n  ('elephant'),\n  ('g\xF8 language'),\n  ('lapt\xF8p'),\n\
+    \  ('c\xF8ntainer'),\n  ('micr\xF8-service'),\n  ('turtle'),\n  ('whale'),\n \
+    \ ('g\xF8pher'),\n  ('m\xF8by d\xF8ck'),\n  ('server'),\n  ('bicycle'),\n  ('viking'),\n\
+    \  ('mermaid'),\n  ('fj\xF8rd'),\n  ('leg\xF8'),\n  ('fl\xF8debolle'),\n  ('sm\xF8\
+    rrebr\xF8d');\n\nINSERT INTO verbs(word) VALUES\n  ('will drink'),\n  ('smashes'),\n\
+    \  ('sm\xF8kes'),\n  ('eats'),\n  ('walks t\xF8wards'),\n  ('l\xF8ves'),\n  ('helps'),\n\
+    \  ('pushes'),\n  ('debugs'),\n  ('invites'),\n  ('hides'),\n  ('will ship');\n\
+    \nINSERT INTO adjectives(word) VALUES\n  ('the exquisite'),\n  ('a pink'),\n \
+    \ ('the r\xF8tten'),\n  ('a red'),\n  ('the serverless'),\n  ('a br\xF8ken'),\n\
+    \  ('a shiny'),\n  ('the pretty'),\n  ('the impressive'),\n  ('an awes\xF8me'),\n\
+    \  ('the fam\xF8us'),\n  ('a gigantic'),\n  ('the gl\xF8ri\xF8us'),\n  ('the n\xF8\
+    rdic'),\n  ('the welc\xF8ming'),\n  ('the delici\xF8us');\n"
 ---
 apiVersion: v1
 kind: Service
@@ -19,6 +27,7 @@ metadata:
   labels:
     app: db
 spec:
+  clusterIP: None
   selector:
     app: db
   ports:
@@ -66,7 +75,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: 5432
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
           periodSeconds: 20
           timeoutSeconds: 5
           failureThreshold: 6
@@ -128,7 +137,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: dockersamples/wordsmith-api:latest
+        image: dockersamples/wordsmith-api
         ports:
         - name: http
           containerPort: 8080
@@ -136,9 +145,6 @@ spec:
           allowPrivilegeEscalation: false
           seccompProfile:
             type: RuntimeDefault
-          capabilities:
-            drop:
-            - ALL
         startupProbe:
           tcpSocket:
             port: 8080
@@ -160,7 +166,7 @@ spec:
         resources:
           requests:
             cpu: 100m
-            memory: 512Mi
+            memory: 256Mi
           limits:
             cpu: '1'
             memory: 768Mi
@@ -197,7 +203,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: dockersamples/wordsmith-web:latest
+        image: dockersamples/wordsmith-web
         ports:
         - name: http
           containerPort: 80
@@ -214,6 +220,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: 80
+          initialDelaySeconds: 10
           periodSeconds: 20
           timeoutSeconds: 5
           failureThreshold: 3

@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-25T17:21:34+05:00",
+  "AuditTime": "2026-11-26T16:58:31+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\qwen__P06_wordsmith__guided_r1__s1\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\qwen__P06_wordsmith__guided_r1__s1\\manifest.yaml",
@@ -12,30 +12,6 @@
     "Controllers": 3
   },
   "Results": [
-    {
-      "Name": "wordsmith-db",
-      "Namespace": "wordsmith",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "wordsmith-api",
-      "Namespace": "wordsmith",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "wordsmith-web",
-      "Namespace": "wordsmith",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
     {
       "Name": "wordsmith-db",
       "Namespace": "wordsmith",
@@ -147,7 +123,7 @@
         },
         "ContainerResults": [
           {
-            "Name": "postgres",
+            "Name": "db",
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
@@ -313,6 +289,30 @@
           }
         ]
       },
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "wordsmith-db",
+      "Namespace": "wordsmith",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "wordsmith-api",
+      "Namespace": "wordsmith",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "wordsmith-web",
+      "Namespace": "wordsmith",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
@@ -538,9 +538,9 @@
               },
               "notReadOnlyRootFilesystem": {
                 "ID": "notReadOnlyRootFilesystem",
-                "Message": "Filesystem is read only",
+                "Message": "Filesystem should be read only",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Security",
                 "Mutations": null
@@ -590,9 +590,9 @@
               },
               "runAsRootAllowed": {
                 "ID": "runAsRootAllowed",
-                "Message": "Is not allowed to run as root",
+                "Message": "Should not be allowed to run as root",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "danger",
                 "Category": "Security",
                 "Mutations": null
@@ -994,5 +994,5 @@
       "CreatedTime": "0001-01-01T00:00:00Z"
     }
   ],
-  "Score": 81
+  "Score": 78
 }

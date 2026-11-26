@@ -33,9 +33,30 @@ stringData:
   POSTGRES_DB: wordsmith
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordsmith-db-init
+  namespace: wordsmith
+data:
+  db.words.sql: "CREATE TABLE nouns (word TEXT NOT NULL);\nCREATE TABLE verbs (word\
+    \ TEXT NOT NULL);\nCREATE TABLE adjectives (word TEXT NOT NULL);\n\nINSERT INTO\
+    \ nouns(word) VALUES\n  ('cloud'),\n  ('elephant'),\n  ('g\xF8 language'),\n \
+    \ ('lapt\xF8p'),\n  ('c\xF8ntainer'),\n  ('micr\xF8-service'),\n  ('turtle'),\n\
+    \  ('whale'),\n  ('g\xF8pher'),\n  ('m\xF8by d\xF8ck'),\n  ('server'),\n  ('bicycle'),\n\
+    \  ('viking'),\n  ('mermaid'),\n  ('fj\xF8rd'),\n  ('leg\xF8'),\n  ('fl\xF8debolle'),\n\
+    \  ('sm\xF8rrebr\xF8d');\n\nINSERT INTO verbs(word) VALUES\n  ('will drink'),\n\
+    \  ('smashes'),\n  ('sm\xF8kes'),\n  ('eats'),\n  ('walks t\xF8wards'),\n  ('l\xF8\
+    ves'),\n  ('helps'),\n  ('pushes'),\n  ('debugs'),\n  ('invites'),\n  ('hides'),\n\
+    \  ('will ship');\n\nINSERT INTO adjectives(word) VALUES\n  ('the exquisite'),\n\
+    \  ('a pink'),\n  ('the r\xF8tten'),\n  ('a red'),\n  ('the serverless'),\n  ('a\
+    \ br\xF8ken'),\n  ('a shiny'),\n  ('the pretty'),\n  ('the impressive'),\n  ('an\
+    \ awes\xF8me'),\n  ('the fam\xF8us'),\n  ('a gigantic'),\n  ('the gl\xF8ri\xF8\
+    us'),\n  ('the n\xF8rdic'),\n  ('the welc\xF8ming'),\n  ('the delici\xF8us');\n"
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: wordsmith-db
+  name: wordsmith-db-pvc
   namespace: wordsmith
 spec:
   accessModes:
@@ -43,19 +64,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: wordsmith-db
-  namespace: wordsmith
-spec:
-  selector:
-    app: wordsmith-db
-  ports:
-  - name: postgres
-    port: 5432
-    targetPort: 5432
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -101,6 +109,8 @@ spec:
         volumeMounts:
         - name: db-data
           mountPath: /var/lib/postgresql/data
+        - name: init-scripts
+          mountPath: /docker-entrypoint-initdb.d
         securityContext:
           allowPrivilegeEscalation: false
           seccompProfile:
@@ -119,23 +129,34 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
-        readinessProbe:
-          tcpSocket:
-            port: 5432
-          initialDelaySeconds: 5
-          periodSeconds: 10
         startupProbe:
-          tcpSocket:
-            port: 5432
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
           failureThreshold: 30
           periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 5432
-          initialDelaySeconds: 30
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
           periodSeconds: 10
-          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          periodSeconds: 10
           failureThreshold: 3
+          timeoutSeconds: 5
+      volumes:
+      - name: init-scripts
+        configMap:
+          name: wordsmith-db-init
   volumeClaimTemplates:
   - metadata:
       name: db-data
@@ -149,15 +170,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordsmith-api
+  name: wordsmith-db
   namespace: wordsmith
 spec:
   selector:
-    app: wordsmith-api
+    app: wordsmith-db
   ports:
-  - name: http
-    port: 8080
-    targetPort: 8080
+  - name: postgres
+    port: 5432
+    targetPort: 5432
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -182,8 +203,25 @@ spec:
         - name: http
           containerPort: 8080
         env:
-        - name: DATABASE_URL
-          value: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable
+        - name: POSTGRES_HOST
+          value: wordsmith-db
+        - name: POSTGRES_PORT
+          value: '5432'
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: wordsmith-db
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wordsmith-db
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: wordsmith-db
+              key: POSTGRES_DB
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -192,49 +230,48 @@ spec:
           allowPrivilegeEscalation: false
           seccompProfile:
             type: RuntimeDefault
-          capabilities:
-            drop:
-            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
         resources:
           requests:
             cpu: 100m
             memory: 512Mi
           limits:
             cpu: 500m
-            memory: 1Gi
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
+            memory: 512Mi
         startupProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 8080
           failureThreshold: 30
           periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
+        readinessProbe:
+          tcpSocket:
             port: 8080
-          initialDelaySeconds: 30
           periodSeconds: 10
-          timeoutSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          periodSeconds: 10
           failureThreshold: 3
+          timeoutSeconds: 5
+      volumes:
+      - name: tmp
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordsmith-web
+  name: wordsmith-api
   namespace: wordsmith
 spec:
   selector:
-    app: wordsmith-web
+    app: wordsmith-api
   ports:
   - name: http
-    port: 80
-    targetPort: 80
+    port: 8080
+    targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -260,7 +297,9 @@ spec:
           containerPort: 80
         env:
         - name: API_HOST
-          value: wordsmith-api:8080
+          value: wordsmith-api
+        - name: API_PORT
+          value: '8080'
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000
@@ -269,9 +308,10 @@ spec:
           allowPrivilegeEscalation: false
           seccompProfile:
             type: RuntimeDefault
-          capabilities:
-            drop:
-            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
         resources:
           requests:
             cpu: 50m
@@ -280,16 +320,28 @@ spec:
             cpu: 200m
             memory: 128Mi
         readinessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 80
-          initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 80
-          initialDelaySeconds: 15
           periodSeconds: 10
-          timeoutSeconds: 5
           failureThreshold: 3
+          timeoutSeconds: 5
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordsmith-web
+  namespace: wordsmith
+spec:
+  selector:
+    app: wordsmith-web
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80

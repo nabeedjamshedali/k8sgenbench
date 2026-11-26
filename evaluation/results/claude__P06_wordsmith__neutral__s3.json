@@ -3,7 +3,7 @@
   "source": "claude",
   "prompt_variant": "neutral",
   "sample_k": "3",
-  "timestamp": "2026-11-23T19:17:23Z",
+  "timestamp": "2026-11-26T09:58:50Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -28,8 +28,8 @@
     "errors": [],
     "per_object": [
       {
-        "kind": "Secret",
-        "name": "db-credentials",
+        "kind": "ConfigMap",
+        "name": "wordsmith-db-init",
         "accepted": true,
         "error": null
       },
@@ -72,23 +72,23 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 183,
+  "loc": 205,
   "resource_counts": {
-    "Secret": 1,
+    "ConfigMap": 1,
     "Deployment": 3,
     "Service": 3
   },
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 80,
+      "compliance": 76.666664,
       "frameworks": {
-        "NSA": 70,
+        "NSA": 65,
         "MITRE": 100
       },
       "failed_controls_by_severity": {
         "critical": 0,
-        "high": 0,
+        "high": 1,
         "medium": 5,
         "low": 1
       },
@@ -124,6 +124,11 @@
           "name": "Linux hardening"
         },
         {
+          "resource": "path=123763115/api=apps/v1//Deployment/api",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
           "resource": "path=157318353/api=apps/v1//Deployment/db",
           "control": "C-0013",
           "name": "Non-root containers"
@@ -154,6 +159,11 @@
           "name": "Linux hardening"
         },
         {
+          "resource": "path=157318353/api=apps/v1//Deployment/db",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
+        },
+        {
           "resource": "path=224428829/api=apps/v1//Deployment/web",
           "control": "C-0013",
           "name": "Non-root containers"
@@ -182,6 +192,11 @@
           "resource": "path=224428829/api=apps/v1//Deployment/web",
           "control": "C-0055",
           "name": "Linux hardening"
+        },
+        {
+          "resource": "path=224428829/api=apps/v1//Deployment/web",
+          "control": "C-0270",
+          "name": "Ensure CPU limits are set"
         }
       ]
     },
@@ -191,7 +206,7 @@
         "critical": 0,
         "high": 9,
         "medium": 14,
-        "low": 21
+        "low": 24
       },
       "failed": [
         {
@@ -247,6 +262,24 @@
           "title": "Default capabilities: some containers do not drop any",
           "severity": "LOW",
           "message": "Container 'web' of 'deployment' 'web' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'db' of Deployment 'db' should set 'resources.limits.cpu'"
+        },
+        {
+          "id": "KSV-0011",
+          "title": "CPU not limited",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should set 'resources.limits.cpu'"
         },
         {
           "id": "KSV-0012",
@@ -462,14 +495,8 @@
     },
     "secrets": {
       "ran": true,
-      "count": 1,
-      "findings": [
-        {
-          "type": "secret-object-literal",
-          "object": "db-credentials",
-          "key": "POSTGRES_PASSWORD"
-        }
-      ],
+      "count": 0,
+      "findings": [],
       "nonsensitive_secret_literals": []
     },
     "pss": {
@@ -502,25 +529,26 @@
     "kube_score": {
       "ran": true,
       "critical": 19,
-      "warning": 3,
+      "warning": 4,
       "critical_by_check": {
-        "container-security-context-user-group-id": 3,
-        "pod-networkpolicy": 3,
-        "container-image-tag": 2,
+        "container-resources": 3,
         "container-ephemeral-storage-request-and-limit": 3,
-        "pod-probes-identical": 3,
+        "pod-networkpolicy": 3,
+        "container-security-context-user-group-id": 3,
         "container-security-context-readonlyrootfilesystem": 3,
-        "container-image-pull-policy": 1,
-        "deployment-has-poddisruptionbudget": 1
+        "container-image-tag": 2,
+        "deployment-has-poddisruptionbudget": 1,
+        "container-image-pull-policy": 1
       },
       "warning_by_check": {
+        "deployment-has-host-podantiaffinity": 1,
         "deployment-replicas": 2,
-        "deployment-has-host-podantiaffinity": 1
+        "deployment-strategy": 1
       }
     },
     "polaris": {
       "ran": true,
-      "score": 68,
+      "score": 64,
       "failed_by_check": {
         "deploymentMissingReplicas[warning]": 2,
         "metadataAndInstanceMismatched[warning]": 3,
@@ -529,8 +557,10 @@
         "missingNetworkPolicy[warning]": 3,
         "priorityClassNotSet[warning]": 3,
         "topologySpreadConstraint[warning]": 3,
+        "cpuLimitsMissing[warning]": 3,
         "insecureCapabilities[warning]": 3,
         "linuxHardening[warning]": 3,
+        "livenessProbeMissing[warning]": 3,
         "notReadOnlyRootFilesystem[warning]": 3,
         "privilegeEscalationAllowed[danger]": 3,
         "pullPolicyNotAlways[warning]": 3,
@@ -556,13 +586,13 @@
         "unset-memory-requirements": 0
       },
       "zhang_total": 7,
-      "zhang_density_per_kloc": 38.3,
+      "zhang_density_per_kloc": 34.1,
       "zhang_any": true
     },
     "checklist": {
       "ran": true,
       "n_workloads": 3,
-      "pct": 56.7,
+      "pct": 46.7,
       "by_item": {
         "10_pinned_tag": {
           "met": 1,
@@ -577,7 +607,7 @@
           "applicable": 3
         },
         "3_liveness": {
-          "met": 3,
+          "met": 0,
           "applicable": 3
         },
         "4_cpu_request": {
@@ -612,7 +642,7 @@
           "items": {
             "1_replicas_ge_2": 0,
             "2_readiness": 1,
-            "3_liveness": 1,
+            "3_liveness": 0,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -628,7 +658,7 @@
           "items": {
             "1_replicas_ge_2": 1,
             "2_readiness": 1,
-            "3_liveness": 1,
+            "3_liveness": 0,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -644,7 +674,7 @@
           "items": {
             "1_replicas_ge_2": 0,
             "2_readiness": 1,
-            "3_liveness": 1,
+            "3_liveness": 0,
             "4_cpu_request": 1,
             "5_mem_request": 1,
             "6_mem_limit": 1,
@@ -692,14 +722,14 @@
       },
       {
         "id": "R06-db-passwordless",
-        "passed": false,
-        "detail": "[False]",
+        "passed": true,
+        "detail": "[True]",
         "oracle": true
       },
       {
         "id": "R07-db-seeded",
-        "passed": false,
-        "detail": "seed in [], /docker-entrypoint-initdb.d mounted=False",
+        "passed": true,
+        "detail": "seed in ['ConfigMap/wordsmith-db-init'], /docker-entrypoint-initdb.d mounted=True",
         "oracle": true
       },
       {
@@ -754,26 +784,26 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 37.9,
-    "ready_replicas": 4,
-    "expected_replicas": 4,
+    "time_to_ready_s": 15.0,
+    "ready_replicas": 7,
+    "expected_replicas": 7,
     "workloads": [
       {
-        "ns": "d5-307ebe84",
+        "ns": "d5-567a3930",
         "kind": "Deployment",
         "name": "api",
-        "ready": 2,
-        "want": 2
+        "ready": 5,
+        "want": 5
       },
       {
-        "ns": "d5-307ebe84",
+        "ns": "d5-567a3930",
         "kind": "Deployment",
         "name": "db",
         "ready": 1,
         "want": 1
       },
       {
-        "ns": "d5-307ebe84",
+        "ns": "d5-567a3930",
         "kind": "Deployment",
         "name": "web",
         "ready": 1,
@@ -782,7 +812,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-307ebe84",
+      "namespace": "d5-567a3930",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -796,33 +826,33 @@
       },
       {
         "name": "seed-loaded",
-        "passed": false,
-        "detail": "exit 1: ERROR:  relation \"nouns\" does not exist\nLINE 1: SELECT count(*) FROM nouns\n                             ^\ncommand termin"
+        "passed": true,
+        "detail": "output '18'"
       },
       {
         "name": "api-noun",
-        "passed": false,
-        "detail": "HTTP 000, body lacks '{\"word\":\"'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "web-proxies-verb",
-        "passed": false,
-        "detail": "HTTP 500, body lacks '{\"word\":\"'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "web-proxies-adjective",
-        "passed": false,
-        "detail": "HTTP 500, body lacks '{\"word\":\"'"
+        "passed": true,
+        "detail": "HTTP 200"
       }
     ],
-    "smoke_ok": false,
+    "smoke_ok": true,
     "service_listen": [
       {
         "service": "db",
-        "namespace": "d5-307ebe84",
+        "namespace": "d5-567a3930",
         "port": 5432,
         "target_port": 5432,
-        "pod": "db-6d6ff4c8b-dtjfn",
+        "pod": "db-6d9c5cf869-hdpmj",
         "listening": [
           5432
         ],
@@ -830,10 +860,10 @@
       },
       {
         "service": "api",
-        "namespace": "d5-307ebe84",
+        "namespace": "d5-567a3930",
         "port": 8080,
         "target_port": 8080,
-        "pod": "api-574f8b5776-d4rdp",
+        "pod": "api-7866447459-46dpr",
         "listening": [
           8080
         ],
@@ -841,10 +871,10 @@
       },
       {
         "service": "web",
-        "namespace": "d5-307ebe84",
+        "namespace": "d5-567a3930",
         "port": 8080,
         "target_port": 80,
-        "pod": "web-659d4868cb-9lsvw",
+        "pod": "web-7f5d6c9cdc-cfxt8",
         "listening": [
           80
         ],
@@ -859,59 +889,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "web-659d4868cb-5gdl2",
+        "victim": "web-7f5d6c9cdc-jqlsx",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 12.2,
-        "availability_pct": 0.0,
-        "n_probes": 37
+        "recovery_time_s": 6.0,
+        "availability_pct": 53.1,
+        "n_probes": 32
       },
       {
         "ran": true,
-        "victim": "web-659d4868cb-g79sb",
+        "victim": "web-7f5d6c9cdc-qgsqz",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 10.1,
-        "availability_pct": 0.0,
-        "n_probes": 35
+        "recovery_time_s": 6.1,
+        "availability_pct": 55.9,
+        "n_probes": 34
       },
       {
         "ran": true,
-        "victim": "web-659d4868cb-prwj7",
+        "victim": "web-7f5d6c9cdc-grvtb",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 12.5,
-        "availability_pct": 0.0,
-        "n_probes": 40
+        "recovery_time_s": 5.8,
+        "availability_pct": 48.4,
+        "n_probes": 31
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "web-659d4868cb-9lsvw",
+        "victim": "web-7f5d6c9cdc-cfxt8",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 11.5,
-        "availability_pct": 0.0,
-        "n_probes": 40
+        "recovery_time_s": 5.8,
+        "availability_pct": 51.4,
+        "n_probes": 37
       },
       {
         "ran": true,
-        "victim": "web-659d4868cb-9lsvw",
+        "victim": "web-7f5d6c9cdc-cfxt8",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 25.6,
-        "availability_pct": 0.0,
-        "n_probes": 63
+        "recovery_time_s": 18.1,
+        "availability_pct": 33.3,
+        "n_probes": 54
       },
       {
         "ran": true,
-        "victim": "web-659d4868cb-9lsvw",
+        "victim": "web-7f5d6c9cdc-cfxt8",
         "victim_prior_restarts": 2,
         "recovery_ok": true,
-        "recovery_time_s": 31.2,
-        "availability_pct": 0.0,
-        "n_probes": 62
+        "recovery_time_s": 26.7,
+        "availability_pct": 21.9,
+        "n_probes": 64
       }
     ],
     "gate": "ready"

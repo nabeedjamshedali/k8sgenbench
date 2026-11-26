@@ -3,7 +3,7 @@
   "source": "claude",
   "prompt_variant": "guided_r0",
   "sample_k": "3",
-  "timestamp": "2026-11-25T08:57:13Z",
+  "timestamp": "2026-11-26T10:23:01Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
@@ -72,7 +72,7 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 226,
+  "loc": 289,
   "resource_counts": {
     "ConfigMap": 1,
     "Service": 3,
@@ -368,14 +368,14 @@
       "warning": 2,
       "critical_by_check": {
         "pod-networkpolicy": 3,
-        "pod-probes-identical": 3,
-        "container-security-context-readonlyrootfilesystem": 3,
-        "container-image-tag": 2,
+        "container-image-pull-policy": 1,
         "container-security-context-user-group-id": 3,
         "container-ephemeral-storage-request-and-limit": 3,
-        "deployment-has-poddisruptionbudget": 2,
-        "container-image-pull-policy": 1,
-        "statefulset-has-servicename": 1
+        "pod-probes-identical": 3,
+        "container-security-context-readonlyrootfilesystem": 3,
+        "statefulset-has-servicename": 1,
+        "container-image-tag": 2,
+        "deployment-has-poddisruptionbudget": 2
       },
       "warning_by_check": {
         "deployment-has-host-podantiaffinity": 2
@@ -416,7 +416,7 @@
         "unset-memory-requirements": 0
       },
       "zhang_total": 8,
-      "zhang_density_per_kloc": 35.4,
+      "zhang_density_per_kloc": 27.7,
       "zhang_any": true
     },
     "checklist": {
@@ -558,8 +558,8 @@
       },
       {
         "id": "R07-db-seeded",
-        "passed": true,
-        "detail": "seed in ['ConfigMap/db-init'], /docker-entrypoint-initdb.d mounted=True",
+        "passed": false,
+        "detail": "seed in [], /docker-entrypoint-initdb.d mounted=True",
         "oracle": true
       },
       {
@@ -614,26 +614,26 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 30.1,
+    "time_to_ready_s": 18.2,
     "ready_replicas": 5,
     "expected_replicas": 5,
     "workloads": [
       {
-        "ns": "d5-4e8bbdcd",
+        "ns": "d5-c8467a6e",
         "kind": "Deployment",
         "name": "api",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4e8bbdcd",
+        "ns": "d5-c8467a6e",
         "kind": "Deployment",
         "name": "web",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-4e8bbdcd",
+        "ns": "d5-c8467a6e",
         "kind": "StatefulSet",
         "name": "db",
         "ready": 1,
@@ -642,7 +642,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-4e8bbdcd",
+      "namespace": "d5-c8467a6e",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -656,8 +656,8 @@
       },
       {
         "name": "seed-loaded",
-        "passed": false,
-        "detail": "output '5'"
+        "passed": true,
+        "detail": "output '18'"
       },
       {
         "name": "api-noun",
@@ -675,11 +675,11 @@
         "detail": "HTTP 200"
       }
     ],
-    "smoke_ok": false,
+    "smoke_ok": true,
     "service_listen": [
       {
         "service": "db",
-        "namespace": "d5-4e8bbdcd",
+        "namespace": "d5-c8467a6e",
         "port": 5432,
         "target_port": 5432,
         "pod": "db-0",
@@ -690,10 +690,10 @@
       },
       {
         "service": "api",
-        "namespace": "d5-4e8bbdcd",
+        "namespace": "d5-c8467a6e",
         "port": 8080,
         "target_port": 8080,
-        "pod": "api-69d4bc9d8b-6wndd",
+        "pod": "api-8488969bb6-4bvx6",
         "listening": [
           8080
         ],
@@ -701,10 +701,10 @@
       },
       {
         "service": "web",
-        "namespace": "d5-4e8bbdcd",
+        "namespace": "d5-c8467a6e",
         "port": 80,
         "target_port": 80,
-        "pod": "web-86d544bbfd-k8wxj",
+        "pod": "web-858854cd4d-gl6dn",
         "listening": [
           80
         ],
@@ -719,59 +719,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "web-86d544bbfd-2cqv5",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 1.1,
-        "availability_pct": 96.3,
-        "n_probes": 27
-      },
-      {
-        "ran": true,
-        "victim": "web-86d544bbfd-gzppl",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 1.7,
-        "availability_pct": 100.0,
-        "n_probes": 26
-      },
-      {
-        "ran": true,
-        "victim": "web-86d544bbfd-n47jg",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 0,
-        "availability_pct": 100.0,
-        "n_probes": 26
-      }
-    ],
-    "container_crash": [
-      {
-        "ran": true,
-        "victim": "web-86d544bbfd-k8wxj",
+        "victim": "web-858854cd4d-7xnzz",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
         "recovery_time_s": 0.4,
-        "availability_pct": 89.5,
-        "n_probes": 19
-      },
-      {
-        "ran": true,
-        "victim": "web-86d544bbfd-s6hbg",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 1.3,
         "availability_pct": 100.0,
         "n_probes": 21
       },
       {
         "ran": true,
-        "victim": "web-86d544bbfd-k8wxj",
+        "victim": "web-858854cd4d-2jfl4",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.8,
+        "availability_pct": 100.0,
+        "n_probes": 27
+      },
+      {
+        "ran": true,
+        "victim": "web-858854cd4d-qb5hn",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.3,
+        "availability_pct": 96.0,
+        "n_probes": 25
+      }
+    ],
+    "container_crash": [
+      {
+        "ran": true,
+        "victim": "web-858854cd4d-gl6dn",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.0,
+        "availability_pct": 91.3,
+        "n_probes": 23
+      },
+      {
+        "ran": true,
+        "victim": "web-858854cd4d-qns2h",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 0.7,
+        "availability_pct": 100.0,
+        "n_probes": 26
+      },
+      {
+        "ran": true,
+        "victim": "web-858854cd4d-gl6dn",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 10.0,
-        "availability_pct": 94.6,
-        "n_probes": 74
+        "recovery_time_s": 11.3,
+        "availability_pct": 96.1,
+        "n_probes": 77
       }
     ],
     "gate": "ready"

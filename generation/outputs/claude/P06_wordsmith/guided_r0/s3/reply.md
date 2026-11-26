@@ -6,13 +6,62 @@ metadata:
   labels:
     app: db
 data:
-  words.sql: |
-    CREATE TABLE nouns (word varchar(255) NOT NULL);
-    CREATE TABLE verbs (word varchar(255) NOT NULL);
-    CREATE TABLE adjectives (word varchar(255) NOT NULL);
-    INSERT INTO nouns(word) VALUES ('cloud'), ('elephant'), ('gopher'), ('octopus'), ('whale');
-    INSERT INTO verbs(word) VALUES ('swim'), ('fly'), ('run'), ('jump'), ('sing');
-    INSERT INTO adjectives(word) VALUES ('blue'), ('big'), ('happy'), ('fast'), ('shiny');
+  db.words.sql: |
+    CREATE TABLE nouns (word TEXT NOT NULL);
+    CREATE TABLE verbs (word TEXT NOT NULL);
+    CREATE TABLE adjectives (word TEXT NOT NULL);
+
+    INSERT INTO nouns(word) VALUES
+      ('cloud'),
+      ('elephant'),
+      ('gø language'),
+      ('laptøp'),
+      ('cøntainer'),
+      ('micrø-service'),
+      ('turtle'),
+      ('whale'),
+      ('gøpher'),
+      ('møby døck'),
+      ('server'),
+      ('bicycle'),
+      ('viking'),
+      ('mermaid'),
+      ('fjørd'),
+      ('legø'),
+      ('flødebolle'),
+      ('smørrebrød');
+
+    INSERT INTO verbs(word) VALUES
+      ('will drink'),
+      ('smashes'),
+      ('smøkes'),
+      ('eats'),
+      ('walks tøwards'),
+      ('løves'),
+      ('helps'),
+      ('pushes'),
+      ('debugs'),
+      ('invites'),
+      ('hides'),
+      ('will ship');
+
+    INSERT INTO adjectives(word) VALUES
+      ('the exquisite'),
+      ('a pink'),
+      ('the røtten'),
+      ('a red'),
+      ('the serverless'),
+      ('a brøken'),
+      ('a shiny'),
+      ('the pretty'),
+      ('the impressive'),
+      ('an awesøme'),
+      ('the famøus'),
+      ('a gigantic'),
+      ('the gløriøus'),
+      ('the nørdic'),
+      ('the welcøming'),
+      ('the deliciøus');
 ---
 apiVersion: v1
 kind: Service
@@ -21,12 +70,14 @@ metadata:
   labels:
     app: db
 spec:
+  type: ClusterIP
   selector:
     app: db
   ports:
     - name: postgres
       port: 5432
       targetPort: 5432
+      protocol: TCP
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -47,10 +98,11 @@ spec:
     spec:
       containers:
         - name: db
-          image: postgres:10.0-alpine
+          image: "postgres:10.0-alpine"
           ports:
             - name: postgres
               containerPort: 5432
+              protocol: TCP
           env:
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
@@ -65,13 +117,18 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 6
+          startupProbe:
+            tcpSocket:
+              port: 5432
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
           livenessProbe:
             tcpSocket:
               port: 5432
-            initialDelaySeconds: 30
             periodSeconds: 20
             timeoutSeconds: 5
-            failureThreshold: 5
+            failureThreshold: 6
           resources:
             requests:
               cpu: 100m
@@ -91,6 +148,8 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: data
+        labels:
+          app: db
       spec:
         accessModes:
           - ReadWriteOnce
@@ -105,12 +164,14 @@ metadata:
   labels:
     app: api
 spec:
+  type: ClusterIP
   selector:
     app: api
   ports:
     - name: http
       port: 8080
       targetPort: 8080
+      protocol: TCP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -130,10 +191,11 @@ spec:
     spec:
       containers:
         - name: api
-          image: dockersamples/wordsmith-api:latest
+          image: "dockersamples/wordsmith-api:latest"
           ports:
             - name: http
               containerPort: 8080
+              protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
@@ -141,31 +203,31 @@ spec:
             capabilities:
               drop:
                 - ALL
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           startupProbe:
             tcpSocket:
               port: 8080
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 30
-          readinessProbe:
-            tcpSocket:
-              port: 8080
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
           livenessProbe:
             tcpSocket:
               port: 8080
             periodSeconds: 20
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 6
           resources:
             requests:
               cpu: 100m
-              memory: 256Mi
+              memory: 512Mi
             limits:
               cpu: "1"
-              memory: 512Mi
+              memory: 768Mi
 ---
 apiVersion: v1
 kind: Service
@@ -174,12 +236,14 @@ metadata:
   labels:
     app: web
 spec:
+  type: ClusterIP
   selector:
     app: web
   ports:
     - name: http
       port: 80
       targetPort: 80
+      protocol: TCP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -199,10 +263,11 @@ spec:
     spec:
       containers:
         - name: web
-          image: dockersamples/wordsmith-web:latest
+          image: "dockersamples/wordsmith-web:latest"
           ports:
             - name: http
               containerPort: 80
+              protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
@@ -217,13 +282,14 @@ spec:
               port: 80
             periodSeconds: 10
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 6
           livenessProbe:
             tcpSocket:
               port: 80
+            initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 6
           resources:
             requests:
               cpu: 50m

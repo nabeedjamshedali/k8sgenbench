@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-0b132e58-b75a-4365-b3ee-9d6763786d04",
+    "object": "chat.completion",
+    "created": 1795627425,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: headlamp\n---\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: headlamp\n  namespace: headlamp\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  name: headlamp\nrules:\n  - apiGroups: [\"*\"]\n    resources: [\"*\"]\n    verbs: [\"*\"]\n  - nonResourceURLs: [\"*\"]\n    verbs: [\"*\"]\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  name: headlamp\nsubjects:\n  - kind: ServiceAccount\n    name: headlamp\n    namespace: headlamp\nroleRef:\n  kind: ClusterRole\n  name: headlamp\n  apiGroup: rbac.authorization.k8s.io\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app: headlamp\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: headlamp\n  template:\n    metadata:\n      labels:\n        app: headlamp\n    spec:\n      serviceAccountName: headlamp\n      containers:\n        - name: headlamp\n          image: ghcr.io/headlamp-k8s/headlamp:latest\n          ports:\n            - containerPort: 4466\n              name: http\n          args:\n            - \"-in-cluster\"\n            - \"-plugins-dir=/headlamp/plugins\"\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 4466\n            initialDelaySeconds: 5\n            periodSeconds: 10\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 4466\n            initialDelaySeconds: 5\n            periodSeconds: 10\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  labels:\n    app: headlamp\nspec:\n  selector:\n    app: headlamp\n  ports:\n    - protocol: TCP\n      port: 80\n      targetPort: 4466\n  type: ClusterIP\n---\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: headlamp\n  namespace: headlamp\n  annotations:\n    nginx.ingress.kubernetes.io/rewrite-target: /\nspec:\n  rules:\n    - host: headlamp.local\n      http:\n        paths:\n          - path: /\n            pathType: Prefix\n            backend:\n              service:\n                name: headlamp\n                port:\n                  number: 80\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.004739901,
+      "prompt_tokens": 4588,
+      "prompt_time": 0.337969763,
+      "completion_tokens": 641,
+      "completion_time": 1.425583748,
+      "total_tokens": 5229,
+      "total_time": 1.763553511
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_21e59ac2de",
+    "x_groq": {
+      "id": "req_01m89vr5y0ee28cjjq94ggej36",
+      "seed": 132249117
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 2.1804494857788086,
+  "tokens_in": 4588,
+  "tokens_out": 641
+}

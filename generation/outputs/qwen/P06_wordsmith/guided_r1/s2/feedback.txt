@@ -1,0 +1,8 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (NotReady(probe)): Deployment wordsmith-api 0/2 Ready.
+- Pod wordsmith-api-6d7cb4dcb9-8t842 container api: 1 restarts, last exit code 143 (Error).
+- Warning event on wordsmith-api-6d7cb4dcb9-8t842 (25x): Unhealthy: Startup probe failed
+- Warning event on wordsmith-api-6d7cb4dcb9-cqc9q (25x): Unhealthy: Startup probe failed
+- Warning event on wordsmith-web-6d7dbb7cf7-v9wrp (1x): Unhealthy: Readiness probe failed
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

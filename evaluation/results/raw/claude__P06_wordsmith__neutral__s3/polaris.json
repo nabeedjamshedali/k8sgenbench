@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-24T00:17:56+05:00",
+  "AuditTime": "2026-11-26T14:59:00+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__neutral__s3\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__neutral__s3\\manifest.yaml",
@@ -13,10 +13,44 @@
   },
   "Results": [
     {
-      "Name": "db-credentials",
+      "Name": "db",
       "Namespace": "",
-      "Kind": "Secret",
+      "Kind": "Service",
       "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "api",
+      "Namespace": "",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "web",
+      "Namespace": "",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "wordsmith-db-init",
+      "Namespace": "",
+      "Kind": "ConfigMap",
+      "Results": {
+        "sensitiveConfigmapContent": {
+          "ID": "sensitiveConfigmapContent",
+          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
@@ -162,9 +196,9 @@
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
-                "Message": "CPU limits are set",
+                "Message": "CPU limits should be set",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Efficiency",
                 "Mutations": null
@@ -216,9 +250,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe is configured",
+                "Message": "Liveness probe should be configured",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -468,9 +502,9 @@
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
-                "Message": "CPU limits are set",
+                "Message": "CPU limits should be set",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Efficiency",
                 "Mutations": null
@@ -522,9 +556,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe is configured",
+                "Message": "Liveness probe should be configured",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -774,9 +808,9 @@
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
-                "Message": "CPU limits are set",
+                "Message": "CPU limits should be set",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Efficiency",
                 "Mutations": null
@@ -828,9 +862,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe is configured",
+                "Message": "Liveness probe should be configured",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -937,31 +971,7 @@
         ]
       },
       "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "db",
-      "Namespace": "",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "api",
-      "Namespace": "",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "web",
-      "Namespace": "",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
     }
   ],
-  "Score": 68
+  "Score": 64
 }

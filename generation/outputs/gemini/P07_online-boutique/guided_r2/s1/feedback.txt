@@ -1,0 +1,16 @@
+The manifests were applied to a Kubernetes cluster (v1.37) and checked automatically. They did not work:
+- Not all workloads became Ready within 5 minutes (CrashLoopBackOff): Deployment adservice 0/2 Ready, Deployment cartservice 0/2 Ready, Deployment checkoutservice 0/2 Ready, Deployment currencyservice 0/2 Ready, Deployment emailservice 0/2 Ready, Deployment frontend 0/2 Ready, Deployment paymentservice 0/2 Ready, Deployment productcatalogservice 0/2 Ready, Deployment recommendationservice 0/2 Ready, Deployment shippingservice 0/2 Ready.
+- Pod adservice-786f5895f-9h5d4 container server: 5 restarts, last exit code 0 (Completed).
+- Pod cartservice-6bd79c9b6b-7sgdc container server: 0 restarts, last exit code None (None).
+- Warning event on adservice-786f5895f-lkhph (23x): BackOff: Back-off restarting failed container server in pod adservice
+- Warning event on recommendationservice-779845789d-7ncds (20x): BackOff: Back-off restarting failed container server in pod recommend
+- Warning event on adservice-786f5895f-9h5d4 (19x): BackOff: Back-off restarting failed container server in pod adservice
+- Warning event on cartservice-6bd79c9b6b-7sgdc (17x): Failed: (combined from similar events)
+- Warning event on cartservice-6bd79c9b6b-b2bkt (17x): Failed: (combined from similar events)
+- Warning event on checkoutservice-856cd84665-c9r8f (17x): Failed: (combined from similar events)
+- Warning event on checkoutservice-856cd84665-k68w6 (17x): Failed: (combined from similar events)
+- Warning event on currencyservice-7b54f64b66-jssfk (17x): BackOff: Back-off restarting failed container server in pod currencys
+- Warning event on emailservice-6bd786797d-p5hq4 (17x): BackOff: Back-off restarting failed container server in pod emailserv
+- Warning event on frontend-6fd567f9b5-fhfm2 (17x): Failed: (combined from similar events)
+
+Fix these problems and return the complete corrected set of manifests in a single YAML code block. Keep the settings that already work.

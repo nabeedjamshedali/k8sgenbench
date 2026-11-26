@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-24T00:09:00+05:00",
+  "AuditTime": "2026-11-26T14:55:24+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__neutral__s2\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__neutral__s2\\manifest.yaml",
@@ -8,21 +8,13 @@
     "Version": "unknown",
     "Nodes": 0,
     "Pods": 0,
-    "Namespaces": 1,
+    "Namespaces": 0,
     "Controllers": 3
   },
   "Results": [
     {
-      "Name": "wordsmith",
-      "Namespace": "",
-      "Kind": "Namespace",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
       "Name": "db-init",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "ConfigMap",
       "Results": {
         "sensitiveConfigmapContent": {
@@ -39,16 +31,8 @@
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
-      "Name": "db-credentials",
-      "Namespace": "wordsmith",
-      "Kind": "Secret",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
       "Name": "db",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Deployment",
       "Results": {
         "deploymentMissingReplicas": {
@@ -188,9 +172,9 @@
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
-                "Message": "CPU limits are set",
+                "Message": "CPU limits should be set",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Efficiency",
                 "Mutations": null
@@ -242,9 +226,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe is configured",
+                "Message": "Liveness probe should be configured",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -354,7 +338,7 @@
     },
     {
       "Name": "api",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Deployment",
       "Results": {
         "deploymentMissingReplicas": {
@@ -494,9 +478,9 @@
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
-                "Message": "CPU limits are set",
+                "Message": "CPU limits should be set",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Efficiency",
                 "Mutations": null
@@ -548,9 +532,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe is configured",
+                "Message": "Liveness probe should be configured",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -660,14 +644,14 @@
     },
     {
       "Name": "web",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Deployment",
       "Results": {
         "deploymentMissingReplicas": {
           "ID": "deploymentMissingReplicas",
-          "Message": "Multiple replicas are scheduled",
+          "Message": "Only one replica is scheduled",
           "Details": null,
-          "Success": true,
+          "Success": false,
           "Severity": "warning",
           "Category": "Reliability",
           "Mutations": null
@@ -800,9 +784,9 @@
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
-                "Message": "CPU limits are set",
+                "Message": "CPU limits should be set",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Efficiency",
                 "Mutations": null
@@ -854,9 +838,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe is configured",
+                "Message": "Liveness probe should be configured",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -966,7 +950,7 @@
     },
     {
       "Name": "db",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Service",
       "Results": {},
       "PodResult": null,
@@ -974,15 +958,7 @@
     },
     {
       "Name": "api",
-      "Namespace": "wordsmith",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "words",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Service",
       "Results": {},
       "PodResult": null,
@@ -990,12 +966,12 @@
     },
     {
       "Name": "web",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Service",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     }
   ],
-  "Score": 70
+  "Score": 64
 }

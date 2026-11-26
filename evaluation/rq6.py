@@ -80,8 +80,22 @@ def mcnemar(df, m, a, b, col):
     return n01, n10, p, len(j)
 
 
-def report(df):
-    lines = ["| Model | Condition | n | Ready | Smoke | Ready and smoke | PSS baseline | Kubescape | D6 availability |",
+def loops_without_result(m, projects, samples):
+    """(stopped by the provider before the first attempt, still open) among loops that have no round-0 result and
+    so do not appear in df: a request too large for the provider leaves nothing to evaluate."""
+    before, still_open = 0, 0
+    for p in projects:
+        for k in samples:
+            loop = os.path.join(OUTPUTS, m, p, f"guided_loop_s{k}.json")
+            if os.path.exists(loop) and record(f"{m}__{p}__guided_r0__s{k}") is None:
+                st = json.load(open(loop, encoding="utf-8")).get("stopped")
+                before += st == "provider_request_limit"
+                still_open += st != "provider_request_limit"
+    return before, still_open
+
+
+def report(df, projects, samples):
+    lines =["| Model | Condition | n | Ready | Smoke | Ready and smoke | PSS baseline | Kubescape | D6 availability |",
              "|---|---|---|---|---|---|---|---|---|"]
     for m in MODELS:
         for c, lab in CONDITIONS:
@@ -91,14 +105,19 @@ def report(df):
             both = g.d5_ready & g.d5_smoke
             lines.append(f"| {LABEL[m]} | {lab} | {len(g)} | {pct(g.d5_ready)} | {pct(g.d5_smoke)} | {pct(both)} | "
                          f"{pct(g.d2_pss_baseline)} | {med(g.d2_kubescape_compliance)} | {med(g.d6_availability_mean)} |")
-    lines += ["", "Loops (final attempt):", "", "| Model | Loops | Gate passed | Max repairs | Provider stopped | "
-              "Rounds (median) | Gate passed but smoke failed |", "|---|---|---|---|---|---|---|"]
+    lines += ["", "Loops (final attempt). Provider stopped = the provider rejected a repair request as too large; "
+              "before first attempt = it rejected the first request, so the loop has no result and is not in the "
+              "table above; open = not finished yet (must be 0 in the final report):", "",
+              "| Model | Loops | Gate passed | Max repairs | Provider stopped | Before first attempt | Open | "
+              "Rounds (median) | Gate passed but smoke failed |", "|---|---|---|---|---|---|---|---|---|"]
     for m in MODELS:
         g = df[(df.model == m) & (df.condition == "repair")]
-        if not len(g):
+        before, no_result_open = loops_without_result(m, projects, samples)
+        if not len(g) and not before:
             continue
-        lines.append(f"| {LABEL[m]} | {len(g)} | {int((g.stopped == 'gate_passed').sum())} | "
+        lines.append(f"| {LABEL[m]} | {len(g) + before} | {int((g.stopped == 'gate_passed').sum())} | "
                      f"{int((g.stopped == 'max_repairs').sum())} | {int((g.stopped == 'provider_request_limit').sum())} | "
+                     f"{before} | {int((g.stopped == 'open').sum()) + no_result_open} | "
                      f"{g.rounds.median():.0f} | {int(((g.stopped == 'gate_passed') & ~g.d5_smoke).sum())} |")
     lines += ["", "Paired exact McNemar tests on the smoke test (configurations present in both conditions):", ""]
     for m in MODELS:
@@ -132,10 +151,11 @@ def latex(df):
 
 if __name__ == "__main__":
     dev = "--dev" in sys.argv
-    df = rows(DEV if dev else TEST, [1] if dev else [1, 2, 3])
+    projects, samples = (DEV, [1]) if dev else (TEST, [1, 2, 3])
+    df = rows(projects, samples)
     if not len(df):
         sys.exit("no RQ6 results yet")
-    text = report(df)
+    text = report(df, projects, samples)
     print(text)
     if not dev:
         os.makedirs(os.path.join(HERE, "analysis"), exist_ok=True)

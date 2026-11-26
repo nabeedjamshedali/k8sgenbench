@@ -5,21 +5,20 @@ metadata:
   labels:
     app: db
 data:
-  words.sql: 'CREATE TABLE nouns (word varchar(255) NOT NULL);
-
-    CREATE TABLE verbs (word varchar(255) NOT NULL);
-
-    CREATE TABLE adjectives (word varchar(255) NOT NULL);
-
-    INSERT INTO nouns(word) VALUES (''cloud''), (''elephant''), (''gopher''), (''octopus''),
-    (''whale'');
-
-    INSERT INTO verbs(word) VALUES (''swim''), (''fly''), (''run''), (''jump''), (''sing'');
-
-    INSERT INTO adjectives(word) VALUES (''blue''), (''big''), (''happy''), (''fast''),
-    (''shiny'');
-
-    '
+  db.words.sql: "CREATE TABLE nouns (word TEXT NOT NULL);\nCREATE TABLE verbs (word\
+    \ TEXT NOT NULL);\nCREATE TABLE adjectives (word TEXT NOT NULL);\n\nINSERT INTO\
+    \ nouns(word) VALUES\n  ('cloud'),\n  ('elephant'),\n  ('g\xF8 language'),\n \
+    \ ('lapt\xF8p'),\n  ('c\xF8ntainer'),\n  ('micr\xF8-service'),\n  ('turtle'),\n\
+    \  ('whale'),\n  ('g\xF8pher'),\n  ('m\xF8by d\xF8ck'),\n  ('server'),\n  ('bicycle'),\n\
+    \  ('viking'),\n  ('mermaid'),\n  ('fj\xF8rd'),\n  ('leg\xF8'),\n  ('fl\xF8debolle'),\n\
+    \  ('sm\xF8rrebr\xF8d');\n\nINSERT INTO verbs(word) VALUES\n  ('will drink'),\n\
+    \  ('smashes'),\n  ('sm\xF8kes'),\n  ('eats'),\n  ('walks t\xF8wards'),\n  ('l\xF8\
+    ves'),\n  ('helps'),\n  ('pushes'),\n  ('debugs'),\n  ('invites'),\n  ('hides'),\n\
+    \  ('will ship');\n\nINSERT INTO adjectives(word) VALUES\n  ('the exquisite'),\n\
+    \  ('a pink'),\n  ('the r\xF8tten'),\n  ('a red'),\n  ('the serverless'),\n  ('a\
+    \ br\xF8ken'),\n  ('a shiny'),\n  ('the pretty'),\n  ('the impressive'),\n  ('an\
+    \ awes\xF8me'),\n  ('the fam\xF8us'),\n  ('a gigantic'),\n  ('the gl\xF8ri\xF8\
+    us'),\n  ('the n\xF8rdic'),\n  ('the welc\xF8ming'),\n  ('the delici\xF8us');\n"
 ---
 apiVersion: v1
 kind: Service
@@ -28,12 +27,14 @@ metadata:
   labels:
     app: db
 spec:
+  type: ClusterIP
   selector:
     app: db
   ports:
   - name: postgres
     port: 5432
     targetPort: 5432
+    protocol: TCP
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -58,6 +59,7 @@ spec:
         ports:
         - name: postgres
           containerPort: 5432
+          protocol: TCP
         env:
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
@@ -72,13 +74,18 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 6
+        startupProbe:
+          tcpSocket:
+            port: 5432
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
         livenessProbe:
           tcpSocket:
             port: 5432
-          initialDelaySeconds: 30
           periodSeconds: 20
           timeoutSeconds: 5
-          failureThreshold: 5
+          failureThreshold: 6
         resources:
           requests:
             cpu: 100m
@@ -98,6 +105,8 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: data
+      labels:
+        app: db
     spec:
       accessModes:
       - ReadWriteOnce
@@ -112,12 +121,14 @@ metadata:
   labels:
     app: api
 spec:
+  type: ClusterIP
   selector:
     app: api
   ports:
   - name: http
     port: 8080
     targetPort: 8080
+    protocol: TCP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -141,6 +152,7 @@ spec:
         ports:
         - name: http
           containerPort: 8080
+          protocol: TCP
         securityContext:
           allowPrivilegeEscalation: false
           seccompProfile:
@@ -148,31 +160,31 @@ spec:
           capabilities:
             drop:
             - ALL
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
         startupProbe:
           tcpSocket:
             port: 8080
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 30
-        readinessProbe:
-          tcpSocket:
-            port: 8080
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
         livenessProbe:
           tcpSocket:
             port: 8080
           periodSeconds: 20
           timeoutSeconds: 5
-          failureThreshold: 3
+          failureThreshold: 6
         resources:
           requests:
             cpu: 100m
-            memory: 256Mi
+            memory: 512Mi
           limits:
             cpu: '1'
-            memory: 512Mi
+            memory: 768Mi
 ---
 apiVersion: v1
 kind: Service
@@ -181,12 +193,14 @@ metadata:
   labels:
     app: web
 spec:
+  type: ClusterIP
   selector:
     app: web
   ports:
   - name: http
     port: 80
     targetPort: 80
+    protocol: TCP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -210,6 +224,7 @@ spec:
         ports:
         - name: http
           containerPort: 80
+          protocol: TCP
         securityContext:
           allowPrivilegeEscalation: false
           seccompProfile:
@@ -224,13 +239,14 @@ spec:
             port: 80
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 3
+          failureThreshold: 6
         livenessProbe:
           tcpSocket:
             port: 80
+          initialDelaySeconds: 15
           periodSeconds: 20
           timeoutSeconds: 5
-          failureThreshold: 3
+          failureThreshold: 6
         resources:
           requests:
             cpu: 50m

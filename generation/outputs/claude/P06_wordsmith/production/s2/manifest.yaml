@@ -4,32 +4,73 @@ metadata:
   name: wordsmith
   labels:
     app.kubernetes.io/part-of: wordsmith
-    pod-security.kubernetes.io/enforce: baseline
-    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn: baseline
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: wordsmith-db-init
+  name: db-init
   namespace: wordsmith
   labels:
     app.kubernetes.io/name: db
     app.kubernetes.io/part-of: wordsmith
 data:
   words.sql: |
-    CREATE TABLE IF NOT EXISTS nouns (word TEXT NOT NULL);
-    CREATE TABLE IF NOT EXISTS verbs (word TEXT NOT NULL);
-    CREATE TABLE IF NOT EXISTS adjectives (word TEXT NOT NULL);
-    INSERT INTO nouns(word) VALUES ('cloud'), ('container'), ('cluster'), ('shark'), ('whale'), ('pod');
-    INSERT INTO verbs(word) VALUES ('eats'), ('runs'), ('scales'), ('deploys'), ('ships');
-    INSERT INTO adjectives(word) VALUES ('green'), ('fast'), ('lazy'), ('tiny'), ('happy'), ('resilient');
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: wordsmith
-  namespace: wordsmith
-automountServiceAccountToken: false
+    CREATE TABLE nouns (word TEXT NOT NULL);
+    CREATE TABLE verbs (word TEXT NOT NULL);
+    CREATE TABLE adjectives (word TEXT NOT NULL);
+
+    INSERT INTO nouns(word) VALUES
+      ('cloud'),
+      ('elephant'),
+      ('gø language'),
+      ('laptøp'),
+      ('cøntainer'),
+      ('micrø-service'),
+      ('turtle'),
+      ('whale'),
+      ('gøpher'),
+      ('møby døck'),
+      ('server'),
+      ('bicycle'),
+      ('viking'),
+      ('mermaid'),
+      ('fjørd'),
+      ('legø'),
+      ('flødebolle'),
+      ('smørrebrød');
+
+    INSERT INTO verbs(word) VALUES
+      ('will drink'),
+      ('smashes'),
+      ('smøkes'),
+      ('eats'),
+      ('walks tøwards'),
+      ('løves'),
+      ('helps'),
+      ('pushes'),
+      ('debugs'),
+      ('invites'),
+      ('hides'),
+      ('will ship');
+
+    INSERT INTO adjectives(word) VALUES
+      ('the exquisite'),
+      ('a pink'),
+      ('the røtten'),
+      ('a red'),
+      ('the serverless'),
+      ('a brøken'),
+      ('a shiny'),
+      ('the pretty'),
+      ('the impressive'),
+      ('an awesøme'),
+      ('the famøus'),
+      ('a gigantic'),
+      ('the gløriøus'),
+      ('the nørdic'),
+      ('the welcøming'),
+      ('the deliciøus');
 ---
 apiVersion: v1
 kind: Service
@@ -68,13 +109,8 @@ spec:
         app.kubernetes.io/name: db
         app.kubernetes.io/part-of: wordsmith
     spec:
-      serviceAccountName: wordsmith
-      automountServiceAccountToken: false
       terminationGracePeriodSeconds: 60
-      securityContext:
-        fsGroup: 70
-        seccompProfile:
-          type: RuntimeDefault
+      automountServiceAccountToken: false
       containers:
         - name: db
           image: postgres:10.0-alpine
@@ -85,10 +121,6 @@ spec:
           env:
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
           resources:
             requests:
               cpu: 100m
@@ -96,12 +128,24 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - CHOWN
+                - DAC_OVERRIDE
+                - FOWNER
+                - SETUID
+                - SETGID
           readinessProbe:
             exec:
               command: ["pg_isready", "-U", "postgres"]
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
+            failureThreshold: 6
           livenessProbe:
             exec:
               command: ["pg_isready", "-U", "postgres"]
@@ -118,12 +162,15 @@ spec:
       volumes:
         - name: init
           configMap:
-            name: wordsmith-db-init
+            name: db-init
   volumeClaimTemplates:
     - metadata:
         name: data
+        labels:
+          app.kubernetes.io/name: db
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes:
+          - ReadWriteOnce
         resources:
           requests:
             storage: 5Gi
@@ -155,6 +202,7 @@ metadata:
     app.kubernetes.io/part-of: wordsmith
 spec:
   replicas: 3
+  revisionHistoryLimit: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -169,12 +217,11 @@ spec:
         app.kubernetes.io/name: api
         app.kubernetes.io/part-of: wordsmith
     spec:
-      serviceAccountName: wordsmith
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
-        runAsUser: 10001
-        runAsGroup: 10001
+        runAsUser: 1000
+        runAsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
       topologySpreadConstraints:
@@ -191,11 +238,6 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: ["ALL"]
           resources:
             requests:
               cpu: 100m
@@ -203,6 +245,12 @@ spec:
             limits:
               cpu: 500m
               memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
           startupProbe:
             tcpSocket:
               port: http
@@ -213,6 +261,7 @@ spec:
               port: http
             periodSeconds: 10
             timeoutSeconds: 3
+            failureThreshold: 3
           livenessProbe:
             tcpSocket:
               port: http
@@ -225,17 +274,6 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
----
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: api
-  namespace: wordsmith
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: api
 ---
 apiVersion: v1
 kind: Service
@@ -264,6 +302,7 @@ metadata:
     app.kubernetes.io/part-of: wordsmith
 spec:
   replicas: 2
+  revisionHistoryLimit: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -278,7 +317,6 @@ spec:
         app.kubernetes.io/name: web
         app.kubernetes.io/part-of: wordsmith
     spec:
-      serviceAccountName: wordsmith
       automountServiceAccountToken: false
       securityContext:
         seccompProfile:
@@ -297,12 +335,6 @@ spec:
           ports:
             - name: http
               containerPort: 80
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: ["ALL"]
-              add: ["NET_BIND_SERVICE"]
           resources:
             requests:
               cpu: 50m
@@ -310,20 +342,45 @@ spec:
             limits:
               cpu: 250m
               memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 5
+            failureThreshold: 12
           readinessProbe:
             httpGet:
               path: /
               port: http
             periodSeconds: 10
             timeoutSeconds: 3
+            failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 10
             periodSeconds: 20
             timeoutSeconds: 3
             failureThreshold: 3
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: api
+  namespace: wordsmith
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -335,6 +392,26 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: web
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api
+  namespace: wordsmith
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -355,47 +432,6 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: api
-  namespace: wordsmith
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: api
-  minReplicas: 3
-  maxReplicas: 8
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 70
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: web
-  namespace: wordsmith
-  labels:
-    app.kubernetes.io/name: web
-    app.kubernetes.io/part-of: wordsmith
-spec:
-  rules:
-    - host: wordsmith.example.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: web
-                port:
-                  name: http
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -420,8 +456,8 @@ spec:
     - Ingress
   ingress:
     - ports:
-        - port: 80
-          protocol: TCP
+        - protocol: TCP
+          port: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -440,8 +476,8 @@ spec:
             matchLabels:
               app.kubernetes.io/name: web
       ports:
-        - port: 8080
-          protocol: TCP
+        - protocol: TCP
+          port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -460,5 +496,26 @@ spec:
             matchLabels:
               app.kubernetes.io/name: api
       ports:
-        - port: 5432
-          protocol: TCP
+        - protocol: TCP
+          port: 5432
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web
+  namespace: wordsmith
+  labels:
+    app.kubernetes.io/name: web
+    app.kubernetes.io/part-of: wordsmith
+spec:
+  rules:
+    - host: wordsmith.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  name: http

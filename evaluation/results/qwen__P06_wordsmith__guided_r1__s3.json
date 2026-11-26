@@ -3,16 +3,16 @@
   "source": "qwen",
   "prompt_variant": "guided_r1",
   "sample_k": "3",
-  "timestamp": "2026-11-25T15:49:21Z",
+  "timestamp": "2026-11-26T12:44:08Z",
   "gen_finish_reason": "stop",
   "d1_parse_ok": true,
   "d1_parse_error": null,
-  "d1_n_documents": 12,
+  "d1_n_documents": 13,
   "d1_kubeconform": {
     "ran": true,
     "valid": true,
     "summary": {
-      "valid": 12,
+      "valid": 13,
       "invalid": 0,
       "errors": 0,
       "skipped": 0
@@ -23,8 +23,8 @@
   "d1_server_dry_run": {
     "ran": true,
     "server_ok": false,
-    "objects_total": 12,
-    "objects_accepted": 10,
+    "objects_total": 13,
+    "objects_accepted": 11,
     "errors": [
       "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.fsGroup\"",
       "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.fsGroup\""
@@ -61,14 +61,14 @@
         "error": null
       },
       {
-        "kind": "PersistentVolumeClaim",
-        "name": "wordsmith-db",
+        "kind": "ConfigMap",
+        "name": "wordsmith-db-init",
         "accepted": true,
         "error": null
       },
       {
-        "kind": "Service",
-        "name": "wordsmith-db",
+        "kind": "PersistentVolumeClaim",
+        "name": "wordsmith-db-pvc",
         "accepted": true,
         "error": null
       },
@@ -80,7 +80,7 @@
       },
       {
         "kind": "Service",
-        "name": "wordsmith-api",
+        "name": "wordsmith-db",
         "accepted": true,
         "error": null
       },
@@ -92,7 +92,7 @@
       },
       {
         "kind": "Service",
-        "name": "wordsmith-web",
+        "name": "wordsmith-api",
         "accepted": true,
         "error": null
       },
@@ -101,26 +101,33 @@
         "name": "wordsmith-web",
         "accepted": false,
         "error": "Error from server (BadRequest): error when creating \"STDIN\": Deployment in version \"v1\" cannot be handled as a Deployment: strict decoding error: unknown field \"spec.template.spec.fsGroup\""
+      },
+      {
+        "kind": "Service",
+        "name": "wordsmith-web",
+        "accepted": true,
+        "error": null
       }
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 284,
+  "loc": 374,
   "resource_counts": {
     "Namespace": 1,
     "ServiceAccount": 3,
     "Secret": 1,
+    "ConfigMap": 1,
     "PersistentVolumeClaim": 1,
-    "Service": 3,
     "StatefulSet": 1,
+    "Service": 3,
     "Deployment": 2
   },
   "d2": {
     "kubescape": {
       "ran": true,
-      "compliance": 87.22222,
+      "compliance": 89.44445,
       "frameworks": {
-        "NSA": 80.83333,
+        "NSA": 84.16667,
         "MITRE": 94.117645
       },
       "failed_controls_by_severity": {
@@ -130,11 +137,6 @@
         "low": 1
       },
       "failed": [
-        {
-          "resource": "path=2092637663/api=apps/v1/wordsmith/Deployment/wordsmith-api",
-          "control": "C-0017",
-          "name": "Immutable container filesystem"
-        },
         {
           "resource": "path=2092637663/api=apps/v1/wordsmith/Deployment/wordsmith-api",
           "control": "C-0030",
@@ -172,11 +174,6 @@
         },
         {
           "resource": "path=950242354/api=apps/v1/wordsmith/Deployment/wordsmith-web",
-          "control": "C-0017",
-          "name": "Immutable container filesystem"
-        },
-        {
-          "resource": "path=950242354/api=apps/v1/wordsmith/Deployment/wordsmith-web",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
@@ -191,11 +188,17 @@
       "ran": true,
       "by_severity": {
         "critical": 0,
-        "high": 6,
+        "high": 4,
         "medium": 7,
-        "low": 9
+        "low": 15
       },
       "failed": [
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'wordsmith-api' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
         {
           "id": "KSV-0003",
           "title": "Default capabilities: some containers do not drop all",
@@ -203,10 +206,28 @@
           "message": "Container 'db' of StatefulSet 'wordsmith-db' should add 'ALL' to 'securityContext.capabilities.drop'"
         },
         {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'wordsmith-web' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'api' of 'deployment' 'wordsmith-api' in 'wordsmith' namespace should set securityContext.capabilities.drop"
+        },
+        {
           "id": "KSV-0004",
           "title": "Default capabilities: some containers do not drop any",
           "severity": "LOW",
           "message": "Container 'db' of 'statefulset' 'wordsmith-db' in 'wordsmith' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'web' of 'deployment' 'wordsmith-web' in 'wordsmith' namespace should set securityContext.capabilities.drop"
         },
         {
           "id": "KSV-0012",
@@ -230,19 +251,7 @@
           "id": "KSV-0014",
           "title": "Root file system is not read-only",
           "severity": "HIGH",
-          "message": "Container 'api' of Deployment 'wordsmith-api' should set 'securityContext.readOnlyRootFilesystem' to true"
-        },
-        {
-          "id": "KSV-0014",
-          "title": "Root file system is not read-only",
-          "severity": "HIGH",
           "message": "Container 'db' of StatefulSet 'wordsmith-db' should set 'securityContext.readOnlyRootFilesystem' to true"
-        },
-        {
-          "id": "KSV-0014",
-          "title": "Root file system is not read-only",
-          "severity": "HIGH",
-          "message": "Container 'web' of Deployment 'wordsmith-web' should set 'securityContext.readOnlyRootFilesystem' to true"
         },
         {
           "id": "KSV-0020",
@@ -293,6 +302,18 @@
           "message": "container should drop all"
         },
         {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
           "id": "KSV-0117",
           "title": "Prevent binding to privileged ports",
           "severity": "MEDIUM",
@@ -332,15 +353,12 @@
     },
     "secrets": {
       "ran": true,
-      "count": 2,
+      "count": 1,
       "findings": [
         {
           "type": "secret-object-literal",
           "object": "wordsmith-db",
           "key": "POSTGRES_PASSWORD"
-        },
-        {
-          "type": "url-credentials"
         }
       ],
       "nonsensitive_secret_literals": [
@@ -375,18 +393,18 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 21,
+      "critical": 19,
       "warning": 2,
       "critical_by_check": {
-        "container-security-context-user-group-id": 3,
-        "container-ephemeral-storage-request-and-limit": 3,
         "pod-probes-identical": 3,
-        "container-security-context-readonlyrootfilesystem": 3,
-        "container-image-tag": 2,
-        "pod-networkpolicy": 3,
-        "deployment-has-poddisruptionbudget": 2,
         "container-image-pull-policy": 1,
-        "statefulset-has-servicename": 1
+        "container-ephemeral-storage-request-and-limit": 3,
+        "pod-networkpolicy": 3,
+        "container-security-context-user-group-id": 3,
+        "container-security-context-readonlyrootfilesystem": 1,
+        "statefulset-has-servicename": 1,
+        "container-image-tag": 2,
+        "deployment-has-poddisruptionbudget": 2
       },
       "warning_by_check": {
         "deployment-has-host-podantiaffinity": 2
@@ -394,15 +412,15 @@
     },
     "polaris": {
       "ran": true,
-      "score": 80,
+      "score": 81,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 3,
         "automountServiceAccountToken[warning]": 3,
         "missingNetworkPolicy[warning]": 3,
         "priorityClassNotSet[warning]": 3,
         "topologySpreadConstraint[warning]": 3,
-        "insecureCapabilities[warning]": 1,
-        "notReadOnlyRootFilesystem[warning]": 3,
+        "insecureCapabilities[warning]": 3,
+        "notReadOnlyRootFilesystem[warning]": 1,
         "pullPolicyNotAlways[warning]": 3,
         "runAsRootAllowed[danger]": 1,
         "missingPodDisruptionBudget[warning]": 2,
@@ -411,10 +429,10 @@
     },
     "kube_linter": {
       "ran": true,
-      "total": 9,
+      "total": 7,
       "by_check": {
         "drop-net-raw-capability": 1,
-        "no-read-only-root-fs": 3,
+        "no-read-only-root-fs": 1,
         "run-as-non-root": 1,
         "latest-tag": 2,
         "no-anti-affinity": 2
@@ -422,13 +440,13 @@
       "zhang_smells": {
         "dangling-service": 0,
         "no-anti-affinity": 2,
-        "no-read-only-root-fs": 3,
+        "no-read-only-root-fs": 1,
         "run-as-non-root": 1,
         "unset-cpu-requirements": 0,
         "unset-memory-requirements": 0
       },
-      "zhang_total": 6,
-      "zhang_density_per_kloc": 21.1,
+      "zhang_total": 4,
+      "zhang_density_per_kloc": 10.7,
       "zhang_any": true
     },
     "checklist": {
@@ -571,7 +589,7 @@
       {
         "id": "R07-db-seeded",
         "passed": false,
-        "detail": "seed in [], /docker-entrypoint-initdb.d mounted=False",
+        "detail": "seed in [], /docker-entrypoint-initdb.d mounted=True",
         "oracle": true
       },
       {
@@ -637,7 +655,7 @@
       }
     ],
     "ready_ok": true,
-    "time_to_ready_s": 20.3,
+    "time_to_ready_s": 20.6,
     "ready_replicas": 1,
     "expected_replicas": 1,
     "workloads": [
@@ -651,7 +669,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-aa98d8f6",
+      "namespace": "d5-37cdd79b",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},

@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-23T23:58:29+05:00",
+  "AuditTime": "2026-11-26T14:51:34+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__neutral__s1\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__neutral__s1\\manifest.yaml",
@@ -8,21 +8,31 @@
     "Version": "unknown",
     "Nodes": 0,
     "Pods": 0,
-    "Namespaces": 1,
+    "Namespaces": 0,
     "Controllers": 3
   },
   "Results": [
     {
-      "Name": "wordsmith",
+      "Name": "wordsmith-db-init",
       "Namespace": "",
-      "Kind": "Namespace",
-      "Results": {},
+      "Kind": "ConfigMap",
+      "Results": {
+        "sensitiveConfigmapContent": {
+          "ID": "sensitiveConfigmapContent",
+          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
       "Name": "db",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Deployment",
       "Results": {
         "deploymentMissingReplicas": {
@@ -216,9 +226,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe should be configured",
+                "Message": "Liveness probe is configured",
                 "Details": null,
-                "Success": false,
+                "Success": true,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -313,9 +323,9 @@
               },
               "tagNotSpecified": {
                 "ID": "tagNotSpecified",
-                "Message": "Image tag should be specified",
+                "Message": "Image tag is specified",
                 "Details": null,
-                "Success": false,
+                "Success": true,
                 "Severity": "danger",
                 "Category": "Reliability",
                 "Mutations": null
@@ -327,8 +337,8 @@
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
-      "Name": "words",
-      "Namespace": "wordsmith",
+      "Name": "api",
+      "Namespace": "",
       "Kind": "Deployment",
       "Results": {
         "deploymentMissingReplicas": {
@@ -464,7 +474,7 @@
         },
         "ContainerResults": [
           {
-            "Name": "words",
+            "Name": "api",
             "Results": {
               "cpuLimitsMissing": {
                 "ID": "cpuLimitsMissing",
@@ -522,9 +532,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe should be configured",
+                "Message": "Liveness probe is configured",
                 "Details": null,
-                "Success": false,
+                "Success": true,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -634,7 +644,7 @@
     },
     {
       "Name": "web",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Deployment",
       "Results": {
         "deploymentMissingReplicas": {
@@ -828,9 +838,9 @@
               },
               "livenessProbeMissing": {
                 "ID": "livenessProbeMissing",
-                "Message": "Liveness probe should be configured",
+                "Message": "Liveness probe is configured",
                 "Details": null,
-                "Success": false,
+                "Success": true,
                 "Severity": "warning",
                 "Category": "Reliability",
                 "Mutations": null
@@ -940,15 +950,15 @@
     },
     {
       "Name": "db",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Service",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     },
     {
-      "Name": "words",
-      "Namespace": "wordsmith",
+      "Name": "api",
+      "Namespace": "",
       "Kind": "Service",
       "Results": {},
       "PodResult": null,
@@ -956,12 +966,12 @@
     },
     {
       "Name": "web",
-      "Namespace": "wordsmith",
+      "Namespace": "",
       "Kind": "Service",
       "Results": {},
       "PodResult": null,
       "CreatedTime": "0001-01-01T00:00:00Z"
     }
   ],
-  "Score": 64
+  "Score": 69
 }

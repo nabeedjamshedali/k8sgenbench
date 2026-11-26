@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-56b4cb93-c8f3-48c3-9861-2b9ad4f3b749",
+    "object": "chat.completion",
+    "created": 1795628131,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: wordsmith\n---\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: wordsmith-api\n  namespace: wordsmith\n---\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: wordsmith-web\n  namespace: wordsmith\n---\napiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: wordsmith-db-init\n  namespace: wordsmith\ndata:\n  init.sql: |\n    CREATE TABLE IF NOT EXISTS words (\n      id SERIAL PRIMARY KEY,\n      word VARCHAR(255) NOT NULL\n    );\n    INSERT INTO words (word) VALUES\n      ('the'), ('quick'), ('brown'), ('fox'), ('jumps'),\n      ('over'), ('lazy'), ('dog'), ('hello'), ('world');\n---\napiVersion: v1\nkind: Secret\nmetadata:\n  name: wordsmith-db-credentials\n  namespace: wordsmith\ntype: Opaque\nstringData:\n  POSTGRES_USER: wordsmith\n  POSTGRES_PASSWORD: securepassword123\n  POSTGRES_DB: wordsmith\n---\napiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: wordsmith-db\n  namespace: wordsmith\nspec:\n  serviceName: wordsmith-db\n  replicas: 1\n  selector:\n    matchLabels:\n      app: wordsmith-db\n  template:\n    metadata:\n      labels:\n        app: wordsmith-db\n    spec:\n      containers:\n        - name: postgres\n          image: postgres:10.0-alpine\n          ports:\n            - containerPort: 5432\n          env:\n            - name: POSTGRES_USER\n              valueFrom:\n                secretKeyRef:\n                  name: wordsmith-db-credentials\n                  key: POSTGRES_USER\n            - name: POSTGRES_PASSWORD\n              valueFrom:\n                secretKeyRef:\n                  name: wordsmith-db-credentials\n                  key: POSTGRES_PASSWORD\n            - name: POSTGRES_DB\n              valueFrom:\n                secretKeyRef:\n                  name: wordsmith-db-credentials\n                  key: POSTGRES_DB\n          volumeMounts:\n            - name: db-init\n              mountPath: /docker-entrypoint-initdb.d\n            - name: db-data\n              mountPath: /var/lib/postgresql/data\n          resources:\n            requests:\n              memory: \"128Mi\"\n              cpu: \"100m\"\n            limits:\n              memory: \"256Mi\"\n              cpu: \"500m\"\n      volumes:\n        - name: db-init\n          configMap:\n            name: wordsmith-db-init\n        - name: db-data\n          emptyDir: {}\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: wordsmith-db\n  namespace: wordsmith\nspec:\n  selector:\n    app: wordsmith-db\n  ports:\n    - name: postgres\n      port: 5432\n      targetPort: 5432\n  type: ClusterIP\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: wordsmith-api\n  namespace: wordsmith\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: wordsmith-api\n  template:\n    metadata:\n      labels:\n        app: wordsmith-api\n    spec:\n      serviceAccountName: wordsmith-api\n      containers:\n        - name: api\n          image: dockersamples/wordsmith-api:latest\n          ports:\n            - containerPort: 8080\n          env:\n            - name: DATABASE_URL\n              value: \"postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@wordsmith-db:5432/$(POSTGRES_DB)\"\n            - name: POSTGRES_USER\n              valueFrom:\n                secretKeyRef:\n                  name: wordsmith-db-credentials\n                  key: POSTGRES_USER\n            - name: POSTGRES_PASSWORD\n              valueFrom:\n                secretKeyRef:\n                  name: wordsmith-db-credentials\n                  key: POSTGRES_PASSWORD\n            - name: POSTGRES_DB\n              valueFrom:\n                secretKeyRef:\n                  name: wordsmith-db-credentials\n                  key: POSTGRES_DB\n          resources:\n            requests:\n              memory: \"64Mi\"\n              cpu: \"100m\"\n            limits:\n              memory: \"128Mi\"\n              cpu: \"500m\"\n          livenessProbe:\n            httpGet:\n              path: /health\n              port: 8080\n            initialDelaySeconds: 10\n            periodSeconds: 10\n          readinessProbe:\n            httpGet:\n              path: /health\n              port: 8080\n            initialDelaySeconds: 5\n            periodSeconds: 5\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: wordsmith-api\n  namespace: wordsmith\nspec:\n  selector:\n    app: wordsmith-api\n  ports:\n    - name: http\n      port: 8080\n      targetPort: 8080\n  type: ClusterIP\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: wordsmith-web\n  namespace: wordsmith\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: wordsmith-web\n  template:\n    metadata:\n      labels:\n        app: wordsmith-web\n    spec:\n      serviceAccountName: wordsmith-web\n      containers:\n        - name: web\n          image: dockersamples/wordsmith-web:latest\n          ports:\n            - containerPort: 80\n          env:\n            - name: API_HOST\n              value: \"wordsmith-api\"\n            - name: API_PORT\n              value: \"8080\"\n          resources:\n            requests:\n              memory: \"32Mi\"\n              cpu: \"50m\"\n            limits:\n              memory: \"64Mi\"\n              cpu: \"200m\"\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 80\n            initialDelaySeconds: 5\n            periodSeconds: 10\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 80\n            initialDelaySeconds: 3\n            periodSeconds: 5\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: wordsmith-web\n  namespace: wordsmith\nspec:\n  selector:\n    app: wordsmith-web\n  ports:\n    - name: http\n      port: 80\n      targetPort: 80\n  type: ClusterIP\n---\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: wordsmith-ingress\n  namespace: wordsmith\n  annotations:\n    nginx.ingress.kubernetes.io/rewrite-target: /\nspec:\n  rules:\n    - host: wordsmith.local\n      http:\n        paths:\n          - path: /\n            pathType: Prefix\n            backend:\n              service:\n                name: wordsmith-web\n                port:\n                  number: 80\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.302086241,
+      "prompt_tokens": 690,
+      "prompt_time": 0.053363257,
+      "completion_tokens": 1656,
+      "completion_time": 3.589552032,
+      "total_tokens": 2346,
+      "total_time": 3.642915289
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_a1293f40b5",
+    "x_groq": {
+      "id": "req_01m89wdna3e2r9eh0mytbft9sc",
+      "seed": 352991853
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 9.998796463012695,
+  "tokens_in": 690,
+  "tokens_out": 1656
+}

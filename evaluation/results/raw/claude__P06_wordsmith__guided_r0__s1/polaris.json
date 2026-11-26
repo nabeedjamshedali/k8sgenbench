@@ -1,6 +1,6 @@
 {
   "PolarisOutputVersion": "1.0",
-  "AuditTime": "2026-11-25T13:38:34+05:00",
+  "AuditTime": "2026-11-26T15:17:24+05:00",
   "SourceType": "Path",
   "SourceName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__guided_r0__s1\\manifest.yaml",
   "DisplayName": "C:\\workspace\\research papers\\kubernetes\\evaluation\\results\\raw\\claude__P06_wordsmith__guided_r0__s1\\manifest.yaml",
@@ -12,6 +12,48 @@
     "Controllers": 3
   },
   "Results": [
+    {
+      "Name": "db-init",
+      "Namespace": "",
+      "Kind": "ConfigMap",
+      "Results": {
+        "sensitiveConfigmapContent": {
+          "ID": "sensitiveConfigmapContent",
+          "Message": "The ConfigMap does not contain potentially sensitive content in its keys and values",
+          "Details": null,
+          "Success": true,
+          "Severity": "danger",
+          "Category": "Security",
+          "Mutations": null
+        }
+      },
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "db",
+      "Namespace": "",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "api",
+      "Namespace": "",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "web",
+      "Namespace": "",
+      "Kind": "Service",
+      "Results": {},
+      "PodResult": null,
+      "CreatedTime": "0001-01-01T00:00:00Z"
+    },
     {
       "Name": "db",
       "Namespace": "",
@@ -469,9 +511,9 @@
               },
               "insecureCapabilities": {
                 "ID": "insecureCapabilities",
-                "Message": "Container does not have any insecure capabilities",
+                "Message": "Container should not have insecure capabilities",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Security",
                 "Mutations": null
@@ -775,9 +817,9 @@
               },
               "insecureCapabilities": {
                 "ID": "insecureCapabilities",
-                "Message": "Container does not have any insecure capabilities",
+                "Message": "Container should not have insecure capabilities",
                 "Details": null,
-                "Success": true,
+                "Success": false,
                 "Severity": "warning",
                 "Category": "Security",
                 "Mutations": null
@@ -902,31 +944,7 @@
         ]
       },
       "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "db",
-      "Namespace": "",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "api",
-      "Namespace": "",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
-    },
-    {
-      "Name": "web",
-      "Namespace": "",
-      "Kind": "Service",
-      "Results": {},
-      "PodResult": null,
-      "CreatedTime": "0001-01-01T00:00:00Z"
     }
   ],
-  "Score": 78
+  "Score": 76
 }

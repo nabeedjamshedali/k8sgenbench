@@ -1,0 +1,536 @@
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: headlamp
+  labels:
+    app.kubernetes.io/name: headlamp
+    app.kubernetes.io/instance: headlamp
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: headlamp
+  namespace: headlamp
+  labels:
+    app.kubernetes.io/name: headlamp
+    app.kubernetes.io/instance: headlamp
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: headlamp
+  labels:
+    app.kubernetes.io/name: headlamp
+    app.kubernetes.io/instance: headlamp
+rules:
+  - apiGroups:
+      - ""
+      - apps
+      - batch
+      - networking.k8s.io
+      - storage.k8s.io
+      - rbac.authorization.k8s.io
+      - autoscaling
+      - policy
+      - extensions
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+      - nodes/proxy
+      - nodes/metrics
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - pods/log
+      - pods/exec
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - services/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - secrets
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes
+      - persistentvolumeclaims
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - serviceaccounts
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - replicationcontrollers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - resourcequotas
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - limitranges
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/attach
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/portforward
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/proxy
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/ephemeralcontainers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/binding
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/status
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - "*"
+  - apiGroups:
+      -

@@ -1,0 +1,247 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wordsmith
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordsmith-db-init
+  namespace: wordsmith
+data:
+  words.sql: |
+    CREATE TABLE nouns (word TEXT NOT NULL);
+    CREATE TABLE verbs (word TEXT NOT NULL);
+    CREATE TABLE adjectives (word TEXT NOT NULL);
+
+    INSERT INTO nouns(word) VALUES
+      ('cloud'),
+      ('elephant'),
+      ('gø language'),
+      ('laptøp'),
+      ('cøntainer'),
+      ('micrø-service'),
+      ('turtle'),
+      ('whale'),
+      ('gøpher'),
+      ('møby døck'),
+      ('server'),
+      ('bicycle'),
+      ('viking'),
+      ('mermaid'),
+      ('fjørd'),
+      ('legø'),
+      ('flødebolle'),
+      ('smørrebrød');
+
+    INSERT INTO verbs(word) VALUES
+      ('will drink'),
+      ('smashes'),
+      ('smøkes'),
+      ('eats'),
+      ('walks tøwards'),
+      ('løves'),
+      ('helps'),
+      ('pushes'),
+      ('debugs'),
+      ('invites'),
+      ('hides'),
+      ('will ship');
+
+    INSERT INTO adjectives(word) VALUES
+      ('the exquisite'),
+      ('a pink'),
+      ('the røtten'),
+      ('a red'),
+      ('the serverless'),
+      ('a brøken'),
+      ('a shiny'),
+      ('the pretty'),
+      ('the impressive'),
+      ('an awesøme'),
+      ('the famøus'),
+      ('a gigantic'),
+      ('the gløriøus'),
+      ('the nørdic'),
+      ('the welcøming'),
+      ('the deliciøus');
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordsmith-db-credentials
+  namespace: wordsmith
+type: Opaque
+stringData:
+  POSTGRES_USER: wordsmith
+  POSTGRES_PASSWORD: wordsmith
+  POSTGRES_DB: wordsmith
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wordsmith-db
+  namespace: wordsmith
+spec:
+  serviceName: wordsmith-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordsmith-db
+  template:
+    metadata:
+      labels:
+        app: wordsmith-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.0-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: wordsmith-db-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordsmith-db-credentials
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: wordsmith-db-credentials
+                  key: POSTGRES_DB
+          volumeMounts:
+            - name: db-init
+              mountPath: /docker-entrypoint-initdb.d
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: db-init
+          configMap:
+            name: wordsmith-db-init
+  volumeClaimTemplates:
+    - metadata:
+        name: db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordsmith-db
+  namespace: wordsmith
+spec:
+  selector:
+    app: wordsmith-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordsmith-api
+  namespace: wordsmith
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wordsmith-api
+  template:
+    metadata:
+      labels:
+        app: wordsmith-api
+    spec:
+      containers:
+        - name: api
+          image: dockersamples/wordsmith-api
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: wordsmith-db
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: wordsmith-db-credentials
+                  key: POSTGRES_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordsmith-db-credentials
+                  key: POSTGRES_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: wordsmith-db-credentials
+                  key: POSTGRES_DB
+          resources:
+            requests:
+              memory: "16Mi"
+              cpu: "100m"
+            limits:
+              memory: "32Mi"
+              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordsmith-api
+  namespace: wordsmith
+spec:
+  selector:
+    app: wordsmith-api
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordsmith-web
+  namespace: wordsmith
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wordsmith-web
+  template:
+    metadata:
+      labels:
+        app: wordsmith-web
+    spec:
+      containers:
+        - name: web
+          image: dockersamples/wordsmith-web
+          ports:
+            - containerPort: 80
+          env:
+            - name: API_HOST
+              value: wordsmith-api
+            - name: API_PORT
+              value: "8080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordsmith-web
+  namespace: wordsmith
+spec:
+  type: LoadBalancer
+  selector:
+    app: wordsmith-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

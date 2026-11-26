@@ -12,3 +12,10 @@ Every redaction made to docs_bundle/, so a reviewer can confirm nothing else was
 
 ## web/Dockerfile -> docs_bundle/web.Dockerfile
 - no redactions
+
+## db/words.sql -> docs_bundle/db.words.sql
+- no redactions. Added 2026-11-26: docker-compose.yml mounts `./db` as the postgres init directory and the stock
+  `postgres` image has no seed of its own, so the script is part of what the compose setup deploys (as n8n's
+  `init-data.sh`, included from the start). It was missing from the first bundle although fact_sheet.md and
+  provenance.md already cited it (design doc 4.4: every fact must trace to a file present in docs_bundle/).
+  All P06 generations made with the first bundle were archived and re-run.

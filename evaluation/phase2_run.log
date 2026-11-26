@@ -639,3 +639,155 @@ Traceback (most recent call last):
 httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
 FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-25 21:01:58 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 343, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 94, in call_gemini
+    r = g.gemini_post(env, url, payload, timeout=600)  # client-side timeout only; long thinking replies took over 300 s
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 78, in gemini_post
+    r = post_with_retry(url, headers={"x-goog-api-key": env[first]}, json=payload, timeout=timeout)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-25 21:01:58 queue done: evaluation/phase2_dev_v2_retry3.txt
+=== 2026-11-25 22:19:35 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 343, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-25 22:21:41 queue done: evaluation/phase2_dev_v2_retry3.txt
+=== 2026-11-25 23:27:20 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 343, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-25 23:29:33 queue done: evaluation/phase2_dev_v2_retry3.txt
+=== 2026-11-26 15:39:17 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 343, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-26 15:41:24 queue done: evaluation/phase2_dev_v2_retry3.txt
+=== 2026-11-26 17:59:29 gemini P08_sock-shop s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 387, in <module>
+    run(a[0], a[1], a[2])
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 343, in run
+    out = call_gemini(env, turns)
+  File "C:\workspace\research papers\kubernetes\generation\repair_loop.py", line 96, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED: gemini P08_sock-shop s1 (exit 1)
+=== 2026-11-26 18:01:35 queue done: evaluation/phase2_dev_v2_retry3.txt

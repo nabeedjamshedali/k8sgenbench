@@ -34,3 +34,6 @@ No fact below is taken from `k8s-manifests/` or `kustomization.yaml`.
 - Replica count 5 for api. It also appears in `docker-compose.yml` L13-14 and `README.md` L49, but replica counts are never stated in specs.
 - Labels and object names other than the hostnames `api` and `db`, which are fixed in code.
 - The external port 8080 in `README.md` L36 and L45 describes the Kubernetes deployment, so it is not used.
+
+
+Note (2026-11-26): `db/words.sql` is now in docs_bundle/ as `db.words.sql` (verbatim, no redactions), so the rows citing it trace to a bundle file as design doc 4.4 requires. See redaction_log.md.

@@ -1,17 +1,77 @@
 apiVersion: v1
-kind: Namespace
+kind: ConfigMap
 metadata:
-  name: wordsmith
+  name: wordsmith-db-init
+  labels:
+    app: db
+data:
+  words.sql: |
+    CREATE TABLE nouns (word TEXT NOT NULL);
+    CREATE TABLE verbs (word TEXT NOT NULL);
+    CREATE TABLE adjectives (word TEXT NOT NULL);
+
+    INSERT INTO nouns(word) VALUES
+      ('cloud'),
+      ('elephant'),
+      ('gø language'),
+      ('laptøp'),
+      ('cøntainer'),
+      ('micrø-service'),
+      ('turtle'),
+      ('whale'),
+      ('gøpher'),
+      ('møby døck'),
+      ('server'),
+      ('bicycle'),
+      ('viking'),
+      ('mermaid'),
+      ('fjørd'),
+      ('legø'),
+      ('flødebolle'),
+      ('smørrebrød');
+
+    INSERT INTO verbs(word) VALUES
+      ('will drink'),
+      ('smashes'),
+      ('smøkes'),
+      ('eats'),
+      ('walks tøwards'),
+      ('løves'),
+      ('helps'),
+      ('pushes'),
+      ('debugs'),
+      ('invites'),
+      ('hides'),
+      ('will ship');
+
+    INSERT INTO adjectives(word) VALUES
+      ('the exquisite'),
+      ('a pink'),
+      ('the røtten'),
+      ('a red'),
+      ('the serverless'),
+      ('a brøken'),
+      ('a shiny'),
+      ('the pretty'),
+      ('the impressive'),
+      ('an awesøme'),
+      ('the famøus'),
+      ('a gigantic'),
+      ('the gløriøus'),
+      ('the nørdic'),
+      ('the welcøming'),
+      ('the deliciøus');
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
-  namespace: wordsmith
   labels:
     app: db
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: db
@@ -22,13 +82,25 @@ spec:
     spec:
       containers:
         - name: db
-          image: dockersamples/wordsmith-db
+          image: postgres:10.0-alpine
           ports:
             - containerPort: 5432
               name: postgres
           env:
             - name: POSTGRES_HOST_AUTH_METHOD
               value: trust
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "postgres"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "postgres"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
           resources:
             requests:
               cpu: 100m
@@ -36,76 +108,90 @@ spec:
             limits:
               cpu: 500m
               memory: 256Mi
-          readinessProbe:
-            tcpSocket:
-              port: 5432
-            initialDelaySeconds: 5
-            periodSeconds: 10
+          volumeMounts:
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: init
+          configMap:
+            name: wordsmith-db-init
+        - name: data
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: db
-  namespace: wordsmith
+  labels:
+    app: db
 spec:
   selector:
     app: db
   ports:
-    - port: 5432
+    - name: postgres
+      port: 5432
       targetPort: 5432
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: words
-  namespace: wordsmith
+  name: api
   labels:
-    app: words
+    app: api
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: words
+      app: api
   template:
     metadata:
       labels:
-        app: words
+        app: api
     spec:
       containers:
-        - name: words
+        - name: api
           image: dockersamples/wordsmith-api
           ports:
             - containerPort: 8080
-          resources:
-            requests:
-              cpu: 100m
-              memory: 64Mi
-            limits:
-              cpu: 500m
-              memory: 256Mi
+              name: http
           readinessProbe:
             tcpSocket:
               port: 8080
             initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
             periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: words
-  namespace: wordsmith
+  name: api
+  labels:
+    app: api
 spec:
   selector:
-    app: words
+    app: api
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
-  namespace: wordsmith
   labels:
     app: web
 spec:
@@ -123,6 +209,19 @@ spec:
           image: dockersamples/wordsmith-web
           ports:
             - containerPort: 80
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 10
           resources:
             requests:
               cpu: 50m
@@ -130,23 +229,18 @@ spec:
             limits:
               cpu: 250m
               memory: 128Mi
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: web
-  namespace: wordsmith
+  labels:
+    app: web
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: web
   ports:
-    - port: 80
+    - name: http
+      port: 8080
       targetPort: 80
-      nodePort: 30080

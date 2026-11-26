@@ -429,3 +429,1601 @@ qwen__P12_headlamp__production__s3: parse=OK docs=7 kubeconform_valid=True serve
     D6 pod_delete: ok=True t=5.7 avail=61.3; ok=True t=8.4 avail=63.2; ok=True t=6.2 avail=71.8
     D6 container_crash: ok=True t=6.8 avail=54.1; ok=True t=18.5 avail=38.8; ok=True t=26.7 avail=33.9
 === 2026-11-25 16:39:52 baselines done: evaluation/phase2_test_baselines.txt
+=== 2026-11-25 21:01:59 gemini P06_wordsmith neutral s1
+=== 2026-11-25 21:02:00 qwen P06_wordsmith neutral s1
+=== 2026-11-25 21:02:00 gemini P06_wordsmith production s1
+=== 2026-11-25 21:02:00 qwen P06_wordsmith production s1
+=== 2026-11-25 21:02:01 gemini P09_teastore neutral s1
+=== 2026-11-25 21:02:01 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-25 21:02:03 gemini P09_teastore production s1
+=== 2026-11-25 21:02:03 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-25 21:02:05 gemini P12_headlamp neutral s1
+=== 2026-11-25 21:02:05 qwen P12_headlamp neutral s1
+=== 2026-11-25 21:02:06 gemini P12_headlamp production s1
+=== 2026-11-25 21:02:07 qwen P12_headlamp production s1
+=== 2026-11-25 21:02:08 gemini P06_wordsmith neutral s2
+=== 2026-11-25 21:02:09 qwen P06_wordsmith neutral s2
+=== 2026-11-25 21:02:10 gemini P06_wordsmith production s2
+=== 2026-11-25 21:02:11 qwen P06_wordsmith production s2
+=== 2026-11-25 21:02:12 gemini P09_teastore neutral s2
+=== 2026-11-25 21:02:13 qwen P09_teastore neutral s2
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P09_teastore neutral s2
+=== 2026-11-25 21:02:15 gemini P09_teastore production s2
+=== 2026-11-25 21:02:16 qwen P09_teastore production s2
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P09_teastore production s2
+=== 2026-11-25 21:02:17 gemini P12_headlamp neutral s2
+=== 2026-11-25 21:02:18 qwen P12_headlamp neutral s2
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P12_headlamp neutral s2
+=== 2026-11-25 21:02:20 gemini P12_headlamp production s2
+=== 2026-11-25 21:02:20 qwen P12_headlamp production s2
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P12_headlamp production s2
+=== 2026-11-25 21:02:22 gemini P06_wordsmith neutral s3
+=== 2026-11-25 21:02:22 qwen P06_wordsmith neutral s3
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P06_wordsmith neutral s3
+=== 2026-11-25 21:02:24 gemini P06_wordsmith production s3
+=== 2026-11-25 21:02:25 qwen P06_wordsmith production s3
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P06_wordsmith production s3
+=== 2026-11-25 21:02:26 gemini P09_teastore neutral s3
+=== 2026-11-25 21:02:27 qwen P09_teastore neutral s3
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P09_teastore neutral s3
+=== 2026-11-25 21:02:28 gemini P09_teastore production s3
+=== 2026-11-25 21:02:29 qwen P09_teastore production s3
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 123, in call_groq
+    r = post_with_retry(url, headers={"Authorization": f"Bearer {env['GROQ_API_KEY']}"}, json=payload, timeout=180)
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 67, in post_with_retry
+    r = httpx.post(url, **kwargs)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 304, in post
+    return request(
+        "POST",
+    ...<13 lines>...
+        trust_env=trust_env,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_api.py", line 109, in request
+    return client.request(
+           ~~~~~~~~~~~~~~^
+        method=method,
+        ^^^^^^^^^^^^^^
+    ...<8 lines>...
+        follow_redirects=follow_redirects,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+FAILED generate: qwen P09_teastore production s3
+=== 2026-11-25 21:02:31 gemini P12_headlamp neutral s3
+=== 2026-11-25 21:02:32 qwen P12_headlamp neutral s3
+=== 2026-11-25 21:02:33 gemini P12_headlamp production s3
+=== 2026-11-25 21:02:34 qwen P12_headlamp production s3
+=== 2026-11-25 21:02:34 baselines done: evaluation/phase2_test_baselines.txt
+=== 2026-11-25 22:22:27 gemini P06_wordsmith neutral s1
+=== 2026-11-25 22:22:27 qwen P06_wordsmith neutral s1
+=== 2026-11-25 22:22:28 gemini P06_wordsmith production s1
+=== 2026-11-25 22:22:28 qwen P06_wordsmith production s1
+=== 2026-11-25 22:22:29 gemini P09_teastore neutral s1
+=== 2026-11-25 22:22:29 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-25 22:22:31 gemini P09_teastore production s1
+=== 2026-11-25 22:22:32 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-25 22:22:34 gemini P12_headlamp neutral s1
+=== 2026-11-25 22:22:34 qwen P12_headlamp neutral s1
+=== 2026-11-25 22:22:35 gemini P12_headlamp production s1
+=== 2026-11-25 22:22:35 qwen P12_headlamp production s1
+=== 2026-11-25 22:22:36 gemini P06_wordsmith neutral s2
+=== 2026-11-25 22:22:37 qwen P06_wordsmith neutral s2
+=== 2026-11-25 22:22:37 gemini P06_wordsmith production s2
+=== 2026-11-25 22:22:38 qwen P06_wordsmith production s2
+=== 2026-11-25 22:22:39 gemini P09_teastore neutral s2
+=== 2026-11-25 22:22:40 qwen P09_teastore neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s2
+=== 2026-11-25 22:23:42 gemini P09_teastore production s2
+=== 2026-11-25 22:23:43 qwen P09_teastore production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s2
+=== 2026-11-25 22:23:44 gemini P12_headlamp neutral s2
+=== 2026-11-25 22:23:44 qwen P12_headlamp neutral s2
+OK: qwen/P12_headlamp/neutral/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P12_headlamp\neutral\s2
+qwen__P12_headlamp__neutral__s2: parse=OK docs=7 kubeconform_valid=True server_ok=True (7/7) d4=4/4
+    D2 kubescape=48.333332 trivy={'critical': 2, 'high': 3, 'medium': 5, 'low': 10} pss=baseline secrets=0
+    D3 kube-score crit/warn=7/1 polaris=48 zhang=4 checklist=20.0%
+    D5 apply_ok=True ready=True (1/1) t=10.4s smoke=True reason=None aliased_images=0
+    D6 pod_delete: ok=True t=10.6 avail=48.6; ok=True t=8.0 avail=55.6; ok=True t=11.1 avail=55.3
+    D6 container_crash: ok=True t=8.4 avail=65.5; ok=True t=18.5 avail=35.4; ok=True t=30.9 avail=33.3
+=== 2026-11-25 22:27:35 gemini P12_headlamp production s2
+=== 2026-11-25 22:27:36 qwen P12_headlamp production s2
+OK: qwen/P12_headlamp/production/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P12_headlamp\production\s2
+qwen__P12_headlamp__production__s2: parse=FAIL docs=0 kubeconform_valid=None server_ok=None (None/None) d4=None/None
+=== 2026-11-25 22:27:43 gemini P06_wordsmith neutral s3
+=== 2026-11-25 22:27:44 qwen P06_wordsmith neutral s3
+OK: qwen/P06_wordsmith/neutral/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\neutral\s3
+qwen__P06_wordsmith__neutral__s3: parse=OK docs=10 kubeconform_valid=True server_ok=True (10/10) d4=6/8
+    D2 kubescape=74.44445 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 22} pss=baseline secrets=2
+    D3 kube-score crit/warn=21/3 polaris=60 zhang=10 checklist=30.0%
+    D5 apply_ok=True ready=True (5/5) t=7.2s smoke=False reason=None aliased_images=0
+    D6 pod_delete: ok=True t=0.2 avail=0.0; ok=True t=0.5 avail=0.0; ok=True t=0.5 avail=0.0
+    D6 container_crash: ok=True t=0.8 avail=0.0; ok=True t=0.3 avail=0.0; ok=True t=10.3 avail=0.0
+=== 2026-11-25 22:35:22 gemini P06_wordsmith production s3
+=== 2026-11-25 22:35:23 qwen P06_wordsmith production s3
+OK: qwen/P06_wordsmith/production/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\production\s3
+qwen__P06_wordsmith__production__s3: parse=OK docs=12 kubeconform_valid=True server_ok=True (12/12) d4=6/8
+    D2 kubescape=78 trivy={'critical': 0, 'high': 9, 'medium': 14, 'low': 18} pss=baseline secrets=2
+    D3 kube-score crit/warn=21/2 polaris=68 zhang=8 checklist=55.2%
+    D5 apply_ok=True ready=False (3/5) t=Nones smoke=False reason=CrashLoopBackOff aliased_images=0
+    D6 SKIPPED(not_deployed)
+=== 2026-11-25 22:45:47 gemini P09_teastore neutral s3
+=== 2026-11-25 22:45:47 qwen P09_teastore neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s3
+=== 2026-11-25 22:45:49 gemini P09_teastore production s3
+=== 2026-11-25 22:45:50 qwen P09_teastore production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s3
+=== 2026-11-25 22:45:52 gemini P12_headlamp neutral s3
+=== 2026-11-25 22:45:52 qwen P12_headlamp neutral s3
+=== 2026-11-25 22:45:53 gemini P12_headlamp production s3
+=== 2026-11-25 22:45:54 qwen P12_headlamp production s3
+=== 2026-11-25 22:45:54 baselines done: evaluation/phase2_test_baselines.txt
+=== 2026-11-26 00:14:33 gemini P06_wordsmith neutral s1
+=== 2026-11-26 00:14:34 qwen P06_wordsmith neutral s1
+=== 2026-11-26 00:14:35 gemini P06_wordsmith production s1
+=== 2026-11-26 00:14:36 qwen P06_wordsmith production s1
+=== 2026-11-26 00:14:37 gemini P09_teastore neutral s1
+=== 2026-11-26 00:14:37 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-26 00:14:40 gemini P09_teastore production s1
+=== 2026-11-26 00:14:41 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-26 00:14:43 gemini P12_headlamp neutral s1
+=== 2026-11-26 00:14:44 qwen P12_headlamp neutral s1
+=== 2026-11-26 00:14:45 gemini P12_headlamp production s1
+=== 2026-11-26 00:14:46 qwen P12_headlamp production s1
+=== 2026-11-26 00:14:47 gemini P06_wordsmith neutral s2
+=== 2026-11-26 00:14:48 qwen P06_wordsmith neutral s2
+=== 2026-11-26 00:14:48 gemini P06_wordsmith production s2
+=== 2026-11-26 00:14:49 qwen P06_wordsmith production s2
+=== 2026-11-26 00:14:50 gemini P09_teastore neutral s2
+=== 2026-11-26 00:14:51 qwen P09_teastore neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s2
+=== 2026-11-26 00:14:55 gemini P09_teastore production s2
+=== 2026-11-26 00:14:57 qwen P09_teastore production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s2
+=== 2026-11-26 00:15:00 gemini P12_headlamp neutral s2
+=== 2026-11-26 00:15:01 qwen P12_headlamp neutral s2
+=== 2026-11-26 00:15:02 gemini P12_headlamp production s2
+=== 2026-11-26 00:15:03 qwen P12_headlamp production s2
+=== 2026-11-26 00:15:04 gemini P06_wordsmith neutral s3
+=== 2026-11-26 00:15:05 qwen P06_wordsmith neutral s3
+=== 2026-11-26 00:15:06 gemini P06_wordsmith production s3
+=== 2026-11-26 00:15:07 qwen P06_wordsmith production s3
+=== 2026-11-26 00:15:08 gemini P09_teastore neutral s3
+=== 2026-11-26 00:15:09 qwen P09_teastore neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s3
+=== 2026-11-26 00:15:12 gemini P09_teastore production s3
+=== 2026-11-26 00:15:13 qwen P09_teastore production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s3
+=== 2026-11-26 00:15:15 gemini P12_headlamp neutral s3
+=== 2026-11-26 00:15:16 qwen P12_headlamp neutral s3
+=== 2026-11-26 00:15:17 gemini P12_headlamp production s3
+=== 2026-11-26 00:15:18 qwen P12_headlamp production s3
+=== 2026-11-26 00:15:18 baselines done: evaluation/phase2_test_baselines.txt
+=== 2026-11-26 14:44:15 gemini P06_wordsmith neutral s1
+=== 2026-11-26 14:44:16 qwen P06_wordsmith neutral s1
+=== 2026-11-26 14:44:16 gemini P06_wordsmith production s1
+=== 2026-11-26 14:44:17 qwen P06_wordsmith production s1
+=== 2026-11-26 14:44:18 gemini P09_teastore neutral s1
+=== 2026-11-26 14:44:19 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-26 14:44:22 gemini P09_teastore production s1
+=== 2026-11-26 14:44:23 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-26 14:44:26 gemini P12_headlamp neutral s1
+=== 2026-11-26 14:44:27 qwen P12_headlamp neutral s1
+=== 2026-11-26 14:44:28 gemini P12_headlamp production s1
+=== 2026-11-26 14:44:29 qwen P12_headlamp production s1
+=== 2026-11-26 14:44:30 gemini P06_wordsmith neutral s2
+=== 2026-11-26 14:44:31 qwen P06_wordsmith neutral s2
+=== 2026-11-26 14:44:34 gemini P06_wordsmith production s2
+=== 2026-11-26 14:44:35 qwen P06_wordsmith production s2
+=== 2026-11-26 14:44:36 gemini P09_teastore neutral s2
+=== 2026-11-26 14:44:38 qwen P09_teastore neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s2
+=== 2026-11-26 14:44:43 gemini P09_teastore production s2
+=== 2026-11-26 14:44:44 qwen P09_teastore production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s2
+=== 2026-11-26 14:44:46 gemini P12_headlamp neutral s2
+=== 2026-11-26 14:44:47 qwen P12_headlamp neutral s2
+=== 2026-11-26 14:44:48 gemini P12_headlamp production s2
+=== 2026-11-26 14:44:49 qwen P12_headlamp production s2
+=== 2026-11-26 14:44:51 gemini P06_wordsmith neutral s3
+=== 2026-11-26 14:44:52 qwen P06_wordsmith neutral s3
+=== 2026-11-26 14:44:54 gemini P06_wordsmith production s3
+=== 2026-11-26 14:44:55 qwen P06_wordsmith production s3
+=== 2026-11-26 14:44:56 gemini P09_teastore neutral s3
+=== 2026-11-26 14:44:57 qwen P09_teastore neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s3
+=== 2026-11-26 14:45:00 gemini P09_teastore production s3
+=== 2026-11-26 14:45:01 qwen P09_teastore production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s3
+=== 2026-11-26 14:45:04 gemini P12_headlamp neutral s3
+=== 2026-11-26 14:45:05 qwen P12_headlamp neutral s3
+=== 2026-11-26 14:45:06 gemini P12_headlamp production s3
+=== 2026-11-26 14:45:07 qwen P12_headlamp production s3
+=== 2026-11-26 14:45:07 baselines done: evaluation/phase2_test_baselines.txt
+=== 2026-11-26 16:26:25 gemini P06_wordsmith neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 177, in main
+    text, raw, latency, tin, tout = call_gemini(env, prompt)
+                                    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 102, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: gemini P06_wordsmith neutral s1
+=== 2026-11-26 16:28:34 qwen P06_wordsmith neutral s1
+OK: qwen/P06_wordsmith/neutral/s1 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\neutral\s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 372, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 337, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 285, in evaluate
+    docs, text, source_dir, parse_error = load_docs_for_source(source, project, variant, sample_k)
+                                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 79, in load_docs_for_source
+    text = open(manifest, encoding="utf-8").read()
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf8 in position 415: invalid start byte
+FAILED eval: qwen P06_wordsmith neutral s1
+=== 2026-11-26 16:28:42 gemini P06_wordsmith production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 177, in main
+    text, raw, latency, tin, tout = call_gemini(env, prompt)
+                                    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 102, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: gemini P06_wordsmith production s1
+=== 2026-11-26 16:30:52 qwen P06_wordsmith production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P06_wordsmith production s1
+=== 2026-11-26 16:31:56 gemini P09_teastore neutral s1
+=== 2026-11-26 16:31:57 qwen P09_teastore neutral s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore neutral s1
+=== 2026-11-26 16:33:01 gemini P09_teastore production s1
+=== 2026-11-26 16:33:02 qwen P09_teastore production s1
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore production s1
+=== 2026-11-26 16:34:06 gemini P12_headlamp neutral s1
+=== 2026-11-26 16:34:07 qwen P12_headlamp neutral s1
+=== 2026-11-26 16:34:08 gemini P12_headlamp production s1
+=== 2026-11-26 16:34:09 qwen P12_headlamp production s1
+=== 2026-11-26 16:34:10 gemini P06_wordsmith neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 177, in main
+    text, raw, latency, tin, tout = call_gemini(env, prompt)
+                                    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 102, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: gemini P06_wordsmith neutral s2
+=== 2026-11-26 16:36:19 qwen P06_wordsmith neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P06_wordsmith neutral s2
+=== 2026-11-26 16:37:25 gemini P06_wordsmith production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 177, in main
+    text, raw, latency, tin, tout = call_gemini(env, prompt)
+                                    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 102, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: gemini P06_wordsmith production s2
+=== 2026-11-26 16:39:33 qwen P06_wordsmith production s2
+OK: qwen/P06_wordsmith/production/s2 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\production\s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 372, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 337, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 285, in evaluate
+    docs, text, source_dir, parse_error = load_docs_for_source(source, project, variant, sample_k)
+                                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 79, in load_docs_for_source
+    text = open(manifest, encoding="utf-8").read()
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf8 in position 415: invalid start byte
+FAILED eval: qwen P06_wordsmith production s2
+=== 2026-11-26 16:39:38 gemini P09_teastore neutral s2
+=== 2026-11-26 16:39:39 qwen P09_teastore neutral s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore neutral s2
+=== 2026-11-26 16:40:42 gemini P09_teastore production s2
+=== 2026-11-26 16:40:43 qwen P09_teastore production s2
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore production s2
+=== 2026-11-26 16:40:50 gemini P12_headlamp neutral s2
+=== 2026-11-26 16:40:51 qwen P12_headlamp neutral s2
+=== 2026-11-26 16:40:53 gemini P12_headlamp production s2
+=== 2026-11-26 16:40:54 qwen P12_headlamp production s2
+=== 2026-11-26 16:40:55 gemini P06_wordsmith neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 177, in main
+    text, raw, latency, tin, tout = call_gemini(env, prompt)
+                                    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 102, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: gemini P06_wordsmith neutral s3
+=== 2026-11-26 16:43:08 qwen P06_wordsmith neutral s3
+OK: qwen/P06_wordsmith/neutral/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\neutral\s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 372, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 337, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 285, in evaluate
+    docs, text, source_dir, parse_error = load_docs_for_source(source, project, variant, sample_k)
+                                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 79, in load_docs_for_source
+    text = open(manifest, encoding="utf-8").read()
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf8 in position 415: invalid start byte
+FAILED eval: qwen P06_wordsmith neutral s3
+=== 2026-11-26 16:43:13 gemini P06_wordsmith production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 177, in main
+    text, raw, latency, tin, tout = call_gemini(env, prompt)
+                                    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 102, in call_gemini
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: gemini P06_wordsmith production s3
+=== 2026-11-26 16:45:20 qwen P06_wordsmith production s3
+OK: qwen/P06_wordsmith/production/s3 -> C:\workspace\research papers\kubernetes\generation\outputs\qwen\P06_wordsmith\production\s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 372, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 337, in main
+    record = evaluate(source, project, variant, sample_k, runtime)
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 285, in evaluate
+    docs, text, source_dir, parse_error = load_docs_for_source(source, project, variant, sample_k)
+                                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\evaluation\eval_runner.py", line 79, in load_docs_for_source
+    text = open(manifest, encoding="utf-8").read()
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf8 in position 415: invalid start byte
+FAILED eval: qwen P06_wordsmith production s3
+=== 2026-11-26 16:45:47 gemini P09_teastore neutral s3
+=== 2026-11-26 16:45:48 qwen P09_teastore neutral s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '413 Payload Too Large' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+FAILED generate: qwen P09_teastore neutral s3
+=== 2026-11-26 16:45:51 gemini P09_teastore production s3
+=== 2026-11-26 16:45:52 qwen P09_teastore production s3
+Traceback (most recent call last):
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 179, in main
+    text, raw, latency, tin, tout = call_groq(env, prompt, model_cfg["model_id"])
+                                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\research papers\kubernetes\generation\generate.py", line 125, in call_groq
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python314\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+FAILED generate: qwen P09_teastore production s3
+=== 2026-11-26 16:46:55 gemini P12_headlamp neutral s3
+=== 2026-11-26 16:46:56 qwen P12_headlamp neutral s3
+=== 2026-11-26 16:46:57 gemini P12_headlamp production s3
+=== 2026-11-26 16:46:57 qwen P12_headlamp production s3
+=== 2026-11-26 16:46:57 baselines done: evaluation/phase2_test_baselines.txt
+=== 2026-11-26 18:46:47 gemini P06_wordsmith neutral s1

@@ -9,13 +9,62 @@ metadata:
   name: wordsmith-db-init
   namespace: wordsmith
 data:
-  init.sql: |
-    CREATE TABLE IF NOT EXISTS words (
-      id SERIAL PRIMARY KEY,
-      word VARCHAR(255) NOT NULL
-    );
-    INSERT INTO words (word) VALUES
-      ('the'), ('quick'), ('brown'), ('fox'), ('jumps'), ('over'), ('lazy'), ('dog');
+  words.sql: |
+    CREATE TABLE nouns (word TEXT NOT NULL);
+    CREATE TABLE verbs (word TEXT NOT NULL);
+    CREATE TABLE adjectives (word TEXT NOT NULL);
+
+    INSERT INTO nouns(word) VALUES
+      ('cloud'),
+      ('elephant'),
+      ('gø language'),
+      ('laptøp'),
+      ('cøntainer'),
+      ('micrø-service'),
+      ('turtle'),
+      ('whale'),
+      ('gøpher'),
+      ('møby døck'),
+      ('server'),
+      ('bicycle'),
+      ('viking'),
+      ('mermaid'),
+      ('fjørd'),
+      ('legø'),
+      ('flødebolle'),
+      ('smørrebrød');
+
+    INSERT INTO verbs(word) VALUES
+      ('will drink'),
+      ('smashes'),
+      ('smøkes'),
+      ('eats'),
+      ('walks tøwards'),
+      ('løves'),
+      ('helps'),
+      ('pushes'),
+      ('debugs'),
+      ('invites'),
+      ('hides'),
+      ('will ship');
+
+    INSERT INTO adjectives(word) VALUES
+      ('the exquisite'),
+      ('a pink'),
+      ('the røtten'),
+      ('a red'),
+      ('the serverless'),
+      ('a brøken'),
+      ('a shiny'),
+      ('the pretty'),
+      ('the impressive'),
+      ('an awesøme'),
+      ('the famøus'),
+      ('a gigantic'),
+      ('the gløriøus'),
+      ('the nørdic'),
+      ('the welcøming'),
+      ('the deliciøus');
 ---
 apiVersion: v1
 kind: Secret
@@ -24,30 +73,17 @@ metadata:
   namespace: wordsmith
 type: Opaque
 stringData:
-  POSTGRES_USER: "postgres"
-  POSTGRES_PASSWORD: "postgres"
-  POSTGRES_DB: "wordsmith"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wordsmith-db-pvc
-  namespace: wordsmith
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+  POSTGRES_USER: wordsmith
+  POSTGRES_PASSWORD: wordsmith
+  POSTGRES_DB: wordsmith
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: wordsmith-db
   namespace: wordsmith
-  labels:
-    app: wordsmith-db
 spec:
+  serviceName: wordsmith-db
   replicas: 1
   selector:
     matchLabels:
@@ -58,7 +94,7 @@ spec:
         app: wordsmith-db
     spec:
       containers:
-        - name: db
+        - name: postgres
           image: postgres:10.0-alpine
           ports:
             - containerPort: 5432
@@ -79,47 +115,27 @@ spec:
                   name: wordsmith-db-credentials
                   key: POSTGRES_DB
           volumeMounts:
-            - name: db-data
-              mountPath: /var/lib/postgresql/data
             - name: db-init
               mountPath: /docker-entrypoint-initdb.d
-          readinessProbe:
-            exec:
-              command:
-                - pg_isready
-                - -U
-                - postgres
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            exec:
-              command:
-                - pg_isready
-                - -U
-                - postgres
-            initialDelaySeconds: 15
-            periodSeconds: 20
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
       volumes:
-        - name: db-data
-          persistentVolumeClaim:
-            claimName: wordsmith-db-pvc
         - name: db-init
           configMap:
             name: wordsmith-db-init
+        - name: db-data
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: wordsmith-db
   namespace: wordsmith
-  labels:
-    app: wordsmith-db
 spec:
   selector:
     app: wordsmith-db
   ports:
-    - name: postgres
-      port: 5432
+    - port: 5432
       targetPort: 5432
 ---
 apiVersion: apps/v1
@@ -127,10 +143,8 @@ kind: Deployment
 metadata:
   name: wordsmith-api
   namespace: wordsmith
-  labels:
-    app: wordsmith-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: wordsmith-api
@@ -141,62 +155,23 @@ spec:
     spec:
       containers:
         - name: api
-          image: dockersamples/wordsmith-api:latest
+          image: dockersamples/wordsmith-api
           ports:
             - containerPort: 8080
           env:
-            - name: DB_HOST
-              value: "wordsmith-db"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: wordsmith-db-credentials
-                  key: POSTGRES_USER
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: wordsmith-db-credentials
-                  key: POSTGRES_PASSWORD
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: wordsmith-db-credentials
-                  key: POSTGRES_DB
-          resources:
-            requests:
-              memory: "16Mi"
-              cpu: "100m"
-            limits:
-              memory: "32Mi"
-              cpu: "200m"
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 20
+            - name: DATABASE_URL
+              value: "postgres://wordsmith:wordsmith@wordsmith-db:5432/wordsmith"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: wordsmith-api
   namespace: wordsmith
-  labels:
-    app: wordsmith-api
 spec:
   selector:
     app: wordsmith-api
   ports:
-    - name: http
-      port: 8080
+    - port: 8080
       targetPort: 8080
 ---
 apiVersion: apps/v1
@@ -204,10 +179,8 @@ kind: Deployment
 metadata:
   name: wordsmith-web
   namespace: wordsmith
-  labels:
-    app: wordsmith-web
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: wordsmith-web
@@ -218,46 +191,22 @@ spec:
     spec:
       containers:
         - name: web
-          image: dockersamples/wordsmith-web:latest
+          image: dockersamples/wordsmith-web
           ports:
             - containerPort: 80
           env:
             - name: API_HOST
-              value: "wordsmith-api"
-            - name: API_PORT
-              value: "8080"
-          resources:
-            requests:
-              memory: "32Mi"
-              cpu: "100m"
-            limits:
-              memory: "64Mi"
-              cpu: "200m"
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 15
-            periodSeconds: 20
+              value: "wordsmith-api:8080"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: wordsmith-web
   namespace: wordsmith
-  labels:
-    app: wordsmith-web
 spec:
   type: LoadBalancer
   selector:
     app: wordsmith-web
   ports:
-    - name: http
-      port: 80
+    - port: 80
       targetPort: 80

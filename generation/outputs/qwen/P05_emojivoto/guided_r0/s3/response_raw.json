@@ -1,0 +1,38 @@
+{
+  "raw": {
+    "id": "chatcmpl-258a0cf7-ada5-4f30-8f9b-48c1056e0ab3",
+    "object": "chat.completion",
+    "created": 1795625474,
+    "model": "qwen/qwen3.8-27b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "```yaml\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: emojivoto\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: web\n  namespace: emojivoto\nspec:\n  selector:\n    app: web\n  ports:\n    - name: http\n      port: 8080\n      targetPort: 8080\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: emoji-svc\n  namespace: emojivoto\nspec:\n  selector:\n    app: emoji-svc\n  ports:\n    - name: grpc\n      port: 8080\n      targetPort: 8080\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: voting-svc\n  namespace: emojivoto\nspec:\n  selector:\n    app: voting-svc\n  ports:\n    - name: grpc\n      port: 8080\n      targetPort: 8080\n    - name: metrics\n      port: 8801\n      targetPort: 8801\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  namespace: emojivoto\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: buoyantio/emojivoto-web:v11\n          ports:\n            - name: http\n              containerPort: 8080\n          env:\n            - name: WEB_PORT\n              value: \"8080\"\n            - name: EMOJISVC_HOST\n              value: \"emoji-svc:8080\"\n            - name: VOTINGSVC_HOST\n              value: \"voting-svc:8080\"\n            - name: INDEX_BUNDLE\n              value: \"dist/index_bundle.js\"\n          readinessProbe:\n            httpGet:\n              path: /\n              port: 8080\n            initialDelaySeconds: 5\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          livenessProbe:\n            httpGet:\n              path: /\n              port: 8080\n            initialDelaySeconds: 15\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 256Mi\n          securityContext:\n            allowPrivilegeEscalation: false\n            runAsNonRoot: true\n            runAsUser: 1000\n            runAsGroup: 1000\n            seccompProfile:\n              type: RuntimeDefault\n            capabilities:\n              drop:\n                - ALL\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: vote-bot\n  namespace: emojivoto\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: vote-bot\n  template:\n    metadata:\n      labels:\n        app: vote-bot\n    spec:\n      containers:\n        - name: vote-bot\n          image: buoyantio/emojivoto-web:v11\n          command:\n            - emojivoto-vote-bot\n          env:\n            - name: WEB_HOST\n              value: \"web:8080\"\n          resources:\n            requests:\n              cpu: 50m\n              memory: 64Mi\n            limits:\n              cpu: 200m\n              memory: 128Mi\n          securityContext:\n            allowPrivilegeEscalation: false\n            runAsNonRoot: true\n            runAsUser: 1000\n            runAsGroup: 1000\n            seccompProfile:\n              type: RuntimeDefault\n            capabilities:\n              drop:\n                - ALL\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: emoji-svc\n  namespace: emojivoto\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: emoji-svc\n  template:\n    metadata:\n      labels:\n        app: emoji-svc\n    spec:\n      containers:\n        - name: emoji-svc\n          image: buoyantio/emojivoto-emoji-svc:v11\n          ports:\n            - name: grpc\n              containerPort: 8080\n          env:\n            - name: GRPC_PORT\n              value: \"8080\"\n          readinessProbe:\n            tcpSocket:\n              port: 8080\n            initialDelaySeconds: 5\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          livenessProbe:\n            tcpSocket:\n              port: 8080\n            initialDelaySeconds: 15\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 256Mi\n          securityContext:\n            allowPrivilegeEscalation: false\n            runAsNonRoot: true\n            runAsUser: 1000\n            runAsGroup: 1000\n            seccompProfile:\n              type: RuntimeDefault\n            capabilities:\n              drop:\n                - ALL\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: voting-svc\n  namespace: emojivoto\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: voting-svc\n  template:\n    metadata:\n      labels:\n        app: voting-svc\n    spec:\n      containers:\n        - name: voting-svc\n          image: buoyantio/emojivoto-voting-svc:v11\n          ports:\n            - name: grpc\n              containerPort: 8080\n            - name: metrics\n              containerPort: 8801\n          env:\n            - name: GRPC_PORT\n              value: \"8080\"\n          readinessProbe:\n            tcpSocket:\n              port: 8080\n            initialDelaySeconds: 5\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          livenessProbe:\n            tcpSocket:\n              port: 8080\n            initialDelaySeconds: 15\n            periodSeconds: 10\n            timeoutSeconds: 5\n            failureThreshold: 3\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 256Mi\n          securityContext:\n            allowPrivilegeEscalation: false\n            runAsNonRoot: true\n            runAsUser: 1000\n            runAsGroup: 1000\n            seccompProfile:\n              type: RuntimeDefault\n            capabilities:\n              drop:\n                - ALL\n```"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "queue_time": 0.004682967,
+      "prompt_tokens": 3209,
+      "prompt_time": 0.231009425,
+      "completion_tokens": 1714,
+      "completion_time": 4.007316271,
+      "total_tokens": 4923,
+      "total_time": 4.238325696
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_424cb89518",
+    "x_groq": {
+      "id": "req_01m89swhz7ehy9deaxj2ex6y08",
+      "seed": 965598125
+    },
+    "service_tier": "on_demand"
+  },
+  "latency_s": 4.934182643890381,
+  "tokens_in": 3209,
+  "tokens_out": 1714
+}

@@ -3,16 +3,16 @@
   "source": "claude",
   "prompt_variant": "guided_r0",
   "sample_k": "1",
-  "timestamp": "2026-11-25T08:38:22Z",
+  "timestamp": "2026-11-26T10:17:07Z",
   "gen_finish_reason": null,
   "d1_parse_ok": true,
   "d1_parse_error": null,
-  "d1_n_documents": 6,
+  "d1_n_documents": 7,
   "d1_kubeconform": {
     "ran": true,
     "valid": true,
     "summary": {
-      "valid": 6,
+      "valid": 7,
       "invalid": 0,
       "errors": 0,
       "skipped": 0
@@ -23,10 +23,16 @@
   "d1_server_dry_run": {
     "ran": true,
     "server_ok": true,
-    "objects_total": 6,
-    "objects_accepted": 6,
+    "objects_total": 7,
+    "objects_accepted": 7,
     "errors": [],
     "per_object": [
+      {
+        "kind": "ConfigMap",
+        "name": "db-init",
+        "accepted": true,
+        "error": null
+      },
       {
         "kind": "Service",
         "name": "db",
@@ -66,8 +72,9 @@
     ],
     "implicit_namespace_refs_undeclared": []
   },
-  "loc": 208,
+  "loc": 266,
   "resource_counts": {
+    "ConfigMap": 1,
     "Service": 3,
     "StatefulSet": 1,
     "Deployment": 2
@@ -88,62 +95,62 @@
       },
       "failed": [
         {
-          "resource": "path=2406890339/api=apps/v1//Deployment/web",
+          "resource": "path=2390112720/api=apps/v1//Deployment/api",
           "control": "C-0013",
           "name": "Non-root containers"
         },
         {
-          "resource": "path=2406890339/api=apps/v1//Deployment/web",
+          "resource": "path=2390112720/api=apps/v1//Deployment/api",
           "control": "C-0017",
           "name": "Immutable container filesystem"
         },
         {
-          "resource": "path=2406890339/api=apps/v1//Deployment/web",
+          "resource": "path=2390112720/api=apps/v1//Deployment/api",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=2406890339/api=apps/v1//Deployment/web",
+          "resource": "path=2390112720/api=apps/v1//Deployment/api",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=2474000815/api=apps/v1//StatefulSet/db",
+          "resource": "path=2423667958/api=apps/v1//Deployment/web",
           "control": "C-0013",
           "name": "Non-root containers"
         },
         {
-          "resource": "path=2474000815/api=apps/v1//StatefulSet/db",
+          "resource": "path=2423667958/api=apps/v1//Deployment/web",
           "control": "C-0017",
           "name": "Immutable container filesystem"
         },
         {
-          "resource": "path=2474000815/api=apps/v1//StatefulSet/db",
+          "resource": "path=2423667958/api=apps/v1//Deployment/web",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=2474000815/api=apps/v1//StatefulSet/db",
+          "resource": "path=2423667958/api=apps/v1//Deployment/web",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         },
         {
-          "resource": "path=2507556053/api=apps/v1//Deployment/api",
+          "resource": "path=2490778434/api=apps/v1//StatefulSet/db",
           "control": "C-0013",
           "name": "Non-root containers"
         },
         {
-          "resource": "path=2507556053/api=apps/v1//Deployment/api",
+          "resource": "path=2490778434/api=apps/v1//StatefulSet/db",
           "control": "C-0017",
           "name": "Immutable container filesystem"
         },
         {
-          "resource": "path=2507556053/api=apps/v1//Deployment/api",
+          "resource": "path=2490778434/api=apps/v1//StatefulSet/db",
           "control": "C-0030",
           "name": "Ingress and Egress blocked"
         },
         {
-          "resource": "path=2507556053/api=apps/v1//Deployment/api",
+          "resource": "path=2490778434/api=apps/v1//StatefulSet/db",
           "control": "C-0034",
           "name": "Automatic mapping of service account"
         }
@@ -154,10 +161,16 @@
       "by_severity": {
         "critical": 0,
         "high": 6,
-        "medium": 9,
-        "low": 12
+        "medium": 8,
+        "low": 18
       },
       "failed": [
+        {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'api' of Deployment 'api' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
         {
           "id": "KSV-0003",
           "title": "Default capabilities: some containers do not drop all",
@@ -165,10 +178,28 @@
           "message": "Container 'db' of StatefulSet 'db' should add 'ALL' to 'securityContext.capabilities.drop'"
         },
         {
+          "id": "KSV-0003",
+          "title": "Default capabilities: some containers do not drop all",
+          "severity": "LOW",
+          "message": "Container 'web' of Deployment 'web' should add 'ALL' to 'securityContext.capabilities.drop'"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'api' of 'deployment' 'api' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
           "id": "KSV-0004",
           "title": "Default capabilities: some containers do not drop any",
           "severity": "LOW",
           "message": "Container 'db' of 'statefulset' 'db' in 'default' namespace should set securityContext.capabilities.drop"
+        },
+        {
+          "id": "KSV-0004",
+          "title": "Default capabilities: some containers do not drop any",
+          "severity": "LOW",
+          "message": "Container 'web' of 'deployment' 'web' in 'default' namespace should set securityContext.capabilities.drop"
         },
         {
           "id": "KSV-0012",
@@ -255,10 +286,16 @@
           "message": "Container 'web' of Deployment 'web' should set 'securityContext.runAsGroup' > 10000"
         },
         {
-          "id": "KSV-0022",
-          "title": "Specific capabilities added",
-          "severity": "MEDIUM",
-          "message": "Container 'web' of Deployment 'web' should not set 'securityContext.capabilities.add'"
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
+        },
+        {
+          "id": "KSV-0106",
+          "title": "Container capabilities must only include NET_BIND_SERVICE",
+          "severity": "LOW",
+          "message": "container should drop all"
         },
         {
           "id": "KSV-0106",
@@ -342,12 +379,12 @@
           {
             "kind": "Deployment",
             "name": "api",
-            "detail": "deployment.apps/api created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"api\" must set securityContext.runAsNonRoot=true)"
+            "detail": "deployment.apps/api created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"api\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"api\" must set securityContext.runAsNonRoot=true)"
           },
           {
             "kind": "Deployment",
             "name": "web",
-            "detail": "deployment.apps/web created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": runAsNonRoot != true (pod or container \"web\" must set securityContext.runAsNonRoot=true)"
+            "detail": "deployment.apps/web created (server dry run)\nWarning: would violate PodSecurity \"restricted:latest\": unrestricted capabilities (container \"web\" must set securityContext.capabilities.drop=[\"ALL\"]), runAsNonRoot != true (pod or container \"web\" must set securityContext.runAsNonRoot=true)"
           }
         ],
         "baseline": []
@@ -357,15 +394,16 @@
   "d3": {
     "kube_score": {
       "ran": true,
-      "critical": 20,
+      "critical": 21,
       "warning": 2,
       "critical_by_check": {
-        "container-security-context-user-group-id": 3,
-        "container-ephemeral-storage-request-and-limit": 3,
-        "pod-probes-identical": 3,
-        "container-security-context-readonlyrootfilesystem": 3,
-        "container-image-pull-policy": 1,
         "pod-networkpolicy": 3,
+        "pod-probes-identical": 3,
+        "container-security-context-user-group-id": 3,
+        "container-image-pull-policy": 1,
+        "container-ephemeral-storage-request-and-limit": 3,
+        "container-security-context-readonlyrootfilesystem": 3,
+        "statefulset-has-servicename": 1,
         "container-image-tag": 2,
         "deployment-has-poddisruptionbudget": 2
       },
@@ -375,14 +413,14 @@
     },
     "polaris": {
       "ran": true,
-      "score": 78,
+      "score": 76,
       "failed_by_check": {
         "metadataAndInstanceMismatched[warning]": 3,
         "automountServiceAccountToken[warning]": 3,
         "missingNetworkPolicy[warning]": 3,
         "priorityClassNotSet[warning]": 3,
         "topologySpreadConstraint[warning]": 3,
-        "insecureCapabilities[warning]": 1,
+        "insecureCapabilities[warning]": 3,
         "notReadOnlyRootFilesystem[warning]": 3,
         "pullPolicyNotAlways[warning]": 3,
         "runAsRootAllowed[danger]": 3,
@@ -408,7 +446,7 @@
         "unset-memory-requirements": 0
       },
       "zhang_total": 8,
-      "zhang_density_per_kloc": 38.5,
+      "zhang_density_per_kloc": 30.1,
       "zhang_any": true
     },
     "checklist": {
@@ -539,7 +577,7 @@
       {
         "id": "R05-db-hostname",
         "passed": true,
-        "detail": "Service db headless",
+        "detail": "Service db port [5432]",
         "oracle": false
       },
       {
@@ -551,7 +589,7 @@
       {
         "id": "R07-db-seeded",
         "passed": false,
-        "detail": "seed in [], /docker-entrypoint-initdb.d mounted=False",
+        "detail": "seed in [], /docker-entrypoint-initdb.d mounted=True",
         "oracle": true
       },
       {
@@ -606,26 +644,26 @@
     "apply_ok": true,
     "apply_errors": [],
     "ready_ok": true,
-    "time_to_ready_s": 17.8,
+    "time_to_ready_s": 19.1,
     "ready_replicas": 5,
     "expected_replicas": 5,
     "workloads": [
       {
-        "ns": "d5-b043e338",
+        "ns": "d5-d575f8ab",
         "kind": "Deployment",
         "name": "api",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-b043e338",
+        "ns": "d5-d575f8ab",
         "kind": "Deployment",
         "name": "web",
         "ready": 2,
         "want": 2
       },
       {
-        "ns": "d5-b043e338",
+        "ns": "d5-d575f8ab",
         "kind": "StatefulSet",
         "name": "db",
         "ready": 1,
@@ -634,7 +672,7 @@
     ],
     "failure_reason": null,
     "client_placement": {
-      "namespace": "d5-b043e338",
+      "namespace": "d5-d575f8ab",
       "create_namespace": false,
       "namespace_labels": {},
       "pod_labels": {},
@@ -648,30 +686,30 @@
       },
       {
         "name": "seed-loaded",
-        "passed": false,
-        "detail": "exit 1: ERROR:  relation \"nouns\" does not exist\nLINE 1: SELECT count(*) FROM nouns\n                             ^\ncommand termin"
+        "passed": true,
+        "detail": "output '18'"
       },
       {
         "name": "api-noun",
-        "passed": false,
-        "detail": "HTTP 000, body lacks '{\"word\":\"'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "web-proxies-verb",
-        "passed": false,
-        "detail": "HTTP 500, body lacks '{\"word\":\"'"
+        "passed": true,
+        "detail": "HTTP 200"
       },
       {
         "name": "web-proxies-adjective",
-        "passed": false,
-        "detail": "HTTP 500, body lacks '{\"word\":\"'"
+        "passed": true,
+        "detail": "HTTP 200"
       }
     ],
-    "smoke_ok": false,
+    "smoke_ok": true,
     "service_listen": [
       {
         "service": "db",
-        "namespace": "d5-b043e338",
+        "namespace": "d5-d575f8ab",
         "port": 5432,
         "target_port": 5432,
         "pod": "db-0",
@@ -682,10 +720,10 @@
       },
       {
         "service": "api",
-        "namespace": "d5-b043e338",
+        "namespace": "d5-d575f8ab",
         "port": 8080,
         "target_port": 8080,
-        "pod": "api-78bbbb957b-bgfp2",
+        "pod": "api-9f489bb7c-59wxs",
         "listening": [
           8080
         ],
@@ -693,10 +731,10 @@
       },
       {
         "service": "web",
-        "namespace": "d5-b043e338",
+        "namespace": "d5-d575f8ab",
         "port": 80,
         "target_port": 80,
-        "pod": "web-f8bb5cb99-tb268",
+        "pod": "web-7485cff7cb-x4tt8",
         "listening": [
           80
         ],
@@ -711,59 +749,59 @@
     "pod_delete": [
       {
         "ran": true,
-        "victim": "web-f8bb5cb99-8jr2w",
+        "victim": "web-7485cff7cb-7xwgr",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 0.8,
-        "availability_pct": 0.0,
-        "n_probes": 26
+        "recovery_time_s": 1.1,
+        "availability_pct": 96.4,
+        "n_probes": 28
       },
       {
         "ran": true,
-        "victim": "web-f8bb5cb99-fx74z",
-        "victim_prior_restarts": 0,
-        "recovery_ok": true,
-        "recovery_time_s": 1.3,
-        "availability_pct": 0.0,
-        "n_probes": 27
-      },
-      {
-        "ran": true,
-        "victim": "web-f8bb5cb99-fz58n",
+        "victim": "web-7485cff7cb-vdjmb",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
         "recovery_time_s": 0.4,
-        "availability_pct": 0.0,
+        "availability_pct": 100.0,
+        "n_probes": 24
+      },
+      {
+        "ran": true,
+        "victim": "web-7485cff7cb-gx2cj",
+        "victim_prior_restarts": 0,
+        "recovery_ok": true,
+        "recovery_time_s": 1.4,
+        "availability_pct": 96.4,
         "n_probes": 28
       }
     ],
     "container_crash": [
       {
         "ran": true,
-        "victim": "web-f8bb5cb99-tb268",
+        "victim": "web-7485cff7cb-x4tt8",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 0.9,
-        "availability_pct": 0.0,
-        "n_probes": 27
+        "recovery_time_s": 0,
+        "availability_pct": 86.4,
+        "n_probes": 22
       },
       {
         "ran": true,
-        "victim": "web-f8bb5cb99-x7svz",
+        "victim": "web-7485cff7cb-xdfd9",
         "victim_prior_restarts": 0,
         "recovery_ok": true,
-        "recovery_time_s": 0.4,
-        "availability_pct": 0.0,
+        "recovery_time_s": 0.3,
+        "availability_pct": 95.7,
         "n_probes": 23
       },
       {
         "ran": true,
-        "victim": "web-f8bb5cb99-tb268",
+        "victim": "web-7485cff7cb-x4tt8",
         "victim_prior_restarts": 1,
         "recovery_ok": true,
-        "recovery_time_s": 10.8,
-        "availability_pct": 0.0,
-        "n_probes": 82
+        "recovery_time_s": 11.1,
+        "availability_pct": 95.9,
+        "n_probes": 74
       }
     ],
     "gate": "ready"

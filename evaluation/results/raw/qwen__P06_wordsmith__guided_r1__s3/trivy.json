@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a21366-1486-741a-b2c0-3ea6119adc8a",
-  "CreatedAt": "2026-11-25T20:49:46.758269+05:00",
+  "ReportID": "01a217e2-b745-71c1-8870-147a784d1634",
+  "CreatedAt": "2026-11-26T17:44:23.749115+05:00",
   "ArtifactName": "C:/workspace/research papers/kubernetes/evaluation/results/raw/qwen__P06_wordsmith__guided_r1__s3/manifest.yaml",
   "ArtifactType": "filesystem",
   "Results": [
@@ -13,10 +13,136 @@
       "Class": "config",
       "Type": "kubernetes",
       "MisconfSummary": {
-        "Successes": 99,
-        "Failures": 22
+        "Successes": 101,
+        "Failures": 26
       },
       "Misconfigurations": [
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0003",
+          "Title": "Default capabilities: some containers do not drop all",
+          "Description": "The container should drop all default capabilities and add only those that are needed for its execution.",
+          "Message": "Container 'api' of Deployment 'wordsmith-api' should add 'ALL' to 'securityContext.capabilities.drop'",
+          "Namespace": "builtin.kubernetes.KSV003",
+          "Query": "data.builtin.kubernetes.KSV003.deny",
+          "Resolution": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0003",
+          "References": [
+            "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
+            "https://avd.aquasec.com/misconfig/ksv-0003"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 201,
+            "EndLine": 258,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 201,
+                  "Content": "      - name: api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: api",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 202,
+                  "Content": "        image: dockersamples/wordsmith-api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-api",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 203,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 204,
+                  "Content": "        - name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 205,
+                  "Content": "          containerPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 206,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 210,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
         {
           "Type": "Kubernetes Security Check",
           "ID": "KSV-0003",
@@ -36,12 +162,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -51,7 +177,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -61,7 +187,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -71,7 +197,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -81,7 +207,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -91,7 +217,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -101,7 +227,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -111,7 +237,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -121,7 +247,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -131,7 +257,259 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0003",
+          "Title": "Default capabilities: some containers do not drop all",
+          "Description": "The container should drop all default capabilities and add only those that are needed for its execution.",
+          "Message": "Container 'web' of Deployment 'wordsmith-web' should add 'ALL' to 'securityContext.capabilities.drop'",
+          "Namespace": "builtin.kubernetes.KSV003",
+          "Query": "data.builtin.kubernetes.KSV003.deny",
+          "Resolution": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0003",
+          "References": [
+            "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
+            "https://avd.aquasec.com/misconfig/ksv-0003"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 294,
+            "EndLine": 331,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 294,
+                  "Content": "      - name: web",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: web",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 295,
+                  "Content": "        image: dockersamples/wordsmith-web",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-web",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 296,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 297,
+                  "Content": "        - name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 298,
+                  "Content": "          containerPort: 80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 299,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 300,
+                  "Content": "        - name: API_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 303,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0004",
+          "Title": "Default capabilities: some containers do not drop any",
+          "Description": "Security best practices require containers to run with minimal required capabilities.",
+          "Message": "Container 'api' of 'deployment' 'wordsmith-api' in 'wordsmith' namespace should set securityContext.capabilities.drop",
+          "Namespace": "builtin.kubernetes.KSV004",
+          "Query": "data.builtin.kubernetes.KSV004.deny",
+          "Resolution": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0004",
+          "References": [
+            "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
+            "https://avd.aquasec.com/misconfig/ksv-0004"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 201,
+            "EndLine": 258,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 201,
+                  "Content": "      - name: api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: api",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 202,
+                  "Content": "        image: dockersamples/wordsmith-api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-api",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 203,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 204,
+                  "Content": "        - name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 205,
+                  "Content": "          containerPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 206,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 210,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -162,12 +540,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -177,7 +555,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -187,7 +565,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -197,7 +575,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -207,7 +585,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -217,7 +595,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -227,7 +605,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -237,7 +615,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -247,7 +625,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -257,7 +635,133 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0004",
+          "Title": "Default capabilities: some containers do not drop any",
+          "Description": "Security best practices require containers to run with minimal required capabilities.",
+          "Message": "Container 'web' of 'deployment' 'wordsmith-web' in 'wordsmith' namespace should set securityContext.capabilities.drop",
+          "Namespace": "builtin.kubernetes.KSV004",
+          "Query": "data.builtin.kubernetes.KSV004.deny",
+          "Resolution": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0004",
+          "References": [
+            "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
+            "https://avd.aquasec.com/misconfig/ksv-0004"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 294,
+            "EndLine": 331,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 294,
+                  "Content": "      - name: web",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: web",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 295,
+                  "Content": "        image: dockersamples/wordsmith-web",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-web",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 296,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 297,
+                  "Content": "        - name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 298,
+                  "Content": "          containerPort: 80",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 299,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 300,
+                  "Content": "        - name: API_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 303,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -288,12 +792,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -303,7 +807,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -313,7 +817,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -323,7 +827,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -333,7 +837,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -343,7 +847,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -353,7 +857,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -363,7 +867,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -373,7 +877,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -383,7 +887,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -414,12 +918,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 180,
-            "EndLine": 224,
+            "StartLine": 201,
+            "EndLine": 258,
             "Code": {
               "Lines": [
                 {
-                  "Number": 180,
+                  "Number": 201,
                   "Content": "      - name: api",
                   "IsCause": true,
                   "Annotation": "",
@@ -429,7 +933,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 181,
+                  "Number": 202,
                   "Content": "        image: dockersamples/wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
@@ -439,7 +943,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 182,
+                  "Number": 203,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -449,7 +953,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 183,
+                  "Number": 204,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -459,7 +963,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 184,
+                  "Number": 205,
                   "Content": "          containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -469,7 +973,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 185,
+                  "Number": 206,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -479,37 +983,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 186,
-                  "Content": "        - name: DATABASE_URL",
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DATABASE_URL",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 187,
-                  "Content": "          value: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 188,
-                  "Content": "        securityContext:",
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 189,
+                  "Number": 210,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -540,12 +1044,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 257,
-            "EndLine": 295,
+            "StartLine": 294,
+            "EndLine": 331,
             "Code": {
               "Lines": [
                 {
-                  "Number": 257,
+                  "Number": 294,
                   "Content": "      - name: web",
                   "IsCause": true,
                   "Annotation": "",
@@ -555,7 +1059,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 258,
+                  "Number": 295,
                   "Content": "        image: dockersamples/wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
@@ -565,7 +1069,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 259,
+                  "Number": 296,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -575,7 +1079,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 260,
+                  "Number": 297,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -585,7 +1089,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 261,
+                  "Number": 298,
                   "Content": "          containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -595,7 +1099,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 262,
+                  "Number": 299,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -605,7 +1109,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 263,
+                  "Number": 300,
                   "Content": "        - name: API_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -615,153 +1119,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 264,
-                  "Content": "          value: wordsmith-api:8080",
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api:8080",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 265,
-                  "Content": "        securityContext:",
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 266,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0014",
-          "Title": "Root file system is not read-only",
-          "Description": "An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.",
-          "Message": "Container 'api' of Deployment 'wordsmith-api' should set 'securityContext.readOnlyRootFilesystem' to true",
-          "Namespace": "builtin.kubernetes.KSV014",
-          "Query": "data.builtin.kubernetes.KSV014.deny",
-          "Resolution": "Change 'containers[].securityContext.readOnlyRootFilesystem' to 'true'.",
-          "Severity": "HIGH",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0014",
-          "References": [
-            "https://kubesec.io/basics/containers-securitycontext-readonlyrootfilesystem-true/",
-            "https://avd.aquasec.com/misconfig/ksv-0014"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 180,
-            "EndLine": 224,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 180,
-                  "Content": "      - name: api",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: api",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 181,
-                  "Content": "        image: dockersamples/wordsmith-api",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-api",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 182,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 183,
-                  "Content": "        - name: http",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 184,
-                  "Content": "          containerPort: 8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 185,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 186,
-                  "Content": "        - name: DATABASE_URL",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DATABASE_URL",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 187,
-                  "Content": "          value: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 188,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 189,
+                  "Number": 303,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -792,12 +1170,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -807,7 +1185,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -817,7 +1195,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -827,7 +1205,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -837,7 +1215,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -847,7 +1225,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -857,7 +1235,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -867,7 +1245,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -877,7 +1255,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -887,133 +1265,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
-                  "Content": "",
-                  "IsCause": false,
-                  "Annotation": "",
-                  "Truncated": true,
-                  "FirstCause": false,
-                  "LastCause": false
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Type": "Kubernetes Security Check",
-          "ID": "KSV-0014",
-          "Title": "Root file system is not read-only",
-          "Description": "An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.",
-          "Message": "Container 'web' of Deployment 'wordsmith-web' should set 'securityContext.readOnlyRootFilesystem' to true",
-          "Namespace": "builtin.kubernetes.KSV014",
-          "Query": "data.builtin.kubernetes.KSV014.deny",
-          "Resolution": "Change 'containers[].securityContext.readOnlyRootFilesystem' to 'true'.",
-          "Severity": "HIGH",
-          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0014",
-          "References": [
-            "https://kubesec.io/basics/containers-securitycontext-readonlyrootfilesystem-true/",
-            "https://avd.aquasec.com/misconfig/ksv-0014"
-          ],
-          "Status": "FAIL",
-          "CauseMetadata": {
-            "Provider": "Kubernetes",
-            "Service": "general",
-            "StartLine": 257,
-            "EndLine": 295,
-            "Code": {
-              "Lines": [
-                {
-                  "Number": 257,
-                  "Content": "      - name: web",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: web",
-                  "FirstCause": true,
-                  "LastCause": false
-                },
-                {
-                  "Number": 258,
-                  "Content": "        image: dockersamples/wordsmith-web",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-web",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 259,
-                  "Content": "        ports:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 260,
-                  "Content": "        - name: http",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 261,
-                  "Content": "          containerPort: 80",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 262,
-                  "Content": "        env:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 263,
-                  "Content": "        - name: API_HOST",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_HOST",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 264,
-                  "Content": "          value: wordsmith-api:8080",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api:8080",
-                  "FirstCause": false,
-                  "LastCause": false
-                },
-                {
-                  "Number": 265,
-                  "Content": "        securityContext:",
-                  "IsCause": true,
-                  "Annotation": "",
-                  "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
-                  "FirstCause": false,
-                  "LastCause": true
-                },
-                {
-                  "Number": 266,
+                  "Number": 95,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1044,12 +1296,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 180,
-            "EndLine": 224,
+            "StartLine": 201,
+            "EndLine": 258,
             "Code": {
               "Lines": [
                 {
-                  "Number": 180,
+                  "Number": 201,
                   "Content": "      - name: api",
                   "IsCause": true,
                   "Annotation": "",
@@ -1059,7 +1311,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 181,
+                  "Number": 202,
                   "Content": "        image: dockersamples/wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
@@ -1069,7 +1321,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 182,
+                  "Number": 203,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1079,7 +1331,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 183,
+                  "Number": 204,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1089,7 +1341,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 184,
+                  "Number": 205,
                   "Content": "          containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -1099,7 +1351,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 185,
+                  "Number": 206,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1109,37 +1361,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 186,
-                  "Content": "        - name: DATABASE_URL",
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DATABASE_URL",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 187,
-                  "Content": "          value: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 188,
-                  "Content": "        securityContext:",
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 189,
+                  "Number": 210,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1170,12 +1422,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1185,7 +1437,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -1195,7 +1447,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1205,7 +1457,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1215,7 +1467,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1225,7 +1477,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1235,7 +1487,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1245,7 +1497,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1255,7 +1507,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1265,7 +1517,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1296,12 +1548,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 257,
-            "EndLine": 295,
+            "StartLine": 294,
+            "EndLine": 331,
             "Code": {
               "Lines": [
                 {
-                  "Number": 257,
+                  "Number": 294,
                   "Content": "      - name: web",
                   "IsCause": true,
                   "Annotation": "",
@@ -1311,7 +1563,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 258,
+                  "Number": 295,
                   "Content": "        image: dockersamples/wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
@@ -1321,7 +1573,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 259,
+                  "Number": 296,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1331,7 +1583,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 260,
+                  "Number": 297,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1341,7 +1593,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 261,
+                  "Number": 298,
                   "Content": "          containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -1351,7 +1603,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 262,
+                  "Number": 299,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1361,7 +1613,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 263,
+                  "Number": 300,
                   "Content": "        - name: API_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1371,27 +1623,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 264,
-                  "Content": "          value: wordsmith-api:8080",
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api:8080",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 265,
-                  "Content": "        securityContext:",
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 266,
+                  "Number": 303,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1422,12 +1674,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 180,
-            "EndLine": 224,
+            "StartLine": 201,
+            "EndLine": 258,
             "Code": {
               "Lines": [
                 {
-                  "Number": 180,
+                  "Number": 201,
                   "Content": "      - name: api",
                   "IsCause": true,
                   "Annotation": "",
@@ -1437,7 +1689,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 181,
+                  "Number": 202,
                   "Content": "        image: dockersamples/wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
@@ -1447,7 +1699,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 182,
+                  "Number": 203,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1457,7 +1709,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 183,
+                  "Number": 204,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1467,7 +1719,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 184,
+                  "Number": 205,
                   "Content": "          containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -1477,7 +1729,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 185,
+                  "Number": 206,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1487,37 +1739,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 186,
-                  "Content": "        - name: DATABASE_URL",
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DATABASE_URL",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 187,
-                  "Content": "          value: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 188,
-                  "Content": "        securityContext:",
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 189,
+                  "Number": 210,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1548,12 +1800,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1563,7 +1815,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -1573,7 +1825,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1583,7 +1835,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1593,7 +1845,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1603,7 +1855,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1613,7 +1865,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1623,7 +1875,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1633,7 +1885,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1643,7 +1895,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1674,12 +1926,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 257,
-            "EndLine": 295,
+            "StartLine": 294,
+            "EndLine": 331,
             "Code": {
               "Lines": [
                 {
-                  "Number": 257,
+                  "Number": 294,
                   "Content": "      - name: web",
                   "IsCause": true,
                   "Annotation": "",
@@ -1689,7 +1941,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 258,
+                  "Number": 295,
                   "Content": "        image: dockersamples/wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
@@ -1699,7 +1951,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 259,
+                  "Number": 296,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1709,7 +1961,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 260,
+                  "Number": 297,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -1719,7 +1971,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 261,
+                  "Number": 298,
                   "Content": "          containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -1729,7 +1981,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 262,
+                  "Number": 299,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1739,7 +1991,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 263,
+                  "Number": 300,
                   "Content": "        - name: API_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -1749,27 +2001,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 264,
-                  "Content": "          value: wordsmith-api:8080",
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api:8080",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 265,
-                  "Content": "        securityContext:",
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 266,
+                  "Number": 303,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1800,12 +2052,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 86,
+            "EndLine": 155,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -1815,7 +2067,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -1825,7 +2077,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1835,7 +2087,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -1845,7 +2097,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -1855,7 +2107,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1865,7 +2117,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -1875,7 +2127,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1885,7 +2137,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1895,7 +2147,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -1926,32 +2178,32 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 78,
-            "EndLine": 138,
+            "StartLine": 294,
+            "EndLine": 331,
             "Code": {
               "Lines": [
                 {
-                  "Number": 78,
-                  "Content": "      - name: db",
+                  "Number": 294,
+                  "Content": "      - name: web",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: db",
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: web",
                   "FirstCause": true,
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
-                  "Content": "        image: postgres:10.0-alpine",
+                  "Number": 295,
+                  "Content": "        image: dockersamples/wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: postgres:10.0-alpine",
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-web",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 296,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1961,27 +2213,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
-                  "Content": "        - name: postgres",
+                  "Number": 297,
+                  "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: postgres",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
-                  "Content": "          containerPort: 5432",
+                  "Number": 298,
+                  "Content": "          containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m5432",
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m80",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 299,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -1991,7 +2243,133 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 84,
+                  "Number": 300,
+                  "Content": "        - name: API_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 303,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 86,
+            "EndLine": 155,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 86,
+                  "Content": "      - name: db",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: db",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 87,
+                  "Content": "        image: postgres:10.0-alpine",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: postgres:10.0-alpine",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 88,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 89,
+                  "Content": "        - name: postgres",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: postgres",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 90,
+                  "Content": "          containerPort: 5432",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m5432",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 91,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 92,
                   "Content": "        - name: POSTGRES_USER",
                   "IsCause": true,
                   "Annotation": "",
@@ -2001,7 +2379,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 85,
+                  "Number": 93,
                   "Content": "          valueFrom:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2011,7 +2389,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 86,
+                  "Number": 94,
                   "Content": "            secretKeyRef:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2021,7 +2399,133 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 87,
+                  "Number": 95,
+                  "Content": "",
+                  "IsCause": false,
+                  "Annotation": "",
+                  "Truncated": true,
+                  "FirstCause": false,
+                  "LastCause": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Type": "Kubernetes Security Check",
+          "ID": "KSV-0106",
+          "Title": "Container capabilities must only include NET_BIND_SERVICE",
+          "Description": "Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.",
+          "Message": "container should drop all",
+          "Namespace": "builtin.kubernetes.KSV106",
+          "Query": "data.builtin.kubernetes.KSV106.deny",
+          "Resolution": "Set 'spec.containers[*].securityContext.capabilities.drop' to 'ALL' and only add 'NET_BIND_SERVICE' to 'spec.containers[*].securityContext.capabilities.add'.",
+          "Severity": "LOW",
+          "PrimaryURL": "https://avd.aquasec.com/misconfig/ksv-0106",
+          "References": [
+            "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
+            "https://avd.aquasec.com/misconfig/ksv-0106"
+          ],
+          "Status": "FAIL",
+          "CauseMetadata": {
+            "Provider": "Kubernetes",
+            "Service": "general",
+            "StartLine": 201,
+            "EndLine": 258,
+            "Code": {
+              "Lines": [
+                {
+                  "Number": 201,
+                  "Content": "      - name: api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "      - \u001b[38;5;33mname\u001b[0m: api",
+                  "FirstCause": true,
+                  "LastCause": false
+                },
+                {
+                  "Number": 202,
+                  "Content": "        image: dockersamples/wordsmith-api",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mimage\u001b[0m: dockersamples/wordsmith-api",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 203,
+                  "Content": "        ports:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        \u001b[38;5;33mports\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 204,
+                  "Content": "        - name: http",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: http",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 205,
+                  "Content": "          containerPort: 8080",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mcontainerPort\u001b[0m: \u001b[38;5;37m8080",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 206,
+                  "Content": "        env:",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "\u001b[0m        \u001b[38;5;33menv\u001b[0m:",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
+                  "FirstCause": false,
+                  "LastCause": false
+                },
+                {
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
+                  "IsCause": true,
+                  "Annotation": "",
+                  "Truncated": false,
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
+                  "FirstCause": false,
+                  "LastCause": true
+                },
+                {
+                  "Number": 210,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2074,12 +2578,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 176,
-            "EndLine": 224,
+            "StartLine": 197,
+            "EndLine": 261,
             "Code": {
               "Lines": [
                 {
-                  "Number": 176,
+                  "Number": 197,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2089,7 +2593,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 177,
+                  "Number": 198,
                   "Content": "      serviceAccountName: wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
@@ -2099,7 +2603,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 178,
+                  "Number": 199,
                   "Content": "      fsGroup: 1000",
                   "IsCause": true,
                   "Annotation": "",
@@ -2109,7 +2613,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 179,
+                  "Number": 200,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2119,7 +2623,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 180,
+                  "Number": 201,
                   "Content": "      - name: api",
                   "IsCause": true,
                   "Annotation": "",
@@ -2129,7 +2633,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 181,
+                  "Number": 202,
                   "Content": "        image: dockersamples/wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
@@ -2139,7 +2643,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 182,
+                  "Number": 203,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2149,7 +2653,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 183,
+                  "Number": 204,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2159,7 +2663,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 184,
+                  "Number": 205,
                   "Content": "          containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -2169,7 +2673,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 185,
+                  "Number": 206,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2200,12 +2704,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 253,
-            "EndLine": 295,
+            "StartLine": 290,
+            "EndLine": 334,
             "Code": {
               "Lines": [
                 {
-                  "Number": 253,
+                  "Number": 290,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2215,7 +2719,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 254,
+                  "Number": 291,
                   "Content": "      serviceAccountName: wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
@@ -2225,7 +2729,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 255,
+                  "Number": 292,
                   "Content": "      fsGroup: 1000",
                   "IsCause": true,
                   "Annotation": "",
@@ -2235,7 +2739,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 256,
+                  "Number": 293,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2245,7 +2749,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 257,
+                  "Number": 294,
                   "Content": "      - name: web",
                   "IsCause": true,
                   "Annotation": "",
@@ -2255,7 +2759,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 258,
+                  "Number": 295,
                   "Content": "        image: dockersamples/wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
@@ -2265,7 +2769,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 259,
+                  "Number": 296,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2275,7 +2779,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 260,
+                  "Number": 297,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2285,7 +2789,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 261,
+                  "Number": 298,
                   "Content": "          containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -2295,7 +2799,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 262,
+                  "Number": 299,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2326,12 +2830,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 75,
-            "EndLine": 138,
+            "StartLine": 83,
+            "EndLine": 159,
             "Code": {
               "Lines": [
                 {
-                  "Number": 75,
+                  "Number": 83,
                   "Content": "    spec:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2341,7 +2845,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 76,
+                  "Number": 84,
                   "Content": "      serviceAccountName: wordsmith-db",
                   "IsCause": true,
                   "Annotation": "",
@@ -2351,7 +2855,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 77,
+                  "Number": 85,
                   "Content": "      containers:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2361,7 +2865,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 78,
+                  "Number": 86,
                   "Content": "      - name: db",
                   "IsCause": true,
                   "Annotation": "",
@@ -2371,7 +2875,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 79,
+                  "Number": 87,
                   "Content": "        image: postgres:10.0-alpine",
                   "IsCause": true,
                   "Annotation": "",
@@ -2381,7 +2885,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 80,
+                  "Number": 88,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2391,7 +2895,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 81,
+                  "Number": 89,
                   "Content": "        - name: postgres",
                   "IsCause": true,
                   "Annotation": "",
@@ -2401,7 +2905,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 82,
+                  "Number": 90,
                   "Content": "          containerPort: 5432",
                   "IsCause": true,
                   "Annotation": "",
@@ -2411,7 +2915,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 83,
+                  "Number": 91,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2421,7 +2925,7 @@
                   "LastCause": true
                 },
                 {
-                  "Number": 84,
+                  "Number": 92,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2453,12 +2957,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 180,
-            "EndLine": 224,
+            "StartLine": 201,
+            "EndLine": 258,
             "Code": {
               "Lines": [
                 {
-                  "Number": 180,
+                  "Number": 201,
                   "Content": "      - name: api",
                   "IsCause": true,
                   "Annotation": "",
@@ -2468,7 +2972,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 181,
+                  "Number": 202,
                   "Content": "        image: dockersamples/wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
@@ -2478,7 +2982,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 182,
+                  "Number": 203,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2488,7 +2992,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 183,
+                  "Number": 204,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2498,7 +3002,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 184,
+                  "Number": 205,
                   "Content": "          containerPort: 8080",
                   "IsCause": true,
                   "Annotation": "",
@@ -2508,7 +3012,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 185,
+                  "Number": 206,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2518,37 +3022,37 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 186,
-                  "Content": "        - name: DATABASE_URL",
+                  "Number": 207,
+                  "Content": "        - name: POSTGRES_HOST",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: DATABASE_URL",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_HOST",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 187,
-                  "Content": "          value: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Number": 208,
+                  "Content": "          value: wordsmith-db",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: postgres://postgres:postgres@wordsmith-db:5432/wordsmith?sslmode=disable",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-db",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 188,
-                  "Content": "        securityContext:",
+                  "Number": 209,
+                  "Content": "        - name: POSTGRES_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: POSTGRES_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 189,
+                  "Number": 210,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
@@ -2580,12 +3084,12 @@
           "CauseMetadata": {
             "Provider": "Kubernetes",
             "Service": "general",
-            "StartLine": 257,
-            "EndLine": 295,
+            "StartLine": 294,
+            "EndLine": 331,
             "Code": {
               "Lines": [
                 {
-                  "Number": 257,
+                  "Number": 294,
                   "Content": "      - name: web",
                   "IsCause": true,
                   "Annotation": "",
@@ -2595,7 +3099,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 258,
+                  "Number": 295,
                   "Content": "        image: dockersamples/wordsmith-web",
                   "IsCause": true,
                   "Annotation": "",
@@ -2605,7 +3109,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 259,
+                  "Number": 296,
                   "Content": "        ports:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2615,7 +3119,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 260,
+                  "Number": 297,
                   "Content": "        - name: http",
                   "IsCause": true,
                   "Annotation": "",
@@ -2625,7 +3129,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 261,
+                  "Number": 298,
                   "Content": "          containerPort: 80",
                   "IsCause": true,
                   "Annotation": "",
@@ -2635,7 +3139,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 262,
+                  "Number": 299,
                   "Content": "        env:",
                   "IsCause": true,
                   "Annotation": "",
@@ -2645,7 +3149,7 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 263,
+                  "Number": 300,
                   "Content": "        - name: API_HOST",
                   "IsCause": true,
                   "Annotation": "",
@@ -2655,27 +3159,27 @@
                   "LastCause": false
                 },
                 {
-                  "Number": 264,
-                  "Content": "          value: wordsmith-api:8080",
+                  "Number": 301,
+                  "Content": "          value: wordsmith-api",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api:8080",
+                  "Highlighted": "          \u001b[38;5;33mvalue\u001b[0m: wordsmith-api",
                   "FirstCause": false,
                   "LastCause": false
                 },
                 {
-                  "Number": 265,
-                  "Content": "        securityContext:",
+                  "Number": 302,
+                  "Content": "        - name: API_PORT",
                   "IsCause": true,
                   "Annotation": "",
                   "Truncated": false,
-                  "Highlighted": "        \u001b[38;5;33msecurityContext\u001b[0m:",
+                  "Highlighted": "        - \u001b[38;5;33mname\u001b[0m: API_PORT",
                   "FirstCause": false,
                   "LastCause": true
                 },
                 {
-                  "Number": 266,
+                  "Number": 303,
                   "Content": "",
                   "IsCause": false,
                   "Annotation": "",
